@@ -1,6 +1,35 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+ <!-- Google tag (gtag.js) -->
+<script async='async' src='https://www.googletagmanager.com/gtag/js?id=G-HT6DMWPCPJ'/>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag(&#39;js&#39;, new Date());
+
+  gtag(&#39;config&#39;, &#39;G-HT6DMWPCPJ&#39;);
+</script>
+  
+  <script type='text/javascript'>
+//<![CDATA[
+(function(){
+  function loadAhrefs(){
+    var s=document.createElement('script');
+    s.async=true;
+    s.setAttribute('data-key','Uhq+xxwyXEq5ll3WvTDuqw');
+    s.src='https://analytics.ahrefs.com/analytics.js';
+    document.head.appendChild(s);
+  }
+  window.addEventListener('load',function(){
+    if('requestIdleCallback' in window){window.requestIdleCallback(loadAhrefs,{timeout:4000});}
+    else{window.setTimeout(loadAhrefs,1800);}
+  },{once:true});
+})();
+//]]>
+</script>
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
      crossorigin="anonymous"></script>
 <meta charset="utf-8">
@@ -18,7 +47,6 @@
 <link rel="preconnect" href="https://googleads.g.doubleclick.net">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HT6DMWPCPJ"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HT6DMWPCPJ');</script>
-<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"></script>
 <style>
 :root {
   --bg: #080808;
@@ -187,6 +215,42 @@ ul { list-style: none; }
 .ad-label {
   font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
   text-transform: uppercase; color: #555; margin-bottom: 6px;
+}
+
+/* Dedicated centered layout when a channel is opened in a new tab */
+body.channel-open-mode .home-tabs { display:none !important; }
+body.channel-open-mode .home-layout { display:block !important; width:100%; max-width:1120px; margin:0 auto !important; padding:12px 16px 40px !important; }
+body.channel-open-mode .home-col { display:block !important; position:static !important; width:100%; max-width:100%; max-height:none !important; overflow:visible !important; margin:0 auto !important; }
+body.channel-open-mode .home-col[data-col="post"],
+body.channel-open-mode .home-col[data-col="apps"] { display:none !important; }
+body.channel-open-mode .home-col[data-col="tv"] { width:100%; }
+body.channel-open-mode .home-col[data-col="tv"] > .home-col-title,
+body.channel-open-mode .home-col[data-col="tv"] > .section-header,
+body.channel-open-mode .home-col[data-col="tv"] > .controls,
+body.channel-open-mode .home-col[data-col="tv"] > .results-info,
+body.channel-open-mode .home-col[data-col="tv"] > .tv-grid { display:none !important; }
+body.channel-open-mode #tvToolbar { display:block !important; max-width:900px; margin:12px auto 8px; }
+body.channel-open-mode #tvPlayerWrap { display:block !important; width:100%; max-width:900px; margin:0 auto !important; }
+body.channel-open-mode #tvPlayerWrap .tv-player-shell { width:100%; }
+body.channel-open-mode #tvTopAdSlot { width:calc(100% - 32px); max-width:1120px; margin:0 auto !important; min-height:250px; }
+/* Dedicated menu pages: selected section centered beneath the top ad */
+body.section-open-mode .home-tabs { display:none !important; }
+body.section-open-mode.section-more #homeLayout { display:none !important; }
+body.section-open-mode.section-more #page-more { display:block !important; max-width:1120px; margin:0 auto; }
+body.section-open-mode .home-layout { display:block !important; width:100%; max-width:1120px; margin:0 auto !important; padding:12px 16px 40px !important; }
+body.section-open-mode .home-col { display:none !important; width:100% !important; max-width:100% !important; margin:0 auto !important; position:static !important; max-height:none !important; overflow:visible !important; }
+body.section-open-mode .home-col.section-active { display:block !important; }
+body.section-open-mode .home-col.section-active > .home-col-title { text-align:center; }
+body.section-open-mode #col-post .post-page,
+body.section-open-mode #col-apps .apps-page { width:100%; max-width:960px; margin:0 auto !important; }
+body.section-open-mode #tvTopAdSlot { width:calc(100% - 32px); max-width:1120px; margin:0 auto !important; min-height:250px; }
+@media (max-width:899px) {
+ body.section-open-mode .home-layout { padding:10px 10px 28px !important; }
+ body.section-open-mode #tvTopAdSlot { width:calc(100% - 20px); }
+}
+@media (max-width:600px) {
+ body.channel-open-mode .home-layout { padding:10px 10px 28px !important; }
+ body.channel-open-mode #tvTopAdSlot { width:calc(100% - 20px); }
 }
 
 /* ========== ADS BROWSE ========== */
@@ -691,10 +755,10 @@ ul { list-style: none; }
     <a class="logo" href="#" onclick="activateHome('tv'); return false;">M2A <span>✦</span></a>
     <div class="app-bar-actions">
       <nav class="desktop-nav" aria-label="Desktop">
-        <a href="#" data-page="tv" onclick="activateHome('tv'); return false;">TVs</a>
-        <a href="#" data-page="post" onclick="activateHome('post'); return false;">Post Ads</a>
-        <a href="#" data-page="apps" onclick="activateHome('apps'); return false;">Apps</a>
-        <a href="#" data-page="more" onclick="showPage('more'); return false;">More</a>
+        <a href="#" data-page="tv" onclick="openSectionInNewTab('tv'); return false;">TVs</a>
+        <a href="#" data-page="post" onclick="openSectionInNewTab('post'); return false;">Post Ads</a>
+        <a href="#" data-page="apps" onclick="openSectionInNewTab('apps'); return false;">Apps</a>
+        <a href="#" data-page="more" onclick="openSectionInNewTab('more'); return false;">More</a>
       </nav>
     </div>
   </header>
@@ -707,9 +771,9 @@ ul { list-style: none; }
       <p>Live TV · Post ads · Free apps</p>
     </div>
 
-    <div class="ad-slot" style="margin-top:0">
+    <div class="ad-slot" id="tvTopAdSlot" style="margin-top:0;min-height:250px;justify-content:flex-start">
       <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle" style="display:block;min-height:300px" data-ad-client="ca-pub-2269884583846743" data-ad-slot="2115767840" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle" style="display:block;width:100%;min-height:230px" data-ad-client="ca-pub-2269884583846743" data-ad-slot="2115767840" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
 
     <div class="home-tabs" id="homeTabs" role="tablist">
@@ -953,21 +1017,21 @@ ul { list-style: none; }
 
   <!-- Bottom nav: TVs | Post Ads From | Apps -->
   <nav class="bottom-nav" aria-label="Main">
-    <button class="nav-item active" id="nav-tv" type="button" onclick="activateHome('tv')">
+    <button class="nav-item active" id="nav-tv" type="button" onclick="openSectionInNewTab('tv')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg>
       <span>TVs</span>
     </button>
-    <button class="nav-item fab" id="nav-post" type="button" onclick="activateHome('post')">
+    <button class="nav-item fab" id="nav-post" type="button" onclick="openSectionInNewTab('post')">
       <div class="fab-circle">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="26" height="26" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
       </div>
       <span>Post Ads</span>
     </button>
-    <button class="nav-item" id="nav-apps" type="button" onclick="activateHome('apps')">
+    <button class="nav-item" id="nav-apps" type="button" onclick="openSectionInNewTab('apps')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
       <span>Apps</span>
     </button>
-    <button class="nav-item" id="nav-more" type="button" onclick="showPage('more')">
+    <button class="nav-item" id="nav-more" type="button" onclick="openSectionInNewTab('more')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
       <span>More</span>
     </button>
@@ -1048,6 +1112,16 @@ ul { list-style: none; }
     if (!isDesktopHome()) window.scrollTo(0, 0);
   };
 
+  // Open each main menu section in a fresh tab on this same website.
+  window.openSectionInNewTab = function (section) {
+    section = section || "tv";
+    var target = new URL(window.location.href);
+    target.searchParams.delete("m2a-tv");
+    target.searchParams.set("m2a-page", section);
+    target.hash = "";
+    window.open(target.toString(), "_blank", "noopener,noreferrer");
+  };
+
   window.showPage = function (p) {
     if (p === "success" || p === "more") {
       var home = document.getElementById("home-root");
@@ -1060,7 +1134,7 @@ ul { list-style: none; }
       var navKey = p === "success" ? "post" : "more";
       var nav = document.getElementById("nav-" + navKey);
       if (nav) nav.classList.add("active");
-      if (p === "success") { try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {} }
+      if (p === "success") document.dispatchEvent(new CustomEvent("m2a:ads-ready", { detail: { root: document.getElementById("page-success") } }));
       window.scrollTo(0, 0);
       try { history.replaceState(null, "", location.pathname + "#" + p); } catch (e) {}
       return;
@@ -1172,7 +1246,7 @@ ul { list-style: none; }
         '</a></article>';
     });
     g.innerHTML = h;
-    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+    document.dispatchEvent(new CustomEvent("m2a:ads-ready", { detail: { root: g } }));
   }
 
   window.openAd = function (id) {
@@ -1386,7 +1460,7 @@ ul { list-style: none; }
     } else attachNative();
   }
 
-  function openChannel(ch) {
+  function openChannel(ch, keepPageAtTop) {
     if (!ch) return;
     tvState.active = ch;
     tvState.playing = false;
@@ -1398,7 +1472,7 @@ ul { list-style: none; }
     document.querySelectorAll("#tvGrid .tv-card").forEach(function (c) {
       c.classList.toggle("active", c.getAttribute("data-ch") === ch.id);
     });
-    playerWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!keepPageAtTop) playerWrap.scrollIntoView({ behavior: "smooth", block: "start" });
   }
   function startPlay() {
     if (!tvState.active) return;
@@ -1439,6 +1513,16 @@ ul { list-style: none; }
       return (ch.name + " " + ch.category).toLowerCase().indexOf(q) !== -1;
     });
   }
+  // Open the selected channel in a new tab on this same website/domain.
+  // The new tab loads this page with ?m2a-tv=<channel-id> and uses the site's own player.
+  function openChannelInNewTab(ch) {
+    if (!ch) return;
+    var target = new URL(window.location.href);
+    target.searchParams.set("m2a-tv", ch.id);
+    target.hash = "";
+    window.open(target.toString(), "_blank", "noopener,noreferrer");
+  }
+
   function renderTV() {
     var list = getFilteredTV();
     var count = document.getElementById("tvCount");
@@ -1451,13 +1535,12 @@ ul { list-style: none; }
     }
     var html = "";
     list.forEach(function (ch, idx) {
-      var active = tvState.active && tvState.active.id === ch.id;
       var thumb = "https://via.placeholder.com/400x225/" + ch.color + "/ffffff?text=" + encodeURIComponent(ch.name);
-      html += '<a class="tv-card' + (active ? " active" : "") + '" href="#" data-ch="' + ch.id + '" onclick="return false">' +
+      html += '<a class="tv-card" href="?m2a-tv=' + encodeURIComponent(ch.id) + '" data-ch="' + esc(ch.id) + '" target="_blank" rel="noopener noreferrer">' +
         '<div class="tv-poster"><img src="' + thumb + '" alt="' + esc(ch.name) + '" loading="' + (idx < 4 ? "eager" : "lazy") + '">' +
-        '<span class="tv-badge">LIVE</span><div class="tv-card-overlay"><div class="tv-play-ico">▶</div></div></div>' +
+        '<span class="tv-badge">LIVE</span><div class="tv-card-overlay"><div class="tv-play-ico">↗</div></div></div>' +
         '<div class="tv-card-info"><div class="tv-card-title">' + esc(ch.name) + '</div>' +
-        '<div class="tv-card-meta">' + esc(ch.category) + '</div></div></a>';
+        '<div class="tv-card-meta">' + esc(ch.category) + ' · Open in new tab</div></div></a>';
     });
     grid.innerHTML = html;
     grid.querySelectorAll(".tv-card").forEach(function (card) {
@@ -1465,7 +1548,7 @@ ul { list-style: none; }
         e.preventDefault();
         var id = card.getAttribute("data-ch");
         var ch = CHANNELS.find(function (c) { return c.id === id; });
-        if (ch) openChannel(ch);
+        if (ch) openChannelInNewTab(ch);
       });
     });
   }
@@ -1500,6 +1583,79 @@ ul { list-style: none; }
       renderTV();
     });
   });
+
+  // When a channel link opens this page in a new tab, select the TV section
+  // and load that channel in the built-in player while keeping the site's domain.
+  (function openRequestedChannel() {
+    var requestedId = "";
+    try { requestedId = new URLSearchParams(window.location.search).get("m2a-tv") || ""; } catch (e) {}
+    if (!requestedId) return;
+    var requestedChannel = CHANNELS.find(function (ch) { return ch.id === requestedId; });
+    if (!requestedChannel) return;
+    if (typeof window.activateHome === "function") window.activateHome("tv");
+    // This is a dedicated watch page: center the player under the top ad,
+    // and hide the desktop side columns so it cannot sit in the left column.
+    document.body.classList.add("channel-open-mode");
+    document.querySelectorAll("#homeLayout .home-col").forEach(function (col) {
+      if (col.getAttribute("data-col") === "tv") {
+        col.classList.remove("home-col-hidden");
+        col.style.display = "block";
+      } else {
+        col.classList.add("home-col-hidden");
+        col.style.display = "none";
+      }
+    });
+    renderTV();
+    // Keep the new tab at the top so the AdSense placement remains visible first.
+    // The channel player is already positioned below the ad in the page layout.
+    openChannel(requestedChannel, true);
+    // Remove the query parameter after selection so refreshes keep a clean URL.
+    // (Playback remains active for this page load.)
+    try {
+      var cleanUrl = new URL(window.location.href);
+      cleanUrl.searchParams.delete("m2a-tv");
+      history.replaceState(null, "", cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
+    } catch (e) {}
+  })();
+
+  // Load a requested menu section as a centered, ad-first page in the new tab.
+  (function openRequestedSection() {
+    var section = "";
+    try { section = new URLSearchParams(window.location.search).get("m2a-page") || ""; } catch (e) {}
+    if (["tv", "post", "apps", "more"].indexOf(section) === -1) return;
+    document.body.classList.add("section-open-mode");
+    if (section === "more") {
+      document.body.classList.add("section-more");
+      var morePage = document.getElementById("page-more");
+      if (morePage) morePage.classList.add("active");
+      return;
+    }
+    var home = document.getElementById("home-root");
+    if (home) home.style.display = "";
+    ["success", "more"].forEach(function (name) {
+      var page = document.getElementById("page-" + name);
+      if (page) page.classList.remove("active");
+    });
+    document.querySelectorAll("#homeLayout .home-col").forEach(function (col) {
+      var active = col.getAttribute("data-col") === section;
+      col.classList.toggle("section-active", active);
+      col.classList.toggle("home-col-hidden", !active);
+      col.style.display = active ? "block" : "none";
+    });
+    document.querySelectorAll("#homeTabs .home-tab").forEach(function (btn) {
+      btn.classList.toggle("active", btn.getAttribute("data-t") === section);
+    });
+    document.querySelectorAll(".nav-item").forEach(function (n) { n.classList.remove("active"); });
+    document.querySelectorAll(".desktop-nav a").forEach(function (a) {
+      a.classList.toggle("active", a.getAttribute("data-page") === section);
+    });
+    var nav = document.getElementById("nav-" + section);
+    if (nav) nav.classList.add("active");
+    if (section === "tv") renderTV();
+    if (section === "post") renderAds();
+    if (section === "apps") renderApps();
+    // Leave the top ad in place and do not scroll down automatically.
+  })();
 
   /* ========== APPS ========== */
   var APPS = [
@@ -1936,7 +2092,7 @@ ul { list-style: none; }
     homeTabs.addEventListener("click", function (e) {
       var b = e.target.closest(".home-tab");
       if (!b) return;
-      activateHome(b.getAttribute("data-t") || "tv");
+      openSectionInNewTab(b.getAttribute("data-t") || "tv");
     });
   }
   window.addEventListener("resize", function () {
@@ -1950,12 +2106,17 @@ ul { list-style: none; }
     var y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
     loadAds();
-    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
-    setTimeout(function () {
-      document.querySelectorAll("ins.adsbygoogle").forEach(function () {
-        try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+    function pushUnfilledAds(root) {
+      var scope = root || document;
+      scope.querySelectorAll("ins.adsbygoogle:not([data-adsbygoogle-status])").forEach(function (slot) {
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
       });
-    }, 800);
+    }
+    // Initialize the top slot once, then initialize any ad slots created later by rendering.
+    pushUnfilledAds(document);
+    document.addEventListener("m2a:ads-ready", function (e) {
+      pushUnfilledAds(e.detail && e.detail.root ? e.detail.root : document);
+    });
     var h = (location.hash || "").replace("#", "");
     if (h === "more" || h === "success") showPage(h);
     else if (h === "apps" || h === "post" || h === "tv" || h === "browse") activateHome(h === "browse" ? "post" : h);
