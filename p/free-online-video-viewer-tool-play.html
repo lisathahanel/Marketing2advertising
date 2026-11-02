@@ -1,434 +1,501 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
-     crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="index, follow">
 <meta name="googlebot" content="index, follow">
-<title>Free Online Video Viewer Tool – Play Videos Instantly From Any Link - Best Video Testing Tool · Marketing2Advertising</title>
-<meta name="description" content="The tool supports popular video formats including MP4 and WebM, plus YouTube videos and external video embeds. Whether you are testing a video URL, ch">
+<title>Free Online Video Viewer Tool – Play Videos Instantly From Any Link · Marketing2Advertising</title>
+<meta name="description" content="Paste a video link and play instantly. Supports MP4, WebM, YouTube, and external embeds — free online video viewer, no install required.">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="icon" href="https://www.marketing2advertising.com/favicon.ico">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743" crossorigin="anonymous"></script>
+<style>
+:root {
+  --bg: #0a0a0c;
+  --surface: #121216;
+  --card: #16161c;
+  --elevated: #1c1c24;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.12);
+  --text: #f2f2f4;
+  --muted: #8b8b96;
+  --green: #00e676;
+  --green-dim: rgba(0, 230, 118, 0.14);
+  --green-glow: rgba(0, 230, 118, 0.28);
+  --accent: #ff2d55;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 12px 0 28px;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0, 230, 118, 0.09), transparent 55%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--green);
+  background: var(--green-dim); border: 1px solid rgba(0, 230, 118, 0.25);
+  padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
+}
+.hero h1 {
+  font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+  font-weight: 800; letter-spacing: -0.035em; line-height: 1.15;
+  max-width: 720px; margin: 0 auto;
+}
+.hero h1 span { color: var(--green); }
+.hero p {
+  margin: 12px auto 0; max-width: 520px;
+  font-size: 15px; color: var(--muted); line-height: 1.55;
+}
+
+/* Ads */
+.ad-slot {
+  margin: 16px 0;
+  min-height: 90px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  text-align: center;
+  padding: 8px;
+}
+.ad-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #555; margin-bottom: 6px;
+}
+
+/* Featured */
+.featured {
+  margin: 8px 0 24px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.featured img {
+  width: 100%; height: auto; max-height: 300px; object-fit: cover;
+}
+
+/* ========== VIDEO TOOL ========== */
+.video-tool {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  margin-bottom: 28px;
+}
+
+.tool-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+  padding: 14px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.tool-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 15px; font-weight: 800; letter-spacing: -0.02em;
+}
+.tool-title .ico {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(145deg, #1a1a22, #0e0e14);
+  border: 1px solid var(--line);
+  display: grid; place-items: center; font-size: 16px;
+}
+.tool-status {
+  font-size: 12px; color: var(--muted); font-weight: 600;
+  min-height: 1.2em;
+}
+.tool-status.live { color: var(--green); }
+.tool-status.live::before {
+  content: ""; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--green); margin-right: 6px;
+  box-shadow: 0 0 8px var(--green-glow); vertical-align: middle;
+}
+.tool-status.error { color: var(--accent); }
+
+.tool-body { padding: 16px; }
+
+.input-row {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: stretch;
+}
+.field-input {
+  flex: 1; min-width: 200px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 15px;
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field-input::placeholder { color: #666; }
+.field-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-dim);
+}
+
+.btn {
+  appearance: none; border: none; cursor: pointer;
+  font-family: var(--font); font-weight: 800; font-size: 14px;
+  padding: 13px 20px; border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform 0.15s var(--ease), box-shadow 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary {
+  background: var(--green); color: #041a0c;
+  box-shadow: 0 4px 16px var(--green-glow);
+}
+.btn-primary:hover { box-shadow: 0 6px 22px var(--green-glow); }
+.btn-ghost {
+  background: var(--surface); color: var(--muted);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--line-strong); }
+
+.formats {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+}
+.format-tag {
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--elevated); border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+/* Player */
+.video-area {
+  margin-top: 16px;
+}
+.video-box {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: min(70vh, 560px);
+  background: #000;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--line);
+}
+.video-box video,
+.video-box iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #000;
+  object-fit: contain;
+}
+.video-empty {
+  aspect-ratio: 16 / 9;
+  max-height: min(70vh, 560px);
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; color: var(--muted); text-align: center; padding: 24px;
+}
+.video-empty .empty-ico { font-size: 36px; opacity: 0.5; }
+.video-empty p { font-size: 14px; max-width: 280px; }
+
+/* Article */
+.article {
+  max-width: 680px; margin: 0 auto;
+  padding: 8px 0 24px;
+}
+.article p {
+  font-size: 17px; color: #c8c8d0; margin-bottom: 1.25em; line-height: 1.7;
+}
+.article p strong, .article b { color: var(--text); font-weight: 700; }
+.article h2 {
+  font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em;
+  margin: 1.5em 0 0.6em; color: var(--text);
+}
+.article ul {
+  margin: 0 0 1.4em 1.2em; color: #c8c8d0; font-size: 16px;
+}
+.article li { margin-bottom: 0.45em; }
+.article .keywords {
+  text-align: center; font-size: 13px; color: #666; margin-top: 1.5em;
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+  background: #08080a;
+  text-align: center;
+  padding: 20px 14px 28px;
+  font-size: 12px; color: var(--muted);
+}
+.site-footer a {
+  color: var(--green); margin: 0 8px; font-weight: 600;
+  text-decoration: none;
+}
+.site-footer a:hover { text-decoration: underline; }
+.site-footer p { margin-top: 12px; color: #666; }
+
+@media (max-width: 600px) {
+  .page { padding: 16px 12px 40px; }
+  .hero h1 { font-size: 1.35rem; }
+  .input-row { flex-direction: column; }
+  .btn-primary { width: 100%; }
+  .video-box, .video-empty {
+    aspect-ratio: auto;
+    height: 70vh;
+    min-height: 280px;
+    max-height: none;
+  }
+  .article p { font-size: 16px; }
+}
+</style>
 </head>
 <body>
-<style>
-body{
-    background:#f5f5f5;
-    margin:0;
-    padding:0;
-}
-.post-body{
-    max-width:780px;
-    margin:40px auto;
-    padding:30px 25px;
-    background:#ffffff;
-    border-radius:12px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.05);
-    box-sizing:border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    color:#222;
-    line-height:1.7;
-}
-.post-body p{
-    font-size:18px;
-    margin-bottom:1.5em;
-    color:#333;
-}
-.post-body h1,
-.post-body h2,
-.post-body h3,
-.post-body h4,
-.post-body h5,
-.post-body h6{
-    font-family:Georgia, "Times New Roman", serif;
-    font-weight:700;
-    margin:2em 0 0.8em;
-    line-height:1.3;
-}
-.post-body h1{ font-size:36px; }
-.post-body h2{ font-size:30px; }
-.post-body h3{ font-size:24px; }
-.post-body h4{ font-size:20px; }
-.post-body h5{ font-size:18px; }
-.post-body h6{ font-size:16px; }
-.post-body ul,
-.post-body ol{
-    padding-left:25px;
-    margin-bottom:1.5em;
-}
-.post-body blockquote{
-    border-left:4px solid #04ff00;
-    background:#f9f9f9;
-    padding:15px 18px;
-    font-style:italic;
-    color:#555;
-    border-radius:6px;
-}
-.post-body img{
-    display:block;
-    max-width:100%;
-    height:auto;
-    margin:25px auto;
-    border-radius:10px;
-}
-.post-body table{
-    width:100%;
-    border-collapse:collapse;
-    margin:20px 0;
-}
-.post-body th,
-.post-body td{
-    border:1px solid #ddd;
-    padding:10px;
-}
-.post-body th{
-    background:#111;
-    color:#fff;
-}
-@media (max-width:768px){
-    .post-body{
-        margin:20px auto;
-        padding:20px 15px;
-    }
-    .post-body p{
-        font-size:16.5px;
-    }
-    .post-body h1{ font-size:28px; }
-    .post-body h2{ font-size:24px; }
-    .post-body h3{ font-size:21px; }
-}
-</style>
 
-<div class="post-body">
+<div class="page">
 
-<!-- ================= GOOGLE ADSENSE ================= -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
-     crossorigin="anonymous"></script>
+  <header class="hero">
+    <div class="hero-badge">Free tool</div>
+    <h1>Online <span>Video Viewer</span></h1>
+    <p>Paste any video link and play instantly — MP4, WebM, YouTube, or embeds. No install required.</p>
+  </header>
 
-<!-- ================= TOP AD ================= -->
-<ins class="adsbygoogle"
-  style="display:block; margin:20px 0;"
-  data-ad-client="ca-pub-2269884583846743"
-  data-ad-slot="2906167922"
-  data-ad-format="auto"
-  data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  <!-- Top ad -->
+  <div class="ad-slot">
+    <div class="ad-label">Advertisement</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2269884583846743"
+         data-ad-slot="2906167922"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-<p>&nbsp;</p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxT_-QHkTRr53xpwX6C85DWehAqcJpEUesX2MBUu6Kncs7qfub-ZVyGlvgBewBb8HTT4tKz6CY-a_5WqLupJaDzX9qt5fj_tPLfboxGQU5g-Peslw7skzeMAq_QUk_AlIzGCX33Spf2EJrxUgP0bSdLo6p9PkiexgipKd3LOnkbuAzol3MYM0gLHG8w5ul/s1536/images.png" style="margin-left: 1em; margin-right: 1em;"><img alt="Free Online Video Viewer Tool – Play Videos Instantly From Any Link - Best Video Testing Tool" border="0" data-original-height="1024" data-original-width="1536" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxT_-QHkTRr53xpwX6C85DWehAqcJpEUesX2MBUu6Kncs7qfub-ZVyGlvgBewBb8HTT4tKz6CY-a_5WqLupJaDzX9qt5fj_tPLfboxGQU5g-Peslw7skzeMAq_QUk_AlIzGCX33Spf2EJrxUgP0bSdLo6p9PkiexgipKd3LOnkbuAzol3MYM0gLHG8w5ul/s1600/images.png" title="Free Online Video Viewer Tool – Play Videos Instantly From Any Link - Best Video Testing Tool" /></a></div><br /><p></p>
+  <figure class="featured">
+    <img
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxT_-QHkTRr53xpwX6C85DWehAqcJpEUesX2MBUu6Kncs7qfub-ZVyGlvgBewBb8HTT4tKz6CY-a_5WqLupJaDzX9qt5fj_tPLfboxGQU5g-Peslw7skzeMAq_QUk_AlIzGCX33Spf2EJrxUgP0bSdLo6p9PkiexgipKd3LOnkbuAzol3MYM0gLHG8w5ul/s1600/images.png"
+      alt="Free Online Video Viewer Tool – Play Videos Instantly From Any Link"
+      width="1536"
+      height="1024"
+      loading="eager"
+      decoding="async">
+  </figure>
 
-<style>
-/* ===============================
-   SIMPLE VIDEO TOOL FOR BLOGGER
-================================ */
+  <!-- Video tool -->
+  <section class="video-tool" aria-label="Online video viewer">
+    <div class="tool-header">
+      <div class="tool-title">
+        <span class="ico" aria-hidden="true">▶</span>
+        Online Video Viewer
+      </div>
+      <div class="tool-status" id="videoStatus">Ready</div>
+    </div>
 
-.video-tool{
-  max-width:900px;
-  margin:20px auto;
-  padding:15px;
-  background:#0f172a;
-  color:white;
-  border-radius:12px;
-  font-family:Arial,sans-serif;
-}
+    <div class="tool-body">
+      <div class="input-row">
+        <input
+          class="field-input"
+          id="videoURL"
+          type="url"
+          placeholder="Paste video URL (MP4, WebM, YouTube…)"
+          autocomplete="off"
+          inputmode="url">
+        <button type="button" class="btn btn-primary" id="playBtn" onclick="loadVideo()">▶ Play</button>
+        <button type="button" class="btn btn-ghost" onclick="clearVideo()">Clear</button>
+      </div>
+      <div class="formats">
+        <span class="format-tag">MP4</span>
+        <span class="format-tag">WebM</span>
+        <span class="format-tag">OGG</span>
+        <span class="format-tag">YouTube</span>
+        <span class="format-tag">Embed URL</span>
+      </div>
 
-.video-tool h2{
-  text-align:center;
-  margin-bottom:20px;
-}
+      <div class="video-area" id="videoArea">
+        <div class="video-empty">
+          <div class="empty-ico">🎬</div>
+          <p>Paste a link above and click Play to start watching</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-.video-input{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
+  <article class="article">
+    <p>Watching videos online should be simple and fast. Our <strong>Free Online Video Viewer Tool</strong> lets you paste a video link and start watching instantly — no software or apps to install.</p>
+    <p>It supports popular formats including <strong>MP4 and WebM</strong>, plus <strong>YouTube</strong> and external embeds. Use it to test a video URL, check a hosted file, or view online content directly in your browser.</p>
 
-.video-input input{
-  flex:1;
-  min-width:220px;
-  padding:12px;
-  border-radius:6px;
-  border:none;
-  font-size:16px;
-}
+    <h2>Simple viewing experience</h2>
+    <p>Built for desktop and mobile, the player adapts to screen size for a smooth experience. Fast, easy, and needs only a video link to get started.</p>
 
-.video-input button{
-  padding:12px 20px;
-  border:none;
-  background:#2563eb;
-  color:white;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:16px;
-}
+    <h2>How to use</h2>
+    <ul>
+      <li>Copy your video link.</li>
+      <li>Paste the URL into the field above.</li>
+      <li>Click <strong>Play</strong>.</li>
+      <li>Watch instantly in the player.</li>
+    </ul>
 
-.video-input button:hover{
-  background:#1d4ed8;
-}
+    <p>No downloads, no registration, no complicated setup. Paste your video URL and play.</p>
+    <p>Try the <strong>Free Online Video Viewer Tool</strong> and play videos from anywhere in your browser.</p>
+    <p class="keywords">Online Video Viewer · Free Video Player · Play MP4 Online · WebM Player · YouTube Viewer · Video Testing Tool</p>
+  </article>
 
-
-/* VIDEO AREA */
-
-.video-box{
-  margin-top:25px;
-  width:100%;
-  height:500px;
-  background:#000;
-  border-radius:10px;
-  overflow:hidden;
-  position:relative;
-}
-
-.video-box video,
-.video-box iframe{
-  width:100%;
-  height:100%;
-  border:0;
-  object-fit:contain;
-}
-
-
-/* MOBILE CINEMA */
-
-@media(max-width:600px){
-
-.video-tool{
-  padding:10px;
-}
-
-.video-box{
-  height:70vh;
-  min-height:300px;
-}
-
-.video-input{
-  flex-direction:column;
-}
-
-.video-input button{
-  width:100%;
-}
-
-}
-</style>
-
-
-<div class="video-tool">
-
-<h2>🎥 Online Video Viewer</h2>
-
-
-<div class="video-input">
-
-<input id="videoURL" type="text" />
-
-<button onclick="loadVideo()">
-Play Video
-</button>
+  <!-- Bottom ad -->
+  <div class="ad-slot">
+    <div class="ad-label">Advertisement</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2269884583846743"
+         data-ad-slot="2906167922"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
 </div>
 
-
-<div id="videoArea"></div>
-
-
-</div>
-
-
+<footer class="site-footer">
+  <a href="/">Home</a>
+  <a href="/p/contact-us.html">Contact</a>
+  <a href="/p/privacy-policy.html" target="_blank" rel="noopener">Privacy</a>
+  <a href="/p/affiliate-marketing-and-adsense.html" target="_blank" rel="noopener">Disclosure</a>
+  <a href="/p/terms-and-conditions.html" target="_blank" rel="noopener">Terms</a>
+  <p>© Marketing2Advertising. All rights reserved.</p>
+</footer>
 
 <script>
+(function () {
+  "use strict";
 
-function loadVideo(){
+  var statusEl = document.getElementById("videoStatus");
+  var areaEl = document.getElementById("videoArea");
+  var inputEl = document.getElementById("videoURL");
 
-let url=document
-.getElementById("videoURL")
-.value
-.trim();
+  function setStatus(msg, type) {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.classList.remove("live", "error");
+    if (type) statusEl.classList.add(type);
+  }
 
+  function escapeAttr(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
 
-if(!url){
-alert("Please paste a video link");
-return;
-}
+  function youtubeId(url) {
+    if (/youtu\.be\//i.test(url)) {
+      var part = url.split(/youtu\.be\//i)[1] || "";
+      return part.split(/[?&#]/)[0];
+    }
+    var m = url.match(/[?&]v=([^&]+)/);
+    if (m) return m[1];
+    m = url.match(/youtube\.com\/embed\/([^?&#]+)/i);
+    if (m) return m[1];
+    m = url.match(/youtube\.com\/shorts\/([^?&#]+)/i);
+    if (m) return m[1];
+    return "";
+  }
 
+  window.loadVideo = function () {
+    var url = (inputEl && inputEl.value || "").trim();
+    if (!url) {
+      setStatus("Paste a link first", "error");
+      if (inputEl) inputEl.focus();
+      return;
+    }
 
-let output="";
+    var safe = escapeAttr(url);
+    var html = "";
 
+    if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)) {
+      html =
+        '<div class="video-box">' +
+        '<video controls playsinline preload="metadata">' +
+        '<source src="' + safe + '">' +
+        "Your browser does not support this video." +
+        "</video></div>";
+      setStatus("Playing file", "live");
+    } else if (/youtube\.com|youtu\.be/i.test(url)) {
+      var id = youtubeId(url);
+      if (!id) {
+        setStatus("Invalid YouTube link", "error");
+        return;
+      }
+      html =
+        '<div class="video-box">' +
+        '<iframe src="https://www.youtube.com/embed/' + escapeAttr(id) +
+        '" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+        'referrerpolicy="strict-origin-when-cross-origin" title="YouTube video"></iframe></div>';
+      setStatus("YouTube", "live");
+    } else {
+      html =
+        '<div class="video-box">' +
+        '<iframe src="' + safe + '" allowfullscreen title="Video embed"></iframe></div>';
+      setStatus("Embed loaded", "live");
+    }
 
-// MP4 / WEBM
+    if (areaEl) areaEl.innerHTML = html;
+  };
 
-if(url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)){
+  window.clearVideo = function () {
+    if (inputEl) inputEl.value = "";
+    if (areaEl) {
+      areaEl.innerHTML =
+        '<div class="video-empty">' +
+        '<div class="empty-ico">🎬</div>' +
+        "<p>Paste a link above and click Play to start watching</p>" +
+        "</div>";
+    }
+    setStatus("Ready");
+  };
 
-
-output=`
-
-<div class="video-box">
-
-<video controls playsinline>
-
-<source src="${url}">
-
-Your browser does not support video.
-
-</video>
-
-</div>
-
-`;
-
-}
-
-
-// YouTube
-
-else if(
-url.includes("youtube.com") ||
-url.includes("youtu.be")
-){
-
-let id="";
-
-
-if(url.includes("youtu.be")){
-
-id=url.split("youtu.be/")[1]
-.split("?")[0];
-
-}
-
-else{
-
-let match=url.match(/[?&]v=([^&]+)/);
-
-if(match){
-id=match[1];
-}
-
-}
-
-
-output=`
-
-<div class="video-box">
-
-<iframe
-
-src="https://www.youtube.com/embed/${id}"
-
-allowfullscreen
-
-allow="autoplay">
-
-</iframe>
-
-</div>
-
-`;
-
-}
-
-
-// External iframe
-
-else{
-
-
-output=`
-
-<div class="video-box">
-
-<iframe
-
-src="${url}"
-
-allowfullscreen>
-
-</iframe>
-
-</div>
-
-`;
-
-}
-
-
-
-document
-.getElementById("videoArea")
-.innerHTML=output;
-
-
-}
-
-
-
+  if (inputEl) {
+    inputEl.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        loadVideo();
+      }
+    });
+  }
+})();
 </script>
-
-<p>
-Watching videos online should be simple and fast. Our 
-<b>Free Online Video Viewer Tool</b> allows you to paste a video link and start watching instantly without installing any software or apps.
-</p>
-
-<p>
-The tool supports popular video formats including 
-<b>MP4 and WebM</b>, plus <b>YouTube videos and external video embeds</b>. 
-Whether you are testing a video URL, checking a hosted file, or viewing online content, this lightweight tool works directly in your browser.
-</p>
-
-<h2>Simple Video Viewing Experience</h2>
-
-<p>
-Designed for both desktop and mobile users, the video viewer automatically adapts to different screen sizes for a smooth viewing experience. It is fast, easy to use, and requires only a video link to get started.
-</p>
-
-<h2>How To Use The Video Viewer</h2>
-
-<ul>
-<li>Copy your video link.</li>
-<li>Paste the URL into the video box.</li>
-<li>Click the <b>Play Video</b> button.</li>
-<li>Watch your video instantly.</li>
-</ul>
-
-<p>
-No downloads, no registration, and no complicated setup. Simply paste your video URL and enjoy a quick online video playback experience.
-</p>
-
-<p>
-Try our <b>Free Online Video Viewer Tool</b> today and play videos from anywhere using your browser.
-</p>
-
-
-<p style="text-align: center;">
-Online Video Viewer, Free Video Player Tool, Play MP4 Online, WebM Video Player, YouTube Video Viewer, Online Video Testing Tool
-</p>
-
-<!-- ================= BOTTOM AD ================= -->
-<ins class="adsbygoogle"
-  style="display:block; margin:30px 0;"
-  data-ad-client="ca-pub-2269884583846743"
-  data-ad-slot="2906167922"
-  data-ad-format="auto"
-  data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-
-</div>
-
-<div class='mobile-hub'>
-  <div id='emb99d-footer' style='background:#111; text-align:center; padding:10px 0; font-family:Raleway, Arial, sans-serif;'>
-    <a href='/' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Home</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/contact-us.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Contact</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/privacy-policy.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Privacy</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/affiliate-marketing-and-adsense.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Disclosure</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/terms-and-conditions.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Terms</a>
-    <p style='color:#aaa; font-size:14px; margin:10px 0 0;'>
-      &#169; Marketing2Advertising. All rights reserved.
-    </p>
-  </div>
-</div>
-
 </body>
 </html>
