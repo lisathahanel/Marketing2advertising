@@ -1,671 +1,509 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
-     crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="index, follow">
 <meta name="googlebot" content="index, follow">
 <title>Free Premium Text to PDF Generator – Create Professional PDFs Instantly · Marketing2Advertising</title>
-<meta name="description" content="Convert your ideas, notes, and documents into professional PDF files with our Free Premium Text to PDF Generator. This easy-to-use online tool lets yo">
+<meta name="description" content="Convert notes and documents into professional PDF files. Free online Text to PDF generator with formatting — headings, bold, lists — no install required.">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="icon" href="https://www.marketing2advertising.com/favicon.ico">
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743" crossorigin="anonymous"></script>
+<style>
+:root {
+  --bg: #0a0a0c;
+  --surface: #121216;
+  --card: #16161c;
+  --elevated: #1c1c24;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.12);
+  --text: #f2f2f4;
+  --muted: #8b8b96;
+  --green: #00e676;
+  --green-dim: rgba(0, 230, 118, 0.14);
+  --green-glow: rgba(0, 230, 118, 0.28);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 12px 0 28px;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0, 230, 118, 0.09), transparent 55%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--green);
+  background: var(--green-dim); border: 1px solid rgba(0, 230, 118, 0.25);
+  padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
+}
+.hero h1 {
+  font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+  font-weight: 800; letter-spacing: -0.035em; line-height: 1.15;
+  max-width: 680px; margin: 0 auto;
+}
+.hero h1 span { color: var(--green); }
+.hero p {
+  margin: 12px auto 0; max-width: 500px;
+  font-size: 15px; color: var(--muted); line-height: 1.55;
+}
+
+/* Ads */
+.ad-slot {
+  margin: 16px 0;
+  min-height: 90px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  text-align: center;
+  padding: 8px;
+}
+.ad-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #555; margin-bottom: 6px;
+}
+
+/* Featured image */
+.featured {
+  margin: 8px 0 24px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.featured img {
+  width: 100%; height: auto; max-height: 300px; object-fit: cover;
+}
+
+/* ========== PDF TOOL ========== */
+.pdf-tool {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  margin-bottom: 28px;
+}
+
+.tool-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+  padding: 14px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.tool-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 15px; font-weight: 800; letter-spacing: -0.02em;
+}
+.tool-title .ico {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(145deg, #1a1a22, #0e0e14);
+  border: 1px solid var(--line);
+  display: grid; place-items: center; font-size: 16px;
+}
+.tool-status {
+  font-size: 12px; color: var(--muted); font-weight: 600;
+  min-height: 1.2em;
+}
+.tool-status.active { color: var(--green); }
+.tool-status.active::before {
+  content: ""; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--green); margin-right: 6px;
+  box-shadow: 0 0 8px var(--green-glow); vertical-align: middle;
+}
+
+.tool-body { padding: 16px; }
+
+/* Quill overrides for dark theme chrome */
+#pdfEditor {
+  background: #fff;
+  color: #111;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  min-height: 320px;
+}
+#pdfEditor .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid #e5e5ea;
+  background: #f7f7f9;
+  padding: 10px 12px;
+  font-family: var(--font);
+}
+#pdfEditor .ql-container.ql-snow {
+  border: none;
+  font-family: var(--font);
+  font-size: 15px;
+  min-height: 280px;
+}
+#pdfEditor .ql-editor {
+  min-height: 280px;
+  line-height: 1.6;
+  padding: 16px 18px;
+}
+#pdfEditor .ql-editor.ql-blank::before {
+  color: #999;
+  font-style: normal;
+}
+
+.tool-fields {
+  margin-top: 14px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.field-label {
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  margin-bottom: 6px; display: block;
+}
+.field-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 15px;
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field-input::placeholder { color: #666; }
+.field-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-dim);
+}
+
+.btn {
+  appearance: none; border: none; cursor: pointer;
+  font-family: var(--font); font-weight: 800; font-size: 15px;
+  padding: 14px 20px; border-radius: 12px;
+  width: 100%;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform 0.15s var(--ease), box-shadow 0.15s, background 0.15s, opacity 0.15s;
+}
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.65; cursor: wait; }
+.btn-primary {
+  background: var(--green); color: #041a0c;
+  box-shadow: 0 4px 18px var(--green-glow);
+}
+.btn-primary:hover:not(:disabled) { box-shadow: 0 6px 24px var(--green-glow); }
+
+.tool-hint {
+  margin-top: 12px;
+  font-size: 12px; color: var(--muted); text-align: center;
+}
+
+/* Article */
+.article {
+  max-width: 680px; margin: 0 auto;
+  padding: 8px 0 24px;
+}
+.article p {
+  font-size: 17px; color: #c8c8d0; margin-bottom: 1.25em; line-height: 1.7;
+}
+.article p strong { color: var(--text); font-weight: 700; }
+
+/* Footer */
+.site-footer {
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+  background: #08080a;
+  text-align: center;
+  padding: 20px 14px 28px;
+  font-size: 12px; color: var(--muted);
+}
+.site-footer a {
+  color: var(--green); margin: 0 8px; font-weight: 600;
+  text-decoration: none;
+}
+.site-footer a:hover { text-decoration: underline; }
+.site-footer p { margin-top: 12px; color: #666; }
+
+@media (max-width: 600px) {
+  .page { padding: 16px 12px 40px; }
+  .hero h1 { font-size: 1.35rem; }
+  .article p { font-size: 16px; }
+  #pdfEditor .ql-editor, #pdfEditor .ql-container.ql-snow { min-height: 240px; }
+  #pdfEditor { min-height: 280px; }
+}
+</style>
 </head>
 <body>
-<style>
-body{
-    background:#f5f5f5;
-    margin:0;
-    padding:0;
-}
-.post-body{
-    max-width:780px;
-    margin:40px auto;
-    padding:30px 25px;
-    background:#ffffff;
-    border-radius:12px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.05);
-    box-sizing:border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    color:#222;
-    line-height:1.7;
-}
-.post-body p{
-    font-size:18px;
-    margin-bottom:1.5em;
-    color:#333;
-}
-.post-body h1,
-.post-body h2,
-.post-body h3,
-.post-body h4,
-.post-body h5,
-.post-body h6{
-    font-family:Georgia, "Times New Roman", serif;
-    font-weight:700;
-    margin:2em 0 0.8em;
-    line-height:1.3;
-}
-.post-body h1{ font-size:36px; }
-.post-body h2{ font-size:30px; }
-.post-body h3{ font-size:24px; }
-.post-body h4{ font-size:20px; }
-.post-body h5{ font-size:18px; }
-.post-body h6{ font-size:16px; }
-.post-body ul,
-.post-body ol{
-    padding-left:25px;
-    margin-bottom:1.5em;
-}
-.post-body blockquote{
-    border-left:4px solid #04ff00;
-    background:#f9f9f9;
-    padding:15px 18px;
-    font-style:italic;
-    color:#555;
-    border-radius:6px;
-}
-.post-body img{
-    display:block;
-    max-width:100%;
-    height:auto;
-    margin:25px auto;
-    border-radius:10px;
-}
-.post-body table{
-    width:100%;
-    border-collapse:collapse;
-    margin:20px 0;
-}
-.post-body th,
-.post-body td{
-    border:1px solid #ddd;
-    padding:10px;
-}
-.post-body th{
-    background:#111;
-    color:#fff;
-}
-@media (max-width:768px){
-    .post-body{
-        margin:20px auto;
-        padding:20px 15px;
-    }
-    .post-body p{
-        font-size:16.5px;
-    }
-    .post-body h1{ font-size:28px; }
-    .post-body h2{ font-size:24px; }
-    .post-body h3{ font-size:21px; }
-}
-</style>
 
-<div class="post-body">
+<div class="page">
 
-<!-- ================= GOOGLE ADSENSE ================= -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
-     crossorigin="anonymous"></script>
+  <header class="hero">
+    <div class="hero-badge">Free tool</div>
+    <h1>Text to <span>PDF</span> Generator</h1>
+    <p>Write and format your content, then download a clean A4 PDF — right in your browser.</p>
+  </header>
 
-<!-- ================= TOP AD ================= -->
-<ins class="adsbygoogle"
-  style="display:block; margin:20px 0;"
-  data-ad-client="ca-pub-2269884583846743"
-  data-ad-slot="2906167922"
-  data-ad-format="auto"
-  data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  <!-- Top ad -->
+  <div class="ad-slot">
+    <div class="ad-label">Advertisement</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2269884583846743"
+         data-ad-slot="2906167922"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-<p>&nbsp;</p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipGSeq2T9WkfczC3vHvsgYV8LG6fUxaLmoCNVIjrZ8aDlCbkSTpmuvb_tfHT9Yeb05ONsuYAdgV3ab6mtEZSHSNxZDzzgwm8YUs3p5qnnDl-UgJgQnd5PHxOOsPox1jsgmvXkjidqLaibZhwoGoASZXMuUyd3l2N3br5UF2vUCJYoj69VpSsQXRQo3VSUX/s1536/images.png" style="margin-left: 1em; margin-right: 1em;"><img alt="Free Premium Text to PDF Generator – Create Professional PDFs Instantly" border="0" data-original-height="1024" data-original-width="1536" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipGSeq2T9WkfczC3vHvsgYV8LG6fUxaLmoCNVIjrZ8aDlCbkSTpmuvb_tfHT9Yeb05ONsuYAdgV3ab6mtEZSHSNxZDzzgwm8YUs3p5qnnDl-UgJgQnd5PHxOOsPox1jsgmvXkjidqLaibZhwoGoASZXMuUyd3l2N3br5UF2vUCJYoj69VpSsQXRQo3VSUX/s1600/images.png" title="Free Premium Text to PDF Generator – Create Professional PDFs Instantly" /></a></div><br /><p></p>
+  <figure class="featured">
+    <img
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipGSeq2T9WkfczC3vHvsgYV8LG6fUxaLmoCNVIjrZ8aDlCbkSTpmuvb_tfHT9Yeb05ONsuYAdgV3ab6mtEZSHSNxZDzzgwm8YUs3p5qnnDl-UgJgQnd5PHxOOsPox1jsgmvXkjidqLaibZhwoGoASZXMuUyd3l2N3br5UF2vUCJYoj69VpSsQXRQo3VSUX/s1600/images.png"
+      alt="Free Premium Text to PDF Generator – Create Professional PDFs Instantly"
+      width="1536"
+      height="1024"
+      loading="eager"
+      decoding="async">
+  </figure>
 
+  <!-- PDF tool -->
+  <section class="pdf-tool" aria-label="Text to PDF converter">
+    <div class="tool-header">
+      <div class="tool-title">
+        <span class="ico" aria-hidden="true">📄</span>
+        Premium Text → PDF
+      </div>
+      <div class="tool-status" id="pdfStatus">Ready</div>
+    </div>
 
+    <div class="tool-body">
+      <div id="pdfEditor"></div>
 
-<!--================= PREMIUM TEXT TO PDF TOOL =================-->
+      <div class="tool-fields">
+        <div>
+          <label class="field-label" for="pdfFileName">File name (optional)</label>
+          <input
+            class="field-input"
+            id="pdfFileName"
+            type="text"
+            placeholder="e.g. my-document.pdf"
+            autocomplete="off">
+        </div>
+        <button type="button" class="btn btn-primary" id="pdfDownloadBtn" onclick="generatePDF()">
+          ↓ Download PDF
+        </button>
+      </div>
+      <p class="tool-hint">A4 · Helvetica · Page numbers included · Runs fully in your browser</p>
+    </div>
+  </section>
 
-<style>
+  <article class="article">
+    <p>Convert your ideas, notes, and documents into professional PDF files with our <strong>Free Premium Text to PDF Generator</strong>. Write, format, and download a clean PDF in seconds.</p>
+    <p>Use the editor to add headings, bold text, lists, and alignment before you export. No software install — everything works in the browser.</p>
+    <p>Ideal for reports, study notes, business docs, or personal files. Create polished PDFs anywhere, anytime.</p>
+    <p><strong>Start writing and turn your text into a professional PDF instantly.</strong></p>
+  </article>
 
-/* TOOL WRAPPER ONLY */
-.pdf-tool{
-  max-width:900px;
-  margin:20px auto;
-  background:#0f172a;
-  color:white;
-  padding:20px;
-  border-radius:15px;
-  font-family:Arial,sans-serif;
-}
-
-.pdf-tool h2{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-
-/* EDITOR */
-#pdfEditor{
-  height:350px;
-  background:white;
-  color:#000;
-  border-radius:10px;
-  overflow:hidden;
-}
-
-
-/* INPUT */
-.pdf-tool input{
-  width:100%;
-  box-sizing:border-box;
-  padding:12px;
-  margin-top:15px;
-  border-radius:8px;
-  border:none;
-  font-size:16px;
-}
-
-
-/* BUTTON */
-.pdf-tool button{
-  width:100%;
-  margin-top:15px;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-size:17px;
-  cursor:pointer;
-}
-
-.pdf-tool button:hover{
-  background:#1d4ed8;
-}
-
-
-/* STATUS */
-#pdfStatus{
-  text-align:center;
-  margin-top:15px;
-  display:none;
-}
-
-
-/* MOBILE */
-@media(max-width:600px){
-
-.pdf-tool{
-  margin:10px;
-  padding:15px;
-}
-
-#pdfEditor{
-  height:280px;
-}
-
-}
-
-
-</style>
-
-
-
-<div class="pdf-tool">
-
-<h2>💎 Premium Text → PDF</h2>
-
-<div id="pdfEditor"></div>
-
-<input id="pdfFileName" placeholder="Enter PDF file name (optional)" />
-
-<button onclick="generatePDF()">
-Download PDF
-</button>
-
-<div id="pdfStatus">
-⏳ Creating PDF...
-</div>
+  <!-- Bottom ad -->
+  <div class="ad-slot">
+    <div class="ad-label">Advertisement</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2269884583846743"
+         data-ad-slot="2906167922"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
 </div>
 
-
-
-<!--QUILL EDITOR-->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"></link>
+<footer class="site-footer">
+  <a href="/">Home</a>
+  <a href="/p/contact-us.html">Contact</a>
+  <a href="/p/privacy-policy.html" target="_blank" rel="noopener">Privacy</a>
+  <a href="/p/affiliate-marketing-and-adsense.html" target="_blank" rel="noopener">Disclosure</a>
+  <a href="/p/terms-and-conditions.html" target="_blank" rel="noopener">Terms</a>
+  <p>© Marketing2Advertising. All rights reserved.</p>
+</footer>
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
 <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-
-
-
 <script>
-
-
-/* ================= EDITOR ================= */
-
-
-var quill = new Quill('#pdfEditor',{
-
-theme:'snow',
-
-modules:{
-toolbar:[
-
-['bold','italic','underline'],
-
-[
-{
-header:[1,2,3,false]
-}
-],
-
-[
-{
-list:'ordered'
-},
-{
-list:'bullet'
-}
-],
-
-[
-{
-align:[]
-}
-],
-
-['clean']
-
-]
-
-}
-
-});
-
-
-
-
-
-/* ================= PDF GENERATOR ================= */
-
-
-async function generatePDF(){
-
-
-document.getElementById("pdfStatus").style.display="block";
-
-
-const pdfDoc =
-await PDFLib.PDFDocument.create();
-
-
-
-const regular =
-await pdfDoc.embedFont(
-PDFLib.StandardFonts.Helvetica
-);
-
-
-const bold =
-await pdfDoc.embedFont(
-PDFLib.StandardFonts.HelveticaBold
-);
-
-
-
-let pages=[];
-
-
-let page =
-pdfDoc.addPage([595,842]); // A4
-
-
-pages.push(page);
-
-
-
-let width =
-page.getWidth();
-
-let height =
-page.getHeight();
-
-
-
-let margin=50;
-
-let y =
-height-margin;
-
-
-let maxWidth =
-width-(margin*2);
-
-
-
-function newPage(){
-
-page =
-pdfDoc.addPage([595,842]);
-
-pages.push(page);
-
-y =
-height-margin;
-
-}
-
-
-
-
-function writeLine(text,font,size,align){
-
-
-let textWidth =
-font.widthOfTextAtSize(text,size);
-
-
-let x=margin;
-
-
-if(align==="center")
-x=(width-textWidth)/2;
-
-
-if(align==="right")
-x=width-margin-textWidth;
-
-
-
-page.drawText(text,{
-
-x:x,
-y:y,
-size:size,
-font:font
-
-});
-
-
-}
-
-
-
-
-let data =
-quill.getContents().ops;
-
-
-
-let number=1;
-
-
-
-for(let op of data){
-
-
-if(!op.insert)
-continue;
-
-
-
-let text =
-op.insert;
-
-
-
-let attr =
-op.attributes || {};
-
-
-
-let size=12;
-
-
-if(attr.header==1)
-size=22;
-
-else if(attr.header==2)
-size=18;
-
-else if(attr.header==3)
-size=15;
-
-
-
-let font =
-attr.bold ? bold : regular;
-
-
-
-if(attr.list==="bullet")
-text="• "+text;
-
-
-if(attr.list==="ordered"){
-
-text=
-number+". "+text;
-
-number++;
-
-}else{
-
-number=1;
-
-}
-
-
-
-let align =
-attr.align || "left";
-
-
-
-let lines =
-text.split("\n");
-
-
-
-for(let line of lines){
-
-
-if(line.trim()==="")
-{
-
-y-=15;
-
-continue;
-
-}
-
-
-
-let words =
-line.split(" ");
-
-let current="";
-
-
-
-for(let word of words){
-
-
-let test =
-current+word+" ";
-
-
-
-if(
-font.widthOfTextAtSize(
-test,
-size
-)>maxWidth
-){
-
-
-writeLine(
-current.trim(),
-font,
-size,
-align
-);
-
-
-y-=size+5;
-
-
-if(y<margin)
-newPage();
-
-
-current =
-word+" ";
-
-
-}else{
-
-
-current=test;
-
-
-}
-
-
-}
-
-
-
-if(current.trim()){
-
-
-writeLine(
-current.trim(),
-font,
-size,
-align
-);
-
-
-y-=size+8;
-
-
-if(y<margin)
-newPage();
-
-
-}
-
-
-}
-
-
-}
-
-
-
-
-
-/* PAGE NUMBERS */
-
-
-pages.forEach((p,i)=>{
-
-
-p.drawText(
-"Page "+(i+1),
-{
-
-x:270,
-y:25,
-size:10,
-font:regular
-
-});
-
-
-});
-
-
-
-
-
-let bytes =
-await pdfDoc.save();
-
-
-
-let blob =
-new Blob(
-[bytes],
-{
-type:"application/pdf"
-}
-);
-
-
-
-let link =
-document.createElement("a");
-
-
-link.href =
-URL.createObjectURL(blob);
-
-
-link.download =
-document.getElementById("pdfFileName").value
-||
-"premium-document.pdf";
-
-
-
-link.click();
-
-
-
-document.getElementById("pdfStatus").style.display="none";
-
-
-}
-
-
-
+(function () {
+  "use strict";
+
+  var quill = new Quill("#pdfEditor", {
+    theme: "snow",
+    placeholder: "Start writing your document here…",
+    modules: {
+      toolbar: [
+        ["bold", "italic", "underline"],
+        [{ header: [1, 2, 3, false] }],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ align: [] }],
+        ["clean"]
+      ]
+    }
+  });
+
+  var statusEl = document.getElementById("pdfStatus");
+  var btn = document.getElementById("pdfDownloadBtn");
+
+  function setStatus(msg, active) {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.classList.toggle("active", !!active);
+  }
+
+  window.generatePDF = async function () {
+    if (!window.PDFLib) {
+      setStatus("PDF library failed to load", false);
+      return;
+    }
+
+    setStatus("Creating PDF…", true);
+    if (btn) btn.disabled = true;
+
+    try {
+      var pdfDoc = await PDFLib.PDFDocument.create();
+      var regular = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+      var bold = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+
+      var pages = [];
+      var page = pdfDoc.addPage([595, 842]);
+      pages.push(page);
+
+      var width = page.getWidth();
+      var height = page.getHeight();
+      var margin = 50;
+      var y = height - margin;
+      var maxWidth = width - margin * 2;
+
+      function newPage() {
+        page = pdfDoc.addPage([595, 842]);
+        pages.push(page);
+        y = height - margin;
+      }
+
+      function writeLine(text, font, size, align) {
+        var textWidth = font.widthOfTextAtSize(text, size);
+        var x = margin;
+        if (align === "center") x = (width - textWidth) / 2;
+        if (align === "right") x = width - margin - textWidth;
+        page.drawText(text, { x: x, y: y, size: size, font: font });
+      }
+
+      var data = quill.getContents().ops;
+      var number = 1;
+
+      for (var i = 0; i < data.length; i++) {
+        var op = data[i];
+        if (!op.insert) continue;
+
+        var text = String(op.insert);
+        var attr = op.attributes || {};
+        var size = 12;
+        if (attr.header == 1) size = 22;
+        else if (attr.header == 2) size = 18;
+        else if (attr.header == 3) size = 15;
+
+        var font = attr.bold ? bold : regular;
+
+        if (attr.list === "bullet") text = "• " + text;
+        if (attr.list === "ordered") {
+          text = number + ". " + text;
+          number++;
+        } else {
+          number = 1;
+        }
+
+        var align = attr.align || "left";
+        var lines = text.split("\n");
+
+        for (var li = 0; li < lines.length; li++) {
+          var line = lines[li];
+          if (line.trim() === "") {
+            y -= 15;
+            continue;
+          }
+
+          var words = line.split(" ");
+          var current = "";
+
+          for (var wi = 0; wi < words.length; wi++) {
+            var word = words[wi];
+            var test = current + word + " ";
+            if (font.widthOfTextAtSize(test, size) > maxWidth) {
+              writeLine(current.trim(), font, size, align);
+              y -= size + 5;
+              if (y < margin) newPage();
+              current = word + " ";
+            } else {
+              current = test;
+            }
+          }
+
+          if (current.trim()) {
+            writeLine(current.trim(), font, size, align);
+            y -= size + 8;
+            if (y < margin) newPage();
+          }
+        }
+      }
+
+      pages.forEach(function (p, idx) {
+        p.drawText("Page " + (idx + 1), {
+          x: 270,
+          y: 25,
+          size: 10,
+          font: regular
+        });
+      });
+
+      var bytes = await pdfDoc.save();
+      var blob = new Blob([bytes], { type: "application/pdf" });
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      var name = (document.getElementById("pdfFileName").value || "").trim();
+      if (name && !/\.pdf$/i.test(name)) name += ".pdf";
+      link.download = name || "premium-document.pdf";
+      link.click();
+      URL.revokeObjectURL(link.href);
+
+      setStatus("Downloaded", true);
+      setTimeout(function () { setStatus("Ready", false); }, 1500);
+    } catch (err) {
+      console.error(err);
+      setStatus("Error — try again", false);
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  };
+})();
 </script>
-
-<p>Convert your ideas, notes, and documents into professional PDF files with our <strong>Free Premium Text to PDF Generator</strong>. This easy-to-use online tool lets you write, format, and download your content as a clean PDF document in seconds.</p>
-
-<p>With a powerful text editor, you can add headings, bold text, lists, and custom formatting before exporting your work. No software installation is required — everything works directly in your browser.</p>
-
-<p>Whether you are creating reports, study notes, business documents, or personal files, this tool helps you save time and create polished PDFs anywhere, anytime.</p>
-
-<p><strong>Start writing today and turn your text into a professional PDF instantly.</strong></p>
-
-
-<!-- ================= BOTTOM AD ================= -->
-<ins class="adsbygoogle"
-  style="display:block; margin:30px 0;"
-  data-ad-client="ca-pub-2269884583846743"
-  data-ad-slot="2906167922"
-  data-ad-format="auto"
-  data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-
-</div>
-
-<div class='mobile-hub'>
-  <div id='emb99d-footer' style='background:#111; text-align:center; padding:10px 0; font-family:Raleway, Arial, sans-serif;'>
-    <a href='/' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Home</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/contact-us.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Contact</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/privacy-policy.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Privacy</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/affiliate-marketing-and-adsense.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Disclosure</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/terms-and-conditions.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Terms</a>
-    <p style='color:#aaa; font-size:14px; margin:10px 0 0;'>
-      &#169; Marketing2Advertising. All rights reserved.
-    </p>
-  </div>
-</div>
-
 </body>
 </html>
