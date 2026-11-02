@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="free ad posting site . List cars, jobs, property, electronics and services.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>ad posting site free ad posting site</title>
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"></script>
+<style>
+/* =========================================================
+   FreeAds UK & EU – App-style redesign
+   Dark + neon green
+   ========================================================= */
+:root {
+  --bg: #080808;
+  --surface: #121212;
+  --card: #1a1a1a;
+  --elevated: #222;
+  --green: #04ff00;
+  --green-dim: rgba(4, 255, 0, 0.12);
+  --gold: #f4c430;
+  --text: #f0f0f0;
+  --muted: #888;
+  --line: #2a2a2a;
+  --danger: #ff4d4d;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --header-h: 56px;
+  --bottom-nav-h: 64px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom));
+}
+
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+img { max-width: 100%; display: block; height: auto; }
+ul { list-style: none; }
+
+/* ---------- App shell ---------- */
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Top app bar ---------- */
+.app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-h);
+  background: rgba(8, 8, 8, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.logo span { color: var(--green); }
+
+.app-bar-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+}
+.icon-btn:hover, .icon-btn:active {
+  background: var(--elevated);
+  color: var(--text);
+}
+
+/* ---------- Bottom navigation ---------- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: calc(var(--bottom-nav-h) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: rgba(12, 12, 12, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  transition: color 0.15s;
+  min-height: var(--bottom-nav-h);
+}
+.nav-item svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.8;
+}
+.nav-item.active {
+  color: var(--green);
+}
+.nav-item.active svg {
+  stroke: var(--green);
+  fill: var(--green-dim);
+}
+
+.nav-item.fab {
+  position: relative;
+  top: -18px;
+}
+.nav-item.fab .fab-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #111;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 20px rgba(244, 196, 48, 0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.nav-item.fab:active .fab-circle {
+  transform: scale(0.94);
+}
+.nav-item.fab span {
+  margin-top: 4px;
+  color: var(--gold);
+  font-size: 10px;
+}
+
+/* ---------- Pages ---------- */
+.page {
+  display: none;
+  flex: 1;
+  animation: fadeIn 0.25s ease;
+}
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Browse page ---------- */
+.browse-header {
+  padding: 20px 16px 12px;
+}
+.browse-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.browse-title {
+  font-size: clamp(1.5rem, 5vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.browse-sub {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Search + filters sticky strip */
+.controls {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 90;
+  background: rgba(8, 8, 8, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 16px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.search-wrap {
+  position: relative;
+  margin-bottom: 10px;
+}
+.search-wrap svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 40px 0 42px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.search-input::placeholder { color: #666; }
+.search-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-dim);
+}
+.search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: none;
+  place-items: center;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+}
+.search-wrap.has-value .search-clear { display: grid; }
+.search-clear:hover { background: var(--elevated); color: var(--text); }
+
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+.chips::-webkit-scrollbar { display: none; }
+
+.chip {
+  flex-shrink: 0;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.chip.active {
+  background: var(--green);
+  color: #000;
+  border-color: var(--green);
+}
+.chip:active { transform: scale(0.97); }
+
+.results-info {
+  display: none;
+  padding: 10px 16px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.results-info.show { display: block; }
+.results-info strong { color: var(--green); }
+
+/* Ad slot (kept for post page / fallback) */
+.ad-slot {
+  margin: 16px;
+  min-height: 90px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  overflow: hidden;
+}
+.ad-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* =========================================================
+   mm5 — BIG LATEST POSTS SLIDER
+   SOURCE: ads.marketing2advertising.com
+   ========================================================= */
+#mm5-latest-slider {
+  width: 100%;
+  max-width: 1200px;
+  margin: 16px auto 8px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  position: relative;
+}
+#mm5-latest-slider .mm5-slider-title {
+  text-align: center;
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+#mm5-latest-slider .mm5-slider-window {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #1a1a1a;
+  border: 1px solid rgba(244, 196, 48, 0.35);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.28),
+    0 0 20px rgba(244, 196, 48, .12);
+}
+#mm5-latest-slider .mm5-slider-track {
+  display: flex;
+  width: max-content;
+  transition: transform .65s ease;
+}
+#mm5-latest-slider .mm5-slide {
+  width: 300px;
+  flex: 0 0 300px;
+  position: relative;
+}
+#mm5-latest-slider .mm5-slide a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+#mm5-latest-slider .mm5-slide-image {
+  width: 100%;
+  height: 420px;
+  position: relative;
+  overflow: hidden;
+  background: #222;
+}
+#mm5-latest-slider .mm5-slide-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+#mm5-latest-slider .mm5-slide:hover img {
+  transform: scale(1.06);
+}
+#mm5-latest-slider .mm5-slide-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.95) 0%,
+      rgba(0,0,0,.55) 38%,
+      rgba(0,0,0,.05) 75%
+    );
+}
+#mm5-latest-slider .mm5-slide-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px;
+  z-index: 2;
+}
+#mm5-latest-slider .mm5-slide-title {
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: #fff;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+#mm5-latest-slider .mm5-slide-date {
+  font-size: 12px;
+  color: var(--gold);
+}
+#mm5-latest-slider .mm5-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  background: rgba(244, 196, 48, .92);
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 0 22px rgba(244, 196, 48, .5);
+  opacity: .95;
+}
+#mm5-latest-slider .mm5-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 56px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(20,20,18,.9);
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(0,0,0,.35);
+}
+#mm5-latest-slider .mm5-arrow:hover {
+  background: var(--gold);
+  color: #111;
+}
+#mm5-latest-slider .mm5-prev { left: 10px; }
+#mm5-latest-slider .mm5-next { right: 10px; }
+#mm5-latest-slider .mm5-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 5px 4px;
+}
+#mm5-latest-slider .mm5-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(244, 196, 48, .3);
+  cursor: pointer;
+  transition: .3s;
+}
+#mm5-latest-slider .mm5-dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: var(--gold);
+}
+#mm5-latest-slider .mm5-slider-loading {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--gold);
+  font-size: 15px;
+}
+@media (max-width: 700px) {
+  #mm5-latest-slider { padding: 0 8px; }
+  #mm5-latest-slider .mm5-slider-title { font-size: 16px; }
+  #mm5-latest-slider .mm5-slide {
+    width: 78vw;
+    flex-basis: 78vw;
+  }
+  #mm5-latest-slider .mm5-slide-image { height: 400px; }
+  #mm5-latest-slider .mm5-slide-title { font-size: 17px; }
+  #mm5-latest-slider .mm5-arrow {
+    width: 38px;
+    height: 50px;
+    font-size: 22px;
+  }
+  #mm5-latest-slider .mm5-prev { left: 6px; }
+  #mm5-latest-slider .mm5-next { right: 6px; }
+}
+
+/* Grid */
+.catalog {
+  padding: 8px 12px 24px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .catalog { grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 12px 20px 32px; }
+}
+@media (min-width: 960px) {
+  .catalog { grid-template-columns: repeat(4, 1fr); max-width: 1100px; margin: 0 auto; }
+}
+@media (min-width: 1200px) {
+  .catalog { grid-template-columns: repeat(5, 1fr); }
+}
+
+.card {
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+  -webkit-tap-highlight-color: transparent;
+}
+.card:active {
+  transform: scale(0.98);
+}
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(4, 255, 0, 0.08);
+    border-color: #333;
+  }
+}
+
+.card-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  color: #333;
+  overflow: hidden;
+}
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.badge {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--green);
+  color: #000;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.price-tag {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.82);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+}
+.loc-tag {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 3px #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-body {
+  padding: 10px 10px 12px;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+}
+
+/* Empty / loading */
+.state-box {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--muted);
+}
+.state-box .spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #222;
+  border-top-color: var(--green);
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Post page ---------- */
+.post-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.post-hero {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.post-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #111;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.post-hero h1 {
+  font-size: clamp(1.5rem, 5vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.post-hero h1 span { color: var(--gold); }
+.post-hero p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.benefit {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  text-align: center;
+}
+.benefit .ico { font-size: 1.4rem; margin-bottom: 4px; }
+.benefit strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+.benefit span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.field {
+  margin-bottom: 14px;
+}
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #bbb;
+  margin-bottom: 6px;
+}
+.req { color: var(--gold); }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid #333;
+  background: #0a0a0a;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-dim);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 480px) {
+  .row { grid-template-columns: 1fr; }
+  .benefits { grid-template-columns: 1fr 1fr; }
+}
+
+.price-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 8px;
+}
+
+.hint {
+  font-size: 11px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.terms input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--green);
+  flex-shrink: 0;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--gold);
+  color: #111;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s, transform 0.1s;
+}
+.submit-btn:hover { background: #e7b600; }
+.submit-btn:active { transform: scale(0.98); }
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.form-note {
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.success-toast {
+  display: none;
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: #0a2a0a;
+  border: 1px solid var(--green);
+  color: var(--green);
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.success-toast .success-msg { margin-bottom: 12px; }
+.success-toast .check-ad-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: var(--gold);
+  color: #111;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.success-toast .check-ad-btn:hover { background: #e7b600; }
+.success-toast .check-ad-btn:active { transform: scale(0.98); }
+.success-toast .check-ad-note {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #8a8;
+}
+
+/* ---------- Success page (after submit) ---------- */
+.success-page {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 28px 16px 48px;
+  text-align: center;
+}
+.success-page .success-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.success-page h1 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  color: #fff;
+}
+.success-page .success-lead {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.success-page .check-ad-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+  min-height: 50px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--gold);
+  color: #111;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+  margin: 0 auto 10px;
+  transition: background 0.15s, transform 0.1s;
+}
+.success-page .check-ad-btn:hover { background: #e7b600; }
+.success-page .check-ad-btn:active { transform: scale(0.98); }
+.success-page .check-ad-note {
+  display: block;
+  font-size: 12px;
+  color: #8a8;
+  margin-bottom: 22px;
+  line-height: 1.45;
+}
+.success-page .success-ad {
+  margin: 0 0 22px;
+  min-height: 100px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+}
+.success-page .success-ad .ad-label {
+  margin-bottom: 6px;
+}
+.success-page .post-new-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+  min-height: 50px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--green);
+  color: #000;
+  font-size: 15px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.success-page .post-new-btn:hover { opacity: 0.92; }
+.success-page .post-new-btn:active { transform: scale(0.98); }
+.success-page .back-browse {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.success-page .back-browse:hover { color: var(--green); }
+
+/* ---------- Modal (ad detail) ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.88);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+}
+.modal-overlay.open {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal {
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 520px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  padding: 12px 20px calc(24px + var(--safe-bottom));
+  position: relative;
+  animation: slideUp 0.28s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: #444;
+  margin: 0 auto 16px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--elevated);
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.modal-icon {
+  font-size: 2.8rem;
+  margin-bottom: 8px;
+}
+.modal h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  padding-right: 40px;
+}
+.modal-price {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.modal-img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  max-height: 280px;
+  object-fit: cover;
+}
+.modal-desc {
+  white-space: pre-wrap;
+  line-height: 1.65;
+  color: #ccc;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.contact-box {
+  background: #0a0a0a;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+.contact-box strong {
+  color: var(--green);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.contact-box a {
+  color: var(--green);
+  display: inline-block;
+  margin-top: 4px;
+}
+
+/* ---------- More / About sheet ---------- */
+.more-page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+.more-page h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.more-page > p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+.menu-list {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.menu-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.12s;
+}
+.menu-list a:last-child { border-bottom: 0; }
+.menu-list a:active { background: var(--elevated); }
+.menu-list a span { color: var(--muted); font-size: 18px; }
+
+.footer-mini {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Top bar -->
+  <header class="app-bar">
+    <a class="logo" href="#" onclick="showPage('browse'); return false;">M2A<span>Ads</span></a>
+    <div class="app-bar-actions">
+      <button class="icon-btn" type="button" aria-label="Search" onclick="focusSearch()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== BROWSE ========== -->
+  <main class="page active" id="page-browse">
+    <div class="browse-header">
+      <p class="browse-kicker">UK &amp; EU</p>
+      <h1 class="browse-title">Buy, Sell &amp; Promote</h1>
+      <p class="browse-sub">Free classifieds · No signup needed</p>
+    </div>
+
+    <div class="controls">
+      <div class="search-wrap" id="searchWrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input class="search-input" id="searchInput" type="search" placeholder="Search ads, location, category…" aria-label="Search classified ads" autocomplete="off">
+        <button class="search-clear" id="searchClear" type="button" aria-label="Clear">×</button>
+      </div>
+      <div class="chips" role="tablist" aria-label="Categories">
+        <button class="chip active" data-filter="all" type="button">All</button>
+        <button class="chip" data-filter="Cars" type="button">🚗 Cars</button>
+        <button class="chip" data-filter="Jobs" type="button">💼 Jobs</button>
+        <button class="chip" data-filter="Real Estate" type="button">🏠 Property</button>
+        <button class="chip" data-filter="Electronics" type="button">📱 Electronics</button>
+        <button class="chip" data-filter="Services" type="button">🛠 Services</button>
+        <button class="chip" data-filter="Pets" type="button">🐾 Pets</button>
+        <button class="chip" data-filter="Other" type="button">📦 More</button>
+      </div>
+    </div>
+
+    <div class="results-info" id="resultsInfo" aria-live="polite"></div>
+
+    <!-- AdSense (top of home) -->
+    <div class="ad-slot">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2269884583846743" data-ad-slot="2906167922" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+    <!-- mm5 Latest Posts Slider (from ads.marketing2advertising.com) -->
+    <div id="mm5-latest-slider">
+      <div class="mm5-slider-title">🎬 Latest New Ads</div>
+      <div class="mm5-slider-window">
+        <div class="mm5-slider-track" id="mm5LatestTrack">
+          <div class="mm5-slider-loading">Loading latest ads…</div>
+        </div>
+      </div>
+      <button class="mm5-arrow mm5-prev" id="mm5LatestPrev" aria-label="Previous">❮</button>
+      <button class="mm5-arrow mm5-next" id="mm5LatestNext" aria-label="Next">❯</button>
+      <div class="mm5-dots" id="mm5LatestDots"></div>
+    </div>
+
+    <section class="catalog" id="catalog" aria-live="polite">
+      <div class="state-box"><div class="spinner"></div>Loading ads…</div>
+    </section>
+  </main>
+
+  <!-- ========== POST ========== -->
+  <main class="page" id="page-post">
+    <div class="post-page">
+      <div class="post-hero">
+        <div class="post-badge">📢 Free Classified Ads</div>
+        <h1>Post Your <span>Free Ad</span></h1>
+        <p>No account. List cars, jobs, property, services & more across the UK and EU.</p>
+      </div>
+
+      <div class="benefits">
+        <div class="benefit"><div class="ico">🆓</div><strong>Free</strong><span>No fees</span></div>
+        <div class="benefit"><div class="ico">⚡</div><strong>Fast</strong><span>2 min form</span></div>
+        <div class="benefit"><div class="ico">📍</div><strong>UK + EU</strong><span>All locations</span></div>
+        <div class="benefit"><div class="ico">🔒</div><strong>No login</strong><span>Just submit</span></div>
+      </div>
+
+      <div class="form-card">
+        <form id="adForm" action="https://formsubmit.co/ajax/marketing2advertising.com@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Free Classified Ad - UK/EU">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="Ad_Source" value="FreeAds UK EU">
+
+          <div class="section-title"><span>📋</span> Ad details</div>
+
+          <div class="field">
+            <label for="adTitle">Title <span class="req">*</span></label>
+            <input id="adTitle" name="Ad_Title" maxlength="100" placeholder="e.g. Toyota Corolla 2019" required>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="adCategory">Category <span class="req">*</span></label>
+              <select id="adCategory" name="Category" required>
+                <option value="">Select…</option>
+                <option value="Cars">🚗 Cars</option>
+                <option value="Jobs">💼 Jobs</option>
+                <option value="Real Estate">🏠 Real Estate</option>
+                <option value="Electronics">📱 Electronics</option>
+                <option value="Business">🏢 Business</option>
+                <option value="Services">🛠 Services</option>
+                <option value="Fashion">👗 Fashion</option>
+                <option value="Education">🎓 Education</option>
+                <option value="Agriculture">🌱 Agriculture</option>
+                <option value="Home & Furniture">🛋 Home & Furniture</option>
+                <option value="Pets">🐾 Pets</option>
+                <option value="Other">📦 Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="adType">Listing type</label>
+              <select id="adType" name="Listing_Type">
+                <option value="">Select…</option>
+                <option value="For Sale">For Sale</option>
+                <option value="For Rent">For Rent</option>
+                <option value="Wanted">Wanted</option>
+                <option value="Job Offer">Job Offer</option>
+                <option value="Job Seeker">Job Seeker</option>
+                <option value="Service">Service</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="adCondition">Condition</label>
+              <select id="adCondition" name="Condition">
+                <option value="">Select…</option>
+                <option value="New">New</option>
+                <option value="Used">Used</option>
+                <option value="Refurbished">Refurbished</option>
+                <option value="Not Applicable">N/A</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="adPrice">Price</label>
+              <div class="price-row">
+                <select id="adCurrency" name="Currency">
+                  <option value="GBP">£ GBP</option>
+                  <option value="EUR">€ EUR</option>
+                  <option value="USD">$ USD</option>
+                </select>
+                <input id="adPrice" name="Price" placeholder="or Negotiable" type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="adLocation">Location <span class="req">*</span></label>
+            <input id="adLocation" name="Location" list="locations" placeholder="London, Dublin, Berlin…" required>
+            <datalist id="locations">
+              <option value="London, England">
+              <option value="Manchester, England">
+              <option value="Birmingham, England">
+              <option value="Glasgow, Scotland">
+              <option value="Edinburgh, Scotland">
+              <option value="Dublin, Ireland">
+              <option value="Berlin, Germany">
+              <option value="Paris, France">
+              <option value="Madrid, Spain">
+              <option value="Rome, Italy">
+              <option value="Amsterdam, Netherlands">
+              <option value="Brussels, Belgium">
+              <option value="Lisbon, Portugal">
+              <option value="Warsaw, Poland">
+              <option value="Stockholm, Sweden">
+              <option value="Vienna, Austria">
+              <option value="Copenhagen, Denmark">
+              <option value="Athens, Greece">
+            </datalist>
+          </div>
+
+          <div class="field">
+            <label for="adDesc">Description <span class="req">*</span></label>
+            <textarea id="adDesc" name="Description" maxlength="5000" placeholder="Describe your offer…" required></textarea>
+          </div>
+
+          <div class="section-title" style="margin-top:8px"><span>📸</span> Photos</div>
+          <p class="hint" style="margin-bottom:12px">Paste up to 3 direct image URLs</p>
+          <div class="field">
+            <label for="img1">Main photo URL</label>
+            <input id="img1" name="Image_URL_1" type="url" placeholder="https://…">
+          </div>
+          <div class="field">
+            <label for="img2">Photo 2</label>
+            <input id="img2" name="Image_URL_2" type="url" placeholder="Optional">
+          </div>
+          <div class="field">
+            <label for="img3">Photo 3</label>
+            <input id="img3" name="Image_URL_3" type="url" placeholder="Optional">
+          </div>
+
+          <div class="section-title" style="margin-top:8px"><span>📞</span> Contact</div>
+          <div class="row">
+            <div class="field">
+              <label for="sellerName">Name <span class="req">*</span></label>
+              <input id="sellerName" name="Seller_Name" required>
+            </div>
+            <div class="field">
+              <label for="sellerPhone">Phone / WhatsApp <span class="req">*</span></label>
+              <input id="sellerPhone" name="Phone" type="tel" placeholder="+44…" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sellerEmail">Email</label>
+            <input id="sellerEmail" name="Email" type="email">
+          </div>
+
+          <input type="text" name="_honey" style="display:none!important" tabindex="-1" autocomplete="off">
+
+          <label class="terms">
+            <input type="checkbox" name="Posting_Agreement" value="ok" required>
+            <span>I confirm the information is accurate and I am allowed to post it.</span>
+          </label>
+
+          <button class="submit-btn" id="submitBtn" type="submit">📢 Post My Free Ad →</button>
+          <p class="form-note">No account required. Submission is reviewed; a local preview is stored in this browser.</p>
+          <div class="success-toast" id="successToast">
+            <div class="success-msg">✅ Ad submitted successfully</div>
+            <a class="check-ad-btn" href="https://ads.marketing2advertising.com/" target="_blank" rel="noopener noreferrer">🔎 Check your ad here after 24 hr</a>
+            <span class="check-ad-note">Your ad is under review and usually goes live within 24 hours.</span>
+          </div>
+
+          <div style="margin-top:20px">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2269884583846743" data-ad-slot="2906167922" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== SUCCESS (after submit) ========== -->
+  <main class="page" id="page-success">
+    <div class="success-page">
+      <div class="success-icon">✅</div>
+      <h1>Ad saved</h1>
+      <p class="success-lead">A local preview is in Browse. Your listing is under review.</p>
+      <a class="check-ad-btn" href="https://ads.marketing2advertising.com/" target="_blank" rel="noopener noreferrer">🔎 Check your ad here after 24 hr</a>
+      <span class="check-ad-note">Your ad is under review and usually goes live within 24 hours.</span>
+      <div class="success-ad">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2269884583846743" data-ad-slot="2906167922" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+      <button class="post-new-btn" type="button" onclick="showPage('post')">📢 Post a new ad</button>
+      <a class="back-browse" href="#" onclick="showPage('browse'); return false;">← Back to Browse</a>
+    </div>
+  </main>
+
+  <!-- ========== MORE ========== -->
+  <main class="page" id="page-more">
+    <div class="more-page">
+      <h2>More</h2>
+      <p>Free classifieds for the UK and all EU countries.</p>
+      <nav class="menu-list">
+        <a href="https://www.marketing2advertising.com/p/about-us.html">About us <span>›</span></a>
+        <a href="https://www.marketing2advertising.com/p/contact-us.html">Contact <span>›</span></a>
+        <a href="https://www.marketing2advertising.com/p/privacy-policy.html">Privacy policy <span>›</span></a>
+      </nav>
+      <p class="footer-mini">© <span id="year"></span> M2A ADS</p>
+    </div>
+  </main>
+
+  <!-- Bottom nav -->
+  <nav class="bottom-nav" aria-label="Main">
+    <button class="nav-item active" id="nav-browse" type="button" onclick="showPage('browse')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.5z"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" id="nav-search" type="button" onclick="showPage('browse'); focusSearch();">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span>Search</span>
+    </button>
+    <button class="nav-item fab" id="nav-post" type="button" onclick="showPage('post')">
+      <div class="fab-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="28" height="28" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+      </div>
+      <span>Post</span>
+    </button>
+    <button class="nav-item" id="nav-more" type="button" onclick="showPage('more')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+      <span>More</span>
+    </button>
+  </nav>
+</div>
+
+<!-- Ad detail modal -->
+<div class="modal-overlay" id="adModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" type="button" onclick="closeModal()" aria-label="Close">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var KEY = "freeads_uk_eu_v1";
+  var state = { items: [], filter: "all", query: "" };
+
+  var SEED = [
+    { id: "s1", title: "2019 VW Golf – Low Mileage", category: "Cars", location: "Amsterdam, Netherlands", price: "€14,900", description: "One owner, full history, 62k km.", contact: "+31 6 1234567", name: "Mark", image: "", date: Date.now() - 1e5 },
+    { id: "s2", title: "Junior Frontend Dev – Remote", category: "Jobs", location: "London, England", price: "£35k–£45k", description: "React experience. Remote OK.", contact: "hr@example.com", name: "HR", image: "", date: Date.now() - 2e5 },
+    { id: "s3", title: "1-Bed Flat Dublin Centre", category: "Real Estate", location: "Dublin, Ireland", price: "€1,650/mo", description: "Near Luas. Bills not included.", contact: "landlord@example.com", name: "Aoife", image: "", date: Date.now() - 3e5 },
+    { id: "s4", title: "iPhone 14 Pro 128GB", category: "Electronics", location: "Manchester, England", price: "£520", description: "Excellent condition, box included.", contact: "seller@example.com", name: "James", image: "", date: Date.now() - 4e5 },
+    { id: "s5", title: "House Cleaning Berlin", category: "Services", location: "Berlin, Germany", price: "€25/hr", description: "Reliable, eco-friendly products.", contact: "+49 170 1234567", name: "Lena", image: "", date: Date.now() - 5e5 },
+    { id: "s6", title: "British Shorthair Kittens", category: "Pets", location: "Edinburgh, Scotland", price: "£650", description: "Vaccinated, microchipped.", contact: "breeder@example.com", name: "Sarah", image: "", date: Date.now() - 6e5 },
+    { id: "s7", title: "Spanish Tutor Madrid", category: "Education", location: "Madrid, Spain", price: "€20/hr", description: "Native speaker, all levels.", contact: "tutor@example.com", name: "Carlos", image: "", date: Date.now() - 7e5 },
+    { id: "s8", title: "IKEA Sofa Set", category: "Home & Furniture", location: "Birmingham, England", price: "£180", description: "Almost new grey fabric set.", contact: "move@example.com", name: "Emma", image: "", date: Date.now() - 8e5 }
+  ];
+
+  function load() {
+    try {
+      var s = localStorage.getItem(KEY);
+      state.items = s ? JSON.parse(s) : SEED.slice();
+      if (!s) save();
+    } catch (e) {
+      state.items = SEED.slice();
+    }
+  }
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state.items)); } catch (e) {}
+  }
+
+  function esc(v) {
+    return String(v == null ? "" : v)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function match(item) {
+    var q = String(state.query || "").toLowerCase();
+    if (!q) return true;
+    return [item.title, item.category, item.location, item.description, item.price, item.name]
+      .join(" ").toLowerCase().indexOf(q) !== -1;
+  }
+
+  function icon(cat) {
+    var map = {
+      Cars: "🚗", Jobs: "💼", "Real Estate": "🏠", Electronics: "📱",
+      Business: "🏢", Services: "🛠", Fashion: "👗", Education: "🎓",
+      Agriculture: "🌱", "Home & Furniture": "🛋", Pets: "🐾"
+    };
+    return map[cat] || "📦";
+  }
+
+  function ago(date) {
+    var mins = Math.max(0, Math.floor((Date.now() - (date || Date.now())) / 60000));
+    if (mins < 1) return "Just now";
+    if (mins < 60) return mins + "m ago";
+    var hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + "h ago";
+    return Math.floor(hrs / 24) + "d ago";
+  }
+
+  function render() {
+    var g = document.getElementById("catalog");
+    if (!g) return;
+
+    var list = state.items
+      .filter(function (i) {
+        var catOk = state.filter === "all" ||
+          (state.filter === "Other"
+            ? ["Cars", "Jobs", "Real Estate", "Electronics", "Services", "Pets"].indexOf(i.category) === -1
+            : i.category === state.filter);
+        return catOk && match(i);
+      })
+      .sort(function (a, b) { return (b.date || 0) - (a.date || 0); });
+
+    var info = document.getElementById("resultsInfo");
+    if (state.query) {
+      info.classList.add("show");
+      info.innerHTML = "Found <strong>" + list.length + "</strong> for <strong>" + esc(state.query) + "</strong>";
+    } else {
+      info.classList.remove("show");
+      info.innerHTML = "";
+    }
+
+    if (!list.length) {
+      g.innerHTML = '<div class="state-box">' +
+        (state.query ? "No results for that search." : "No ads yet. Be the first to post!") +
+        "</div>";
+      return;
+    }
+
+    var h = "";
+    list.forEach(function (item, idx) {
+      if (idx > 0 && idx % 8 === 0) {
+        h += '<div class="ad-slot" style="grid-column:1/-1"><div class="ad-label">Advertisement</div>' +
+          '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2269884583846743" data-ad-slot="2906167922" data-ad-format="auto" data-full-width-responsive="true"></ins></div>';
+      }
+      var t = esc(item.title);
+      var p = esc(item.price || "Negotiable");
+      var l = esc(item.location || "");
+      var c = esc(item.category || "Other");
+      var ic = icon(item.category);
+      var img = item.image
+        ? '<img src="' + esc(item.image) + '" alt="' + t + '" loading="lazy">'
+        : ic;
+
+      h += '<article class="card">' +
+        '<a href="#" onclick="openAd(\'' + esc(item.id) + '\'); return false">' +
+        '<div class="card-media">' + img +
+        '<span class="badge">' + c + '</span>' +
+        (p ? '<span class="price-tag">' + p + '</span>' : '') +
+        (l ? '<span class="loc-tag">📍 ' + l + '</span>' : '') +
+        '</div>' +
+        '<div class="card-body"><div class="card-title">' + t + '</div></div>' +
+        '</a></article>';
+    });
+    g.innerHTML = h;
+    // Fill any newly inserted AdSense units
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {}
+  }
+
+  window.openAd = function (id) {
+    var item = state.items.find(function (a) { return a.id === id; });
+    if (!item) return;
+    document.getElementById("modalContent").innerHTML =
+      '<div class="modal-icon">' + icon(item.category) + '</div>' +
+      '<h2>' + esc(item.title) + '</h2>' +
+      '<div class="modal-price">' + esc(item.price || "Negotiable") + '</div>' +
+      '<div class="modal-meta">' +
+      '<span>📍 ' + esc(item.location || "") + '</span>' +
+      '<span>📂 ' + esc(item.category || "") + '</span>' +
+      '<span>' + ago(item.date) + '</span>' +
+      '</div>' +
+      (item.image ? '<img class="modal-img" src="' + esc(item.image) + '" alt="">' : '') +
+      '<p class="modal-desc">' + esc(item.description || "") + '</p>' +
+      '<div class="contact-box"><strong>Contact</strong>' +
+      (item.name ? esc(item.name) + '<br>' : '') +
+      (item.contact ? '<a href="tel:' + esc(item.contact) + '">' + esc(item.contact) + '</a><br>' : '') +
+      (item.email ? '<a href="mailto:' + esc(item.email) + '">' + esc(item.email) + '</a>' : '') +
+      '</div>';
+    document.getElementById("adModal").classList.add("open");
+    document.body.style.overflow = "hidden";
+  };
+
+  window.closeModal = function () {
+    document.getElementById("adModal").classList.remove("open");
+    document.body.style.overflow = "";
+  };
+
+  document.getElementById("adModal").addEventListener("click", function (e) {
+    if (e.target === this) closeModal();
+  });
+
+  window.showPage = function (p) {
+    ["browse", "post", "more", "success"].forEach(function (name) {
+      var el = document.getElementById("page-" + name);
+      if (el) el.classList.toggle("active", name === p);
+    });
+    document.querySelectorAll(".nav-item").forEach(function (n) {
+      n.classList.remove("active");
+    });
+    var navKey = p === "success" ? "post" : p;
+    var nav = document.getElementById("nav-" + (navKey === "post" ? "post" : navKey));
+    if (nav) nav.classList.add("active");
+
+    if (p === "browse") render();
+    if (p === "success") {
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {}
+    }
+    window.scrollTo(0, 0);
+
+    if (p === "post") history.replaceState(null, "", location.pathname + "#post");
+    else if (p === "more") history.replaceState(null, "", location.pathname + "#more");
+    else if (p === "success") history.replaceState(null, "", location.pathname + "#success");
+    else history.replaceState(null, "", location.pathname);
+  };
+
+  window.focusSearch = function () {
+    var input = document.getElementById("searchInput");
+    if (input) {
+      input.focus();
+      input.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  window.filterAndBrowse = function (c) {
+    state.filter = c || "all";
+    state.query = "";
+    var s = document.getElementById("searchInput");
+    if (s) s.value = "";
+    document.getElementById("searchWrap").classList.remove("has-value");
+    document.querySelectorAll(".chip").forEach(function (t) {
+      t.classList.toggle("active", (t.getAttribute("data-filter") || "all") === state.filter);
+    });
+    showPage("browse");
+  };
+
+  // Search
+  var timer = null;
+  var searchInput = document.getElementById("searchInput");
+  var searchWrap = document.getElementById("searchWrap");
+  var searchClear = document.getElementById("searchClear");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        state.query = searchInput.value.trim();
+        searchWrap.classList.toggle("has-value", !!state.query);
+        render();
+      }, 120);
+    });
+  }
+  if (searchClear) {
+    searchClear.addEventListener("click", function () {
+      clearTimeout(timer);
+      searchInput.value = "";
+      state.query = "";
+      searchWrap.classList.remove("has-value");
+      render();
+    });
+  }
+
+  // Chips
+  document.querySelectorAll(".chip").forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("active"); });
+      chip.classList.add("active");
+      state.filter = chip.getAttribute("data-filter") || "all";
+      render();
+    });
+  });
+
+  // Form
+  var form = document.getElementById("adForm");
+  var submitBtn = document.getElementById("submitBtn");
+  var successToast = document.getElementById("successToast");
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (submitBtn.disabled) return;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting…";
+
+      var cur = document.getElementById("adCurrency").value;
+      var pv = document.getElementById("adPrice").value.trim();
+      var pd = pv ? (cur === "GBP" ? "£" : cur === "EUR" ? "€" : "$") + pv : "Negotiable";
+
+      var ad = {
+        id: "local_" + Date.now(),
+        title: document.getElementById("adTitle").value.trim(),
+        category: document.getElementById("adCategory").value,
+        location: document.getElementById("adLocation").value.trim(),
+        price: pd,
+        description: document.getElementById("adDesc").value.trim(),
+        contact: document.getElementById("sellerPhone").value.trim(),
+        email: document.getElementById("sellerEmail").value.trim(),
+        name: document.getElementById("sellerName").value.trim(),
+        image: document.getElementById("img1").value.trim() || "",
+        date: Date.now()
+      };
+
+      state.items.unshift(ad);
+      save();
+
+      var fd = new FormData(form);
+      fetch(form.action, {
+        method: "POST",
+        body: fd,
+        headers: { Accept: "application/json" }
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error();
+          return r.json().catch(function () { return {}; });
+        })
+        .then(function () {
+          form.reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = "📢 Post My Free Ad →";
+          showPage("success");
+        })
+        .catch(function () {
+          form.reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = "📢 Post My Free Ad →";
+          showPage("success");
+        });
+    });
+  }
+
+  // Init
+  function init() {
+    var y = document.getElementById("year");
+    if (y) y.textContent = new Date().getFullYear();
+    load();
+    render();
+    if (location.hash === "#post") showPage("post");
+    else if (location.hash === "#more") showPage("more");
+    else if (location.hash === "#success") showPage("success");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<!-- mm5 ALL POSTS SLIDER LOADER -->
+
+
+
+
+
+<!-- mm5 Latest Posts Slider — single robust loader -->
+<script>
+(function () {
+  "use strict";
+
+  // Primary + fallbacks (JSONP works cross-domain)
+  var FEEDS = [
+    "https://ads.marketing2advertising.com",
+    "https://www.marketing2advertising.com",
+    "https://naka.marketing2advertising.com"
+  ];
+  var POST_COUNT = 30;
+  var feedIndex = 0;
+
+  var track = document.getElementById("mm5LatestTrack");
+  var dots = document.getElementById("mm5LatestDots");
+  var prev = document.getElementById("mm5LatestPrev");
+  var next = document.getElementById("mm5LatestNext");
+  if (!track) return;
+
+  var currentIndex = 0;
+  var autoTimer = null;
+  var loadTimer = null;
+  var loaded = false;
+
+  function escapeHTML(text) {
+    if (!text) return "";
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function getPostUrl(entry) {
+    if (!entry || !entry.link) return "#";
+    for (var i = 0; i < entry.link.length; i++) {
+      if (entry.link[i].rel === "alternate") return entry.link[i].href;
+    }
+    return "#";
+  }
+
+  function getPostImage(entry) {
+    var image = "https://via.placeholder.com/800x1000?text=No+Image";
+    try {
+      if (entry.media$thumbnail && entry.media$thumbnail.url) {
+        image = entry.media$thumbnail.url
+          .replace("/s72-c/", "/s800/")
+          .replace("=s72-c", "=s800")
+          .replace("/s72/", "/s800/");
+      } else if (entry.content && entry.content.$t) {
+        var match = entry.content.$t.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (match && match[1]) image = match[1];
+      } else if (entry.summary && entry.summary.$t) {
+        var summaryMatch = entry.summary.$t.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (summaryMatch && summaryMatch[1]) image = summaryMatch[1];
+      }
+    } catch (e) {}
+    return image;
+  }
+
+  function getDate(entry) {
+    if (!entry.published || !entry.published.$t) return "";
+    var date = new Date(entry.published.$t);
+    if (isNaN(date.getTime())) return "";
+    return date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+  }
+
+  function getSlideWidth() {
+    var slide = track.querySelector(".mm5-slide");
+    if (!slide) return 0;
+    return slide.getBoundingClientRect().width || 300;
+  }
+
+  function maxIndex() {
+    var slides = track.querySelectorAll(".mm5-slide");
+    if (!slides.length) return 0;
+    var container = track.parentElement;
+    var w = getSlideWidth();
+    if (!w) return 0;
+    var visible = Math.floor(container.clientWidth / w);
+    if (visible < 1) visible = 1;
+    return Math.max(0, slides.length - visible);
+  }
+
+  function updateDots() {
+    if (!dots) return;
+    var allDots = dots.querySelectorAll(".mm5-dot");
+    for (var i = 0; i < allDots.length; i++) {
+      allDots[i].classList.toggle(
+        "active",
+        i === Math.min(currentIndex, allDots.length - 1)
+      );
+    }
+  }
+
+  function updateSlider() {
+    var width = getSlideWidth();
+    if (!width) return;
+    track.style.transform = "translateX(-" + (currentIndex * width) + "px)";
+    updateDots();
+  }
+
+  function goNext() {
+    var max = maxIndex();
+    currentIndex++;
+    if (currentIndex > max) currentIndex = 0;
+    updateSlider();
+  }
+
+  function goPrev() {
+    var max = maxIndex();
+    currentIndex--;
+    if (currentIndex < 0) currentIndex = max;
+    updateSlider();
+  }
+
+  function createDots(count) {
+    if (!dots) return;
+    dots.innerHTML = "";
+    var dotCount = Math.min(count, 10);
+    for (var i = 0; i < dotCount; i++) {
+      var dot = document.createElement("span");
+      dot.className = "mm5-dot";
+      (function (index) {
+        dot.addEventListener("click", function () {
+          currentIndex = Math.min(index, maxIndex());
+          updateSlider();
+          restartAuto();
+        });
+      })(i);
+      dots.appendChild(dot);
+    }
+  }
+
+  function startAuto() {
+    clearInterval(autoTimer);
+    if (track.querySelectorAll(".mm5-slide").length > 1) {
+      autoTimer = setInterval(goNext, 5000);
+    }
+  }
+
+  function restartAuto() {
+    startAuto();
+  }
+
+  function renderEntries(entries) {
+    if (!entries || !entries.length) {
+      track.innerHTML = '<div class="mm5-slider-loading">No latest posts found.</div>';
+      return;
+    }
+    var html = "";
+    for (var i = 0; i < entries.length; i++) {
+      var entry = entries[i];
+      var title = entry.title && entry.title.$t ? entry.title.$t : "Untitled";
+      var url = getPostUrl(entry);
+      var image = getPostImage(entry);
+      var date = getDate(entry);
+      html +=
+        '<div class="mm5-slide">' +
+          '<a href="' + escapeHTML(url) + '" title="' + escapeHTML(title) + '" rel="noopener noreferrer" target="_blank">' +
+            '<div class="mm5-slide-image">' +
+              '<img src="' + escapeHTML(image) + '" alt="' + escapeHTML(title) + '" loading="' + (i < 3 ? "eager" : "lazy") + '"/>' +
+              '<div class="mm5-slide-overlay"></div>' +
+              '<div class="mm5-play">&#9654;</div>' +
+              '<div class="mm5-slide-content">' +
+                '<div class="mm5-slide-title">' + escapeHTML(title) + '</div>' +
+                '<div class="mm5-slide-date">' + escapeHTML(date) + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</a>' +
+        '</div>';
+    }
+    track.innerHTML = html;
+    createDots(entries.length);
+    currentIndex = 0;
+    // wait a tick for layout
+    setTimeout(function () {
+      updateSlider();
+      startAuto();
+    }, 50);
+  }
+
+  window.mm5LatestSliderCallback = function (json) {
+    clearTimeout(loadTimer);
+    if (loaded) return;
+    var entries = json && json.feed && json.feed.entry ? json.feed.entry : [];
+    if (!entries.length) {
+      // try next feed
+      tryNextFeed();
+      return;
+    }
+    loaded = true;
+    renderEntries(entries);
+  };
+
+  function tryNextFeed() {
+    if (feedIndex >= FEEDS.length) {
+      track.innerHTML = '<div class="mm5-slider-loading">Unable to load latest posts.</div>';
+      return;
+    }
+    var base = FEEDS[feedIndex++];
+    var script = document.createElement("script");
+    script.src =
+      base +
+      "/feeds/posts/default" +
+      "?alt=json-in-script" +
+      "&max-results=" + POST_COUNT +
+      "&orderby=published" +
+      "&callback=mm5LatestSliderCallback";
+    script.async = true;
+    script.onerror = function () {
+      tryNextFeed();
+    };
+    document.body.appendChild(script);
+  }
+
+  if (prev) {
+    prev.addEventListener("click", function () {
+      goPrev();
+      restartAuto();
+    });
+  }
+  if (next) {
+    next.addEventListener("click", function () {
+      goNext();
+      restartAuto();
+    });
+  }
+
+  window.addEventListener("resize", function () {
+    currentIndex = 0;
+    updateSlider();
+  });
+
+  // timeout fallback message
+  loadTimer = setTimeout(function () {
+    if (!loaded) {
+      track.innerHTML = '<div class="mm5-slider-loading">Still loading… checking backup feeds…</div>';
+    }
+  }, 6000);
+
+  // start
+  tryNextFeed();
+})();
+</script>
+
+</body>
+</html>
