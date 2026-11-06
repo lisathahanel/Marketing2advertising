@@ -1,236 +1,760 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
-     crossorigin="anonymous"></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="index, follow">
-<meta name="googlebot" content="index, follow">
-<title>ABOUT US · Marketing2Advertising</title>
-<meta name="description" content="Founded in 2015, Marketing2Advertising (M2A) is a global super everything platform specializing in anything related to the internet , Web development">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <title>About Us · Marketing2Advertising (M2A)</title>
+  <meta name="description" content="Founded in 2015, Marketing2Advertising (M2A) is a global platform specializing in web development, digital content, education, careers and advertising solutions.">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
+       crossorigin="anonymous"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ===== MIXED SITE HEADER ===== */
+    .super-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-logo {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+
+    .nav-logo span {
+      font-size: 1.3rem;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+      background: rgba(59, 130, 246, 0.2);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #e2e8f0;
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Search */
+    .movie-search {
+      position: relative;
+      min-width: 180px;
+    }
+
+    .movie-search input {
+      width: 100%;
+      padding: 9px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(30, 41, 59, 0.6);
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .movie-search input:focus {
+      border-color: #3b82f6;
+      background: rgba(30, 41, 59, 0.9);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .movie-search input::placeholder {
+      color: #94a3b8;
+    }
+
+    .live-results {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      right: 0;
+      background: #1e293b;
+      border-radius: 12px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+      z-index: 100;
+    }
+
+    /* Mobile Menu */
+    @media (max-width: 980px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #0f172a;
+        flex-direction: column;
+        padding: 16px;
+        gap: 4px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        display: none;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 12px 16px;
+        font-size: 1rem;
+      }
+
+      .movie-search {
+        display: none;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+      50% { box-shadow: 0 0 35px rgba(59, 130, 246, 0.55); }
+    }
+
+    .animate {
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+    .delay-4 { animation-delay: 0.6s; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      padding: 80px 20px 100px;
+      text-align: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, transparent 70%);
+      top: -150px;
+      left: -100px;
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%);
+      bottom: -100px;
+      right: -80px;
+      border-radius: 50%;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      background: linear-gradient(to right, #ffffff, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      max-width: 620px;
+      margin: 0 auto 30px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #60a5fa;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .container {
+      max-width: 900px;
+      margin: -50px auto 60px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ===== AD BOX ===== */
+    .ad-box {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 20px;
+      padding: 16px;
+      margin: 28px 0;
+      text-align: center;
+      min-height: 100px;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: rgba(30, 41, 59, 0.65);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: 24px;
+      padding: 36px 32px;
+      margin-bottom: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 18px;
+    }
+
+    .section-title span {
+      font-size: 1.6rem;
+    }
+
+    .card p {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+    }
+
+    /* ===== SERVICES GRID ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .service-item {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 16px;
+      padding: 22px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .service-item:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.35);
+      transform: translateY(-4px);
+    }
+
+    .service-item h3 {
+      font-size: 1.05rem;
+      color: #93c5fd;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .service-item p {
+      font-size: 0.92rem;
+      color: #94a3b8;
+    }
+
+    /* ===== VALUES ===== */
+    .values-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .value-item {
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 14px;
+      padding: 18px 16px;
+      border-left: 4px solid #3b82f6;
+      transition: all 0.3s ease;
+    }
+
+    .value-item:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-left-color: #60a5fa;
+    }
+
+    .value-item strong {
+      display: block;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .value-item span {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    /* ===== HIGHLIGHT BOX ===== */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(234, 88, 12, 0.08));
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 20px;
+      padding: 28px;
+      margin: 28px 0;
+    }
+
+    .highlight-box h2 {
+      color: #fbbf24;
+      font-size: 1.35rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .highlight-box p {
+      color: #e2e8f0;
+      margin-bottom: 12px;
+    }
+
+    .highlight-box ul {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .highlight-box li {
+      padding: 8px 0;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-box {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.1));
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    .contact-box h2 {
+      color: #93c5fd;
+      margin-bottom: 12px;
+      font-size: 1.35rem;
+    }
+
+    .contact-box a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      margin-top: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-box a:hover {
+      background: #1d4ed8;
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #020617;
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .footer-links {
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      color: #60a5fa;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #93c5fd;
+    }
+
+    .copyright {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .hero {
+        padding: 60px 16px 80px;
+      }
+      .card {
+        padding: 26px 20px;
+      }
+      .hero-stats {
+        gap: 24px;
+      }
+      .stat-number {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<style>
-body{
-    background:#f5f5f5;
-    margin:0;
-    padding:0;
-}
-.post-body{
-    max-width:780px;
-    margin:40px auto;
-    padding:30px 25px;
-    background:#ffffff;
-    border-radius:12px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.05);
-    box-sizing:border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    color:#222;
-    line-height:1.7;
-}
-.post-body p{
-    font-size:18px;
-    margin-bottom:1.5em;
-    color:#333;
-}
-.post-body h1,
-.post-body h2,
-.post-body h3,
-.post-body h4,
-.post-body h5,
-.post-body h6{
-    font-family:Georgia, "Times New Roman", serif;
-    font-weight:700;
-    margin:2em 0 0.8em;
-    line-height:1.3;
-}
-.post-body h1{ font-size:36px; }
-.post-body h2{ font-size:30px; }
-.post-body h3{ font-size:24px; }
-.post-body h4{ font-size:20px; }
-.post-body h5{ font-size:18px; }
-.post-body h6{ font-size:16px; }
-.post-body ul,
-.post-body ol{
-    padding-left:25px;
-    margin-bottom:1.5em;
-}
-.post-body blockquote{
-    border-left:4px solid #04ff00;
-    background:#f9f9f9;
-    padding:15px 18px;
-    font-style:italic;
-    color:#555;
-    border-radius:6px;
-}
-.post-body img{
-    display:block;
-    max-width:100%;
-    height:auto;
-    margin:25px auto;
-    border-radius:10px;
-}
-.post-body table{
-    width:100%;
-    border-collapse:collapse;
-    margin:20px 0;
-}
-.post-body th,
-.post-body td{
-    border:1px solid #ddd;
-    padding:10px;
-}
-.post-body th{
-    background:#111;
-    color:#fff;
-}
-@media (max-width:768px){
-    .post-body{
-        margin:20px auto;
-        padding:20px 15px;
-    }
-    .post-body p{
-        font-size:16.5px;
-    }
-    .post-body h1{ font-size:28px; }
-    .post-body h2{ font-size:24px; }
-    .post-body h3{ font-size:21px; }
-}
-</style>
 
-<div class="post-body">
-
-<!-- ================= GOOGLE ADSENSE ================= -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
-     crossorigin="anonymous"></script>
-
-<!-- ================= TOP AD ================= -->
-<ins class="adsbygoogle"
-  style="display:block; margin:20px 0;"
-  data-ad-client="ca-pub-2269884583846743"
-  data-ad-slot="2906167922"
-  data-ad-format="auto"
-  data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-
-<p>&nbsp;</p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXswEJOYIQ4OnjOxL9mcSo-9pzOYjULjd9vJNKIveQH0P8E3rV8KTz7TboENwi1CSjcrXraHJIomdU6NJz0xGNQsk49oxJJ60lWrfPUjHGb-AyLWE82OfU1ShOcFP-X8dt5cN9xzqTlKk7xp6cdfvGTaQeJVAkQk8-liO1Mr6FPYWSaz-lmIGeuLP34tfv/s1504/flat-clapperboard-icon_1063-38.jpg" style="margin-left: 1em; margin-right: 1em;"><img alt="ob opportunities, business ads, website design, and logo creation" border="0" data-original-height="714" data-original-width="1504" height="152" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXswEJOYIQ4OnjOxL9mcSo-9pzOYjULjd9vJNKIveQH0P8E3rV8KTz7TboENwi1CSjcrXraHJIomdU6NJz0xGNQsk49oxJJ60lWrfPUjHGb-AyLWE82OfU1ShOcFP-X8dt5cN9xzqTlKk7xp6cdfvGTaQeJVAkQk8-liO1Mr6FPYWSaz-lmIGeuLP34tfv/w320-h152/flat-clapperboard-icon_1063-38.jpg" title="ob opportunities, business ads, website design, and logo creation" width="320" /></a></div><br /><p></p>
-
-<div style="font-family: Arial, sans-serif; line-height: 1.7; margin: auto; max-width: 900px;">
-
-<h1 style="color: #0a58ca; font-size: 34px;">🌐 About Marketing2Advertising (M2A)</h1>
-
-<p style="color: #333333;">
-Founded in <b>2015</b>, <strong>Marketing2Advertising (M2A)&nbsp;</strong>is a digital agency built around one idea: closing the gap between learning and earning.
-We do this in two ways — by building web apps and digital content people actually love, and by equipping students and professionals with the skills, resources, and career guidance to thrive in the digital economy.
-</p>
-
-<hr style="color: #333333;" />
-
-<h2 style="color: #0a58ca;">🎯 Our Mission</h2>
-
-<p style="color: #333333;">
-To be the all-in-one platform where individuals build skills, grow their careers, and create lasting value for their communities.
-</p>
-
-  
-  <h2 style="color: #0a58ca;">🛠️ Key Services &amp; Operations</h2>
-
-<p style="color: #333333;">
-Through strong partnerships with reputable organizations, M2A provides:
-</p>
-
-<ul style="color: #333333;">
-<li>📚 Content — engaging, reliable digital content built to inform and retain audiences</li>
-<li>💼 Education And Careers — learning resources and mentorship that help people turn skills into meaningful work</li>
-<li>🌐 Web Development — design and development of web applications tailored to real user needs</li>
-<li>📢 Monetization — advertising solutions across business ads, event ads, and profile ads</li>
-</ul>
-
-<hr style="color: #333333;" />
-
-<h2 style="color: #0a58ca;">💎 Our Core Values</h2>
-
-<ul style="color: #333333;">
-<li><b>Accessibility</b> – Making education and software&nbsp;available to everyone</li>
-<li><b>Quality</b> – Delivering content and resources you can trust</li>
-<li><b>Innovation</b> – Continuously evolving to meet your needs</li>
-<li><b>Community</b> – Building a space where learning and software thrive</li>
-</ul>
-
-<hr style="color: #333333;" />
-
-<h2><span style="color: #0a58ca;">🤝 Who Are We On The Side Of&nbsp;</span><strong style="background-color: #fff3cd; color: #333333;">Marketing And Advertising</strong></h2>
-
-<div style="background: rgb(255, 243, 205); border-left: 5px solid rgb(255, 152, 0); border-radius: 6px; color: #333333; padding: 15px;">
-<p>
-<strong>Marketing2Advertising #M2A</strong> is the secret success ingredient team ready to make any type of business turn into a successful business 🚀.  
-We have all the strategies to turn a small business into a big business.  
-Do you need your business to <b>increase sales</b>? Name it, call it, etc.—we will make it happen 100% 💯.
-</p>
-
-<p>
-Had sleepless nights because of your business? 😴  
-We have a <b>day-and-night working team</b> to ensure your business succeeds to the maximum. Give us a try—you won't regret it ✅
-</p>
-
-<p>
-Services we provide include:  
-</p><ul>
-<li>🌐 Website Designing &amp; Monetization</li>
-<li>📢 Business Ads, Event Ads, Profile Ads</li>
-<li>🎨 Logo Designing</li>
-</ul>
-<p></p>
-</div>
-
-<hr style="color: #333333;" />
-
-<h2 style="color: #0a58ca;">📞 Contact Us</h2>
-
-<p style="color: #333333;">
-We’d love to hear from you Reach out via email and let’s connect:
-</p>
-
-<p style="background: rgb(231, 243, 255); border-left: 5px solid rgb(10, 88, 202); border-radius: 6px; color: #333333; padding: 12px;">
-📧 <a href="mailto:marketing2advertising.com@gmail.com">marketing2advertising.com@gmail.com</a>
-</p>
-
-<hr style="color: #333333;" />
-
-<p style="color: #555555; font-size: 16px;">
-Marketing2Advertising – Empowering your education, career, and business journey since 2015.
-</p>
-
-</div>
-
-<!-- ================= BOTTOM AD ================= -->
-<ins class="adsbygoogle"
-  style="display:block; margin:30px 0;"
-  data-ad-client="ca-pub-2269884583846743"
-  data-ad-slot="2906167922"
-  data-ad-format="auto"
-  data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-
-</div>
-
-<div class='mobile-hub'>
-  <div id='emb99d-footer' style='background:#111; text-align:center; padding:10px 0; font-family:Raleway, Arial, sans-serif;'>
-    <a href='/' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Home</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/contact-us.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Contact</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/privacy-policy.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Privacy</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/affiliate-marketing-and-adsense.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Disclosure</a>
-    <span style='color:#fff;'>|</span>
-    <a href='/p/terms-and-conditions.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Terms</a>
-    <p style='color:#aaa; font-size:14px; margin:10px 0 0;'>
-      &#169; Marketing2Advertising. All rights reserved.
-    </p>
+  <!-- ===== MIXED SITE HEADER ===== -->
+  <div class='super-header' id='mainHeader'>
+    <div class='header-inner'>
+      <a class='nav-logo' href='/'>M2A <span>📺</span></a>
+      
+      <button aria-label='Menu' class='menu-toggle' onclick='toggleMenu()' type='button'>&#9776;</button>
+      
+      <ul class='nav-links' id='navMenu'>
+        <li><a href='https://www.marketing2advertising.com'>Home</a></li>
+        <li><a href='https://marketing2advertising.com/tv/'>TV</a></li>
+        <li><a href='https://marketing2advertising.com/apps/'>Apps</a></li>
+        <li><a href='https://marketing2advertising.com/p/contact-us.html'>Contact</a></li>
+        <li><a href='https://marketing2advertising.com/p/about-us.html'>About</a></li>
+        <li><a href='https://marketing2advertising.com/blogs/index.html'>Blogs And Firimu</a></li>
+        <li><a href='https://marketing2advertising.com/p/job-matching-across-ireland-singapore_2.html'>Jobs</a></li>
+        <li><a href='https://marketing2advertising.com/games/'>Games</a></li>
+      </ul>
+      
+     
+      </div>
+    </div>
   </div>
-</div>
+
+  <main id='main-content' role='main'>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="badge animate">Est. 2015 · Global Digital Platform</div>
+        <h1 class="animate delay-1">About Marketing2Advertising</h1>
+        <p class="animate delay-2">
+          We close the gap between learning and earning — by building digital products people love and helping individuals thrive in the digital economy.
+        </p>
+
+        <div class="hero-stats animate delay-3">
+          <div class="stat">
+            <div class="stat-number">2015</div>
+            <div class="stat-label">Founded</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Possibilities</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- TOP AD -->
+      <div class="ad-box animate delay-2">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-2269884583846743"
+             data-ad-slot="2906167922"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- WHO WE ARE -->
+      <div class="card animate delay-1">
+        <div class="section-title">
+          <span>🌐</span> Who We Are
+        </div>
+        <p>
+          Founded in <strong>2015</strong>, <strong>Marketing2Advertising (M2A)</strong> is a digital agency built around one powerful idea: 
+          closing the gap between learning and earning.
+        </p>
+        <p style="margin-top: 14px;">
+          We do this in two ways — by building web apps and digital content people actually love, and by equipping students and professionals 
+          with the skills, resources, and career guidance to thrive in the digital economy.
+        </p>
+      </div>
+
+      <!-- MISSION -->
+      <div class="card animate delay-2">
+        <div class="section-title">
+          <span>🎯</span> Our Mission
+        </div>
+        <p>
+          To be the all-in-one platform where individuals build skills, grow their careers, and create lasting value for their communities.
+        </p>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="card animate delay-3">
+        <div class="section-title">
+          <span>🛠️</span> Key Services & Operations
+        </div>
+        <p style="margin-bottom: 20px;">Through strong partnerships with reputable organizations, M2A provides:</p>
+
+        <div class="services-grid">
+          <div class="service-item">
+            <h3>📚 Content</h3>
+            <p>Engaging, reliable digital content built to inform and retain audiences.</p>
+          </div>
+          <div class="service-item">
+            <h3>💼 Education & Careers</h3>
+            <p>Learning resources and mentorship that turn skills into meaningful work.</p>
+          </div>
+          <div class="service-item">
+            <h3>🌐 Web Development</h3>
+            <p>Design and development of web applications tailored to real user needs.</p>
+          </div>
+          <div class="service-item">
+            <h3>📢 Monetization</h3>
+            <p>Advertising solutions across business ads, event ads, and profile ads.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CORE VALUES -->
+      <div class="card animate delay-4">
+        <div class="section-title">
+          <span>💎</span> Our Core Values
+        </div>
+        <div class="values-list">
+          <div class="value-item">
+            <strong>Accessibility</strong>
+            <span>Making education and software available to everyone</span>
+          </div>
+          <div class="value-item">
+            <strong>Quality</strong>
+            <span>Delivering content and resources you can trust</span>
+          </div>
+          <div class="value-item">
+            <strong>Innovation</strong>
+            <span>Continuously evolving to meet your needs</span>
+          </div>
+          <div class="value-item">
+            <strong>Community</strong>
+            <span>Building a space where learning and software thrive</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HIGHLIGHT BOX -->
+      <div class="highlight-box animate delay-2">
+        <h2>🤝 Marketing & Advertising Powerhouse</h2>
+        <p>
+          <strong>Marketing2Advertising #M2A</strong> is the secret success ingredient ready to turn any business into a successful one 🚀.
+          We have the strategies to transform a small business into a big one.
+        </p>
+        <p>
+          Do you need your business to <strong>increase sales</strong>? Name it — we will make it happen 100% 💯.
+          Had sleepless nights because of your business? 😴 We have a day-and-night working team to ensure your business succeeds.
+        </p>
+        <ul>
+          <li>🌐 Website Designing & Monetization</li>
+          <li>📢 Business Ads, Event Ads, Profile Ads</li>
+          <li>🎨 Logo Designing</li>
+        </ul>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="contact-box animate delay-3">
+        <h2>📞 Let’s Connect</h2>
+        <p style="color:#cbd5e1; margin-bottom: 8px;">We’d love to hear from you. Reach out and let’s build something great together.</p>
+        <a href="mailto:marketing2advertising.com@gmail.com">
+          📧 marketing2advertising.com@gmail.com
+        </a>
+      </div>
+
+      <!-- BOTTOM AD -->
+      <div class="ad-box animate delay-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-2269884583846743"
+             data-ad-slot="2906167922"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.marketing2advertising.com">Home</a>
+      <a href="/p/contact-us.html">Contact</a>
+      <a href="/p/privacy-policy.html" target="_blank">Privacy</a>
+      <a href="/p/affiliate-marketing-and-adsense.html" target="_blank">Disclosure</a>
+      <a href="/p/terms-and-conditions.html" target="_blank">Terms</a>
+    </div>
+    <p class="copyright">© Marketing2Advertising. All rights reserved. Empowering education, careers & business since 2015.</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      menu.classList.toggle('active');
+    }
+
+    // Close menu when clicking a link (mobile)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navMenu').classList.remove('active');
+      });
+    });
+  </script>
 
 </body>
 </html>
