@@ -1,0 +1,4842 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f1e8">
+  <meta name="description" content="Explore and watch the latest series on Marketing2Advertising.">
+  <meta name="robots" content="index,follow">
+  <title>Naka action | vj junior - vj emmy - vj mark - vj kevo - vj-jingo - vj muba - vj ulio | Marketing2Advertising</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f1e8;
+  --surface:#ebe8dc;
+  --card:#24231f;
+  --ink:#1c1c18;
+  --gold:#d8b800;
+  --gold2:#f0d34a;
+  --text:#22221e;
+  --muted:#74736b;
+  --line:rgba(28,28,24,.12);
+  --white:#fffdf5;
+  --shadow:0 8px 28px rgba(28,28,24,.10);
+  --shadow-hover:0 14px 34px rgba(28,28,24,.18);
+  --radius:12px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Figtree,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+.m2a-shell{
+  min-height:100vh;
+}
+
+
+/* =========================================================
+   STICKY SEARCH + CATEGORY AREA
+   ========================================================= */
+
+.m2a-sticky-controls{
+  position:sticky;
+  top:0;
+  z-index:100;
+  width:100%;
+  background:rgba(243,241,232,.97);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 4px 18px rgba(28,28,24,.06);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.m2a-sticky-controls-inner{
+  max-width:1180px;
+  margin:auto;
+  padding:10px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.m2a-search{
+  position:relative;
+  flex:1 1 430px;
+  min-width:0;
+  max-width:430px;
+}
+
+.m2a-search-icon{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+  font-size:16px;
+  pointer-events:none;
+}
+
+.m2a-search-input{
+  width:100%;
+  height:44px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--surface);
+  outline:0;
+  padding:0 44px 0 42px;
+  color:var(--text);
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+}
+
+.m2a-search-input::placeholder{
+  color:var(--muted);
+}
+
+.m2a-search-input:focus{
+  border-color:rgba(216,184,0,.75);
+  box-shadow:0 0 0 3px rgba(216,184,0,.15);
+}
+
+.m2a-search-clear{
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  color:var(--muted);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+}
+
+.m2a-search-clear:hover{
+  background:rgba(28,28,24,.08);
+  color:var(--text);
+}
+
+.m2a-search.has-value .m2a-search-clear{
+  display:flex;
+}
+
+.m2a-search-status{
+  position:absolute;
+  left:15px;
+  right:15px;
+  top:49px;
+  z-index:100;
+  display:none;
+  padding:8px 12px;
+  border-radius:10px;
+  background:var(--ink);
+  color:var(--white);
+  font-size:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.16);
+}
+
+.m2a-search-status.show{
+  display:block;
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+.m2a-tabs{
+  display:flex;
+  gap:4px;
+  padding:4px;
+  border-radius:999px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  flex:0 0 auto;
+}
+
+.m2a-tab{
+  min-height:40px;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  border-radius:999px;
+  padding:0 16px;
+  font-weight:700;
+  font-size:13px;
+}
+
+.m2a-tab.active{
+  background:var(--ink);
+  color:var(--white);
+}
+
+.m2a-tab:hover{
+  color:var(--text);
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.m2a-main{
+  max-width:1180px;
+  margin:auto;
+  padding:34px 18px 60px;
+}
+
+.m2a-top{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:24px;
+}
+
+.m2a-kicker{
+  margin:0 0 5px;
+  color:#9a8300;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.m2a-title{
+  margin:0;
+  font-family:Syne,Figtree,sans-serif;
+  font-size:40px;
+  line-height:1.05;
+  letter-spacing:-.04em;
+}
+
+.m2a-subtitle{
+  margin:7px 0 0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+
+/* =========================================================
+   SEARCH RESULT INFORMATION
+   ========================================================= */
+
+.m2a-results-info{
+  display:none;
+  margin:-8px 0 20px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.m2a-results-info.show{
+  display:block;
+}
+
+.m2a-results-info strong{
+  color:var(--text);
+}
+
+
+/* =========================================================
+   ADS
+   ========================================================= */
+
+.m2a-ad{
+  min-height:112px;
+  margin:0 0 28px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--surface);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+}
+
+.m2a-ad-label{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+.m2a-ad ins{
+  display:block;
+  width:100%;
+  min-height:70px;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.m2a-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:18px;
+}
+
+.m2a-card{
+  position:relative;
+  min-width:0;
+}
+
+.m2a-card-link{
+  display:block;
+  overflow:hidden;
+  border-radius:var(--radius);
+  background:var(--card);
+  color:var(--white);
+  box-shadow:var(--shadow);
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+
+.m2a-card-link:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-hover);
+}
+
+.m2a-poster{
+  position:relative;
+  aspect-ratio:2/3;
+  overflow:hidden;
+  background:var(--ink);
+}
+
+.m2a-poster img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .3s ease,filter .3s ease;
+}
+
+.m2a-card-link:hover .m2a-poster img{
+  transform:scale(1.045);
+  filter:brightness(.52);
+}
+
+.m2a-kind{
+  position:absolute;
+  left:9px;
+  top:9px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:var(--gold);
+  color:#18170f;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+.m2a-kind.series{
+  background:var(--white);
+  color:var(--ink);
+}
+
+.m2a-vj{
+  position:absolute;
+  left:10px;
+  right:10px;
+  bottom:9px;
+  color:rgba(255,253,245,.92);
+  font-size:11px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.m2a-play{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%) scale(.92);
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--gold);
+  color:var(--ink);
+  font-size:23px;
+  padding-left:3px;
+  opacity:0;
+  transition:opacity .2s ease,transform .2s ease;
+  box-shadow:0 0 22px rgba(216,184,0,.48);
+}
+
+.m2a-card-link:hover .m2a-play{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+
+.m2a-card-title{
+  min-height:56px;
+  padding:10px 9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:var(--gold);
+  color:var(--ink);
+  font-size:14px;
+  font-weight:800;
+  line-height:1.18;
+}
+
+.m2a-save{
+  position:absolute;
+  right:7px;
+  top:7px;
+  z-index:5;
+  width:39px;
+  height:39px;
+  border:0;
+  border-radius:50%;
+  background:rgba(28,28,24,.78);
+  color:var(--white);
+  backdrop-filter:blur(6px);
+  display:grid;
+  place-items:center;
+  font-size:17px;
+  transition:color .15s ease,background .15s ease;
+}
+
+.m2a-save:hover,
+.m2a-save.saved{
+  color:var(--gold);
+  background:var(--ink);
+}
+
+.m2a-insert-ad{
+  grid-column:1/-1;
+}
+
+.m2a-loading{
+  grid-column:1/-1;
+  min-height:240px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  gap:12px;
+}
+
+.m2a-spinner{
+  width:34px;
+  height:34px;
+  border:3px solid rgba(28,28,24,.14);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:m2aspin .75s linear infinite;
+}
+
+@keyframes m2aspin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.m2a-empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:55px 20px;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+}
+
+.m2a-footer{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 18px 35px;
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:720px){
+
+  .m2a-sticky-controls-inner{
+    padding:8px 10px;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:7px;
+  }
+
+  .m2a-search{
+    order:1;
+    flex:0 0 auto;
+    width:100%;
+    max-width:none;
+  }
+
+  .m2a-tabs{
+    order:2;
+    width:100%;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+
+  .m2a-tabs::-webkit-scrollbar{
+    display:none;
+  }
+
+  .m2a-tab{
+    flex:1;
+    white-space:nowrap;
+    min-height:38px;
+  }
+
+  .m2a-main{
+    padding:24px 12px 48px;
+  }
+
+  .m2a-top{
+    align-items:flex-start;
+    flex-direction:column;
+    margin-bottom:20px;
+  }
+
+  .m2a-title{
+    font-size:32px;
+  }
+
+  .m2a-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .m2a-card-title{
+    font-size:12px;
+    min-height:48px;
+    padding:8px 5px;
+  }
+
+  .m2a-save{
+    width:34px;
+    height:34px;
+    font-size:15px;
+  }
+
+  .m2a-play{
+    width:48px;
+    height:48px;
+    font-size:19px;
+  }
+
+  .m2a-vj{
+    font-size:10px;
+  }
+
+}
+
+@media(max-width:430px){
+
+  .m2a-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .m2a-title{
+    font-size:29px;
+  }
+
+}
+
+/* ===== M2A SHARED CREAM & GOLD HEADER ===== */
+.m2a-site-header,.m2a-site-header *{box-sizing:border-box}
+.m2a-site-header{
+  position:sticky;top:0;z-index:99999;width:100%;
+  background:rgba(243,241,232,.98);color:#292820;
+  border-bottom:1px solid #d9cfb8;box-shadow:0 4px 18px rgba(28,28,24,.08);
+  font-family:Figtree,Arial,sans-serif;backdrop-filter:blur(12px)
+}
+.m2a-header-inner{
+  max-width:1200px;margin:0 auto;padding:10px 18px;min-height:68px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px
+}
+.m2a-brand{display:flex;align-items:center;gap:10px;text-decoration:none!important;color:#28271f!important;font-weight:900;letter-spacing:.04em;white-space:nowrap}
+.m2a-brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;background:#c59a43;color:#fff;font-size:15px;letter-spacing:-.04em}
+.m2a-brand-name{font-size:17px}
+.m2a-main-nav{display:flex;align-items:center;gap:6px}
+.m2a-main-nav>a,.m2a-nav-dropdown{
+  display:inline-flex;align-items:center;gap:7px;padding:11px 13px;border:0;border-radius:8px;
+  background:transparent;color:#39372e!important;text-decoration:none!important;font:700 14px Figtree,Arial,sans-serif;cursor:pointer
+}
+.m2a-main-nav>a:hover,.m2a-nav-dropdown:hover{background:#e8dfcb;color:#8b6724!important}
+.m2a-nav-group{position:relative}
+.m2a-dropdown-menu{
+  display:none;position:absolute;top:100%;left:0;min-width:205px;padding:8px;
+  background:#fffdf7;border:1px solid #ded3bc;border-radius:10px;box-shadow:0 12px 28px rgba(35,31,20,.16)
+}
+.m2a-nav-group:hover .m2a-dropdown-menu,.m2a-nav-group:focus-within .m2a-dropdown-menu,.m2a-nav-group.open .m2a-dropdown-menu{display:block}
+.m2a-dropdown-menu a{display:block;padding:10px 12px;border-radius:7px;color:#39372e!important;text-decoration:none!important;font:600 13px Figtree,Arial,sans-serif}
+.m2a-dropdown-menu a:hover{background:#f1eadb;color:#8b6724!important}
+.m2a-menu-toggle{display:none;align-items:center;gap:8px;padding:10px 13px;border:1px solid #d6c7a6;border-radius:8px;background:#fffdf7;color:#39372e;font-weight:800}
+@media(max-width:800px){
+ .m2a-header-inner{flex-wrap:wrap;min-height:60px}
+ .m2a-brand-name{font-size:15px}
+ .m2a-menu-toggle{display:inline-flex;margin-left:auto}
+ .m2a-main-nav{display:none;flex:0 0 100%;width:100%;align-items:stretch;flex-direction:column;gap:3px;padding:8px 0 5px}
+ .m2a-main-nav.open{display:flex}
+ .m2a-main-nav>a,.m2a-nav-dropdown{width:100%;justify-content:space-between;text-align:left;padding:12px}
+ .m2a-nav-group{width:100%}
+ .m2a-dropdown-menu{position:static;box-shadow:none;border-radius:8px;margin:3px 0 6px 10px;min-width:0}
+}
+
+</style>
+</head>
+<body>
+
+<header class="m2a-site-header" id="m2a-site-header">
+  <div class="m2a-header-inner">
+    <a class="m2a-brand" href="https://www.marketing2advertising.com/" aria-label="Marketing2Advertising Home">
+      <span class="m2a-brand-mark">M2A</span>
+      <span class="m2a-brand-name">NAKAMOVIES</span>
+    </a>
+    <button class="m2a-menu-toggle" type="button" aria-expanded="false" aria-controls="m2a-main-nav">
+      <span class="m2a-menu-icon">☰</span><span>Menu</span>
+    </button>
+    <nav class="m2a-main-nav" id="m2a-main-nav" aria-label="Main navigation">
+      <a href="https://www.marketing2advertising.com/">Home</a>
+      <a href="https://www.marketing2advertising.com/p/contact-us.html">Contact Us</a>
+      <div class="m2a-nav-group">
+        <button class="m2a-nav-dropdown" type="button" aria-expanded="false">Movies <span>▾</span></button>
+        <div class="m2a-dropdown-menu">
+          <a href="/firimu/action.html">Action</a>
+          <a href="/firimu/adventure.html">Adventure</a>
+          <a href="/firimu/sci-fi.html">Sci-Fi</a>
+          <a href="/firimu/comedy.html">Comedy</a>
+          <a href="/firimu/crime.html">Crime</a>
+          <a href="/firimu/horror.html">Horror</a>
+          <a href="/firimu/animation-and-fantasy.html">Animation &amp; Fantasy</a>
+        </div>
+      </div>
+      <div class="m2a-nav-group">
+        <button class="m2a-nav-dropdown" type="button" aria-expanded="false">VJ <span>▾</span></button>
+        <div class="m2a-dropdown-menu">
+          <a href="/firimu/vj-junior.html">VJ Junior</a>
+          <a href="/firimu/vj-emmy.html">VJ Emmy</a>
+          <a href="/firimu/vj-mark.html">VJ Mark</a>
+          <a href="/firimu/vj-kevo.html">VJ KeVo</a>
+          <a href="/firimu/vj-jingo.html">VJ Jingo</a>
+          <a href="/firimu/vj-muba.html">VJ Muba</a>
+          <a href="/firimu/vj-ulio.html">VJ Ulio</a>
+          <a href="/firimu/vj-chris-edwards.html">VJ Chris Edwards</a>
+          <a href="/firimu/vj-icep.html">VJ Icep</a>
+        </div>
+      </div>
+      <a href="https://marketing2advertising.com/serie/">Series</a>
+    </nav>
+  </div>
+</header>
+
+
+
+<!-- ===================== MOVIES INFINITE SCROLL ===================== -->
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+/* ===================== MOVIE WRAPPER ===================== */
+
+.movie-grid-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.grid-title {
+  text-align: center;
+  font-size: 26px;
+  margin: 0 0 25px;
+  color: #fcff01;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===================== MOVIE GRID ===================== */
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* ===================== MOVIE CARD ===================== */
+
+.movie-card {
+  background: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,.8);
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.04);
+  box-shadow:
+    0 10px 28px rgba(229,9,20,.7);
+}
+
+.movie-card a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===================== POSTER ===================== */
+
+.poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: #181818;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition:
+    transform .35s ease,
+    filter .35s ease;
+}
+
+.movie-card:hover img {
+  transform: scale(1.08);
+  filter: brightness(.55);
+}
+
+/* ===================== PLAY BUTTON ===================== */
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 65px;
+  height: 65px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  background: rgba(229,9,20,.92);
+  color: #fff;
+  text-align: center;
+  line-height: 65px;
+  font-size: 42px;
+  box-shadow: 0 0 20px #e50914;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+
+.movie-card:hover .play-button {
+  opacity: 1;
+}
+
+/* ===================== TITLE ===================== */
+
+.movie-title {
+  min-height: 55px;
+  max-height: 55px;
+  padding: 9px 7px;
+  background: #e50914;
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+/* ===================== SKELETON ===================== */
+
+.movie-skeleton {
+  background: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,.6);
+}
+
+.skeleton-poster {
+  aspect-ratio: 2 / 3;
+  background:
+    linear-gradient(
+      110deg,
+      #151515 8%,
+      #242424 18%,
+      #151515 33%
+    );
+  background-size: 200% 100%;
+  animation: skeletonMove 1.3s linear infinite;
+}
+
+.skeleton-title {
+  height: 55px;
+  margin-top: 0;
+  background:
+    linear-gradient(
+      110deg,
+      #151515 8%,
+      #242424 18%,
+      #151515 33%
+    );
+  background-size: 200% 100%;
+  animation: skeletonMove 1.3s linear infinite;
+}
+
+@keyframes skeletonMove {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+/* ===================== LOADING MORE ===================== */
+
+.movie-loading-more {
+  width: 100%;
+  text-align: center;
+  padding: 30px 10px;
+  color: #fcff01;
+  font-size: 15px;
+  grid-column: 1 / -1;
+}
+
+.movie-loading-spinner {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 10px;
+  border: 4px solid #333;
+  border-top-color: #e50914;
+  border-radius: 50%;
+  animation: movieSpin .7s linear infinite;
+}
+
+@keyframes movieSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===================== END MESSAGE ===================== */
+
+.movie-end {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 35px 10px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* ===================== MOBILE ===================== */
+
+@media(max-width:600px) {
+
+  .movie-grid-wrapper {
+    padding: 0 10px;
+    margin-top: 20px;
+  }
+
+  .movie-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .grid-title {
+    font-size: 21px;
+    margin-bottom: 18px;
+  }
+
+  .movie-title {
+    min-height: 48px;
+    max-height: 48px;
+    font-size: 13px;
+    padding: 6px 5px;
+  }
+
+  .play-button {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 31px;
+  }
+}
+</style>
+
+
+<!-- ===================== MOVIE GRID ===================== -->
+
+<div class="movie-grid-wrapper">
+
+  <div class="grid-title">
+    🎬 Firimu
+  </div>
+
+  <div id="movie-grid" class="movie-grid"></div>
+
+</div>
+
+
+<!-- ===================== INFINITE MOVIE LOADER ===================== -->
+
+<script>
+(function () {
+
+  "use strict";
+
+  /* =========================================
+     SETTINGS
+  ========================================= */
+
+  var BLOG_URL =
+    "https://naka.marketing2advertising.com";
+
+  var LABEL =
+    "action";
+
+  /*
+     Number of movies requested per Blogger
+     JSONP request.
+  */
+  var BATCH_SIZE = 24;
+
+  /*
+     Start loading the next batch when the
+     visitor gets this close to the bottom.
+  */
+  var SCROLL_TRIGGER = 900;
+
+  /*
+     Maximum number of requests.
+     0 = unlimited until Blogger has no more.
+  */
+  var MAX_REQUESTS = 100;
+
+
+  /* =========================================
+     STATE
+  ========================================= */
+
+  var startIndex = 1;
+
+  var loading = false;
+
+  var finished = false;
+
+  var requestNumber = 0;
+
+  var movieGrid =
+    document.getElementById("movie-grid");
+
+
+  if (!movieGrid) {
+    return;
+  }
+
+
+  /* =========================================
+     ESCAPE HTML
+  ========================================= */
+
+  function escapeHTML(text) {
+
+    if (!text) {
+      return "";
+    }
+
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  /* =========================================
+     GET POST URL
+  ========================================= */
+
+  
+  /* Send Blogger post clicks to the main site's /firimu/ section.
+     Feed requests continue using their original Naka/Serie subdomains. */
+  function rewritePostDomain(postUrl) {
+    try {
+      var parsed = new URL(postUrl);
+      if (
+        parsed.hostname === "naka.marketing2advertising.com" ||
+        parsed.hostname === "serie.marketing2advertising.com"
+      ) {
+        parsed.hostname = "marketing2advertising.com";
+        if (!/^\/firimu(?:\/|$)/i.test(parsed.pathname)) {
+          parsed.pathname = "/firimu" + (parsed.pathname.charAt(0) === "/" ? "" : "/") + parsed.pathname;
+        }
+      }
+      return parsed.href;
+    } catch (error) {
+      return postUrl;
+    }
+  }
+
+function getPostUrl(entry) {
+
+    if (!entry.link) {
+      return "#";
+    }
+
+    for (var i = 0; i < entry.link.length; i++) {
+
+      if (entry.link[i].rel === "alternate") {
+        return rewritePostDomain(entry.link[i].href);
+      }
+
+    }
+
+    return "#";
+  }
+
+
+  /* =========================================
+     GET IMAGE
+  ========================================= */
+
+  function getPostImage(entry) {
+
+    var image =
+      "https://via.placeholder.com/600x900?text=No+Image";
+
+    if (
+      entry.media$thumbnail &&
+      entry.media$thumbnail.url
+    ) {
+
+      image =
+        entry.media$thumbnail.url
+          .replace("/s72-c/", "/s600/")
+          .replace("=s72-c", "=s600");
+
+    }
+
+    else if (
+      entry.content &&
+      entry.content.$t
+    ) {
+
+      var match =
+        entry.content.$t.match(
+          /<img[^>]+src=["']([^"']+)["']/i
+        );
+
+      if (match && match[1]) {
+        image = match[1];
+      }
+
+    }
+
+    else if (
+      entry.summary &&
+      entry.summary.$t
+    ) {
+
+      var summaryMatch =
+        entry.summary.$t.match(
+          /<img[^>]+src=["']([^"']+)["']/i
+        );
+
+      if (summaryMatch && summaryMatch[1]) {
+        image = summaryMatch[1];
+      }
+
+    }
+
+    return image;
+  }
+
+
+  /* =========================================
+     SKELETONS
+  ========================================= */
+
+  function showSkeletons(count) {
+
+    var html = "";
+
+    for (var i = 0; i < count; i++) {
+
+      html +=
+        '<div class="movie-skeleton">' +
+          '<div class="skeleton-poster"></div>' +
+          '<div class="skeleton-title"></div>' +
+        '</div>';
+
+    }
+
+    movieGrid.insertAdjacentHTML(
+      "beforeend",
+      html
+    );
+  }
+
+
+  /* =========================================
+     REMOVE SKELETONS
+  ========================================= */
+
+  function removeSkeletons() {
+
+    var skeletons =
+      movieGrid.querySelectorAll(
+        ".movie-skeleton"
+      );
+
+    for (var i = 0; i < skeletons.length; i++) {
+      skeletons[i].remove();
+    }
+  }
+
+
+  /* =========================================
+     LOADING INDICATOR
+  ========================================= */
+
+  function showLoadingIndicator() {
+
+    var old =
+      document.getElementById(
+        "movieLoadingIndicator"
+      );
+
+    if (old) {
+      return;
+    }
+
+    var div =
+      document.createElement("div");
+
+    div.id =
+      "movieLoadingIndicator";
+
+    div.className =
+      "movie-loading-more";
+
+    div.innerHTML =
+      '<div class="movie-loading-spinner"></div>' +
+      'Loading more movies...';
+
+    movieGrid.appendChild(div);
+  }
+
+
+  function removeLoadingIndicator() {
+
+    var indicator =
+      document.getElementById(
+        "movieLoadingIndicator"
+      );
+
+    if (indicator) {
+      indicator.remove();
+    }
+  }
+
+
+  /* =========================================
+     END OF MOVIES
+  ========================================= */
+
+  function showEndMessage() {
+
+    removeLoadingIndicator();
+
+    var end =
+      document.createElement("div");
+
+    end.className =
+      "movie-end";
+
+    end.textContent =
+      "You've reached the end of the movies.";
+
+    movieGrid.appendChild(end);
+
+  }
+
+
+  /* =========================================
+     JSONP CALLBACK
+  ========================================= */
+
+  window.m2aMoviesCallback =
+    function (json) {
+
+      loading = false;
+
+      removeLoadingIndicator();
+
+      removeSkeletons();
+
+
+      if (
+        !json ||
+        !json.feed ||
+        !json.feed.entry ||
+        !json.feed.entry.length
+      ) {
+
+        finished = true;
+
+        if (
+          movieGrid.querySelectorAll(
+            ".movie-card"
+          ).length
+        ) {
+
+          showEndMessage();
+
+        } else {
+
+          movieGrid.innerHTML =
+            '<div class="movie-end">' +
+            'No movies found in ' +
+            '<strong>' +
+            escapeHTML(LABEL) +
+            '</strong>.' +
+            '</div>';
+
+        }
+
+        return;
+      }
+
+
+      var entries =
+        json.feed.entry;
+
+
+      var html = "";
+
+
+      for (
+        var i = 0;
+        i < entries.length;
+        i++
+      ) {
+
+        var entry =
+          entries[i];
+
+        var title =
+          entry.title &&
+          entry.title.$t
+            ? entry.title.$t
+            : "Untitled Movie";
+
+        var url =
+          getPostUrl(entry);
+
+        var image =
+          getPostImage(entry);
+
+
+        html +=
+
+          '<div class="movie-card">' +
+
+            '<a href="' +
+            escapeHTML(url) +
+            '"' +
+            ' title="' +
+            escapeHTML(title) +
+            '"' +
+            ' rel="noopener noreferrer">' +
+
+              '<div class="poster">' +
+
+                '<img src="' +
+                escapeHTML(image) +
+                '"' +
+                ' alt="' +
+                escapeHTML(title) +
+                '"' +
+                ' loading="lazy">' +
+
+                '<div class="play-button">' +
+                '&#9658;' +
+                '</div>' +
+
+              '</div>' +
+
+              '<div class="movie-title">' +
+                escapeHTML(title) +
+              '</div>' +
+
+            '</a>' +
+
+          '</div>';
+
+      }
+
+
+      movieGrid.insertAdjacentHTML(
+        "beforeend",
+        html
+      );
+
+
+      /*
+        If Blogger returned fewer posts than
+        requested, we have reached the end.
+      */
+
+      if (
+        entries.length < BATCH_SIZE
+      ) {
+
+        finished = true;
+
+        showEndMessage();
+
+        return;
+      }
+
+
+      /*
+        Move to the next Blogger page.
+      */
+
+      startIndex += entries.length;
+
+
+      /*
+        Immediately check whether the page is
+        already close to the bottom.
+      */
+
+      checkScroll();
+
+    };
+
+
+  /* =========================================
+     LOAD NEXT BATCH
+  ========================================= */
+
+  function loadMovies() {
+
+    if (loading || finished) {
+      return;
+    }
+
+
+    if (
+      MAX_REQUESTS > 0 &&
+      requestNumber >= MAX_REQUESTS
+    ) {
+
+      finished = true;
+
+      showEndMessage();
+
+      return;
+    }
+
+
+    loading = true;
+
+    requestNumber++;
+
+
+    /*
+       Skeleton cards appear while Blogger
+       loads the next batch.
+    */
+
+    showSkeletons(6);
+
+    showLoadingIndicator();
+
+
+    var callbackName =
+      "m2aMoviesCallback";
+
+
+    /*
+       JSONP request.
+
+       start-index allows the next batch
+       to continue from the previous batch.
+    */
+
+    var script =
+      document.createElement("script");
+
+
+    script.src =
+      BLOG_URL +
+      "/feeds/posts/default/-/" +
+      encodeURIComponent(LABEL) +
+      "?alt=json-in-script" +
+      "&start-index=" +
+      startIndex +
+      "&max-results=" +
+      BATCH_SIZE +
+      "&orderby=published" +
+      "&callback=" +
+      callbackName;
+
+
+    script.async = true;
+
+    script.onerror = function () {
+
+      loading = false;
+
+      removeLoadingIndicator();
+
+      removeSkeletons();
+
+      /*
+         Allow another attempt when the
+         visitor scrolls again.
+      */
+
+    };
+
+
+    document.body.appendChild(script);
+
+  }
+
+
+  /* =========================================
+     SMART SCROLL DETECTION
+  ========================================= */
+
+  function checkScroll() {
+
+    if (loading || finished) {
+      return;
+    }
+
+
+    var scrollPosition =
+      window.innerHeight +
+      window.scrollY;
+
+
+    var pageHeight =
+      document.documentElement.scrollHeight;
+
+
+    /*
+       Load another batch when the visitor
+       is within 900px of the bottom.
+    */
+
+    if (
+      scrollPosition >=
+      pageHeight - SCROLL_TRIGGER
+    ) {
+
+      loadMovies();
+
+    }
+
+  }
+
+
+  /* =========================================
+     SCROLL EVENT
+  ========================================= */
+
+  var scrollTimer = null;
+
+
+  window.addEventListener(
+    "scroll",
+    function () {
+
+      if (scrollTimer) {
+        return;
+      }
+
+
+      scrollTimer =
+        setTimeout(function () {
+
+          scrollTimer = null;
+
+          checkScroll();
+
+        }, 120);
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  /* =========================================
+     RESIZE
+  ========================================= */
+
+  window.addEventListener(
+    "resize",
+    checkScroll
+  );
+
+
+  /* =========================================
+     FIRST LOAD
+  ========================================= */
+
+  loadMovies();
+
+})();
+</script>
+
+
+
+
+<div class="m2a-shell">
+
+
+
+<!-- =========================================================
+     STICKY SEARCH + CATEGORY
+     ========================================================= -->
+
+<div class="m2a-sticky-controls" id="m2a-sticky-controls">
+
+  <div class="m2a-sticky-controls-inner">
+
+    <div class="m2a-search" id="m2a-search-box">
+
+      <span class="m2a-search-icon">⌕</span>
+
+      <input
+        aria-label="Search series"
+        autocomplete="off"
+        class="m2a-search-input"
+        id="m2a-search"
+        placeholder="Search series..."
+        type="search">
+
+      <button
+        aria-label="Clear search"
+        class="m2a-search-clear"
+        id="m2a-search-clear"
+        type="button">×</button>
+
+      <div
+        class="m2a-search-status"
+        id="m2a-search-status">
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+
+
+</div>
+<main class="m2a-main">
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<section class="m2a-top">
+
+
+  <div>
+
+    <p class="m2a-kicker">
+      marketing2advertising.com
+    </p>
+
+    <h1 class="m2a-title">
+      Naka Series
+    </h1>
+
+    <p class="m2a-subtitle">
+      Watch and explore the latest series
+    </p>
+
+  </div>
+
+</section>
+
+
+<div
+  aria-live="polite"
+  class="m2a-results-info"
+  id="m2a-results-info">
+</div>
+
+
+<div
+  aria-label="Advertisement"
+  class="m2a-ad">
+
+  <div class="m2a-ad-label">
+    Advertisement
+  </div>
+
+  <ins
+    class="adsbygoogle"
+    style="display:block;width:100%;min-height:90px"
+    data-ad-client="ca-pub-2269884583846743"
+    data-ad-slot="2906167922"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+
+<section aria-live="polite">
+
+  <div
+    class="m2a-grid"
+    id="m2a-catalog">
+
+    <div
+      class="m2a-loading"
+      id="m2a-loading">
+
+      <span class="m2a-spinner"></span>
+
+      <span>
+        Loading series...
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+</main>
+</div>
+
+
+<script>
+(function(){
+"use strict";
+
+
+/* =========================================================
+   FEED CONFIGURATION
+   ========================================================= */
+
+var CONFIG={
+
+  sources:[
+
+    {
+      url:"https://serie.marketing2advertising.com",
+      kind:"series"
+    }
+
+  ],
+
+  /*
+    FIRST PAGE LOADS IMMEDIATELY.
+
+    Remaining pages load in background.
+  */
+
+  pageSize:50,
+
+  maxPages:4,
+
+  adEvery:12,
+
+  /*
+    Smaller timeout keeps a slow source from
+    delaying the visible catalog.
+  */
+
+  timeout:8000
+
+};
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+var state={
+
+  items:[],
+
+  filter:"series",
+
+  query:"",
+
+  loaded:false,
+
+  backgroundLoading:false
+
+};
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function esc(value){
+
+  return String(
+    value==null ? "" : value
+  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#39;");
+
+}
+
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+function imageFromEntry(entry){
+
+  var media=
+    entry.media$thumbnail &&
+    entry.media$thumbnail.url;
+
+  if(media){
+
+    return media.replace(
+      /\/s[0-9]+(-c)?\//,
+      "/s1000/"
+    );
+
+  }
+
+  var html="";
+
+  if(
+    entry.content &&
+    entry.content.$t
+  ){
+
+    html=entry.content.$t;
+
+  }else if(
+    entry.summary &&
+    entry.summary.$t
+  ){
+
+    html=entry.summary.$t;
+
+  }
+
+  var match=
+    html.match(
+      /<img[^>]+src=["']([^"']+)["']/i
+    );
+
+  return match
+    ? match[1]
+    : "";
+
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+function cleanTitle(entry){
+
+  return(
+    entry.title &&
+    entry.title.$t
+  )
+  ?
+  entry.title.$t
+  :
+  "Untitled";
+
+}
+
+
+/* =========================================================
+   BLOGGER URL
+   ========================================================= */
+
+function entryUrl(entry){
+
+  var links=
+    entry.link || [];
+
+  for(
+    var i=0;
+    i<links.length;
+    i++
+  ){
+
+    if(
+      links[i].rel==="alternate"
+    ){
+
+      return rewritePostDomain(links[i].href);
+
+    }
+
+  }
+
+  return "#";
+
+}
+
+
+/* =========================================================
+   CLEAN CONTENT
+   ========================================================= */
+
+function cleanText(html){
+
+  if(!html){
+    return "";
+  }
+
+  var temp=
+    document.createElement("div");
+
+  temp.innerHTML=html;
+
+  return(
+    temp.textContent ||
+    temp.innerText ||
+    ""
+  )
+  .replace(/\s+/g," ")
+  .trim();
+
+}
+
+
+/* =========================================================
+   JSONP
+   ========================================================= */
+
+function jsonp(url){
+
+  return new Promise(
+    function(resolve,reject){
+
+      var cb=
+        "m2aJsonp_" +
+        Date.now() +
+        "_" +
+        Math.floor(
+          Math.random()*100000
+        );
+
+      var script=
+        document.createElement("script");
+
+      var finished=false;
+
+      var timer=
+        setTimeout(
+          function(){
+
+            if(finished){
+              return;
+            }
+
+            finished=true;
+
+            cleanup();
+
+            reject(
+              new Error("Feed timeout")
+            );
+
+          },
+          CONFIG.timeout
+        );
+
+
+      function cleanup(){
+
+        clearTimeout(timer);
+
+        if(script.parentNode){
+
+          script.parentNode.removeChild(
+            script
+          );
+
+        }
+
+        try{
+
+          delete window[cb];
+
+        }catch(e){
+
+          window[cb]=undefined;
+
+        }
+
+      }
+
+
+      window[cb]=
+        function(data){
+
+          if(finished){
+            return;
+          }
+
+          finished=true;
+
+          cleanup();
+
+          resolve(data);
+
+        };
+
+
+      script.onerror=
+        function(){
+
+          if(finished){
+            return;
+          }
+
+          finished=true;
+
+          cleanup();
+
+          reject(
+            new Error("Feed error")
+          );
+
+        };
+
+
+      script.src=
+        url +
+        (
+          url.indexOf("?")>-1
+            ? "&"
+            : "?"
+        ) +
+        "callback=" +
+        cb;
+
+
+      document.head.appendChild(script);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CONVERT FEED ENTRIES
+   ========================================================= */
+
+function convertEntries(data,source){
+
+  var entries=
+    data &&
+    data.feed &&
+    data.feed.entry
+      ?
+      data.feed.entry
+      :
+      [];
+
+  return entries.map(
+    function(entry){
+
+      var content="";
+
+      if(
+        entry.content &&
+        entry.content.$t
+      ){
+
+        content=
+          entry.content.$t;
+
+      }else if(
+        entry.summary &&
+        entry.summary.$t
+      ){
+
+        content=
+          entry.summary.$t;
+
+      }
+
+      return{
+
+        title:
+          cleanTitle(entry),
+
+        kind:
+          source.kind,
+
+        vj:"",
+
+        image:
+          imageFromEntry(entry),
+
+        url:
+          entryUrl(entry),
+
+        published:
+          entry.published &&
+          entry.published.$t
+            ?
+            entry.published.$t
+            :
+            "",
+
+        content:
+          cleanText(content)
+
+      };
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   LOAD ONE PAGE
+   ========================================================= */
+
+function loadPage(source,page){
+
+  var start=
+    (page-1) *
+    CONFIG.pageSize +
+    1;
+
+  var url=
+    source.url +
+    "/feeds/posts/default?alt=json-in-script&max-results=" +
+    CONFIG.pageSize +
+    "&start-index=" +
+    start;
+
+  return jsonp(url)
+
+    .then(
+      function(data){
+
+        return convertEntries(
+          data,
+          source
+        );
+
+      }
+    )
+
+    .catch(
+      function(){
+
+        return[];
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   ADD ITEMS WITHOUT FULL RELOAD
+   ========================================================= */
+
+function addItems(newItems){
+
+  if(!newItems || !newItems.length){
+    return;
+  }
+
+  var existing={};
+
+  state.items.forEach(
+    function(item){
+
+      var key=
+        item.url ||
+        (
+          item.kind +
+          "|" +
+          item.title
+        );
+
+      existing[key]=true;
+
+    }
+  );
+
+
+  newItems.forEach(
+    function(item){
+
+      var key=
+        item.url ||
+        (
+          item.kind +
+          "|" +
+          item.title
+        );
+
+      if(!existing[key]){
+
+        existing[key]=true;
+
+        state.items.push(item);
+
+      }
+
+    }
+  );
+
+
+  sortItems(state.items);
+
+}
+
+
+/* =========================================================
+   LOAD FIRST PAGE FAST
+   ========================================================= */
+
+function loadFirstPages(){
+
+  var firstRequests=
+    CONFIG.sources.map(
+      function(source){
+
+        return loadPage(
+          source,
+          1
+        );
+
+      }
+    );
+
+
+  Promise.all(firstRequests)
+
+    .then(
+      function(groups){
+
+        var combined=[];
+
+        groups.forEach(
+          function(group){
+
+            combined=
+              combined.concat(group);
+
+          }
+        );
+
+
+        addItems(combined);
+
+        state.loaded=true;
+
+        render();
+
+        /*
+          Start remaining pages only AFTER
+          the first visible catalog is rendered.
+        */
+
+        loadBackgroundPages();
+
+      }
+    )
+
+    .catch(
+      function(){
+
+        showLoadError();
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   BACKGROUND FEED LOADING
+   ========================================================= */
+
+function loadBackgroundPages(){
+
+  if(state.backgroundLoading){
+    return;
+  }
+
+  state.backgroundLoading=true;
+
+
+  var requests=[];
+
+
+  CONFIG.sources.forEach(
+    function(source){
+
+      for(
+        var page=2;
+        page<=CONFIG.maxPages;
+        page++
+      ){
+
+        requests.push(
+          loadPage(
+            source,
+            page
+          )
+        );
+
+      }
+
+    }
+  );
+
+
+  /*
+    Do not wait for these requests
+    before displaying the first results.
+  */
+
+  Promise.all(requests)
+
+    .then(
+      function(groups){
+
+        var combined=[];
+
+        groups.forEach(
+          function(group){
+
+            combined=
+              combined.concat(group);
+
+          }
+        );
+
+
+        addItems(combined);
+
+
+        /*
+          If the user is not searching,
+          refresh with the larger catalog.
+
+          If the user is typing, also refresh
+          so newly downloaded results become searchable.
+        */
+
+        render();
+
+      }
+    )
+
+    .catch(
+      function(){}
+
+    );
+
+}
+
+
+/* =========================================================
+   SORT
+   ========================================================= */
+
+function sortItems(items){
+
+  return items.sort(
+    function(a,b){
+
+      return(
+        new Date(
+          b.published
+        ).getTime() || 0
+      )
+      -
+      (
+        new Date(
+          a.published
+        ).getTime() || 0
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   FIND VJ
+   ========================================================= */
+
+function inferVJ(item){
+
+  var text=
+    (
+      item.title +
+      " " +
+      (item.content || "")
+    );
+
+  var m=
+    text.match(
+      /\bVJ\s+[A-Za-z0-9() ._-]+/i
+    );
+
+  return m
+    ? m[0]
+    : "";
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function matchesSearch(item){
+
+  if(!state.query){
+    return true;
+  }
+
+  var query=
+    state.query
+      .toLowerCase()
+      .trim();
+
+
+  var searchable=
+    (
+      (item.title || "") +
+      " " +
+      (item.vj || "") +
+      " " +
+      inferVJ(item) +
+      " " +
+      (item.content || "") +
+      " " +
+      (item.kind || "")
+    )
+    .toLowerCase();
+
+
+  return(
+    searchable.indexOf(query)!==-1
+  );
+
+}
+
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+
+function render(){
+
+  var grid=
+    document.getElementById(
+      "m2a-catalog"
+    );
+
+  if(!grid){
+    return;
+  }
+
+
+  var filtered=
+    state.items.filter(
+      function(item){
+
+        if(
+          state.filter!=="all" &&
+          item.kind!==state.filter
+        ){
+
+          return false;
+
+        }
+
+
+        if(
+          !matchesSearch(item)
+        ){
+
+          return false;
+
+        }
+
+
+        return true;
+
+      }
+    );
+
+
+  updateSearchInfo(
+    filtered.length
+  );
+
+
+  if(!filtered.length){
+
+    var message=
+      state.query
+        ?
+        'No results found for "<strong>' +
+        esc(state.query) +
+        '</strong>".'
+        :
+        "No titles found. Try another search.";
+
+
+    grid.innerHTML=
+      '<div class="m2a-empty">' +
+        message +
+      '</div>';
+
+    return;
+
+  }
+
+
+  var html="";
+
+
+  filtered.forEach(
+    function(item,index){
+
+      if(
+        index>0 &&
+        index%CONFIG.adEvery===0
+      ){
+
+        html+=
+          '<div class="m2a-insert-ad m2a-ad">' +
+
+            '<div class="m2a-ad-label">' +
+              'Advertisement' +
+            '</div>' +
+
+            '<ins ' +
+              'class="adsbygoogle" ' +
+              'style="display:block" ' +
+              'data-ad-client="ca-pub-2269884583846743" ' +
+              'data-ad-slot="2906167922" ' +
+              'data-ad-format="auto" ' +
+              'data-full-width-responsive="true">' +
+            '</ins>' +
+
+          '</div>';
+
+      }
+
+
+      var title=
+        esc(item.title);
+
+      var url=
+        esc(item.url);
+
+      var image=
+        esc(item.image);
+
+
+      var kind=
+        item.kind==="series"
+          ?
+          "Series"
+          :
+          "Movie";
+
+
+      var vj=
+        esc(
+          item.vj ||
+          inferVJ(item)
+        );
+
+
+      html+=
+
+        '<article ' +
+          'class="m2a-card" ' +
+          'data-kind="' +
+            item.kind +
+          '">' +
+
+          '<a ' +
+            'class="m2a-card-link" ' +
+            'title="' +
+              title +
+            '" ' +
+            'href="' +
+              url +
+            '">' +
+
+            '<div class="m2a-poster">' +
+
+              (
+                image
+                  ?
+                  '<img ' +
+                    'src="' +
+                      image +
+                    '" ' +
+                    'alt="' +
+                      title +
+                    '" ' +
+                    'loading="lazy" ' +
+                    'decoding="async" ' +
+                    'referrerpolicy="no-referrer">'
+                  :
+                  ''
+              ) +
+
+              '<span ' +
+                'class="m2a-kind ' +
+                (
+                  item.kind==="series"
+                    ?
+                    "series"
+                    :
+                    ""
+                ) +
+                '">' +
+
+                kind +
+
+              '</span>' +
+
+
+              (
+                vj
+                  ?
+                  '<span class="m2a-vj">' +
+                    vj +
+                  '</span>'
+                  :
+                  ''
+              ) +
+
+
+              '<span ' +
+                'class="m2a-play" ' +
+                'aria-hidden="true">' +
+                '▶' +
+              '</span>' +
+
+            '</div>' +
+
+
+            '<div class="m2a-card-title">' +
+
+              '<span>' +
+                title +
+              '</span>' +
+
+            '</div>' +
+
+          '</a>' +
+
+
+          '<button ' +
+            'class="m2a-save" ' +
+            'type="button" ' +
+            'aria-label="Save title" ' +
+            'title="Save title">' +
+
+            '♡' +
+
+          '</button>' +
+
+        '</article>';
+
+    }
+  );
+
+
+  grid.innerHTML=html;
+
+
+  bindSaveButtons();
+
+  lazyAds();
+
+}
+
+
+/* =========================================================
+   SEARCH INFO
+   ========================================================= */
+
+function updateSearchInfo(count){
+
+  var info=
+    document.getElementById(
+      "m2a-results-info"
+    );
+
+  if(!info){
+    return;
+  }
+
+
+  if(!state.query){
+
+    info.classList.remove("show");
+
+    info.innerHTML="";
+
+    return;
+
+  }
+
+
+  info.classList.add("show");
+
+
+  info.innerHTML=
+    "Found <strong>" +
+    count +
+    "</strong> result" +
+    (
+      count===1
+        ?
+        ""
+        :
+        "s"
+    ) +
+    " for <strong>" +
+    esc(state.query) +
+    "</strong>";
+
+}
+
+
+/* =========================================================
+   SAVE BUTTONS
+   ========================================================= */
+
+function bindSaveButtons(){
+
+  var buttons=
+    document.querySelectorAll(
+      ".m2a-save"
+    );
+
+
+  buttons.forEach(
+    function(btn){
+
+      btn.addEventListener(
+        "click",
+        function(e){
+
+          e.preventDefault();
+
+          e.stopPropagation();
+
+
+          var card=
+            btn.closest(
+              ".m2a-card"
+            );
+
+
+          var link=
+            card
+              ?
+              card.querySelector(
+                ".m2a-card-link"
+              )
+              :
+              null;
+
+
+          var key=
+            link
+              ?
+              link.href
+              :
+              "";
+
+
+          var saved=false;
+
+
+          try{
+
+            saved=
+              localStorage.getItem(
+                "m2a-save:"+key
+              )==="1";
+
+          }catch(e){}
+
+
+          saved=!saved;
+
+
+          try{
+
+            localStorage.setItem(
+              "m2a-save:"+key,
+              saved
+                ?
+                "1"
+                :
+                "0"
+            );
+
+          }catch(e){}
+
+
+          btn.classList.toggle(
+            "saved",
+            saved
+          );
+
+
+          btn.textContent=
+            saved
+              ?
+              "♥"
+              :
+              "♡";
+
+        }
+      );
+
+
+      var card=
+        btn.closest(
+          ".m2a-card"
+        );
+
+
+      var link=
+        card
+          ?
+          card.querySelector(
+            ".m2a-card-link"
+          )
+          :
+          null;
+
+
+      var key=
+        link
+          ?
+          link.href
+          :
+          "";
+
+
+      try{
+
+        if(
+          localStorage.getItem(
+            "m2a-save:"+key
+          )==="1"
+        ){
+
+          btn.classList.add(
+            "saved"
+          );
+
+          btn.textContent="♥";
+
+        }
+
+      }catch(e){}
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ADS
+   ========================================================= */
+
+function lazyAds(){
+
+  var ads=
+    document.querySelectorAll(
+      ".adsbygoogle"
+    );
+
+
+  for(
+    var i=0;
+    i<ads.length;
+    i++
+  ){
+
+    if(
+      ads[i].getAttribute(
+        "data-m2a-loaded"
+      )
+    ){
+
+      continue;
+
+    }
+
+
+    ads[i].setAttribute(
+      "data-m2a-loaded",
+      "1"
+    );
+
+
+    try{
+
+      (
+        window.adsbygoogle=
+          window.adsbygoogle || []
+      ).push({});
+
+    }catch(e){}
+
+  }
+
+}
+
+
+/* =========================================================
+   FAST SEARCH SETUP
+   ========================================================= */
+
+var searchTimer=null;
+
+
+function performSearch(value){
+
+  state.query=
+    value.trim();
+
+
+  var box=
+    document.getElementById(
+      "m2a-search-box"
+    );
+
+
+  if(box){
+
+    box.classList.toggle(
+      "has-value",
+      !!state.query
+    );
+
+  }
+
+
+  render();
+
+}
+
+
+function setupSearch(){
+
+  var search=
+    document.getElementById(
+      "m2a-search"
+    );
+
+
+  var box=
+    document.getElementById(
+      "m2a-search-box"
+    );
+
+
+  var clear=
+    document.getElementById(
+      "m2a-search-clear"
+    );
+
+
+  if(!search){
+    return;
+  }
+
+
+  search.addEventListener(
+    "input",
+    function(){
+
+      /*
+        Do not render on every
+        individual keystroke.
+
+        This keeps search fast.
+      */
+
+      clearTimeout(
+        searchTimer
+      );
+
+
+      searchTimer=
+        setTimeout(
+          function(){
+
+            performSearch(
+              search.value
+            );
+
+          },
+          120
+        );
+
+    }
+  );
+
+
+  if(clear){
+
+    clear.addEventListener(
+      "click",
+      function(){
+
+        clearTimeout(
+          searchTimer
+        );
+
+
+        search.value="";
+
+        state.query="";
+
+
+        if(box){
+
+          box.classList.remove(
+            "has-value"
+          );
+
+        }
+
+
+        render();
+
+        search.focus();
+
+      }
+    );
+
+  }
+
+
+  search.addEventListener(
+    "keydown",
+    function(e){
+
+      if(
+        e.key==="Escape"
+      ){
+
+        clearTimeout(
+          searchTimer
+        );
+
+
+        search.value="";
+
+        state.query="";
+
+
+        if(box){
+
+          box.classList.remove(
+            "has-value"
+          );
+
+        }
+
+
+        render();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+function setupTabs(){
+
+  document
+    .querySelectorAll(
+      ".m2a-tab"
+    )
+    .forEach(
+      function(tab){
+
+        tab.addEventListener(
+          "click",
+          function(){
+
+            document
+              .querySelectorAll(
+                ".m2a-tab"
+              )
+              .forEach(
+                function(t){
+
+                  t.classList.remove(
+                    "active"
+                  );
+
+                }
+              );
+
+
+            tab.classList.add(
+              "active"
+            );
+
+
+            state.filter=
+              tab.getAttribute(
+                "data-filter"
+              ) ||
+              "all";
+
+
+            render();
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+function showLoadError(){
+
+  var grid=
+    document.getElementById(
+      "m2a-catalog"
+    );
+
+
+  if(grid){
+
+    grid.innerHTML=
+      '<div class="m2a-empty">' +
+        'The catalog could not be loaded right now. Please refresh the page.' +
+      '</div>';
+
+  }
+
+}
+
+
+/* =========================================================
+   ADSENSE SCRIPT
+   ========================================================= */
+
+if(
+  !document.querySelector(
+    'script[src*="adsbygoogle.js"]'
+  )
+){
+
+  var ads=
+    document.createElement(
+      "script"
+    );
+
+  ads.async=true;
+
+  ads.src=
+    "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743";
+
+  ads.crossOrigin=
+    "anonymous";
+
+  document.head.appendChild(
+    ads
+  );
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+function setup(){
+
+  setupSearch();
+
+  setupTabs();
+
+  /*
+    FIRST PAGE APPEARS FAST.
+  */
+
+  loadFirstPages();
+
+}
+
+
+if(
+  document.readyState===
+  "loading"
+){
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    setup
+  );
+
+}else{
+
+  setup();
+
+}
+
+})();
+</script>
+
+  <!-- FOOTER -->
+<footer class='GYN-footer'>
+<div class='mobile-hub'>
+
+    
+  <div id='emb99d-footer' style='background:#111; text-align:center; padding:10px 0; font-family:Raleway, Arial, sans-serif;'>
+
+    <a href='/' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Home</a>
+    <span style='color:#fff;'>|</span>
+    
+    <a href='https://www.marketing2advertising.com/p/contact-us.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Contact</a>
+    <span style='color:#fff;'>|</span>
+    
+    <a href='https://www.marketing2advertising.com/p/privacy-policy.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Privacy</a>
+    <span style='color:#fff;'>|</span>
+    
+    <a href='https://www.marketing2advertising.com/p/affiliate-marketing-and-adsense.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Disclosure</a>
+    <span style='color:#fff;'>|</span>
+    
+    <a href='https://www.marketing2advertising.com/p/terms-and-conditions.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Terms</a>
+  
+    <p style='color:#aaa; font-size:14px; margin:10px 0 0;'>
+      &#169; 
+VJ Junior | VJ Jingo | VJ Emmy | VJ Kriss Sweet | VJ Kevin | VJ Master (Runyankore) | VJ Jovan | VJ MK Kisuule | VJ Mark | VJ Kali | VJ Tonny | VJ HD | VJ shaolin KHAN LEE | Vj Dan D | VJ Ivo | VJ Muba | VJ Son | VJ Chris Edwards | VJ KK The Best | VJ KS | VJ Kevo | VJ Remmy | VJ Roddy | VJ Geoffrey nakaseries All rights reserved.
+    </p>
+
+</div>
+
+<script>
+(function() {
+  try {
+    if (window.self !== window.top) {
+      var el = document.getElementById(&quot;emb99d-footer&quot;);
+      if (el) el.style.display = &quot;none&quot;;
+    }
+  } catch (e) {
+    // If cross-origin iframe blocks access, still hide it
+    var el = document.getElementById(&quot;emb99d-footer&quot;);
+    if (el) el.style.display = &quot;none&quot;;
+  }
+})();
+</script>
+  
+<div class='mobile-only-bar'/>
+  </div>
+    
+      <script>
+(function() {
+  try {
+    // Detect if page is inside iframe
+    if (window.self !== window.top) {
+      var el = document.getElementById(&quot;e66d-hide&quot;);
+      if (el) el.style.display = &quot;none&quot;;
+    }
+  } catch (e) {
+    // If cross-origin iframe, still hide
+    var el = document.getElementById(&quot;e66d-hide&quot;);
+    if (el) el.style.display = &quot;none&quot;;
+  }
+})();
+</script>
+    
+
+<script>
+(function(){
+  var header=document.getElementById('m2a-site-header');
+  if(!header || header.dataset.ready==='1') return;
+  header.dataset.ready='1';
+  var toggle=header.querySelector('.m2a-menu-toggle');
+  var nav=header.querySelector('.m2a-main-nav');
+  if(toggle && nav){
+    toggle.addEventListener('click',function(){
+      var open=nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',open?'true':'false');
+    });
+  }
+  header.querySelectorAll('.m2a-nav-dropdown').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var group=btn.closest('.m2a-nav-group');
+      var open=group.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+"use strict";
+
+
+/* =========================================================
+   FEED CONFIGURATION
+   ========================================================= */
+
+var CONFIG={
+
+  sources:[
+
+    {
+      url:"https://naka.marketing2advertising.com",
+      kind:"all"
+    }
+
+  ],
+
+  /*
+    FIRST PAGE LOADS IMMEDIATELY.
+
+    Remaining pages load in background.
+  */
+
+  pageSize:50,
+
+  maxPages:20,
+
+  adEvery:12,
+
+  /*
+    Smaller timeout keeps a slow source from
+    delaying the visible catalog.
+  */
+
+  timeout:8000
+
+};
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+var state={
+
+  items:[],
+
+  filter:"all",
+
+  query:"",
+
+  loaded:false,
+
+  backgroundLoading:false
+
+};
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function esc(value){
+
+  return String(
+    value==null ? "" : value
+  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#39;");
+
+}
+
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+function imageFromEntry(entry){
+
+  var media=
+    entry.media$thumbnail &&
+    entry.media$thumbnail.url;
+
+  if(media){
+
+    return media.replace(
+      /\/s[0-9]+(-c)?\//,
+      "/s1000/"
+    );
+
+  }
+
+  var html="";
+
+  if(
+    entry.content &&
+    entry.content.$t
+  ){
+
+    html=entry.content.$t;
+
+  }else if(
+    entry.summary &&
+    entry.summary.$t
+  ){
+
+    html=entry.summary.$t;
+
+  }
+
+  var match=
+    html.match(
+      /<img[^>]+src=["']([^"']+)["']/i
+    );
+
+  return match
+    ? match[1]
+    : "";
+
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+function cleanTitle(entry){
+
+  return(
+    entry.title &&
+    entry.title.$t
+  )
+  ?
+  entry.title.$t
+  :
+  "Untitled";
+
+}
+
+
+/* =========================================================
+   BLOGGER URL
+   ========================================================= */
+
+
+  /* Send Blogger post clicks to the main site's /firimu/ section.
+     Feed requests continue using their original Naka/Serie subdomains. */
+  function rewritePostDomain(postUrl) {
+    try {
+      var parsed = new URL(postUrl);
+      if (
+        parsed.hostname === "naka.marketing2advertising.com" ||
+        parsed.hostname === "serie.marketing2advertising.com"
+      ) {
+        parsed.hostname = "marketing2advertising.com";
+        if (!/^\/firimu(?:\/|$)/i.test(parsed.pathname)) {
+          parsed.pathname = "/firimu" + (parsed.pathname.charAt(0) === "/" ? "" : "/") + parsed.pathname;
+        }
+      }
+      return parsed.href;
+    } catch (error) {
+      return postUrl;
+    }
+  }
+
+function entryUrl(entry){
+
+  var links=
+    entry.link || [];
+
+  for(
+    var i=0;
+    i<links.length;
+    i++
+  ){
+
+    if(
+      links[i].rel==="alternate"
+    ){
+
+      return rewritePostDomain(links[i].href);
+
+    }
+
+  }
+
+  return "#";
+
+}
+
+
+/* =========================================================
+   CLEAN CONTENT
+   ========================================================= */
+
+function cleanText(html){
+
+  if(!html){
+    return "";
+  }
+
+  var temp=
+    document.createElement("div");
+
+  temp.innerHTML=html;
+
+  return(
+    temp.textContent ||
+    temp.innerText ||
+    ""
+  )
+  .replace(/\s+/g," ")
+  .trim();
+
+}
+
+
+/* =========================================================
+   JSONP
+   ========================================================= */
+
+function jsonp(url){
+
+  return new Promise(
+    function(resolve,reject){
+
+      var cb=
+        "m2aJsonp_" +
+        Date.now() +
+        "_" +
+        Math.floor(
+          Math.random()*100000
+        );
+
+      var script=
+        document.createElement("script");
+
+      var finished=false;
+
+      var timer=
+        setTimeout(
+          function(){
+
+            if(finished){
+              return;
+            }
+
+            finished=true;
+
+            cleanup();
+
+            reject(
+              new Error("Feed timeout")
+            );
+
+          },
+          CONFIG.timeout
+        );
+
+
+      function cleanup(){
+
+        clearTimeout(timer);
+
+        if(script.parentNode){
+
+          script.parentNode.removeChild(
+            script
+          );
+
+        }
+
+        try{
+
+          delete window[cb];
+
+        }catch(e){
+
+          window[cb]=undefined;
+
+        }
+
+      }
+
+
+      window[cb]=
+        function(data){
+
+          if(finished){
+            return;
+          }
+
+          finished=true;
+
+          cleanup();
+
+          resolve(data);
+
+        };
+
+
+      script.onerror=
+        function(){
+
+          if(finished){
+            return;
+          }
+
+          finished=true;
+
+          cleanup();
+
+          reject(
+            new Error("Feed error")
+          );
+
+        };
+
+
+      script.src=
+        url +
+        (
+          url.indexOf("?")>-1
+            ? "&"
+            : "?"
+        ) +
+        "callback=" +
+        cb;
+
+
+      document.head.appendChild(script);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CONVERT FEED ENTRIES
+   ========================================================= */
+
+function convertEntries(data,source){
+
+  var entries=
+    data &&
+    data.feed &&
+    data.feed.entry
+      ?
+      data.feed.entry
+      :
+      [];
+
+  return entries.map(
+    function(entry){
+
+      var content="";
+
+      if(
+        entry.content &&
+        entry.content.$t
+      ){
+
+        content=
+          entry.content.$t;
+
+      }else if(
+        entry.summary &&
+        entry.summary.$t
+      ){
+
+        content=
+          entry.summary.$t;
+
+      }
+
+      return{
+
+        title:
+          cleanTitle(entry),
+
+        kind:
+          source.kind,
+
+        vj:"",
+
+        image:
+          imageFromEntry(entry),
+
+        url:
+          entryUrl(entry),
+
+        published:
+          entry.published &&
+          entry.published.$t
+            ?
+            entry.published.$t
+            :
+            "",
+
+        content:
+          cleanText(content)
+
+      };
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   LOAD ONE PAGE
+   ========================================================= */
+
+function loadPage(source,page){
+
+  var start=
+    (page-1) *
+    CONFIG.pageSize +
+    1;
+
+  var url=
+    source.url +
+    "/feeds/posts/default?alt=json-in-script&max-results=" +
+    CONFIG.pageSize +
+    "&start-index=" +
+    start;
+
+  return jsonp(url)
+
+    .then(
+      function(data){
+
+        return convertEntries(
+          data,
+          source
+        );
+
+      }
+    )
+
+    .catch(
+      function(){
+
+        return[];
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   ADD ITEMS WITHOUT FULL RELOAD
+   ========================================================= */
+
+function addItems(newItems){
+
+  if(!newItems || !newItems.length){
+    return;
+  }
+
+  var existing={};
+
+  state.items.forEach(
+    function(item){
+
+      var key=
+        item.url ||
+        (
+          item.kind +
+          "|" +
+          item.title
+        );
+
+      existing[key]=true;
+
+    }
+  );
+
+
+  newItems.forEach(
+    function(item){
+
+      var key=
+        item.url ||
+        (
+          item.kind +
+          "|" +
+          item.title
+        );
+
+      if(!existing[key]){
+
+        existing[key]=true;
+
+        state.items.push(item);
+
+      }
+
+    }
+  );
+
+
+  sortItems(state.items);
+
+}
+
+
+/* =========================================================
+   LOAD FIRST PAGE FAST
+   ========================================================= */
+
+function loadFirstPages(){
+
+  var firstRequests=
+    CONFIG.sources.map(
+      function(source){
+
+        return loadPage(
+          source,
+          1
+        );
+
+      }
+    );
+
+
+  Promise.all(firstRequests)
+
+    .then(
+      function(groups){
+
+        var combined=[];
+
+        groups.forEach(
+          function(group){
+
+            combined=
+              combined.concat(group);
+
+          }
+        );
+
+
+        addItems(combined);
+
+        state.loaded=true;
+
+        render();
+
+        /*
+          Start remaining pages only AFTER
+          the first visible catalog is rendered.
+        */
+
+        loadBackgroundPages();
+
+      }
+    )
+
+    .catch(
+      function(){
+
+        showLoadError();
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   BACKGROUND FEED LOADING
+   ========================================================= */
+
+function loadBackgroundPages(){
+
+  if(state.backgroundLoading){
+    return;
+  }
+
+  state.backgroundLoading=true;
+
+
+  var requests=[];
+
+
+  CONFIG.sources.forEach(
+    function(source){
+
+      for(
+        var page=2;
+        page<=CONFIG.maxPages;
+        page++
+      ){
+
+        requests.push(
+          loadPage(
+            source,
+            page
+          )
+        );
+
+      }
+
+    }
+  );
+
+
+  /*
+    Do not wait for these requests
+    before displaying the first results.
+  */
+
+  Promise.all(requests)
+
+    .then(
+      function(groups){
+
+        var combined=[];
+
+        groups.forEach(
+          function(group){
+
+            combined=
+              combined.concat(group);
+
+          }
+        );
+
+
+        addItems(combined);
+
+
+        /*
+          If the user is not searching,
+          refresh with the larger catalog.
+
+          If the user is typing, also refresh
+          so newly downloaded results become searchable.
+        */
+
+        render();
+
+      }
+    )
+
+    .catch(
+      function(){}
+
+    );
+
+}
+
+
+/* =========================================================
+   SORT
+   ========================================================= */
+
+function sortItems(items){
+
+  return items.sort(
+    function(a,b){
+
+      return(
+        new Date(
+          b.published
+        ).getTime() || 0
+      )
+      -
+      (
+        new Date(
+          a.published
+        ).getTime() || 0
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   FIND VJ
+   ========================================================= */
+
+function inferVJ(item){
+
+  var text=
+    (
+      item.title +
+      " " +
+      (item.content || "")
+    );
+
+  var m=
+    text.match(
+      /\bVJ\s+[A-Za-z0-9() ._-]+/i
+    );
+
+  return m
+    ? m[0]
+    : "";
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function matchesSearch(item){
+
+  if(!state.query){
+    return true;
+  }
+
+  var query=
+    state.query
+      .toLowerCase()
+      .trim();
+
+
+  var searchable=
+    (
+      (item.title || "") +
+      " " +
+      (item.vj || "") +
+      " " +
+      inferVJ(item) +
+      " " +
+      (item.content || "") +
+      " " +
+      (item.kind || "")
+    )
+    .toLowerCase();
+
+
+  return(
+    searchable.indexOf(query)!==-1
+  );
+
+}
+
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+
+function render(){
+
+  var grid=
+    document.getElementById(
+      "m2a-catalog"
+    );
+
+  if(!grid){
+    return;
+  }
+
+
+  var filtered=
+    state.items.filter(
+      function(item){
+
+        if(
+          state.filter!=="all" &&
+          item.kind!==state.filter
+        ){
+
+          return false;
+
+        }
+
+
+        if(
+          !matchesSearch(item)
+        ){
+
+          return false;
+
+        }
+
+
+        return true;
+
+      }
+    );
+
+
+  updateSearchInfo(
+    filtered.length
+  );
+
+
+  if(!filtered.length){
+
+    var message=
+      state.query
+        ?
+        'No results found for "<strong>' +
+        esc(state.query) +
+        '</strong>".'
+        :
+        "No titles found. Try another search.";
+
+
+    grid.innerHTML=
+      '<div class="m2a-empty">' +
+        message +
+      '</div>';
+
+    return;
+
+  }
+
+
+  var html="";
+
+
+  filtered.forEach(
+    function(item,index){
+
+      if(
+        index>0 &&
+        index%CONFIG.adEvery===0
+      ){
+
+        html+=
+          '<div class="m2a-insert-ad m2a-ad">' +
+
+            '<div class="m2a-ad-label">' +
+              'Advertisement' +
+            '</div>' +
+
+            '<ins ' +
+              'class="adsbygoogle" ' +
+              'style="display:block" ' +
+              'data-ad-client="ca-pub-2269884583846743" ' +
+              'data-ad-slot="2906167922" ' +
+              'data-ad-format="auto" ' +
+              'data-full-width-responsive="true">' +
+            '</ins>' +
+
+          '</div>';
+
+      }
+
+
+      var title=
+        esc(item.title);
+
+      var url=
+        esc(item.url);
+
+      var image=
+        esc(item.image);
+
+
+      var kind=
+        item.kind==="series"
+          ?
+          "Series"
+          :
+          "Movie";
+
+
+      var vj=
+        esc(
+          item.vj ||
+          inferVJ(item)
+        );
+
+
+      html+=
+
+        '<article ' +
+          'class="m2a-card" ' +
+          'data-kind="' +
+            item.kind +
+          '">' +
+
+          '<a ' +
+            'class="m2a-card-link" ' +
+            'title="' +
+              title +
+            '" ' +
+            'href="' +
+              url +
+            '">' +
+
+            '<div class="m2a-poster">' +
+
+              (
+                image
+                  ?
+                  '<img ' +
+                    'src="' +
+                      image +
+                    '" ' +
+                    'alt="' +
+                      title +
+                    '" ' +
+                    'loading="lazy" ' +
+                    'decoding="async" ' +
+                    'referrerpolicy="no-referrer">'
+                  :
+                  ''
+              ) +
+
+              '<span ' +
+                'class="m2a-kind ' +
+                (
+                  item.kind==="series"
+                    ?
+                    "series"
+                    :
+                    ""
+                ) +
+                '">' +
+
+                kind +
+
+              '</span>' +
+
+
+              (
+                vj
+                  ?
+                  '<span class="m2a-vj">' +
+                    vj +
+                  '</span>'
+                  :
+                  ''
+              ) +
+
+
+              '<span ' +
+                'class="m2a-play" ' +
+                'aria-hidden="true">' +
+                '▶' +
+              '</span>' +
+
+            '</div>' +
+
+
+            '<div class="m2a-card-title">' +
+
+              '<span>' +
+                title +
+              '</span>' +
+
+            '</div>' +
+
+          '</a>' +
+
+
+          '<button ' +
+            'class="m2a-save" ' +
+            'type="button" ' +
+            'aria-label="Save title" ' +
+            'title="Save title">' +
+
+            '♡' +
+
+          '</button>' +
+
+        '</article>';
+
+    }
+  );
+
+
+  grid.innerHTML=html;
+
+
+  bindSaveButtons();
+
+  lazyAds();
+
+}
+
+
+/* =========================================================
+   SEARCH INFO
+   ========================================================= */
+
+function updateSearchInfo(count){
+
+  var info=
+    document.getElementById(
+      "m2a-results-info"
+    );
+
+  if(!info){
+    return;
+  }
+
+
+  if(!state.query){
+
+    info.classList.remove("show");
+
+    info.innerHTML="";
+
+    return;
+
+  }
+
+
+  info.classList.add("show");
+
+
+  info.innerHTML=
+    "Found <strong>" +
+    count +
+    "</strong> result" +
+    (
+      count===1
+        ?
+        ""
+        :
+        "s"
+    ) +
+    " for <strong>" +
+    esc(state.query) +
+    "</strong>";
+
+}
+
+
+/* =========================================================
+   SAVE BUTTONS
+   ========================================================= */
+
+function bindSaveButtons(){
+
+  var buttons=
+    document.querySelectorAll(
+      ".m2a-save"
+    );
+
+
+  buttons.forEach(
+    function(btn){
+
+      btn.addEventListener(
+        "click",
+        function(e){
+
+          e.preventDefault();
+
+          e.stopPropagation();
+
+
+          var card=
+            btn.closest(
+              ".m2a-card"
+            );
+
+
+          var link=
+            card
+              ?
+              card.querySelector(
+                ".m2a-card-link"
+              )
+              :
+              null;
+
+
+          var key=
+            link
+              ?
+              link.href
+              :
+              "";
+
+
+          var saved=false;
+
+
+          try{
+
+            saved=
+              localStorage.getItem(
+                "m2a-save:"+key
+              )==="1";
+
+          }catch(e){}
+
+
+          saved=!saved;
+
+
+          try{
+
+            localStorage.setItem(
+              "m2a-save:"+key,
+              saved
+                ?
+                "1"
+                :
+                "0"
+            );
+
+          }catch(e){}
+
+
+          btn.classList.toggle(
+            "saved",
+            saved
+          );
+
+
+          btn.textContent=
+            saved
+              ?
+              "♥"
+              :
+              "♡";
+
+        }
+      );
+
+
+      var card=
+        btn.closest(
+          ".m2a-card"
+        );
+
+
+      var link=
+        card
+          ?
+          card.querySelector(
+            ".m2a-card-link"
+          )
+          :
+          null;
+
+
+      var key=
+        link
+          ?
+          link.href
+          :
+          "";
+
+
+      try{
+
+        if(
+          localStorage.getItem(
+            "m2a-save:"+key
+          )==="1"
+        ){
+
+          btn.classList.add(
+            "saved"
+          );
+
+          btn.textContent="♥";
+
+        }
+
+      }catch(e){}
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ADS
+   ========================================================= */
+
+function lazyAds(){
+
+  var ads=
+    document.querySelectorAll(
+      ".adsbygoogle"
+    );
+
+
+  for(
+    var i=0;
+    i<ads.length;
+    i++
+  ){
+
+    if(
+      ads[i].getAttribute(
+        "data-m2a-loaded"
+      )
+    ){
+
+      continue;
+
+    }
+
+
+    ads[i].setAttribute(
+      "data-m2a-loaded",
+      "1"
+    );
+
+
+    try{
+
+      (
+        window.adsbygoogle=
+          window.adsbygoogle || []
+      ).push({});
+
+    }catch(e){}
+
+  }
+
+}
+
+
+/* =========================================================
+   FAST SEARCH SETUP
+   ========================================================= */
+
+var searchTimer=null;
+
+
+function performSearch(value){
+
+  state.query=
+    value.trim();
+
+
+  var box=
+    document.getElementById(
+      "m2a-search-box"
+    );
+
+
+  if(box){
+
+    box.classList.toggle(
+      "has-value",
+      !!state.query
+    );
+
+  }
+
+
+  render();
+
+}
+
+
+function setupSearch(){
+
+  var search=
+    document.getElementById(
+      "m2a-search"
+    );
+
+
+  var box=
+    document.getElementById(
+      "m2a-search-box"
+    );
+
+
+  var clear=
+    document.getElementById(
+      "m2a-search-clear"
+    );
+
+
+  if(!search){
+    return;
+  }
+
+
+  search.addEventListener(
+    "input",
+    function(){
+
+      /*
+        Do not render on every
+        individual keystroke.
+
+        This keeps search fast.
+      */
+
+      clearTimeout(
+        searchTimer
+      );
+
+
+      searchTimer=
+        setTimeout(
+          function(){
+
+            performSearch(
+              search.value
+            );
+
+          },
+          120
+        );
+
+    }
+  );
+
+
+  if(clear){
+
+    clear.addEventListener(
+      "click",
+      function(){
+
+        clearTimeout(
+          searchTimer
+        );
+
+
+        search.value="";
+
+        state.query="";
+
+
+        if(box){
+
+          box.classList.remove(
+            "has-value"
+          );
+
+        }
+
+
+        render();
+
+        search.focus();
+
+      }
+    );
+
+  }
+
+
+  search.addEventListener(
+    "keydown",
+    function(e){
+
+      if(
+        e.key==="Escape"
+      ){
+
+        clearTimeout(
+          searchTimer
+        );
+
+
+        search.value="";
+
+        state.query="";
+
+
+        if(box){
+
+          box.classList.remove(
+            "has-value"
+          );
+
+        }
+
+
+        render();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+function setupTabs(){
+
+  document
+    .querySelectorAll(
+      ".m2a-tab"
+    )
+    .forEach(
+      function(tab){
+
+        tab.addEventListener(
+          "click",
+          function(){
+
+            document
+              .querySelectorAll(
+                ".m2a-tab"
+              )
+              .forEach(
+                function(t){
+
+                  t.classList.remove(
+                    "active"
+                  );
+
+                }
+              );
+
+
+            tab.classList.add(
+              "active"
+            );
+
+
+            state.filter=
+              tab.getAttribute(
+                "data-filter"
+              ) ||
+              "all";
+
+
+            render();
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+function showLoadError(){
+
+  var grid=
+    document.getElementById(
+      "m2a-catalog"
+    );
+
+
+  if(grid){
+
+    grid.innerHTML=
+      '<div class="m2a-empty">' +
+        'The catalog could not be loaded right now. Please refresh the page.' +
+      '</div>';
+
+  }
+
+}
+
+
+/* =========================================================
+   ADSENSE SCRIPT
+   ========================================================= */
+
+if(
+  !document.querySelector(
+    'script[src*="adsbygoogle.js"]'
+  )
+){
+
+  var ads=
+    document.createElement(
+      "script"
+    );
+
+  ads.async=true;
+
+  ads.src=
+    "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743";
+
+  ads.crossOrigin=
+    "anonymous";
+
+  document.head.appendChild(
+    ads
+  );
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+function setup(){
+
+  setupSearch();
+
+  setupTabs();
+
+  /*
+    FIRST PAGE APPEARS FAST.
+  */
+
+  loadFirstPages();
+
+}
+
+
+if(
+  document.readyState===
+  "loading"
+){
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    setup
+  );
+
+}else{
+
+  setup();
+
+}
+
+})();
+</script>
+
+</body>
+</html>
