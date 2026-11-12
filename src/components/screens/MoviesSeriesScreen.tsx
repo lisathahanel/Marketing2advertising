@@ -185,31 +185,31 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
   };
 
   return (
-    <section className="min-h-[75vh] bg-[#eee7d5] px-3 pb-28 pt-4 text-[#24231f] sm:px-5">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-5 rounded-2xl bg-[#24231f] p-5 text-[#f5edda] shadow-xl sm:p-7">
-          <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[.24em] text-[#d9b96c]">
+    <section className="min-h-[75vh] bg-[#0b0d10] px-3 pb-28 pt-4 text-slate-100 sm:px-5">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-5 rounded-2xl bg-[#151a20] p-5 text-white shadow-xl sm:p-7">
+          <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[.24em] text-emerald-300">
             <Film size={16} /> Marketing2Advertising Entertainment
           </div>
           <h1 className="text-3xl font-black tracking-tight sm:text-4xl">{initialKind === 'movie' ? 'Firimu' : 'Movies &amp; Series'}</h1>
-          <p className="mt-2 max-w-2xl text-sm text-[#d4cbb7]">{initialKind === 'movie' ? 'Browse Luganda-translated movies from Naka Marketing2Advertising.' : 'Explore films, TV series and the latest stories from all three Marketing2Advertising Blogger sites.'}</p>
-          <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-[#e4d7b8]">
-            {initialKind === 'movie' ? <span className="rounded-full border border-[#b99b5d]/50 px-3 py-1">Naka Movies · naka.marketing2advertising.com</span> : <><span className="rounded-full border border-[#b99b5d]/50 px-3 py-1">Naka Firimu</span><span className="rounded-full border border-[#b99b5d]/50 px-3 py-1">M2A Series</span><span className="rounded-full border border-[#b99b5d]/50 px-3 py-1">Main M2A Blog</span></>}
+          <p className="mt-2 max-w-2xl text-sm text-slate-300">{initialKind === 'movie' ? 'Browse Luganda-translated movies from Naka Marketing2Advertising.' : 'Explore films, TV series and the latest stories from all three Marketing2Advertising Blogger sites.'}</p>
+          <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
+            {initialKind === 'movie' ? <span className="rounded-full border border-white/15 px-3 py-1">Naka Movies · naka.marketing2advertising.com</span> : <><span className="rounded-full border border-white/15 px-3 py-1">Naka Firimu</span><span className="rounded-full border border-white/15 px-3 py-1">M2A Series</span><span className="rounded-full border border-white/15 px-3 py-1">Main M2A Blog</span></>}
           </div>
         </div>
 
-        <div className="sticky top-2 z-20 mb-5 rounded-2xl border border-[#d8cba9] bg-[#f8f3e7]/95 p-3 shadow-lg backdrop-blur">
-          <label className="flex items-center gap-2 rounded-xl border border-[#d8cba9] bg-white px-3 py-2.5">
-            <Search size={18} className="shrink-0 text-[#8b7545]" />
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search movies, series, titles or labels..." className="w-full bg-transparent text-sm text-[#24231f] outline-none placeholder:text-[#8b877d]" />
+        <div className="sticky top-2 z-20 mb-5 rounded-2xl border border-white/10 bg-[#141a20]/95 p-3 shadow-lg backdrop-blur">
+          <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#0b0f13] px-3 py-2.5">
+            <Search size={18} className="shrink-0 text-emerald-300" />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search movies, series, titles or labels..." className="w-full bg-transparent text-sm text-slate-100 outline-none placeholder:text-slate-500" />
           </label>
           <div className="mt-3 flex flex-wrap gap-2">
             {([{ id: 'all', label: 'All' }, { id: 'movie', label: 'Firimu' }, { id: 'series', label: 'Series' }] as const).map((filter) => (
-              <button key={filter.id} onClick={() => setActiveFilter(filter.id)} className={`rounded-full px-4 py-2 text-xs font-extrabold transition ${activeFilter === filter.id ? 'bg-[#b99750] text-[#211f19] shadow' : 'bg-[#e9dfc9] text-[#65583d] hover:bg-[#dfd0b0]'}`}>
+              <button key={filter.id} onClick={() => setActiveFilter(filter.id)} className={`rounded-full px-4 py-2 text-xs font-extrabold transition ${activeFilter === filter.id ? 'bg-emerald-400 text-[#07110c] shadow' : 'bg-white/5 text-slate-300 hover:bg-white/10'}`}>
                 {filter.label}
               </button>
             ))}
-            <span className="ml-auto self-center text-xs font-semibold text-[#77705f]">{filteredItems.length} titles</span>
+            <span className="ml-auto self-center text-xs font-semibold text-slate-400">{filteredItems.length} titles</span>
           </div>
         </div>
 
@@ -222,22 +222,22 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
         )}
 
         {loading ? (
-          <div className="flex min-h-48 items-center justify-center gap-3 text-sm font-semibold text-[#76694d]"><Loader2 className="animate-spin" /> Loading movies and series…</div>
+          <div className="flex min-h-48 items-center justify-center gap-3 text-sm font-semibold text-slate-400"><Loader2 className="animate-spin" /> Loading movies and series…</div>
         ) : filteredItems.length === 0 ? (
-          <div className="rounded-2xl border border-[#d8cba9] bg-[#f8f3e7] p-8 text-center">
-            <Film className="mx-auto mb-3 text-[#a68a4d]" size={30} />
+          <div className="rounded-2xl border border-white/10 bg-[#f8f3e7] p-8 text-center">
+            <Film className="mx-auto mb-3 text-emerald-300" size={30} />
             <h2 className="font-bold">No titles found</h2>
-            <p className="mt-1 text-sm text-[#77705f]">Try another search or select a different category.</p>
+            <p className="mt-1 text-sm text-slate-400">Try another search or select a different category.</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
             {filteredItems.map((item, index) => (
               <React.Fragment key={item.id}>
-                <article className="group overflow-hidden rounded-xl border border-[#d8cba9] bg-[#faf6ec] shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                <article className="group overflow-hidden rounded-2xl border border-white/10 bg-[#141a20] shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
                   <a href={item.url} className="block">
-                    <div className="relative aspect-[2/3] overflow-hidden bg-[#d9d0bd]">
+                    <div className="relative aspect-[2/3] overflow-hidden bg-[#1c242b]">
                       {item.image ? <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" /> : <div className="flex h-full items-center justify-center text-[#8b8068]">{item.kind === 'movie' ? <Film size={38} /> : <Tv size={38} />}</div>}
-                      <span className="absolute left-2 top-2 rounded-full bg-[#24231f]/90 px-2 py-1 text-[9px] font-black uppercase tracking-wider text-[#e8cc88]">{item.kind === 'movie' ? 'Firimu' : 'Series'}</span>
+                      <span className="absolute left-2 top-2 rounded-full bg-[#151a20]/90 px-2 py-1 text-[9px] font-black uppercase tracking-wider text-[#e8cc88]">{item.kind === 'movie' ? 'Firimu' : 'Series'}</span>
                     </div>
                   </a>
                   <div className="p-3">
@@ -247,8 +247,8 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
                     </div>
                     <p className="mt-1 line-clamp-3 min-h-10 text-[11px] leading-relaxed text-[#716b5d]">{item.excerpt || 'Open this post to read more.'}</p>
                     <div className="mt-3 flex items-center justify-between gap-2">
-                      <span className="truncate text-[9px] font-semibold text-[#8b7545]">{item.source}</span>
-                      <a href={item.url} aria-label={`Open ${item.title}`} className="rounded-full bg-[#282720] p-2 text-[#e7c77f] hover:bg-[#b99750] hover:text-[#24231f]"><ExternalLink size={13} /></a>
+                      <span className="truncate text-[9px] font-semibold text-emerald-300">{item.source}</span>
+                      <a href={item.url} aria-label={`Open ${item.title}`} className="rounded-full bg-[#282720] p-2 text-[#e7c77f] hover:bg-[#b99750] hover:text-slate-100"><ExternalLink size={13} /></a>
                     </div>
                     {formatDate(item.published) && <p className="mt-2 text-[9px] text-[#9a9383]">{formatDate(item.published)}</p>}
                   </div>
@@ -261,7 +261,7 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
 
         {!loading && loadedPages < MAX_PAGES && (
           <div className="mt-7 text-center">
-            <button disabled={loadingMore} onClick={() => void fetchPage(loadedPages + 1, true)} className="inline-flex items-center gap-2 rounded-full bg-[#282720] px-6 py-3 text-sm font-bold text-[#e7c77f] shadow-lg transition hover:bg-[#b99750] hover:text-[#24231f] disabled:opacity-60">
+            <button disabled={loadingMore} onClick={() => void fetchPage(loadedPages + 1, true)} className="inline-flex items-center gap-2 rounded-full bg-[#282720] px-6 py-3 text-sm font-bold text-[#e7c77f] shadow-lg transition hover:bg-[#b99750] hover:text-slate-100 disabled:opacity-60">
               {loadingMore ? <Loader2 className="animate-spin" size={16} /> : <RefreshCw size={16} />} Load more titles
             </button>
           </div>
