@@ -100,7 +100,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0b0f] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-black">
+    <div className="m2a-app min-h-screen bg-[#0b0d10] text-slate-100 flex flex-col font-sans selection:bg-emerald-400 selection:text-[#07110c]">
       {/* Toast Notification Container */}
       <ToastContainer />
       <AdBlockGuard />
@@ -139,7 +139,7 @@ export default function App() {
       />
 
       {/* Main Viewport Container */}
-      <main className="flex-1 w-full pt-4">
+      <main className="m2a-main flex-1 w-full pt-5 sm:pt-7">
         {/* If viewing a static page (Contact, About, Privacy, etc.) */}
         {staticPage ? (
           <PageScreen
