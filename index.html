@@ -74,7 +74,7 @@
           var isAppModule = target instanceof HTMLScriptElement &&
             target.type === 'module' &&
             (target.src.indexOf('/assets/') !== -1 || target.src.indexOf('/src/main.tsx') !== -1);
-          if (isAppModule || event.message) {
+          if (isAppModule) {
             showBootError(event.message || 'A required app script could not be loaded.');
           }
         }, true);
@@ -84,6 +84,6 @@
         });
       })();
     </script>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>
