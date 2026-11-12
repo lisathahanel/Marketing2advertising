@@ -53,14 +53,14 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center pointer-events-none pb-[max(env(safe-area-inset-bottom),.5rem)]">
       {/* Floating Website-Style Quick Bar: Back / Live / Firimu / Blogs / Share */}
-      <div className="pointer-events-auto mb-1.5 flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[#161622]/90 border border-amber-500/30 backdrop-blur-md shadow-2xl shadow-black/80">
+      <div className="pointer-events-auto mb-1.5 flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[#080e17]/90 border border-lime-300/30 backdrop-blur-md shadow-2xl shadow-black/80">
         <button
           onClick={onBack}
           disabled={!canGoBack && currentTab === 'home'}
           className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition ${
             !canGoBack && currentTab === 'home'
               ? 'text-slate-600 cursor-not-allowed'
-              : 'text-slate-200 hover:text-amber-400 bg-white/5 hover:bg-white/10 active:scale-95'
+              : 'text-slate-200 hover:text-lime-300 bg-white/5 hover:bg-white/10 active:scale-95'
           }`}
           title="Back"
         >
@@ -75,7 +75,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition ${
             currentTab === 'tv'
               ? 'bg-rose-600 text-white shadow-sm'
-              : 'text-slate-200 hover:text-amber-400 bg-white/5 hover:bg-white/10'
+              : 'text-slate-200 hover:text-lime-300 bg-white/5 hover:bg-white/10'
           }`}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping" />
@@ -88,8 +88,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           onClick={() => onSelectTab('firimu')}
           className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition ${
             currentTab === 'firimu'
-              ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black shadow-sm font-black'
-              : 'text-slate-200 hover:text-amber-400 bg-white/5 hover:bg-white/10'
+              ? 'bg-gradient-to-r from-lime-300 to-yellow-500 text-black shadow-sm font-black'
+              : 'text-slate-200 hover:text-lime-300 bg-white/5 hover:bg-white/10'
           }`}
           title="Movies from naka.marketing2advertising.com"
         >
@@ -103,8 +103,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           onClick={() => onSelectTab('blogs')}
           className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition ${
             currentTab === 'blogs'
-              ? 'bg-amber-500 text-black shadow-sm font-black'
-              : 'text-slate-200 hover:text-amber-400 bg-white/5 hover:bg-white/10'
+              ? 'bg-lime-300 text-black shadow-sm font-black'
+              : 'text-slate-200 hover:text-lime-300 bg-white/5 hover:bg-white/10'
           }`}
           title="Articles from marketing2advertising.com"
         >
@@ -116,7 +116,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
 
         <button
           onClick={handleShare}
-          className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-slate-200 hover:text-amber-400 bg-white/5 hover:bg-white/10 active:scale-95 transition"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-slate-200 hover:text-lime-300 bg-white/5 hover:bg-white/10 active:scale-95 transition"
           title="Share M2A"
         >
           <Share2 className="w-3.5 h-3.5" />
@@ -125,7 +125,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       </div>
 
       {/* Main Bottom Tabs Bar */}
-      <nav className="pointer-events-auto w-[calc(100%-1rem)] max-w-md sm:max-w-3xl rounded-2xl sm:rounded-full bg-[#11161b]/95 backdrop-blur-2xl border border-white/10 px-2 py-2 sm:px-5 sm:py-2.5 flex justify-around items-center shadow-[0_16px_50px_rgba(0,0,0,.55)]">
+      <nav className="pointer-events-auto w-[calc(100%-1rem)] max-w-md sm:max-w-3xl rounded-2xl sm:rounded-full bg-[#070c14]/95 backdrop-blur-2xl border border-white/10 px-2 py-2 sm:px-5 sm:py-2.5 flex justify-around items-center shadow-[0_16px_50px_rgba(0,0,0,.55)]">
         {navItems.map((item) => {
           const isActive = currentTab === item.id;
           return (
@@ -134,17 +134,17 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               onClick={() => onSelectTab(item.id)}
               className={`flex flex-col items-center justify-center py-1 px-2 sm:px-2.5 rounded-xl transition duration-150 ${
                 isActive
-                  ? 'text-amber-400 font-bold scale-105'
+                  ? 'text-lime-300 font-bold scale-105'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               <div className="relative">
                 {item.icon}
                 {item.id === 'tv' && (
-                  <span className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-rose-500 ring-2 ring-[#0b0b0f]" />
+                  <span className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-rose-500 ring-2 ring-[#05070D]" />
                 )}
                 {item.id === 'firimu' && (
-                  <span className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-amber-400 ring-2 ring-[#0b0b0f]" />
+                  <span className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-lime-300 ring-2 ring-[#05070D]" />
                 )}
               </div>
               <span className="text-[9px] sm:text-[10px] mt-0.5 tracking-tight">{item.label}</span>
