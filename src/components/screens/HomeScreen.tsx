@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
-  Tv,
-  Film,
-  Grid,
-  Gamepad2,
-  Briefcase,
-  Play,
-  RotateCw,
-  ExternalLink,
-  ChevronRight,
-  Sparkles,
-  Calendar,
-  Clock,
+  Tv, Film, Grid, Gamepad2, Briefcase, Play, RotateCw, ExternalLink,
+  ChevronRight, Sparkles, Calendar, ArrowUpRight, Newspaper, Search,
+  Radio, Clapperboard, WandSparkles
 } from 'lucide-react';
 import { BlogPost, Channel, MovieItem, TabType } from '../../types';
 import { fetchBloggerPosts } from '../../services/blogger';
@@ -27,12 +18,17 @@ interface HomeScreenProps {
   channels: Channel[];
 }
 
+const categories = [
+  { id: 'tv' as TabType, label: 'Live TV', detail: 'Watch now', icon: Tv, tone: 'from-rose-500/20 to-orange-500/5', accent: 'text-rose-300', glow: 'group-hover:border-rose-400/40' },
+  { id: 'firimu' as TabType, label: 'Firimu', detail: 'Movies & series', icon: Film, tone: 'from-amber-400/20 to-yellow-500/5', accent: 'text-amber-300', glow: 'group-hover:border-amber-300/40' },
+  { id: 'blogs' as TabType, label: 'Stories', detail: 'Ideas & updates', icon: Newspaper, tone: 'from-sky-400/20 to-blue-500/5', accent: 'text-sky-300', glow: 'group-hover:border-sky-300/40' },
+  { id: 'apps' as TabType, label: 'AI & Apps', detail: 'Useful tools', icon: Grid, tone: 'from-emerald-400/20 to-teal-500/5', accent: 'text-emerald-300', glow: 'group-hover:border-emerald-300/40' },
+  { id: 'games' as TabType, label: 'Games', detail: 'Play & relax', icon: Gamepad2, tone: 'from-violet-400/20 to-purple-500/5', accent: 'text-violet-300', glow: 'group-hover:border-violet-300/40' },
+  { id: 'jobs' as TabType, label: 'Careers', detail: 'Find opportunities', icon: Briefcase, tone: 'from-cyan-400/20 to-blue-500/5', accent: 'text-cyan-300', glow: 'group-hover:border-cyan-300/40' },
+];
+
 export const HomeScreen: React.FC<HomeScreenProps> = ({
-  onSelectTab,
-  onSelectChannel,
-  onSelectPost,
-  onSelectMovie,
-  channels,
+  onSelectTab, onSelectChannel, onSelectPost, onSelectMovie, channels,
 }) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [nakaMovies, setNakaMovies] = useState<MovieItem[]>([]);
@@ -42,13 +38,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   const loadFeed = async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
     else setLoading(true);
-
     try {
       const [blogData, movieRes] = await Promise.all([
         fetchBloggerPosts({ site: 'main', maxResults: 8 }),
-        fetch('/api/naka/movies?maxResults=4').then((r) => r.json()).catch(() => ({ movies: [] }))
+        fetch('/api/naka/movies?maxResults=8').then((r) => r.json()).catch(() => ({ movies: [] })),
       ]);
-      setPosts(blogData.posts);
+      setPosts(blogData.posts || []);
       setNakaMovies(movieRes.movies || []);
     } catch (err) {
       console.warn('Failed to load home feed:', err);
@@ -58,410 +53,190 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     }
   };
 
-  useEffect(() => {
-    loadFeed();
-  }, []);
+  useEffect(() => { loadFeed(); }, []);
 
+  const featuredMovie = nakaMovies[0];
+  const featuredPost = posts[0];
+  const featuredImage = featuredMovie?.poster || featuredPost?.thumbnail || '';
+  const featuredTitle = featuredMovie?.cleanTitle || featuredPost?.title || 'Discover more with M2A';
+  const featuredDescription = featuredMovie?.summary || featuredPost?.summary || 'Your destination for entertainment, useful digital tools, stories and opportunities.';
+  const featuredDate = featuredMovie?.published || featuredPost?.published;
   const featuredChannels = channels.slice(0, 6);
+  const sidePosts = useMemo(() => posts.slice(featuredMovie ? 0 : 1, featuredMovie ? 3 : 4), [posts, featuredMovie]);
+
+  const openFeatured = () => {
+    if (featuredMovie && onSelectMovie) onSelectMovie(featuredMovie);
+    else if (featuredPost) onSelectPost(featuredPost);
+    else onSelectTab('blogs');
+  };
 
   return (
-    <div className="m2a-home mx-auto w-full max-w-7xl px-4 pb-32 pt-1 sm:px-6 lg:px-8 lg:pb-36 space-y-7 sm:space-y-9 animate-in fade-in duration-300">
-      {/* Hero Brand Tagline Banner */}
-      <section className="m2a-hero relative overflow-hidden rounded-[1.75rem] bg-[radial-gradient(ellipse_at_top_right,rgba(34,197,94,.12),transparent_42%),linear-gradient(135deg,#171b22_0%,#101319_58%,#17140e_100%)] border border-white/10 p-6 shadow-[0_24px_70px_rgba(0,0,0,.35)] sm:p-8 lg:p-10">
-        <div className="absolute top-0 right-0 -mt-4 -mr-4 w-36 h-36 rounded-full bg-amber-500/10 blur-2xl pointer-events-none" />
-
-        <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-black uppercase tracking-wider border border-amber-500/30 flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-amber-400" />
-            Official M2A App
-          </span>
-          <span className="flex items-center gap-1 text-[10px] text-rose-400 font-bold">
-            <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-            19 Live Channels
-          </span>
-        </div>
-
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
-          M2A Digital Hub
-        </h1>
-
-        <p className="text-xs sm:text-sm text-emerald-300 font-bold tracking-wide mt-2">
-          AI Tools | Freelancing | Software | Hosting | Online Learning | Careers
-        </p>
-
-        <p className="max-w-3xl text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
-          Mirroring <span className="text-amber-300 font-medium">marketing2advertising.com</span> with zero sign-up tools, 15 games, high-speed live TV, and automated feed sync.
-        </p>
-
-        {/* Quick action buttons */}
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button
-            onClick={() => onSelectTab('tv')}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-500 text-white text-xs font-black shadow-lg shadow-rose-600/20 active:scale-95 transition"
-          >
-            <Play className="w-3.5 h-3.5 fill-current" />
-            <span>Watch Live TV</span>
-          </button>
-          <button
-            onClick={() => onSelectTab('apps')}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold border border-white/10 active:scale-95 transition"
-          >
-            <Grid className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Multi Apps</span>
-          </button>
-          <button
-            onClick={() => onSelectTab('games')}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold border border-white/10 active:scale-95 transition"
-          >
-            <Gamepad2 className="w-3.5 h-3.5 text-purple-400" />
-            <span>15 Games</span>
-          </button>
-        </div>
-      </section>
-
-      {/* In-App PWA Install Banner */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-500/[0.09] via-amber-500/[0.06] to-transparent border border-white/10 flex items-center justify-between gap-4">
-        <div>
-          <h3 className="text-xs font-bold text-white flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-amber-400" />
-            Install M2A on Your Device
-          </h3>
-          <p className="text-[11px] text-slate-400 mt-0.5">
-            Fast offline access, full-screen player & home screen icon.
-          </p>
-        </div>
-        <PWAInstallButton compact />
-      </div>
-
-      {/* Quick Category Navigation Shortcuts */}
-      <section>
-        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
-          <button
-            onClick={() => onSelectTab('tv')}
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/30 group transition"
-          >
-            <div className="w-9 h-9 rounded-xl bg-rose-500/15 text-rose-400 flex items-center justify-center group-hover:scale-110 transition">
-              <Tv className="w-4 h-4" />
-            </div>
-            <span className="text-[10px] font-bold text-slate-200 mt-1.5">Live TV</span>
-            <span className="text-[8px] text-rose-400 font-semibold">19 CH</span>
-          </button>
-
-          <button
-            onClick={() => onSelectTab('firimu')}
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/30 group transition"
-          >
-            <div className="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center group-hover:scale-110 transition">
-              <Film className="w-4 h-4" />
-            </div>
-            <span className="text-[10px] font-bold text-slate-200 mt-1.5">Firimu</span>
-            <span className="text-[8px] text-amber-400 font-semibold">naka movies</span>
-          </button>
-
-          <button
-            onClick={() => onSelectTab('blogs')}
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/30 group transition"
-          >
-            <div className="w-9 h-9 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center group-hover:scale-110 transition">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <span className="text-[10px] font-bold text-slate-200 mt-1.5">Blogs</span>
-            <span className="text-[8px] text-blue-400 font-semibold">Main Site</span>
-          </button>
-
-          <button
-            onClick={() => onSelectTab('apps')}
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/30 group transition"
-          >
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition">
-              <Grid className="w-4 h-4" />
-            </div>
-            <span className="text-[10px] font-bold text-slate-200 mt-1.5">Multi Apps</span>
-            <span className="text-[8px] text-emerald-400 font-semibold">19 Tools</span>
-          </button>
-
-          <button
-            onClick={() => onSelectTab('games')}
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/30 group transition"
-          >
-            <div className="w-9 h-9 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center group-hover:scale-110 transition">
-              <Gamepad2 className="w-4 h-4" />
-            </div>
-            <span className="text-[10px] font-bold text-slate-200 mt-1.5">Games</span>
-            <span className="text-[8px] text-purple-400 font-semibold">15 Games</span>
-          </button>
-
-          <button
-            onClick={() => onSelectTab('jobs')}
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/30 group transition"
-          >
-            <div className="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition">
-              <Briefcase className="w-4 h-4" />
-            </div>
-            <span className="text-[10px] font-bold text-slate-200 mt-1.5">Jobs</span>
-            <span className="text-[8px] text-cyan-400 font-semibold">Global</span>
-          </button>
-        </div>
-      </section>
-
-      {/* Responsive AdSense placement after the main navigation shortcuts */}
-      <AdSenseAd />
-
-      {/* Live Channels Section */}
-      <section>
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-4 rounded-full bg-rose-500" />
-            <h2 className="text-base font-black text-white">Live Channels</h2>
-            <span className="px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-400 text-[10px] font-black">
-              LIVE
+    <div className="m2a-home mx-auto w-full max-w-[1440px] px-3 pb-36 pt-3 sm:px-6 sm:pt-5 lg:px-10 lg:pb-40 space-y-8 sm:space-y-11 animate-in fade-in duration-300">
+      {/* Editorial hero: cinematic feature with a desktop reading rail */}
+      <section className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.8fr)_minmax(300px,.82fr)] gap-4 lg:gap-5">
+        <div className="m2a-feature group relative min-h-[390px] sm:min-h-[470px] overflow-hidden rounded-[1.8rem] border border-white/10 bg-[#15171c] shadow-[0_28px_90px_rgba(0,0,0,.42)]">
+          {featuredImage ? (
+            <img src={featuredImage} alt={featuredTitle} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]" />
+          ) : (
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(16,185,129,.22),transparent_28%),radial-gradient(circle_at_25%_80%,rgba(245,158,11,.2),transparent_35%),linear-gradient(135deg,#22252c,#0c1014)]" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080a0e] via-[#080a0e]/65 to-[#080a0e]/5" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#080a0e]/70 via-transparent to-transparent" />
+          <div className="absolute left-5 top-5 sm:left-7 sm:top-7 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-300/30 bg-black/45 px-3 py-1.5 text-[10px] font-black uppercase tracking-[.18em] text-amber-200 backdrop-blur-md">
+              <Sparkles className="h-3 w-3" /> M2A Spotlight
             </span>
+            {featuredMovie && <span className="rounded-full border border-white/15 bg-black/40 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white/90 backdrop-blur-md">Featured film</span>}
           </div>
-          <button
-            onClick={() => onSelectTab('tv')}
-            className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-0.5"
-          >
-            <span>See All ({channels.length})</span>
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
+          <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 lg:p-10">
+            <div className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[.18em] text-emerald-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,.9)]" />
+              Entertainment · Technology · Ideas
+            </div>
+            <h1 className="max-w-3xl text-3xl font-black leading-[1.04] tracking-tight text-white drop-shadow sm:text-4xl lg:text-5xl xl:text-[3.6rem]">
+              {featuredTitle}
+            </h1>
+            <p className="mt-3 max-w-2xl line-clamp-2 text-sm leading-relaxed text-slate-200/90 sm:text-base">
+              {featuredDescription}
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <button onClick={openFeatured} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-300 px-5 py-3 text-xs font-black text-[#17130a] shadow-[0_8px_28px_rgba(245,158,11,.22)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_34px_rgba(245,158,11,.3)] active:scale-95">
+                <Play className="h-4 w-4 fill-current" /> {featuredMovie ? 'Watch featured film' : 'Read featured story'}
+              </button>
+              <button onClick={() => onSelectTab(featuredMovie ? 'firimu' : 'blogs')} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-xs font-bold text-white backdrop-blur-md transition hover:bg-white/15">
+                Explore M2A <ArrowUpRight className="h-4 w-4" />
+              </button>
+              {featuredDate && <span className="text-[11px] text-white/65">{new Date(featuredDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>}
+            </div>
+          </div>
+          <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full border border-amber-300/10" />
+          <div className="pointer-events-none absolute -right-5 -top-9 h-44 w-44 rounded-full border border-emerald-300/10" />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {featuredChannels.map((channel) => (
-            <button
-              key={channel.id}
-              onClick={() => {
-                onSelectTab('tv');
-                onSelectChannel(channel);
-              }}
-              className="group relative overflow-hidden rounded-2xl bg-[#151a20] border border-white/[0.07] hover:border-emerald-400/40 p-3 text-left transition flex flex-col justify-between h-32 shadow-sm hover:shadow-xl hover:shadow-emerald-950/20"
-            >
-              <div className="flex justify-between items-start">
-                <div
-                  className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black text-white shadow-sm"
-                  style={{ backgroundColor: `#${channel.color}` }}
-                >
-                  {channel.name.slice(0, 2).toUpperCase()}
-                </div>
-                <span className="px-1.5 py-0.2 rounded text-[8px] font-black bg-rose-600 text-white tracking-wider flex items-center gap-1">
-                  <span className="w-1 h-1 rounded-full bg-white animate-pulse" />
-                  LIVE
+        <aside className="flex min-h-[390px] flex-col rounded-[1.8rem] border border-white/[.08] bg-[#12161b] p-4 shadow-[0_20px_60px_rgba(0,0,0,.22)] sm:p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[.2em] text-amber-300">The latest</p>
+              <h2 className="mt-1 text-lg font-black text-white">Fresh from M2A</h2>
+            </div>
+            <button onClick={() => loadFeed(true)} aria-label="Refresh latest posts" className="rounded-xl border border-white/10 bg-white/5 p-2 text-slate-400 transition hover:text-amber-300">
+              <RotateCw className={`h-4 w-4 ${refreshing ? 'animate-spin text-amber-300' : ''}`} />
+            </button>
+          </div>
+          <div className="flex-1 space-y-3">
+            {loading && [1, 2, 3].map((item) => <div key={item} className="flex gap-3 rounded-xl border border-white/5 p-2 animate-pulse"><div className="h-[76px] w-[88px] shrink-0 rounded-lg bg-white/10" /><div className="flex-1 space-y-2 py-2"><div className="h-3 w-4/5 rounded bg-white/10" /><div className="h-2 w-2/3 rounded bg-white/5" /><div className="h-2 w-1/3 rounded bg-white/5" /></div></div>)}
+            {!loading && sidePosts.map((post) => (
+              <button key={post.id} onClick={() => onSelectPost(post)} className="group flex w-full gap-3 rounded-xl border border-white/[.06] bg-white/[.025] p-2 text-left transition hover:border-amber-300/30 hover:bg-white/[.055]">
+                <img src={post.thumbnail} alt="" loading="lazy" className="h-[76px] w-[88px] shrink-0 rounded-lg bg-black object-cover" onError={(e) => { (e.target as HTMLImageElement).style.visibility = 'hidden'; }} />
+                <span className="flex min-w-0 flex-1 flex-col justify-center">
+                  <span className="line-clamp-2 text-xs font-bold leading-snug text-slate-100 transition group-hover:text-amber-200">{post.title}</span>
+                  <span className="mt-2 text-[10px] text-slate-500">{new Date(post.published).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
                 </span>
-              </div>
+                <ChevronRight className="mt-auto mb-1 h-4 w-4 shrink-0 text-slate-600 group-hover:text-amber-300" />
+              </button>
+            ))}
+            {!loading && sidePosts.length === 0 && <p className="rounded-xl border border-white/5 p-4 text-xs leading-relaxed text-slate-400">New stories and updates will appear here as the M2A feed syncs.</p>}
+          </div>
+          <button onClick={() => onSelectTab('blogs')} className="mt-4 flex w-full items-center justify-between rounded-xl border border-amber-300/20 bg-amber-300/[.06] px-4 py-3 text-xs font-bold text-amber-200 transition hover:bg-amber-300/10">
+            Browse all stories <ArrowUpRight className="h-4 w-4" />
+          </button>
+        </aside>
+      </section>
 
-              <div>
-                <h4 className="text-xs font-bold text-white group-hover:text-amber-400 truncate">
-                  {channel.name}
-                </h4>
-                <p className="text-[10px] text-slate-400 mt-0.5">{channel.category}</p>
-              </div>
-
-              {/* Hover play icon */}
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
-                <Play className="w-6 h-6 text-amber-400 fill-current" />
-              </div>
+      {/* Clear category navigation with a unified premium card system */}
+      <section>
+        <div className="mb-4 flex items-end justify-between gap-3">
+          <div><p className="text-[10px] font-black uppercase tracking-[.2em] text-emerald-300">Explore the hub</p><h2 className="mt-1 text-xl font-black tracking-tight text-white sm:text-2xl">Everything in one place</h2></div>
+          <span className="hidden text-xs text-slate-500 sm:block">Choose your next destination</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 xl:grid-cols-6">
+          {categories.map(({ id, label, detail, icon: Icon, tone, accent, glow }) => (
+            <button key={id} onClick={() => onSelectTab(id)} className={`group relative flex min-h-[100px] items-center gap-3 overflow-hidden rounded-2xl border border-white/[.08] bg-gradient-to-br ${tone} p-3.5 text-left transition duration-200 hover:-translate-y-1 hover:bg-white/[.06] ${glow} sm:min-h-[116px] sm:flex-col sm:items-start sm:justify-between sm:p-4`}>
+              <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black/20 ${accent} transition group-hover:scale-110`}><Icon className="h-5 w-5" /></span>
+              <span className="min-w-0"><span className="block text-sm font-black text-white">{label}</span><span className="mt-0.5 block text-[10px] text-slate-400">{detail}</span></span>
+              <ArrowUpRight className="absolute right-3 top-3 h-4 w-4 text-white/25 transition group-hover:text-white/80" />
             </button>
           ))}
         </div>
       </section>
 
-      {/* Trending Firimu Movies from naka.marketing2advertising.com */}
+      {/* Install prompt, visually secondary to the content */}
+      <section className="flex flex-col gap-3 rounded-2xl border border-emerald-300/15 bg-[linear-gradient(100deg,rgba(16,185,129,.09),rgba(245,158,11,.055),rgba(255,255,255,.015))] p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-300/20 bg-emerald-300/10 text-emerald-300"><WandSparkles className="h-5 w-5" /></div>
+          <div><h3 className="text-sm font-black text-white">Take M2A with you</h3><p className="mt-0.5 text-[11px] text-slate-400">Install the app for a quicker, full-screen experience.</p></div>
+        </div>
+        <PWAInstallButton compact />
+      </section>
+
+      {/* Existing responsive AdSense placement retained */}
+      <AdSenseAd />
+
+      {/* Live TV preview */}
+      <section>
+        <div className="mb-4 flex items-end justify-between">
+          <div><p className="text-[10px] font-black uppercase tracking-[.2em] text-rose-300">On air now</p><h2 className="mt-1 flex items-center gap-2 text-xl font-black text-white sm:text-2xl"><Radio className="h-5 w-5 text-rose-400" /> Live channels</h2></div>
+          <button onClick={() => onSelectTab('tv')} className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-amber-200">All channels <ChevronRight className="h-4 w-4" /></button>
+        </div>
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-6">
+          {featuredChannels.map((channel) => (
+            <button key={channel.id} onClick={() => { onSelectTab('tv'); onSelectChannel(channel); }} className="group relative flex min-h-[116px] flex-col justify-between overflow-hidden rounded-2xl border border-white/[.08] bg-[#14191f] p-3 text-left transition hover:-translate-y-0.5 hover:border-rose-300/35 hover:bg-[#191e25]">
+              <div className="flex items-center justify-between gap-2"><span className="flex h-9 w-9 items-center justify-center rounded-xl text-xs font-black text-white shadow" style={{ backgroundColor: `#${channel.color}` }}>{channel.logo ? <img src={channel.logo} alt="" className="h-full w-full rounded-xl object-contain" /> : channel.name.slice(0, 2).toUpperCase()}</span><span className="flex items-center gap-1 rounded-full bg-rose-500/15 px-2 py-1 text-[8px] font-black tracking-wider text-rose-300"><span className="h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse" /> LIVE</span></div>
+              <span><span className="block truncate text-xs font-bold text-white group-hover:text-amber-200">{channel.name}</span><span className="mt-0.5 block truncate text-[10px] text-slate-500">{channel.category}</span></span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Cinematic Firimu collection */}
       {nakaMovies.length > 0 && (
         <section>
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-4 rounded-full bg-gradient-to-b from-amber-400 to-rose-500" />
-              <h2 className="text-base font-black text-white">Trending Firimu</h2>
-              <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[10px] font-black uppercase">
-                naka movies
-              </span>
-            </div>
-            <button
-              onClick={() => onSelectTab('firimu')}
-              className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-0.5"
-            >
-              <span>Watch All</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
+          <div className="mb-4 flex items-end justify-between">
+            <div><p className="text-[10px] font-black uppercase tracking-[.2em] text-amber-300">Now showing</p><h2 className="mt-1 flex items-center gap-2 text-xl font-black text-white sm:text-2xl"><Clapperboard className="h-5 w-5 text-amber-300" /> Trending Firimu</h2></div>
+            <button onClick={() => onSelectTab('firimu')} className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-amber-200">Explore films <ChevronRight className="h-4 w-4" /></button>
           </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4">
-            {nakaMovies.map((movie) => (
-              <div
-                key={movie.id}
-                onClick={() => {
-                  if (onSelectMovie) {
-                    onSelectMovie(movie);
-                  } else {
-                    onSelectTab('firimu');
-                  }
-                }}
-                className="group relative overflow-hidden rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/40 p-2 cursor-pointer transition flex flex-col justify-between"
-              >
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-black mb-1.5">
-                  <img
-                    src={movie.poster}
-                    alt={movie.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                  />
-                  <span className="absolute top-1 left-1 px-1.5 py-0.2 rounded bg-amber-500 text-black text-[8px] font-black uppercase">
-                    {movie.vj}
-                  </span>
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-full bg-amber-500 text-black flex items-center justify-center shadow">
-                      <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-[11px] font-bold text-white group-hover:text-amber-400 line-clamp-1">
-                    {movie.cleanTitle}
-                  </h4>
-                  <span className="text-[9px] text-slate-400 block truncate">
-                    {movie.vj}
-                  </span>
-                </div>
-              </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+            {nakaMovies.slice(0, 6).map((movie) => (
+              <button key={movie.id} onClick={() => onSelectMovie ? onSelectMovie(movie) : onSelectTab('firimu')} className="group min-w-0 overflow-hidden rounded-2xl border border-white/[.08] bg-[#14171c] text-left transition hover:-translate-y-1 hover:border-amber-300/35">
+                <div className="relative aspect-[2/3] overflow-hidden bg-black"><img src={movie.poster} alt={movie.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/15" /><span className="absolute left-2 top-2 rounded-md bg-amber-300 px-2 py-1 text-[8px] font-black uppercase text-black">{movie.vj || 'M2A'}</span><span className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-amber-300 text-black shadow-lg"><Play className="ml-0.5 h-3.5 w-3.5 fill-current" /></span></div>
+                <div className="p-2.5"><span className="line-clamp-1 block text-[11px] font-bold text-white group-hover:text-amber-200">{movie.cleanTitle || movie.title}</span><span className="mt-1 block truncate text-[9px] text-slate-500">{movie.vj}</span></div>
+              </button>
             ))}
           </div>
         </section>
       )}
 
-      {/* Latest Blogger Feed Posts from Main Site */}
+      {/* Editorial article cards */}
       <section>
-        <div className="flex items-center justify-between mb-3">
+        <div className="mb-4 flex items-end justify-between gap-3">
+          <div><p className="text-[10px] font-black uppercase tracking-[.2em] text-sky-300">Ideas worth your time</p><h2 className="mt-1 text-xl font-black text-white sm:text-2xl">Latest from M2A Blogs</h2></div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-4 rounded-full bg-amber-500" />
-            <h2 className="text-base font-black text-white">Latest from M2A Blogs</h2>
-            <button
-              onClick={() => loadFeed(true)}
-              className="p-1 rounded text-slate-400 hover:text-white transition"
-              title="Refresh feed"
-            >
-              <RotateCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin text-amber-400' : ''}`} />
-            </button>
+            <button onClick={() => loadFeed(true)} aria-label="Refresh blog feed" className="rounded-lg border border-white/10 bg-white/5 p-2 text-slate-400 transition hover:text-amber-300"><RotateCw className={`h-4 w-4 ${refreshing ? 'animate-spin text-amber-300' : ''}`} /></button>
+            <button onClick={() => onSelectTab('blogs')} className="flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-amber-200">All stories <ChevronRight className="h-4 w-4" /></button>
           </div>
-          <button
-            onClick={() => onSelectTab('blogs')}
-            className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-0.5"
-          >
-            <span>All Articles</span>
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
         </div>
-
-        {/* Loading Skeletons */}
-        {loading && (
-          <div className="space-y-3">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="flex gap-3 p-3 rounded-2xl bg-[#14141e] border border-white/5 animate-pulse"
-              >
-                <div className="w-24 h-20 rounded-xl bg-white/5 shrink-0" />
-                <div className="flex-1 space-y-2 py-1">
-                  <div className="w-3/4 h-3.5 bg-white/10 rounded" />
-                  <div className="w-1/2 h-2.5 bg-white/5 rounded" />
-                  <div className="w-1/3 h-2 bg-white/5 rounded" />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Post Items */}
+        {loading && <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">{[1, 2, 3].map((item) => <div key={item} className="h-64 animate-pulse rounded-2xl border border-white/5 bg-white/[.035]" />)}</div>}
         {!loading && posts.length > 0 && (
-          <div className="space-y-3">
-            {posts.map((post, idx) => (
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.slice(0, 6).map((post, index) => (
               <React.Fragment key={post.id}>
-                {/* Insert native ad after second post */}
-                {idx === 2 && <AdMobBanner format="native" />}
-                {/* Second AdSense placement after readers have started browsing articles */}
-                {idx === 5 && <AdSenseAd />}
-
-                <a
-                  href={post.url}
-                  className="group flex gap-3.5 p-3 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/30 cursor-pointer transition active:scale-[0.99] block text-left"
-                >
-                  <div className="relative w-24 h-24 sm:w-28 sm:h-24 rounded-xl overflow-hidden bg-black shrink-0 border border-white/5">
-                    <img
-                      src={post.thumbnail}
-                      alt={post.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop&q=80';
-                      }}
-                    />
-                    {post.categories.length > 0 && (
-                      <span className="absolute bottom-1 left-1 px-1.5 py-0.2 rounded bg-black/80 backdrop-blur-sm text-[8px] font-black text-amber-300 uppercase">
-                        {post.categories[0]}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex-1 flex flex-col justify-between min-w-0">
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-400 line-clamp-2 leading-snug">
-                        {post.title}
-                      </h3>
-                      {post.summary && (
-                        <p className="text-[11px] text-slate-400 line-clamp-2 mt-1">
-                          {post.summary}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-3 text-[10px] text-slate-500 mt-2">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-slate-500" />
-                        {new Date(post.published).toLocaleDateString(undefined, {
-                          month: 'short',
-                          day: 'numeric',
-                        })}
-                      </span>
-                      <span className="text-amber-400 font-bold flex items-center gap-1 text-[11px] group-hover:underline ml-auto">
-                        <span>Open on Site</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </span>
-                    </div>
-                  </div>
-                </a>
+                {index === 3 && <div className="sm:col-span-2 lg:col-span-3"><AdMobBanner format="native" /></div>}
+                {index === 5 && <div className="sm:col-span-2 lg:col-span-3"><AdSenseAd /></div>}
+                <button onClick={() => onSelectPost(post)} className="group flex min-h-[116px] gap-3 overflow-hidden rounded-2xl border border-white/[.08] bg-[#14171c] p-2.5 text-left transition hover:-translate-y-0.5 hover:border-amber-300/30 hover:bg-[#191d23]">
+                  <div className="relative h-[112px] w-[112px] shrink-0 overflow-hidden rounded-xl bg-black sm:h-[124px] sm:w-[124px]"><img src={post.thumbnail} alt={post.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0'; }} />{post.categories?.[0] && <span className="absolute bottom-1.5 left-1.5 max-w-[90%] truncate rounded bg-black/75 px-2 py-1 text-[8px] font-black uppercase text-amber-200">{post.categories[0]}</span>}</div>
+                  <span className="flex min-w-0 flex-1 flex-col py-1"><span className="line-clamp-3 text-xs font-bold leading-snug text-white transition group-hover:text-amber-200 sm:text-sm">{post.title}</span>{post.summary && <span className="mt-1.5 line-clamp-2 text-[10px] leading-relaxed text-slate-400">{post.summary}</span>}<span className="mt-auto flex items-center gap-1 pt-2 text-[9px] text-slate-500"><Calendar className="h-3 w-3" />{new Date(post.published).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}<ArrowUpRight className="ml-auto h-3.5 w-3.5 text-amber-300 opacity-0 transition group-hover:opacity-100" /></span></span>
+                </button>
               </React.Fragment>
             ))}
           </div>
         )}
-
-        {!loading && posts.length === 0 && (
-          <div className="p-8 text-center rounded-2xl bg-[#14141e] border border-white/5">
-            <p className="text-xs text-slate-400">Unable to load feed right now.</p>
-            <button
-              onClick={() => loadFeed(true)}
-              className="mt-3 px-4 py-1.5 rounded-xl bg-amber-500 text-black text-xs font-bold"
-            >
-              Retry Sync
-            </button>
-          </div>
-        )}
+        {!loading && posts.length === 0 && <div className="rounded-2xl border border-white/[.08] bg-[#14171c] p-8 text-center"><Search className="mx-auto h-6 w-6 text-slate-500" /><p className="mt-2 text-xs text-slate-400">Unable to load the blog feed right now.</p><button onClick={() => loadFeed(true)} className="mt-3 rounded-xl bg-amber-300 px-4 py-2 text-xs font-black text-black">Retry sync</button></div>}
       </section>
 
-      {/* Website Direct Link Card */}
-      <div className="p-4 rounded-2xl bg-[#121218] border border-white/5 flex items-center justify-between text-xs">
-        <div>
-          <span className="font-bold text-white">Looking for desktop experience?</span>
-          <p className="text-[10px] text-slate-400 mt-0.5">All tools and posts stay in sync in real-time.</p>
-        </div>
-        <a
-          href="https://www.marketing2advertising.com"
-          className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 font-semibold transition"
-        >
-          <span>Open Site</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </a>
-      </div>
+      <footer className="flex flex-col items-center justify-between gap-3 rounded-2xl border border-white/[.07] bg-[#11151a] px-5 py-4 text-center sm:flex-row sm:text-left">
+        <div><p className="text-xs font-black tracking-wide text-white">M2A <span className="text-amber-300">·</span> Marketing2Advertising</p><p className="mt-1 text-[10px] text-slate-500">Entertainment, technology, stories and digital opportunities.</p></div>
+        <a href="https://www.marketing2advertising.com" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2 text-[10px] font-bold text-slate-300 transition hover:border-amber-300/30 hover:text-amber-200">Visit main website <ExternalLink className="h-3.5 w-3.5" /></a>
+      </footer>
     </div>
   );
 };
