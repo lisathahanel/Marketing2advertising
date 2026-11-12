@@ -65,9 +65,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   const featuredChannels = channels.slice(0, 6);
 
   return (
-    <div className="pb-28 max-w-xl mx-auto px-3.5 space-y-5 animate-in fade-in duration-300">
+    <div className="m2a-home mx-auto w-full max-w-7xl px-4 pb-32 pt-1 sm:px-6 lg:px-8 lg:pb-36 space-y-7 sm:space-y-9 animate-in fade-in duration-300">
       {/* Hero Brand Tagline Banner */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#181824] via-[#12121a] to-[#0d0d12] border border-amber-500/30 p-5 shadow-2xl">
+      <section className="m2a-hero relative overflow-hidden rounded-[1.75rem] bg-[radial-gradient(ellipse_at_top_right,rgba(34,197,94,.12),transparent_42%),linear-gradient(135deg,#171b22_0%,#101319_58%,#17140e_100%)] border border-white/10 p-6 shadow-[0_24px_70px_rgba(0,0,0,.35)] sm:p-8 lg:p-10">
         <div className="absolute top-0 right-0 -mt-4 -mr-4 w-36 h-36 rounded-full bg-amber-500/10 blur-2xl pointer-events-none" />
 
         <div className="flex items-center gap-2 mb-2">
@@ -81,15 +81,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </span>
         </div>
 
-        <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
           M2A Digital Hub
         </h1>
 
-        <p className="text-xs text-amber-400 font-semibold tracking-wide mt-1">
+        <p className="text-xs sm:text-sm text-emerald-300 font-bold tracking-wide mt-2">
           AI Tools | Freelancing | Software | Hosting | Online Learning | Careers
         </p>
 
-        <p className="text-[11px] text-slate-300 mt-2 leading-relaxed">
+        <p className="max-w-3xl text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
           Mirroring <span className="text-amber-300 font-medium">marketing2advertising.com</span> with zero sign-up tools, 15 games, high-speed live TV, and automated feed sync.
         </p>
 
@@ -120,7 +120,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       </section>
 
       {/* In-App PWA Install Banner */}
-      <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-yellow-500/5 to-transparent border border-amber-500/25 flex items-center justify-between">
+      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-500/[0.09] via-amber-500/[0.06] to-transparent border border-white/10 flex items-center justify-between gap-4">
         <div>
           <h3 className="text-xs font-bold text-white flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-amber-400" />
@@ -135,7 +135,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
       {/* Quick Category Navigation Shortcuts */}
       <section>
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
           <button
             onClick={() => onSelectTab('tv')}
             className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/30 group transition"
@@ -226,7 +226,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {featuredChannels.map((channel) => (
             <button
               key={channel.id}
@@ -234,7 +234,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 onSelectTab('tv');
                 onSelectChannel(channel);
               }}
-              className="group relative overflow-hidden rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/40 p-2.5 text-left transition flex flex-col justify-between h-28"
+              className="group relative overflow-hidden rounded-2xl bg-[#151a20] border border-white/[0.07] hover:border-emerald-400/40 p-3 text-left transition flex flex-col justify-between h-32 shadow-sm hover:shadow-xl hover:shadow-emerald-950/20"
             >
               <div className="flex justify-between items-start">
                 <div
@@ -285,7 +285,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             </button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4">
             {nakaMovies.map((movie) => (
               <div
                 key={movie.id}
