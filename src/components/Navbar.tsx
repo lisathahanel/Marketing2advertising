@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Search, Tv } from 'lucide-react';
+import { Menu, Search, Tv, ChevronDown, Film, Home, Gamepad2, Newspaper, Layers3 } from 'lucide-react';
 import { PWAInstallButton } from './PWAInstallButton';
 import { TabType } from '../types';
 
@@ -10,82 +10,34 @@ interface NavbarProps {
   onToggleSearch: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({
-  onSelectTab,
-  onOpenDrawer,
-  onToggleSearch,
-}) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab, onOpenDrawer, onToggleSearch }) => {
+  const links: Array<{ id: TabType; label: string; Icon: React.ElementType }> = [
+    { id: 'home', label: 'Home', Icon: Home },
+    { id: 'tv', label: 'TV', Icon: Tv },
+    { id: 'games', label: 'Games', Icon: Gamepad2 },
+    { id: 'firimu', label: 'Movies', Icon: Film },
+    { id: 'catalogue', label: 'Series', Icon: Layers3 },
+    { id: 'blogs', label: 'Blogs', Icon: Newspaper },
+  ];
+
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#0b0d10]/90 backdrop-blur-xl border-b border-white/[0.08] px-4 py-3 sm:px-6 lg:px-8">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4">
-        {/* Left: Brand Identity */}
-        <div className="flex items-center gap-2.5">
-          <button
-            onClick={() => onSelectTab('home')}
-            className="flex items-center gap-2 group text-left focus:outline-none"
-          >
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-400 via-amber-400 to-yellow-300 p-[1.5px] shadow-[0_0_24px_rgba(16,185,129,.16)]">
-              <div className="w-full h-full rounded-[10px] bg-[#0b0b0f] flex items-center justify-center font-black text-amber-400 text-sm tracking-wider">
-                M2A
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5 leading-none">
-                <span className="font-black text-lg tracking-wider bg-gradient-to-r from-white via-amber-200 to-emerald-300 bg-clip-text text-transparent">
-                  M2A
-                </span>
-                <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 text-[9px] font-black tracking-wide border border-rose-500/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
-                  LIVE
-                </span>
-              </div>
-              <span className="text-[9px] text-slate-400 font-medium">marketing2advertising</span>
-            </div>
-          </button>
-        </div>
+    <header className="sticky top-0 z-40 w-full border-b border-white/[.07] bg-[#05070D]/85 px-3 py-3 shadow-[0_8px_35px_rgba(0,0,0,.25)] backdrop-blur-2xl sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between gap-3">
+        <button onClick={() => onSelectTab('home')} className="group flex shrink-0 items-center gap-2.5 text-left">
+          <span className="relative flex h-10 w-10 items-center justify-center rounded-[14px] border border-lime-300/40 bg-[linear-gradient(145deg,rgba(124,255,0,.2),rgba(8,14,22,.95))] text-[12px] font-black tracking-tight text-[#7CFF00] shadow-[0_0_22px_rgba(124,255,0,.12)] transition group-hover:shadow-[0_0_30px_rgba(124,255,0,.25)]">M2A<span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-[#7CFF00] shadow-[0_0_10px_#7CFF00]" /></span>
+          <span className="hidden xs:block"><span className="block text-base font-black tracking-[.12em] text-white">M2A<span className="text-[#7CFF00]">.</span></span><span className="block text-[8px] font-semibold tracking-[.13em] text-slate-500">DIGITAL UNIVERSE</span></span>
+        </button>
 
-        {/* Right Actions: Live Shortcut, Install PWA, Search, Menu */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Quick TV button */}
-          <button
-            onClick={() => onSelectTab('tv')}
-            className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-bold transition"
-            title="Watch Live Channels"
-          >
-            <Tv className="w-3.5 h-3.5" />
-            <span>TV</span>
-          </button>
+        <nav aria-label="Main navigation" className="hidden items-center gap-1 xl:flex">
+          {links.map(({ id, label, Icon }) => <button key={id} onClick={() => onSelectTab(id)} aria-current={currentTab === id ? 'page' : undefined} className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold transition ${currentTab === id ? 'bg-lime-300/10 text-[#7CFF00] shadow-[inset_0_0_0_1px_rgba(124,255,0,.16)]' : 'text-slate-400 hover:bg-white/[.05] hover:text-white'}`}><Icon className="h-3.5 w-3.5" />{label}</button>)}
+          <button onClick={onOpenDrawer} className="flex items-center gap-1 rounded-xl px-3 py-2 text-[11px] font-bold text-slate-400 transition hover:bg-white/[.05] hover:text-white">More <ChevronDown className="h-3 w-3" /></button>
+        </nav>
 
-          {/* Quick Firimu button */}
-          <button
-            onClick={() => onSelectTab('firimu')}
-            className="hidden xs:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-bold transition"
-            title="Watch Naka Movies"
-          >
-            <span className="text-xs">🎬</span>
-            <span>Firimu</span>
-          </button>
-
-          {/* In-App PWA Install */}
-          <PWAInstallButton compact />
-
-          {/* Search Trigger */}
-          <button
-            onClick={onToggleSearch}
-            aria-label="Search"
-            className="p-2 rounded-xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/5 transition"
-          >
-            <Search className="w-4 h-4" />
-          </button>
-
-          {/* Menu Drawer Toggle */}
-          <button
-            onClick={onOpenDrawer}
-            aria-label="Open menu"
-            className="p-2 rounded-xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/5 transition"
-          >
-            <Menu className="w-4 h-4" />
-          </button>
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <button onClick={() => onSelectTab('tv')} className="hidden items-center gap-1.5 rounded-xl border border-lime-300/20 bg-lime-300/[.06] px-3 py-2 text-[10px] font-black text-lime-300 transition hover:bg-lime-300/10 sm:flex"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#7CFF00]" /> LIVE</button>
+          <span className="hidden md:block"><PWAInstallButton compact /></span>
+          <button onClick={onToggleSearch} aria-label="Open movie and content search" title="Search content" className="rounded-xl border border-white/10 bg-white/[.04] p-2.5 text-slate-300 transition hover:border-sky-300/30 hover:text-sky-200"><Search className="h-4 w-4" /></button>
+          <button onClick={onOpenDrawer} aria-label="Open menu" className="rounded-xl border border-white/10 bg-white/[.04] p-2.5 text-slate-300 transition hover:border-lime-300/30 hover:text-lime-200"><Menu className="h-4 w-4" /></button>
         </div>
       </div>
     </header>
