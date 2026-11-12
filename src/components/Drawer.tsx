@@ -15,6 +15,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { TabType } from '../types';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface DrawerProps {
   isOpen: boolean;
@@ -75,6 +76,13 @@ export const Drawer: React.FC<DrawerProps> = ({
 
           {/* Main App Navigation */}
           <div className="space-y-1 mb-6">
+            <div className="mb-3 flex items-center justify-between gap-3 rounded-xl border border-lime-300/20 bg-lime-300/[.06] p-3">
+              <div className="min-w-0">
+                <p className="text-xs font-black text-white">Install M2A App</p>
+                <p className="mt-0.5 text-[10px] text-slate-400">Add M2A to your home screen</p>
+              </div>
+              <PWAInstallButton compact />
+            </div>
             <span className="text-[10px] font-black text-amber-400/80 uppercase tracking-widest px-2">
               App Sections
             </span>
