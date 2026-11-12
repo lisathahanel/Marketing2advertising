@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>M2A</title>
+    <meta name="description" content="M2A marketing2advertising all-in-one Mobile App with Live TV channels, interactive Multi Apps, free games, Firimu movie streaming, and Blogger sync." />
+    <link rel="canonical" href="https://m2a.marketing2advertising.com/" />
+
+    <meta property="og:title" content="M2A" />
+    <meta property="og:description" content="M2A marketing2advertising all-in-one Mobile App with Live TV channels, interactive Multi Apps, free games, Firimu movie streaming, and Blogger sync." />
+    <meta property="og:url" content="https://m2a.marketing2advertising.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://m2a.marketing2advertising.com/icon-512.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="M2A" />
+    <meta name="twitter:description" content="M2A marketing2advertising all-in-one Mobile App with Live TV channels, interactive Multi Apps, free games, Firimu movie streaming, and Blogger sync." />
+    <meta name="twitter:url" content="https://m2a.marketing2advertising.com/" />
+    <meta name="twitter:image" content="https://m2a.marketing2advertising.com/icon-512.png" />
+
+    <meta name="theme-color" content="#0b0b0f" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="M2A" />
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+
+    <link rel="preconnect" href="https://m2a.marketing2advertising.com" />
+    <link rel="dns-prefetch" href="https://m2a.marketing2advertising.com" />
+    <link rel="preconnect" href="https://naka.marketing2advertising.com" />
+    <link rel="dns-prefetch" href="https://naka.marketing2advertising.com" />
+    <link rel="preconnect" href="https://www.marketing2advertising.com" />
+    <link rel="dns-prefetch" href="https://www.marketing2advertising.com" />
+
+    <style>
+      html, body { min-height: 100%; margin: 0; background: #0b0b0f; color: #f1f5f9; }
+      #m2a-startup { min-height: 100vh; display: grid; place-content: center; gap: 12px; text-align: center; font: 600 14px system-ui, sans-serif; color: #fbbf24; }
+      #m2a-startup small { color: #94a3b8; font-weight: 400; }
+      #m2a-startup .dot { width: 9px; height: 9px; border-radius: 50%; background: #fbbf24; margin: 0 auto; box-shadow: 0 0 18px #fbbf24; }
+      #m2a-boot-error { display: none; max-width: 560px; margin: 24px auto; padding: 20px; color: #fecaca; background: #271316; border: 1px solid #7f1d1d; border-radius: 14px; font: 13px/1.6 system-ui, sans-serif; overflow-wrap: anywhere; }
+    </style>
+  </head>
+  <body class="bg-[#0b0b0f] text-slate-100 antialiased selection:bg-amber-500 selection:text-black min-h-screen">
+    <div id="root">
+      <div id="m2a-startup"><span class="dot"></span><span>Starting Marketing2Advertising…</span><small>Loading the M2A app</small></div>
+    </div>
+    <div id="m2a-boot-error" role="alert">
+      <strong>M2A could not start.</strong>
+      <p id="m2a-boot-error-detail">The app script did not finish loading. Please refresh the page.</p>
+    </div>
+    <noscript><div style="padding:24px;color:white;text-align:center">M2A requires JavaScript to run. Please enable JavaScript and reload.</div></noscript>
+    <script>
+      (function () {
+        function showBootError(message) {
+          if (window.__M2A_APP_STARTED__) return;
+          var root = document.getElementById('root');
+          var box = document.getElementById('m2a-boot-error');
+          var detail = document.getElementById('m2a-boot-error-detail');
+          if (root) root.style.display = 'none';
+          if (detail && message) detail.textContent = String(message).slice(0, 500);
+          if (box) box.style.display = 'block';
+        }
+        window.addEventListener('error', function (event) {
+          if (!event || window.__M2A_APP_STARTED__) return;
+          // Only a failed app module should stop startup. Third-party scripts
+          // (for example AdSense inside the catalogue) may be blocked without
+          // preventing M2A itself from running.
+          var target = event.target;
+          var isAppModule = target instanceof HTMLScriptElement &&
+            target.type === 'module' &&
+            (target.src.indexOf('/assets/') !== -1 || target.src.indexOf('/src/main.tsx') !== -1);
+          if (isAppModule || event.message) {
+            showBootError(event.message || 'A required app script could not be loaded.');
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function (event) {
+          if (window.__M2A_APP_STARTED__) return;
+          showBootError(event.reason && (event.reason.message || event.reason) || 'The app encountered an unexpected startup error.');
+        });
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

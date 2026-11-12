@@ -1,0 +1,135 @@
+[
+  {
+    "id": "citizentv",
+    "name": "Citizen TV",
+    "url": "https://live-onesignal.royalmedia.co.ke/live/jgB35emfPsiW5aFjKJjbjg.m3u8",
+    "category": "News",
+    "color": "e11d48"
+  },
+  {
+    "id": "salttv",
+    "name": "Salt TV",
+    "url": "https://live.salttelevision.com/hls/3/stream.m3u8",
+    "category": "Entertainment",
+    "color": "f59e0b"
+  },
+  {
+    "id": "sparktv",
+    "name": "Spark TV",
+    "url": "https://ams-2629.antmedia.cloud/LiveApp/streams/spark2026.m3u8",
+    "category": "Entertainment",
+    "color": "8b5cf6"
+  },
+  {
+    "id": "bukedde1",
+    "name": "Bukedde 1 TV",
+    "url": "https://stream.hydeinnovations.com/bukedde1flussonic/tracks-v1a1/index.m3u8",
+    "category": "News",
+    "color": "22c55e"
+  },
+  {
+    "id": "ntv",
+    "name": "NTV Uganda",
+    "url": "https://ams-2629.antmedia.cloud/LiveApp/streams/abul2026.m3u8",
+    "category": "News",
+    "color": "3b82f6"
+  },
+  {
+    "id": "galaxytv",
+    "name": "Galaxy TV",
+    "url": "https://livestream.galaxytv.ug/jikonkone/playlist.m3u8",
+    "category": "Entertainment",
+    "color": "ec4899"
+  },
+  {
+    "id": "bukedde2",
+    "name": "Bukedde 2 TV",
+    "url": "https://stream.hydeinnovations.com/bukedde2flussonic/tracks-v1a1/mono.m3u8",
+    "category": "Entertainment",
+    "color": "14b8a6"
+  },
+  {
+    "id": "sabcnews",
+    "name": "SABC News",
+    "url": "https://sabconetanw.cdn.mangomolo.com/news/smil:news.stream.smil/master.m3u8",
+    "category": "News",
+    "color": "ef4444"
+  },
+  {
+    "id": "capetowntv",
+    "name": "Cape Town TV",
+    "url": "https://cdn.freevisiontv.co.za/sttv/smil:ctv.stream.smil/playlist.m3u8",
+    "category": "Community",
+    "color": "f97316"
+  },
+  {
+    "id": "tshwanetv",
+    "name": "Tshwane TV",
+    "url": "https://cdn.freevisiontv.co.za/sttv/smil:tshwane.stream.smil/playlist.m3u8",
+    "category": "Community",
+    "color": "a855f7"
+  },
+  {
+    "id": "sowetotv",
+    "name": "Soweto TV",
+    "url": "https://cdn.freevisiontv.co.za/sttv/smil:soweto.stream.smil/playlist.m3u8",
+    "category": "Community",
+    "color": "06b6d4"
+  },
+  {
+    "id": "nrgradio",
+    "name": "NRG Radio UG",
+    "url": "https://live2.tensila.com/nrg-radio-v-1.nrgug/hls/live/mystream.m3u8",
+    "category": "Entertainment",
+    "color": "84cc16"
+  },
+  {
+    "id": "babatv",
+    "name": "Baba TV",
+    "url": "https://babatv.co.ug/live/ch04/index.m3u8",
+    "category": "Entertainment",
+    "color": "f43f5e"
+  },
+  {
+    "id": "sudantv",
+    "name": "Sudan TV",
+    "url": "https://cdn-globecast.akamaized.net/live/eds/sudan_tv/hls_roku/index.m3u8",
+    "category": "News",
+    "color": "eab308"
+  },
+  {
+    "id": "france24",
+    "name": "France 24",
+    "url": "https://a-cdn.klowdtv.com/live2/france24_720p/playlist.m3u8",
+    "category": "News",
+    "color": "2563eb"
+  },
+  {
+    "id": "fifaplus",
+    "name": "FIFA+",
+    "url": "https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8",
+    "category": "Sports",
+    "color": "16a34a"
+  },
+  {
+    "id": "dw",
+    "name": "DW",
+    "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream04/streamPlaylist.m3u8",
+    "category": "News",
+    "color": "0ea5e9"
+  },
+  {
+    "id": "ewtn",
+    "name": "EWTN",
+    "url": "https://cdn3.wowza.com/1/YW5wSWZiRGd2eFlU/bGV0aVBq/hls/live/playlist.m3u8",
+    "category": "Faith",
+    "color": "7c3aed"
+  },
+  {
+    "id": "ebstv",
+    "name": "EBS TV Ethiopia",
+    "url": "https://rpn.bozztv.com/ebstv/ebstv/index.m3u8",
+    "category": "News",
+    "color": "d946ef"
+  }
+]

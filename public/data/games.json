@@ -1,0 +1,107 @@
+[
+  {
+    "id": "snake",
+    "name": "Snake",
+    "desc": "Classic arcade",
+    "cat": "arcade",
+    "ico": "🐍"
+  },
+  {
+    "id": "g2048",
+    "name": "2048",
+    "desc": "Merge the tiles",
+    "cat": "puzzle",
+    "ico": "🔢"
+  },
+  {
+    "id": "wordguess",
+    "name": "Word Guess",
+    "desc": "Wordle-style · 6 tries",
+    "cat": "puzzle",
+    "ico": "📝"
+  },
+  {
+    "id": "memory",
+    "name": "Memory Match",
+    "desc": "Flip & match pairs",
+    "cat": "puzzle",
+    "ico": "🃏"
+  },
+  {
+    "id": "mines",
+    "name": "Minesweeper",
+    "desc": "Avoid the mines",
+    "cat": "puzzle",
+    "ico": "💣"
+  },
+  {
+    "id": "puzzle15",
+    "name": "15 Puzzle",
+    "desc": "Sliding tiles",
+    "cat": "puzzle",
+    "ico": "🧩"
+  },
+  {
+    "id": "simon",
+    "name": "Simon Says",
+    "desc": "Repeat the pattern",
+    "cat": "puzzle",
+    "ico": "🎨"
+  },
+  {
+    "id": "tictactoe",
+    "name": "Tic-Tac-Toe",
+    "desc": "Unbeatable AI",
+    "cat": "board",
+    "ico": "⭕"
+  },
+  {
+    "id": "connect4",
+    "name": "Connect Four",
+    "desc": "Line up 4 to win",
+    "cat": "board",
+    "ico": "🔴"
+  },
+  {
+    "id": "blackjack",
+    "name": "Blackjack",
+    "desc": "Beat the dealer",
+    "cat": "board",
+    "ico": "🂡"
+  },
+  {
+    "id": "breakout",
+    "name": "Breakout",
+    "desc": "Smash the bricks",
+    "cat": "arcade",
+    "ico": "🧱"
+  },
+  {
+    "id": "shooter",
+    "name": "Space Shooter",
+    "desc": "Blast the invaders",
+    "cat": "arcade",
+    "ico": "🚀"
+  },
+  {
+    "id": "flappy",
+    "name": "Flappy",
+    "desc": "Endless flyer",
+    "cat": "casual",
+    "ico": "🐤"
+  },
+  {
+    "id": "whack",
+    "name": "Whack-a-Mole",
+    "desc": "30s reflex game",
+    "cat": "casual",
+    "ico": "🔨"
+  },
+  {
+    "id": "reaction",
+    "name": "Reaction Test",
+    "desc": "How fast are you?",
+    "cat": "casual",
+    "ico": "⚡"
+  }
+]
