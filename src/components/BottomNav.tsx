@@ -51,7 +51,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center pointer-events-none pb-[env(safe-area-inset-bottom)]">
+    <div className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center pointer-events-none pb-[max(env(safe-area-inset-bottom),.5rem)]">
       {/* Floating Website-Style Quick Bar: Back / Live / Firimu / Blogs / Share */}
       <div className="pointer-events-auto mb-1.5 flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[#161622]/90 border border-amber-500/30 backdrop-blur-md shadow-2xl shadow-black/80">
         <button
@@ -125,7 +125,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       </div>
 
       {/* Main Bottom Tabs Bar */}
-      <nav className="pointer-events-auto w-full max-w-md bg-[#0b0b0f]/95 backdrop-blur-xl border-t border-white/10 px-1.5 py-1 flex justify-around items-center">
+      <nav className="pointer-events-auto w-[calc(100%-1rem)] max-w-md sm:max-w-3xl rounded-2xl sm:rounded-full bg-[#11161b]/95 backdrop-blur-2xl border border-white/10 px-2 py-2 sm:px-5 sm:py-2.5 flex justify-around items-center shadow-[0_16px_50px_rgba(0,0,0,.55)]">
         {navItems.map((item) => {
           const isActive = currentTab === item.id;
           return (
