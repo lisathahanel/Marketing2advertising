@@ -41,19 +41,42 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   const loadFeed = async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
     else setLoading(true);
-    try {
-      const [blogData, movieRes] = await Promise.all([
-        fetchBloggerPosts({ site: 'main', maxResults: 10 }),
-        fetch('/api/naka/movies?maxResults=12').then((r) => r.json()).catch(() => ({ movies: [] })),
-      ]);
-      setPosts(blogData.posts || []);
-      setNakaMovies(movieRes.movies || []);
-    } catch (err) {
-      console.warn('Failed to load home feed:', err);
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
+
+    // GitHub Pages is a static host, so use Blogger JSONP directly rather than
+    // calling the Express-only /api/naka/movies route.
+    const blogRequest = fetchBloggerPosts({ site: 'main', maxResults: 10 })
+      .then((blogData) => setPosts(blogData.posts || []))
+      .catch((err) => console.warn('M2A blog feed unavailable:', err))
+      .finally(() => setLoading(false));
+
+    const movieRequest = fetchBloggerPosts({ site: 'naka', maxResults: 12 })
+      .then(({ posts: moviePosts }) => {
+        const movies: MovieItem[] = moviePosts.map((post) => {
+          const vjMatch = post.title.match(/(VJ\\s+[A-Za-z0-9\\s]+?)(?:\\s*[-–—:]|\\s+in|\\s+kali|\\s+new|\\s*$)/i)
+            || post.content.match(/(VJ\\s+[A-Za-z0-9\\s]{3,20})/i);
+          const vj = vjMatch?.[1]?.trim() || 'VJ Junior';
+          const videoMatch = post.content.match(/\\[\\/ddr45\\/\\](.*?)\\[\\/ddr45\\/\\]/i)
+            || post.content.match(/https?:\\/\\/[^\\s"'<>]+\\.(?:mp4|m3u8)(?:\\?[^\\s"'<>]*)?/i);
+          return {
+            id: post.id,
+            title: post.title,
+            cleanTitle: post.title.replace(/^VJ\\s+[^–—:-]+[–—:-]\\s*/i, '').trim(),
+            vj,
+            videoUrl: videoMatch?.[1]?.trim() || videoMatch?.[0]?.trim() || '',
+            poster: post.thumbnail,
+            summary: post.summary,
+            content: post.content,
+            categories: post.categories,
+            published: post.published,
+            url: post.url,
+          };
+        });
+        setNakaMovies(movies);
+      })
+      .catch((err) => console.warn('M2A Firimu feed unavailable:', err));
+
+    await Promise.allSettled([blogRequest, movieRequest]);
+    setRefreshing(false);
   };
 
   useEffect(() => { loadFeed(); }, []);
@@ -96,7 +119,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       {/* Premium cinematic hero */}
       <section className="grid gap-4 xl:grid-cols-[minmax(0,1.8fr)_minmax(310px,.72fr)]">
         <div className="group relative isolate min-h-[440px] overflow-hidden rounded-[24px] border border-white/10 bg-[#090e18] shadow-[0_24px_90px_rgba(0,0,0,.55)] sm:min-h-[520px]">
-          {active?.image ? <img key={active.key} src={active.image} alt={active.title} className="absolute inset-0 -z-20 h-full w-full object-cover transition duration-1000 group-hover:scale-[1.025]" /> : <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_70%_25%,rgba(124,255,0,.18),transparent_30%),linear-gradient(135deg,#101b2e,#05070d_70%)]" />}
+          {active?.image ? <img key={active.key} src={active.image} alt={active.title} loading="eager" fetchPriority="high" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover transition duration-1000 group-hover:scale-[1.025]" /> : <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_70%_25%,rgba(124,255,0,.18),transparent_30%),linear-gradient(135deg,#101b2e,#05070d_70%)]" />}
           <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#05070d] via-[#05070d]/65 to-[#05070d]/10" />
           <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#05070d]/75 via-transparent to-transparent" />
           <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full border border-lime-300/15 shadow-[0_0_80px_rgba(124,255,0,.08)]" />
