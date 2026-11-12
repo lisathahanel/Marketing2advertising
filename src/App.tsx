@@ -100,7 +100,7 @@ export default function App() {
   };
 
   return (
-    <div className="m2a-app min-h-screen bg-[#0b0d10] text-slate-100 flex flex-col font-sans selection:bg-emerald-400 selection:text-[#07110c]">
+    <div className="m2a-app min-h-screen bg-[#05070D] text-slate-100 flex flex-col font-sans selection:bg-[#7CFF00] selection:text-[#071000]">
       {/* Toast Notification Container */}
       <ToastContainer />
       <AdBlockGuard />
