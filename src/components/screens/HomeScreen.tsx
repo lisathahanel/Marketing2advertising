@@ -52,15 +52,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     const movieRequest = fetchBloggerPosts({ site: 'naka', maxResults: 12 })
       .then(({ posts: moviePosts }) => {
         const movies: MovieItem[] = moviePosts.map((post) => {
-          const vjMatch = post.title.match(/(VJ\\s+[A-Za-z0-9\\s]+?)(?:\\s*[-–—:]|\\s+in|\\s+kali|\\s+new|\\s*$)/i)
-            || post.content.match(/(VJ\\s+[A-Za-z0-9\\s]{3,20})/i);
+          const vjMatch = post.title.match(/(VJ\s+[A-Za-z0-9\s]+?)(?:\s*[-–—:]|\s+in|\s+kali|\s+new|\s*$)/i)
+            || post.content.match(/(VJ\s+[A-Za-z0-9\s]{3,20})/i);
           const vj = vjMatch?.[1]?.trim() || 'VJ Junior';
-          const videoMatch = post.content.match(/\\[\\/ddr45\\/\\](.*?)\\[\\/ddr45\\/\\]/i)
-            || post.content.match(/https?:\\/\\/[^\\s"'<>]+\\.(?:mp4|m3u8)(?:\\?[^\\s"'<>]*)?/i);
+          const videoMatch = post.content.match(/\[\/ddr45\/\](.*?)\[\/ddr45\/\]/i)
+            || post.content.match(/https?:\/\/[^\s"'<>]+\.(?:mp4|m3u8)(?:\?[^\s"'<>]*)?/i);
           return {
             id: post.id,
             title: post.title,
-            cleanTitle: post.title.replace(/^VJ\\s+[^–—:-]+[–—:-]\\s*/i, '').trim(),
+            cleanTitle: post.title.replace(/^VJ\s+[^–—:-]+[–—:-]\s*/i, '').trim(),
             vj,
             videoUrl: videoMatch?.[1]?.trim() || videoMatch?.[0]?.trim() || '',
             poster: post.thumbnail,
