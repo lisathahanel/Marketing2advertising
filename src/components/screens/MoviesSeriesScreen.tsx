@@ -188,10 +188,10 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
     <section className="min-h-[75vh] bg-[#0b0d10] px-3 pb-28 pt-4 text-slate-100 sm:px-5">
       <div className="mx-auto max-w-7xl">
         <div className="mb-5 rounded-2xl bg-[#151a20] p-5 text-white shadow-xl sm:p-7">
-          <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[.24em] text-emerald-300">
+          <div className="mb-2 flex items-center gap-2 text-xs font-black uppercase tracking-[.24em] text-lime-300 drop-shadow-[0_0_12px_rgba(124,255,0,.35)]">
             <Film size={16} /> Marketing2Advertising Entertainment
           </div>
-          <h1 className="text-3xl font-black tracking-tight sm:text-4xl">{initialKind === 'movie' ? 'Firimu' : 'Movies &amp; Series'}</h1>
+          <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl">{initialKind === 'movie' ? 'Firimu' : 'Movies & Series'}</h1>
           <p className="mt-2 max-w-2xl text-sm text-slate-300">{initialKind === 'movie' ? 'Browse Luganda-translated movies from Naka Marketing2Advertising.' : 'Explore films, TV series and the latest stories from all three Marketing2Advertising Blogger sites.'}</p>
           <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
             {initialKind === 'movie' ? <span className="rounded-full border border-white/15 px-3 py-1">Naka Movies · naka.marketing2advertising.com</span> : <><span className="rounded-full border border-white/15 px-3 py-1">Naka Firimu</span><span className="rounded-full border border-white/15 px-3 py-1">M2A Series</span><span className="rounded-full border border-white/15 px-3 py-1">Main M2A Blog</span></>}
@@ -236,21 +236,21 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
                 <article className="group overflow-hidden rounded-2xl border border-white/10 bg-[#141a20] shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
                   <a href={item.url} className="block">
                     <div className="relative aspect-[2/3] overflow-hidden bg-[#1c242b]">
-                      {item.image ? <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" /> : <div className="flex h-full items-center justify-center text-[#8b8068]">{item.kind === 'movie' ? <Film size={38} /> : <Tv size={38} />}</div>}
+                      {item.image ? <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" /> : <div className="flex h-full items-center justify-center text-slate-500">{item.kind === 'movie' ? <Film size={38} /> : <Tv size={38} />}</div>}
                       <span className="absolute left-2 top-2 rounded-full bg-[#151a20]/90 px-2 py-1 text-[9px] font-black uppercase tracking-wider text-[#e8cc88]">{item.kind === 'movie' ? 'Firimu' : 'Series'}</span>
                     </div>
                   </a>
                   <div className="p-3">
                     <div className="flex items-start justify-between gap-2">
-                      <h2 className="line-clamp-2 min-h-10 text-sm font-extrabold leading-snug text-[#29271f]">{item.title}</h2>
+                      <h2 className="line-clamp-2 min-h-10 text-sm font-extrabold leading-snug text-white group-hover:text-lime-200">{item.title}</h2>
                       <button onClick={() => toggleSaved(item.id)} aria-label={saved.includes(item.id) ? 'Remove saved title' : 'Save title'} className="shrink-0 rounded-full p-1 text-[#9b7b39] hover:bg-[#eee4ce]">{saved.includes(item.id) ? <BookmarkCheck size={17} /> : <Bookmark size={17} />}</button>
                     </div>
-                    <p className="mt-1 line-clamp-3 min-h-10 text-[11px] leading-relaxed text-[#716b5d]">{item.excerpt || 'Open this post to read more.'}</p>
+                    <p className="mt-1 line-clamp-3 min-h-10 text-[11px] leading-relaxed text-slate-400">{item.excerpt || 'Open this post to read more.'}</p>
                     <div className="mt-3 flex items-center justify-between gap-2">
-                      <span className="truncate text-[9px] font-semibold text-emerald-300">{item.source}</span>
+                      <span className="truncate text-[9px] font-semibold text-lime-300">{item.source}</span>
                       <a href={item.url} aria-label={`Open ${item.title}`} className="rounded-full bg-[#282720] p-2 text-[#e7c77f] hover:bg-[#b99750] hover:text-slate-100"><ExternalLink size={13} /></a>
                     </div>
-                    {formatDate(item.published) && <p className="mt-2 text-[9px] text-[#9a9383]">{formatDate(item.published)}</p>}
+                    {formatDate(item.published) && <p className="mt-2 text-[9px] text-slate-500">{formatDate(item.published)}</p>}
                   </div>
                 </article>
                 {(index + 1) % 12 === 0 && <div className="col-span-2 sm:col-span-3 lg:col-span-4 xl:col-span-5"><AdSenseAd /></div>}
