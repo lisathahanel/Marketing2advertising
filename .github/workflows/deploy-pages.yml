@@ -32,8 +32,22 @@ jobs:
       - name: Build production app
         run: bun run build
 
+      - name: Verify production entry and bundles
+        run: |
+          test -s dist/index.html
+          test -d dist/assets
+          grep -q 'src="./assets/' dist/index.html
+          grep -q 'href="./assets/' dist/index.html
+          find dist/assets -maxdepth 1 -type f -print
+          echo "Production HTML and bundled assets verified."
+
       - name: Preserve custom domain
-        run: cp CNAME dist/CNAME
+        run: |
+          test -s CNAME
+          cp CNAME dist/CNAME
+
+      - name: Disable Jekyll processing
+        run: touch dist/.nojekyll
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
