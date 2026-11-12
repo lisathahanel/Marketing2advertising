@@ -1,4 +1,4 @@
-const CACHE_NAME = 'm2a-cache-v3';
+const CACHE_NAME = 'm2a-cache-v4';
 
 function scopedUrl(path = '') {
   return new URL(path, self.registration.scope).toString();
