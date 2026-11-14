@@ -13,6 +13,7 @@ import {
   FileText,
   AlertCircle,
   ExternalLink,
+  Bell,
 } from 'lucide-react';
 import { TabType } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
@@ -22,6 +23,7 @@ interface DrawerProps {
   onClose: () => void;
   onSelectTab: (tab: TabType) => void;
   onOpenPage: (path: string, title: string) => void;
+  onOpenNotifications: () => void;
 }
 
 export const Drawer: React.FC<DrawerProps> = ({
@@ -29,6 +31,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   onClose,
   onSelectTab,
   onOpenPage,
+  onOpenNotifications,
 }) => {
   if (!isOpen) return null;
 
@@ -83,6 +86,14 @@ export const Drawer: React.FC<DrawerProps> = ({
               </div>
               <PWAInstallButton compact />
             </div>
+            <button
+              onClick={() => { onOpenNotifications(); onClose(); }}
+              className="mb-2 flex w-full items-center gap-3 rounded-xl border border-lime-300/25 bg-lime-300/[.08] px-3 py-3 text-sm font-black text-lime-200 transition hover:bg-lime-300/[.14]"
+            >
+              <Bell className="h-4 w-4" />
+              <span className="flex-1 text-left">Get Notified</span>
+              <span className="rounded-full bg-lime-300/15 px-2 py-1 text-[9px] uppercase tracking-wider">Alerts</span>
+            </button>
             <span className="text-[10px] font-black text-amber-400/80 uppercase tracking-widest px-2">
               App Sections
             </span>
