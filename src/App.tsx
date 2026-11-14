@@ -42,6 +42,36 @@ export default function App() {
   const [isInterstitialOpen, setIsInterstitialOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
+  // Gently introduce push notifications after visitors have had time to explore.
+  // A dismissed invitation is snoozed for 7 days; browser permission is never
+  // requested automatically, only after the visitor presses Enable Notifications.
+  useEffect(() => {
+    if (showSplash || isNotificationsOpen) return;
+    if (typeof window === 'undefined' || !('Notification' in window)) return;
+    if (Notification.permission !== 'default') return;
+
+    const snoozeKey = 'm2a_notification_invite_snoozed_at';
+    const snoozeDuration = 7 * 24 * 60 * 60 * 1000;
+    try {
+      const lastShown = Number(window.localStorage.getItem(snoozeKey) || 0);
+      if (lastShown && Date.now() - lastShown < snoozeDuration) return;
+    } catch {
+      // Continue without persistence if browser storage is unavailable.
+    }
+
+    const timer = window.setTimeout(() => {
+      if (Notification.permission !== 'default' || isNotificationsOpen) return;
+      try {
+        window.localStorage.setItem(snoozeKey, String(Date.now()));
+      } catch {
+        // The invitation still works if storage is unavailable.
+      }
+      setIsNotificationsOpen(true);
+    }, 20000);
+
+    return () => window.clearTimeout(timer);
+  }, [showSplash, isNotificationsOpen]);
+
   // Load initial data
   useEffect(() => {
     // Fetch channels
