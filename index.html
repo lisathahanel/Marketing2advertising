@@ -30,6 +30,25 @@
     <link rel="icon" type="image/svg+xml" href="./icon.svg" />
     <link rel="apple-touch-icon" href="./icon-192.png" />
 
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      window.__M2A_ONESIGNAL_READY__ = new Promise(function (resolve, reject) {
+        window.OneSignalDeferred.push(async function (OneSignal) {
+          try {
+            await OneSignal.init({
+              appId: "d22ce694-058d-43a3-88a9-a9a33baff44f",
+              safari_web_id: "web.onesignal.auto.32d8157c-f1d5-44ab-a783-bc048d3cd7fd"
+            });
+            resolve(OneSignal);
+          } catch (error) {
+            console.error("M2A OneSignal initialization failed:", error);
+            reject(error);
+          }
+        });
+      });
+    </script>
+
     <link rel="preconnect" href="https://marketing2advertising.com" />
     <link rel="dns-prefetch" href="https://marketing2advertising.com" />
     <link rel="preconnect" href="https://naka.marketing2advertising.com" />
