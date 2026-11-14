@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Bookmark, BookmarkCheck, ExternalLink, Film, Loader2, RefreshCw, Search, Tv } from 'lucide-react';
 import { AdSenseAd } from '../AdSenseAd';
+import { CommentsPanel } from '../CommentsPanel';
 
 type CatalogueKind = 'movie' | 'series';
 type FeedEntry = {
@@ -133,6 +134,7 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
   const [errors, setErrors] = useState<string[]>([]);
   const [loadedPages, setLoadedPages] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [discussionId, setDiscussionId] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -251,6 +253,21 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
                       <a href={item.url} aria-label={`Open ${item.title}`} className="rounded-full bg-[#282720] p-2 text-[#e7c77f] hover:bg-[#b99750] hover:text-slate-100"><ExternalLink size={13} /></a>
                     </div>
                     {formatDate(item.published) && <p className="mt-2 text-[9px] text-slate-500">{formatDate(item.published)}</p>}
+                    <button
+                      type="button"
+                      onClick={() => setDiscussionId((current) => current === item.id ? null : item.id)}
+                      aria-expanded={discussionId === item.id}
+                      className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-lime-300/20 bg-lime-300/10 px-3 py-2 text-[11px] font-bold text-lime-200 transition hover:bg-lime-300/15"
+                    >
+                      {discussionId === item.id ? 'Hide discussion' : 'Discuss this title'}
+                    </button>
+                    {discussionId === item.id && (
+                      <CommentsPanel
+                        resourceType={item.kind}
+                        resourceId={item.id}
+                        title={item.title}
+                      />
+                    )}
                   </div>
                 </article>
                 {(index + 1) % 12 === 0 && <div className="col-span-2 sm:col-span-3 lg:col-span-4 xl:col-span-5"><AdSenseAd /></div>}
