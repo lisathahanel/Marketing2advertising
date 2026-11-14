@@ -57,6 +57,8 @@ export const NotificationsPanel: React.FC<{ open: boolean; onClose: () => void }
         ]);
         setSubscriptionReady(true);
         setMessage('Notifications are enabled on this device. You can manage permission in your browser settings.');
+        // Briefly show the success confirmation, then close the panel automatically.
+        window.setTimeout(() => onClose(), 900);
       } else if (current === 'denied') {
         setMessage('Notifications are blocked in browser settings. Change the site permission to allow them.');
       } else {
