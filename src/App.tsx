@@ -21,6 +21,7 @@ import { JobsScreen } from './components/screens/JobsScreen';
 import { PageScreen } from './components/screens/PageScreen';
 import { ToastContainer } from './components/Toast';
 import { AdBlockGuard } from './components/AdBlockGuard';
+import { NotificationsPanel } from './components/NotificationsPanel';
 import { AppTool, BlogPost, Channel, GameItem, MovieItem, TabType } from './types';
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
   // Dialog & drawer states
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isInterstitialOpen, setIsInterstitialOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   // Load initial data
   useEffect(() => {
@@ -104,6 +106,7 @@ export default function App() {
       {/* Toast Notification Container */}
       <ToastContainer />
       <AdBlockGuard />
+      <NotificationsPanel open={isNotificationsOpen} onClose={() => setIsNotificationsOpen(false)} />
 
       {/* Splash Screen */}
       {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
@@ -128,6 +131,7 @@ export default function App() {
         onSelectTab={handleSelectTab}
         onOpenDrawer={() => setIsDrawerOpen(true)}
         onToggleSearch={() => handleSelectTab('firimu')}
+        onOpenNotifications={() => setIsNotificationsOpen(true)}
       />
 
       {/* Drawer Navigation */}
@@ -136,6 +140,7 @@ export default function App() {
         onClose={() => setIsDrawerOpen(false)}
         onSelectTab={handleSelectTab}
         onOpenPage={handleOpenPage}
+        onOpenNotifications={() => setIsNotificationsOpen(true)}
       />
 
       {/* Main Viewport Container */}
