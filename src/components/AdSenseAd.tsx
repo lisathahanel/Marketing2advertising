@@ -75,3 +75,44 @@ export const AdSenseAd: React.FC<{ className?: string }> = ({ className = '' }) 
     </div>
   );
 };
+
+
+const FLUID_AD_SLOT = '6730887197';
+const FLUID_LAYOUT_KEY = '-gw-3+1f-3d+2z';
+
+export const AdSenseFluidAd: React.FC<{ className?: string }> = ({ className = '' }) => {
+  const adRef = useRef<HTMLModElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const node = adRef.current;
+    if (!node || node.dataset.m2aPushed === 'true') return;
+
+    loadAdSense()
+      .then(() => {
+        if (cancelled || !node.isConnected || node.dataset.m2aPushed === 'true') return;
+        (window.adsbygoogle ||= []).push({});
+        node.dataset.m2aPushed = 'true';
+      })
+      .catch((error) => {
+        console.warn('M2A fluid AdSense unit could not be initialized:', error);
+      });
+
+    return () => { cancelled = true; };
+  }, []);
+
+  return (
+    <div className={`my-5 w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] px-2 py-3 text-center ${className}`}>
+      <span className="mb-2 block text-[9px] font-black uppercase tracking-[.2em] text-slate-400">AD</span>
+      <ins
+        ref={adRef}
+        className="adsbygoogle block"
+        style={{ display: 'block', width: '100%' }}
+        data-ad-client={ADS_CLIENT}
+        data-ad-slot={FLUID_AD_SLOT}
+        data-ad-format="fluid"
+        data-ad-layout-key={FLUID_LAYOUT_KEY}
+      />
+    </div>
+  );
+};
