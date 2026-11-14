@@ -20,8 +20,8 @@ function loadOneSignal() {
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       window.OneSignalDeferred.push(async (OneSignal: any) => {
         try {
-          await window.OneSignal.init({ appId: ONESIGNAL_APP_ID });
-          resolve(window.OneSignal);
+          await OneSignal.init({ appId: ONESIGNAL_APP_ID });
+          resolve(OneSignal);
         } catch (error) { reject(error); }
       });
     };
