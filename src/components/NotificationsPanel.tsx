@@ -46,6 +46,9 @@ export const NotificationsPanel: React.FC<{ open: boolean; onClose: () => void }
       const current = Notification.permission;
       setPermission(current);
       if (current === 'granted') {
+        // Close the panel as soon as the visitor grants browser permission.
+        // Continue completing the OneSignal subscription in the background.
+        onClose();
         // The browser permission prompt can finish before OneSignal completes
         // its push subscription. Bound the wait so the button never spins forever.
         await Promise.race([
@@ -57,8 +60,6 @@ export const NotificationsPanel: React.FC<{ open: boolean; onClose: () => void }
         ]);
         setSubscriptionReady(true);
         setMessage('Notifications are enabled on this device. You can manage permission in your browser settings.');
-        // Briefly show the success confirmation, then close the panel automatically.
-        window.setTimeout(() => onClose(), 900);
       } else if (current === 'denied') {
         setMessage('Notifications are blocked in browser settings. Change the site permission to allow them.');
       } else {
