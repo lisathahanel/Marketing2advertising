@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Search, Tv, ChevronDown, Film, Home, Gamepad2, Newspaper, Layers3 } from 'lucide-react';
+import { Menu, Search, Tv, ChevronDown, Film, Home, Gamepad2, Newspaper, Layers3, Bell } from 'lucide-react';
 import { PWAInstallButton } from './PWAInstallButton';
 import { TabType } from '../types';
 
@@ -8,9 +8,10 @@ interface NavbarProps {
   onSelectTab: (tab: TabType) => void;
   onOpenDrawer: () => void;
   onToggleSearch: () => void;
+  onOpenNotifications: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab, onOpenDrawer, onToggleSearch }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab, onOpenDrawer, onToggleSearch, onOpenNotifications }) => {
   const links: Array<{ id: TabType; label: string; Icon: React.ElementType }> = [
     { id: 'home', label: 'Home', Icon: Home },
     { id: 'tv', label: 'TV', Icon: Tv },
@@ -36,6 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab, onOpenD
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <button onClick={() => onSelectTab('tv')} className="hidden items-center gap-1.5 rounded-xl border border-lime-300/20 bg-lime-300/[.06] px-3 py-2 text-[10px] font-black text-lime-300 transition hover:bg-lime-300/10 sm:flex"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#7CFF00]" /> LIVE</button>
           <span className="hidden md:block"><PWAInstallButton compact /></span>
+          <button onClick={onOpenNotifications} aria-label="Get M2A notifications" title="Get Notified" className="rounded-xl border border-lime-300/20 bg-lime-300/[.06] p-2.5 text-lime-300 transition hover:bg-lime-300/15"><Bell className="h-4 w-4" /></button>
           <button onClick={onToggleSearch} aria-label="Open movie and content search" title="Search content" className="rounded-xl border border-white/10 bg-white/[.04] p-2.5 text-slate-300 transition hover:border-sky-300/30 hover:text-sky-200"><Search className="h-4 w-4" /></button>
           <button onClick={onOpenDrawer} aria-label="Open menu" className="rounded-xl border border-white/10 bg-white/[.04] p-2.5 text-slate-300 transition hover:border-lime-300/30 hover:text-lime-200"><Menu className="h-4 w-4" /></button>
         </div>
