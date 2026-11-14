@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BBS TV | M2A Live TV</title>
+<meta name="description" content="Watch BBS TV live on M2A Live TV.">
+<meta name="theme-color" content="#0b0b0f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="M2A TV">
+<link rel="icon" href="https://www.marketing2advertising.com/favicon.ico">
+<link rel="apple-touch-icon" href="https://www.marketing2advertising.com/favicon.ico">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="preconnect" href="https://googleads.g.doubleclick.net">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#0b0b0f;color:#e8e8ed;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:12px}
+a{color:#e11d48;text-decoration:none}
+img,video,iframe{max-width:100%;height:auto;display:block}
+:focus-visible{outline:3px solid #e11d48;outline-offset:2px}
+
+/* ===== TOP AD — always first, sticky, high visibility ===== */
+.top-ad-wrap{
+  position:sticky;top:0;z-index:9999;
+  background:#0b0b0f;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:6px 10px 8px;
+}
+.top-ad-inner{max-width:1100px;margin:0 auto;text-align:center}
+.top-ad-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#9a9aa8;margin-bottom:4px;font-weight:700}
+.top-ad-box{
+  min-height:90px;background:#121218;border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center
+}
+ins.adsbygoogle[data-ad-status="unfilled"]{visibility:hidden!important}
+#m2aAdTop{min-height:90px!important}
+
+/* Header / brand */
+.m2a-top{padding:12px 14px 8px;text-align:center}
+.m2a-brand h1{margin:0;color:#fff;font-size:clamp(22px,4.5vw,32px);font-weight:900;letter-spacing:-.4px}
+.m2a-brand h1 span{color:#e11d48}
+.m2a-brand p{margin:4px 0 0;color:#8a8a96;font-size:13px}
+
+/* Player */
+#m2a-app{width:100%;max-width:1100px;margin:0 auto;padding:0 12px 24px}
+.m2a-player-wrap{border-radius:14px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.08);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.m2a-player-shell{position:relative;aspect-ratio:16/9;background:#000;max-height:calc(100vh - 160px)}
+.m2a-player-shell video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+.m2a-overlay{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.55);gap:12px;transition:opacity .2s}
+.m2a-overlay.hidden{opacity:0;pointer-events:none;visibility:hidden}
+.m2a-play-btn{width:84px;height:84px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(145deg,#e11d48,#ff2d55);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(225,29,72,.5)}
+.m2a-play-btn::after{content:"";border-top:16px solid transparent;border-bottom:16px solid transparent;border-left:26px solid #fff;margin-left:5px}
+.m2a-hint{color:#fff;font-size:13px;font-weight:700;background:rgba(0,0,0,.5);padding:6px 12px;border-radius:8px}
+.m2a-loader-spin{width:44px;height:44px;border:4px solid rgba(255,255,255,.12);border-top-color:#e11d48;border-radius:50%;animation:spin .7s linear infinite}
+.m2a-loader-text{color:#fff;font-size:13px;font-weight:700}
+.m2a-error-icon{font-size:36px}
+.m2a-error-title{color:#fff;font-size:16px;font-weight:800}
+.m2a-error-msg{color:#aaa;font-size:13px;text-align:center;max-width:250px}
+.m2a-retry-btn{margin-top:4px;padding:10px 22px;border:0;border-radius:10px;background:#e11d48;color:#fff;font-weight:800;font-size:13px;cursor:pointer}
+.m2a-live-badge{position:absolute;top:12px;left:12px;z-index:25;background:#e11d48;color:#fff;font-size:10px;font-weight:800;padding:4px 9px;border-radius:6px;text-transform:uppercase;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.65}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.m2a-ch-name{position:absolute;bottom:12px;left:12px;z-index:25;background:rgba(0,0,0,.75);color:#fff;font-size:13px;font-weight:700;padding:6px 11px;border-radius:8px;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Mid ad under player */
+.m2a-post-ad{width:100%;max-width:900px;min-height:90px;margin:14px auto 12px;padding:0 4px;text-align:center;overflow:hidden}
+.m2a-ad-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#9a9aa8;margin-bottom:4px;font-weight:700}
+.m2a-mid-ad{min-height:90px}
+#m2aAdMid{min-height:90px!important}
+
+/* Toolbar / other channels */
+.m2a-post-toolbar{padding:10px 0 8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.m2a-back-btn{appearance:none;border:1px solid rgba(255,255,255,.12);background:#16161d;color:#e8e8ed;border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:800;font-size:13px}
+.m2a-back-btn:hover{border-color:#e11d48;color:#fff}
+.other-channels{margin-top:18px}
+.other-channels h2{font-size:15px;font-weight:900;color:#fff;margin:0 0 10px;padding-bottom:6px;border-bottom:2px solid #e11d48}
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.ch-card{background:#14141a;border:2px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;display:block;transition:border-color .15s,transform .15s}
+.ch-card:hover{border-color:#e11d48;transform:translateY(-2px)}
+.ch-card.active{border-color:#e11d48;box-shadow:0 0 0 2px rgba(225,29,72,.3)}
+.ch-poster{aspect-ratio:16/10;background:#1c1c24;position:relative}
+.ch-poster img{width:100%;height:100%;object-fit:cover}
+.ch-badge{position:absolute;left:6px;top:6px;background:#e11d48;color:#fff;font-size:9px;font-weight:900;padding:2px 6px;border-radius:4px}
+.ch-info{padding:8px}
+.ch-title{font-size:12px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ch-meta{font-size:10px;color:#8a8a96;margin-top:2px}
+
+.m2a-footer{margin-top:28px;border-top:1px solid rgba(255,255,255,.06);background:#0a0a0d;text-align:center;padding:16px 14px;font-size:12px;color:#a0a0b0}
+.m2a-footer a{color:#c0c0d0;margin:0 6px}
+
+@media(max-width:700px){
+  .m2a-player-wrap{border-radius:0;margin-left:-12px;margin-right:-12px;width:calc(100% + 24px)}
+  .m2a-play-btn{width:70px;height:70px}
+  .ch-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  #m2a-app{padding-left:10px;padding-right:10px}
+}
+</style>
+</head>
+<body>
+<!-- TOP AD — first thing user sees, sticky -->
+<div class="top-ad-wrap">
+  <div class="top-ad-inner">
+    <div class="top-ad-label">Advertisement</div>
+    <div class="top-ad-box" id="m2aAdTop">
+      <ins class="adsbygoogle"
+           data-ad-client="ca-pub-2269884583846743"
+           data-ad-slot="2115767840"
+           data-ad-format="horizontal"
+           data-full-width-responsive="true"
+           style="display:block;min-height:90px;width:100%"></ins>
+    </div>
+  </div>
+</div>
+
+<main id="main-content" role="main">
+<div id="m2a-app">
+  <div class="m2a-top">
+    <div class="m2a-brand">
+      <h1>M2A <span>📺</span> Live TV</h1>
+      <p>BBS TV · Entertainment</p>
+    </div>
+  </div>
+
+  <section class="m2a-post-view show" id="m2a-post-view" aria-live="polite">
+    <div class="m2a-post-toolbar">
+      <a class="m2a-back-btn" href="index.html">← All channels</a>
+    </div>
+    <div class="m2a-player-wrap">
+      <div class="m2a-player-shell">
+        <div class="m2a-live-badge">● LIVE</div>
+        <div class="m2a-ch-name" id="m2aChName">BBS TV</div>
+        <video controls playsinline preload="metadata" id="m2aVideo"></video>
+        <div class="m2a-overlay" id="m2aPlayOverlay">
+          <button aria-label="Play" class="m2a-play-btn" id="m2aPlayBtn" type="button"></button>
+          <div class="m2a-hint">Tap Play to watch</div>
+        </div>
+        <div class="m2a-overlay hidden" id="m2aLoadOverlay">
+          <div class="m2a-loader-spin"></div>
+          <div class="m2a-loader-text" id="m2aLoadText">Connecting…</div>
+        </div>
+        <div class="m2a-overlay hidden" id="m2aErrorOverlay">
+          <div class="m2a-error-icon">📡</div>
+          <div class="m2a-error-title">Channel unavailable</div>
+          <div class="m2a-error-msg">This channel could not load. Try again later.</div>
+          <button class="m2a-retry-btn" id="m2aRetryBtn" type="button">Try Again</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="m2a-post-ad m2a-mid-ad" id="m2aAdMid">
+      <span class="m2a-ad-label">Advertisement</span>
+      <ins class="adsbygoogle"
+           data-ad-client="ca-pub-2269884583846743"
+           data-ad-slot="2906167922"
+           data-ad-format="horizontal"
+           data-full-width-responsive="true"
+           style="display:block;min-height:90px"></ins>
+    </div>
+  </section>
+
+  <div class="other-channels">
+    <h2>More live channels</h2>
+    <div class="ch-grid" id="chGrid"></div>
+  </div>
+</div>
+</main>
+
+<footer class="m2a-footer">
+  <a href="index.html">Home</a>
+  <a href="https://www.marketing2advertising.com/p/contact-us.html" target="_blank" rel="noopener">Contact</a>
+  <a href="https://www.marketing2advertising.com/p/privacy-policy.html" target="_blank" rel="noopener">Privacy</a>
+  <a href="https://www.marketing2advertising.com/p/terms-and-conditions.html" target="_blank" rel="noopener">Terms</a>
+  <p style="margin-top:10px;color:#aaa">© Marketing2Advertising. All rights reserved.</p>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var STREAM_URL = "https://bbs-tv.co.ug/live/ch04/index.m3u8";
+var CHANNEL_NAME = "BBS TV";
+var CHANNEL_ID = "bbs-tv";
+var ALL_CHANNELS = [{"id":"citizentv","name":"Citizen TV","category":"News","color":"e11d48"},{"id":"salttv","name":"Salt TV","category":"Entertainment","color":"f59e0b"},{"id":"sparktv","name":"Spark TV","category":"Entertainment","color":"8b5cf6"},{"id":"bukedde1","name":"Bukedde 1 TV","category":"News","color":"22c55e"},{"id":"ntv","name":"NTV Uganda","category":"News","color":"3b82f6"},{"id":"galaxytv","name":"Galaxy TV","category":"Entertainment","color":"ec4899"},{"id":"bukedde2","name":"Bukedde 2 TV","category":"Entertainment","color":"14b8a6"},{"id":"sabcnews","name":"SABC News","category":"News","color":"ef4444"},{"id":"capetowntv","name":"Cape Town TV","category":"Community","color":"f97316"},{"id":"tshwanetv","name":"Tshwane TV","category":"Community","color":"a855f7"},{"id":"sowetotv","name":"Soweto TV","category":"Community","color":"06b6d4"},{"id":"nrgradio","name":"NRG Radio UG","category":"Entertainment","color":"84cc16"},{"id":"babatv","name":"Baba TV","category":"Entertainment","color":"f43f5e"},{"id":"sudantv","name":"Sudan TV","category":"News","color":"eab308"},{"id":"france24","name":"France 24","category":"News","color":"2563eb"},{"id":"fifaplus","name":"FIFA+","category":"Sports","color":"16a34a"},{"id":"dw","name":"DW","category":"News","color":"0ea5e9"},{"id":"ewtn","name":"EWTN","category":"Faith","color":"7c3aed"},{"id":"ebstv","name":"EBS TV Ethiopia","category":"News","color":"d946ef"},{"id":"yadah-tv","name":"Yadah TV","category":"Faith","color":"d8a31a"},{"id":"wildearth","name":"WildEarth","category":"Entertainment","color":"16a34a"},{"id":"boktv","name":"BOKTV","category":"Entertainment","color":"0ea5e9"},{"id":"sabc2","name":"SABC 2","category":"Entertainment","color":"f59e0b"},{"id":"sabc1","name":"SABC 1","category":"Entertainment","color":"2563eb"},{"id":"redemption-tv-ministry","name":"Redemption Television Ministry","category":"Faith","color":"7c3aed"},{"id":"faith-africa","name":"Faith Africa","category":"Faith","color":"a855f7"},{"id":"sportscast-africa","name":"SportsCast Africa","category":"Sports","color":"16a34a"},{"id":"k24tv","name":"K24TV","category":"News","color":"dc7c22"},{"id":"inooro-tv","name":"Inooro TV","category":"Entertainment","color":"e11d48"},{"id":"morning-cloud-tv","name":"Morning Cloud TV","category":"Faith","color":"38bdf8"},{"id":"bbs-tv","name":"BBS TV","category":"News","color":"f97316"},{"id":"cinewestern","name":"CineWestern","category":"Entertainment","color":"b45309"},{"id":"goldmines-movies","name":"Goldmines Movies","category":"Entertainment","color":"ca8a04"}];
+
+window.m2aLoadHls = function(cb){
+  if(window.Hls){ cb(); return; }
+  if(window.__m2aHlsLoading){
+    window.__m2aHlsCallbacks = window.__m2aHlsCallbacks || [];
+    window.__m2aHlsCallbacks.push(cb);
+    return;
+  }
+  window.__m2aHlsLoading = true;
+  window.__m2aHlsCallbacks = [cb];
+  var s = document.createElement("script");
+  s.src = "https://cdn.jsdelivr.net/npm/hls.js@1.5.7/dist/hls.min.js";
+  s.async = true;
+  function done(){
+    var cbs = window.__m2aHlsCallbacks || [];
+    window.__m2aHlsCallbacks = [];
+    cbs.forEach(function(fn){ try{ fn(); }catch(e){} });
+  }
+  s.onload = done;
+  s.onerror = done;
+  document.head.appendChild(s);
+};
+
+function pushAds(){
+  document.querySelectorAll("ins.adsbygoogle:not([data-m2a-loaded]):not([data-adsbygoogle-status])").forEach(function(ad){
+    if(ad.getBoundingClientRect().width < 10) return;
+    ad.setAttribute("data-m2a-loaded","1");
+    try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){ ad.removeAttribute("data-m2a-loaded"); }
+  });
+}
+if("requestAnimationFrame" in window){
+  requestAnimationFrame(function(){ setTimeout(pushAds, 300); });
+} else {
+  setTimeout(pushAds, 500);
+}
+
+var videoEl = document.getElementById("m2aVideo");
+var playOverlay = document.getElementById("m2aPlayOverlay");
+var loadOverlay = document.getElementById("m2aLoadOverlay");
+var errorOverlay = document.getElementById("m2aErrorOverlay");
+var loadText = document.getElementById("m2aLoadText");
+var playBtn = document.getElementById("m2aPlayBtn");
+var retryBtn = document.getElementById("m2aRetryBtn");
+var currentHls = null, loadTimer = null, playing = false;
+
+function showOnly(w){
+  if(playOverlay) playOverlay.classList.toggle("hidden", w !== "play");
+  if(loadOverlay) loadOverlay.classList.toggle("hidden", w !== "load");
+  if(errorOverlay) errorOverlay.classList.toggle("hidden", w !== "error");
+}
+function showLoading(m){
+  if(loadText) loadText.textContent = m || "Connecting…";
+  showOnly("load");
+}
+function showError(){
+  destroyHls();
+  playing = false;
+  showOnly("error");
+}
+function destroyHls(){
+  if(currentHls){ try{ currentHls.destroy(); }catch(e){} currentHls = null; }
+  if(loadTimer){ clearTimeout(loadTimer); loadTimer = null; }
+}
+function attachStream(url, autoPlay){
+  destroyHls();
+  if(!videoEl) return;
+  videoEl.removeAttribute("src");
+  try{ videoEl.load(); }catch(e){}
+  var done = false;
+  function onReady(){
+    if(done) return;
+    done = true;
+    if(loadTimer){ clearTimeout(loadTimer); loadTimer = null; }
+    if(autoPlay){
+      videoEl.play().then(function(){ playing = true; showOnly("none"); }).catch(function(){ playing = false; showOnly("play"); });
+    }
+  }
+  loadTimer = setTimeout(function(){ if(!done) showError(); }, 18000);
+  function attachNative(){
+    videoEl.src = url;
+    videoEl.addEventListener("loadedmetadata", onReady, {once:true});
+    videoEl.addEventListener("error", function(){ if(!done) showError(); }, {once:true});
+  }
+  if(/\.m3u8(\?|$)/i.test(url)){
+    m2aLoadHls(function(){
+      if(window.Hls && Hls.isSupported()){
+        currentHls = new Hls({
+          enableWorker:true, lowLatencyMode:true,
+          backBufferLength:60, maxBufferLength:30,
+          manifestLoadingTimeOut:12000, fragLoadingTimeOut:15000
+        });
+        currentHls.loadSource(url);
+        currentHls.attachMedia(videoEl);
+        currentHls.on(Hls.Events.MANIFEST_PARSED, onReady);
+        currentHls.on(Hls.Events.ERROR, function(ev, data){
+          if(!data.fatal) return;
+          if(data.type === Hls.ErrorTypes.NETWORK_ERROR){ try{ currentHls.startLoad(); }catch(e){ showError(); } }
+          else if(data.type === Hls.ErrorTypes.MEDIA_ERROR){ try{ currentHls.recoverMediaError(); }catch(e){ showError(); } }
+          else showError();
+        });
+      } else attachNative();
+    });
+  } else attachNative();
+}
+function startPlay(){
+  showLoading("Connecting to " + CHANNEL_NAME + "…");
+  attachStream(STREAM_URL, true);
+}
+
+if(playBtn) playBtn.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); startPlay(); });
+if(playOverlay) playOverlay.addEventListener("click", function(e){
+  if(e.target === playOverlay || e.target.classList.contains("m2a-hint")){ e.preventDefault(); startPlay(); }
+});
+if(retryBtn) retryBtn.addEventListener("click", function(e){ e.preventDefault(); startPlay(); });
+if(videoEl){
+  videoEl.addEventListener("playing", function(){ playing = true; showOnly("none"); });
+  videoEl.addEventListener("waiting", function(){ if(playing) showLoading("Buffering…"); });
+  videoEl.addEventListener("canplay", function(){ if(playing) showOnly("none"); });
+}
+
+/* Other channels grid */
+var grid = document.getElementById("chGrid");
+if(grid){
+  var html = "";
+  ALL_CHANNELS.forEach(function(ch){
+    var active = ch.id === CHANNEL_ID;
+    var thumb = "https://via.placeholder.com/400x225/" + ch.color + "/ffffff?text=" + encodeURIComponent(ch.name);
+    html += '<a class="ch-card' + (active ? " active" : "") + '" href="' + ch.id + '.html">' +
+      '<div class="ch-poster"><img src="' + thumb + '" alt="' + ch.name + '" loading="lazy" width="400" height="225">' +
+      '<span class="ch-badge">LIVE</span></div>' +
+      '<div class="ch-info"><div class="ch-title">' + ch.name + '</div><div class="ch-meta">' + ch.category + '</div></div></a>';
+  });
+  grid.innerHTML = html;
+}
+
+/* Auto-start after short delay (browser may still require tap for audio) */
+setTimeout(function(){ startPlay(); }, 400);
+})();
+</script>
+</body>
+</html>
