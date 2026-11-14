@@ -20,6 +20,7 @@ export const NotificationsPanel: React.FC<{ open: boolean; onClose: () => void }
   const [permission, setPermission] = useState<NotificationPermission>('default');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
+  const [subscriptionReady, setSubscriptionReady] = useState(false);
   const configured = Boolean(ONESIGNAL_APP_ID && ONESIGNAL_APP_ID.trim());
 
   useEffect(() => {
@@ -45,7 +46,16 @@ export const NotificationsPanel: React.FC<{ open: boolean; onClose: () => void }
       const current = Notification.permission;
       setPermission(current);
       if (current === 'granted') {
-        await OneSignal.User.PushSubscription.optIn();
+        // The browser permission prompt can finish before OneSignal completes
+        // its push subscription. Bound the wait so the button never spins forever.
+        await Promise.race([
+          OneSignal.User.PushSubscription.optIn(),
+          new Promise((_, reject) => window.setTimeout(
+            () => reject(new Error('Push subscription is taking longer than expected.')),
+            10000
+          ))
+        ]);
+        setSubscriptionReady(true);
         setMessage('Notifications are enabled on this device. You can manage permission in your browser settings.');
       } else if (current === 'denied') {
         setMessage('Notifications are blocked in browser settings. Change the site permission to allow them.');
@@ -54,7 +64,10 @@ export const NotificationsPanel: React.FC<{ open: boolean; onClose: () => void }
       }
     } catch (error) {
       console.error('M2A push subscription error:', error);
-      setMessage('Could not connect to the push service. Please try again later');
+      const detail = error instanceof Error ? error.message : 'Please try again.';
+      setMessage(Notification.permission === 'granted'
+        ? `Browser permission is granted, but push setup did not finish. ${detail}`
+        : `Could not connect to the push service. ${detail}`);
     } finally {
       setBusy(false);
     }
@@ -76,11 +89,11 @@ export const NotificationsPanel: React.FC<{ open: boolean; onClose: () => void }
             <div className="flex items-center gap-2 text-sm font-bold text-white"><ShieldCheck className="h-4 w-4 text-lime-300" /> Your choice, your device</div>
             <p className="mt-1.5 text-xs leading-5 text-slate-400">Notifications are optional. You can turn them off any time in your browser or device settings.</p>
           </div>
-          {permission === 'granted' && configured && !message && <p className="flex items-center gap-2 text-sm font-semibold text-lime-300"><CheckCircle2 className="h-4 w-4" /> Permission already granted on this device.</p>}
+          {permission === 'granted' && configured && <p className="flex items-center gap-2 text-sm font-semibold text-lime-300"><CheckCircle2 className="h-4 w-4" /> Browser permission is allowed on this device.</p>}
           {message && <p className="rounded-xl border border-lime-300/15 bg-lime-300/[.06] p-3 text-sm leading-5 text-slate-200">{message}</p>}
           {!configured && <p className="text-xs leading-5 text-amber-200/80">Setup stage: the push provider must be connected before subscriptions can receive real alerts.</p>}
-          <button onClick={() => void enable()} disabled={busy || (configured && permission === 'granted')} className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#7CFF00] px-4 py-3 text-sm font-black text-[#071000] transition hover:bg-lime-300 disabled:cursor-not-allowed disabled:opacity-60">
-            <Bell className="h-4 w-4" /> {busy ? 'Connecting…' : permission === 'granted' && configured ? 'Notifications Enabled' : 'Enable Notifications'}
+          <button onClick={() => void enable()} disabled={busy || subscriptionReady} className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#7CFF00] px-4 py-3 text-sm font-black text-[#071000] transition hover:bg-lime-300 disabled:cursor-not-allowed disabled:opacity-60">
+            <Bell className="h-4 w-4" /> {busy ? 'Connecting…' : subscriptionReady ? 'Notifications Enabled' : permission === 'granted' && configured ? 'Finish Notification Setup' : 'Enable Notifications'}
           </button>
           <button onClick={onClose} className="w-full rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-slate-300 hover:bg-white/5">Maybe later</button>
         </div>
