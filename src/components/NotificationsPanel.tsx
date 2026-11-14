@@ -5,39 +5,15 @@ declare global {
   interface Window {
     OneSignal?: any;
     OneSignalDeferred?: Array<(OneSignal: any) => void>;
+    __M2A_ONESIGNAL_READY__?: Promise<any>;
   }
 }
 
 const ONESIGNAL_APP_ID = import.meta.env.VITE_ONESIGNAL_APP_ID as string | undefined;
 
-let oneSignalReady: Promise<any> | null = null;
 function loadOneSignal() {
-  if (oneSignalReady) return oneSignalReady;
-  oneSignalReady = new Promise((resolve, reject) => {
-    const existing = document.querySelector<HTMLScriptElement>('script[data-m2a-onesignal]');
-    const script = existing || document.createElement('script');
-    const ready = () => {
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      window.OneSignalDeferred.push(async (OneSignal: any) => {
-        try {
-          await OneSignal.init({ appId: ONESIGNAL_APP_ID });
-          resolve(OneSignal);
-        } catch (error) { reject(error); }
-      });
-    };
-    if (existing) {
-      if ((existing as any).dataset.loaded === 'true') ready();
-      else { existing.addEventListener('load', ready, { once: true }); existing.addEventListener('error', reject, { once: true }); }
-    } else {
-      script.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
-      script.async = true;
-      script.dataset.m2aOnesignal = 'true';
-      script.addEventListener('load', () => { script.dataset.loaded = 'true'; ready(); }, { once: true });
-      script.addEventListener('error', reject, { once: true });
-      document.head.appendChild(script);
-    }
-  });
-  return oneSignalReady;
+  if (window.__M2A_ONESIGNAL_READY__) return window.__M2A_ONESIGNAL_READY__;
+  return Promise.reject(new Error('OneSignal has not initialized. Check the site configuration and service worker.'));
 }
 
 export const NotificationsPanel: React.FC<{ open: boolean; onClose: () => void }> = ({ open, onClose }) => {
