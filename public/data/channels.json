@@ -131,5 +131,103 @@
     "url": "https://rpn.bozztv.com/ebstv/ebstv/index.m3u8",
     "category": "News",
     "color": "d946ef"
+  },
+  {
+    "id": "yadah-tv",
+    "name": "Yadah TV",
+    "url": "https://viewmedia7219.bozztv.com/wmedia/viewmedia100/web_018/Stream/playlist.m3u8",
+    "category": "Faith",
+    "color": "d8a31a"
+  },
+  {
+    "id": "wildearth",
+    "name": "WildEarth",
+    "url": "https://wildearth-ono.amagi.tv/playlist/amg01290-wildearth-oando/playlist.m3u8",
+    "category": "Entertainment",
+    "color": "16a34a"
+  },
+  {
+    "id": "boktv",
+    "name": "BOKTV",
+    "url": "https://livestream2.bokradio.co.za/hls/Bok5c.m3u8",
+    "category": "Entertainment",
+    "color": "0ea5e9"
+  },
+  {
+    "id": "sabc2",
+    "name": "SABC 2",
+    "url": "https://sabctwota.cdn.mangomolo.com/sabc2/smil:sabc2.stream.smil/master.m3u8",
+    "category": "Entertainment",
+    "color": "f59e0b"
+  },
+  {
+    "id": "sabc1",
+    "name": "SABC 1",
+    "url": "https://sabconeta.cdn.mangomolo.com/sabc1/smil:sabc1.stream.smil/master.m3u8",
+    "category": "Entertainment",
+    "color": "2563eb"
+  },
+  {
+    "id": "redemption-tv-ministry",
+    "name": "Redemption Television Ministry",
+    "url": "https://viewmedia7219.bozztv.com/wmedia/viewmedia100/web_018/Stream/playlist.m3u8",
+    "category": "Faith",
+    "color": "7c3aed"
+  },
+  {
+    "id": "faith-africa",
+    "name": "Faith Africa",
+    "url": "https://faithnow-hls.secdn.net/faithnow-holland-channel/play/FaithAfrica.smil/playlist.m3u8",
+    "category": "Faith",
+    "color": "a855f7"
+  },
+  {
+    "id": "sportscast-africa",
+    "name": "SportsCast Africa",
+    "url": "https://delivery.broadsmart-streaming.co.za/sportscast/index.m3u8",
+    "category": "Sports",
+    "color": "16a34a"
+  },
+  {
+    "id": "k24tv",
+    "name": "K24TV",
+    "url": "https://livecdn.premiumfree.tv/afxpstr/K24Backup/index.m3u8",
+    "category": "News",
+    "color": "dc7c22"
+  },
+  {
+    "id": "inooro-tv",
+    "name": "Inooro TV",
+    "url": "https://live-onesignal.royalmedia.co.ke/live/T-MxRsFebq6zx7k2QFMbLw.m3u8",
+    "category": "Entertainment",
+    "color": "e11d48"
+  },
+  {
+    "id": "morning-cloud-tv",
+    "name": "Morning Cloud TV",
+    "url": "https://livecdn.live247stream.com/mc/tv/playlist.m3u8",
+    "category": "Faith",
+    "color": "38bdf8"
+  },
+  {
+    "id": "bbs-tv",
+    "name": "BBS TV",
+    "url": "https://live.esteem.africa/live/masaza-cup-live-feb0cd.m3u8",
+    "category": "News",
+    "color": "f97316"
+  },
+  {
+    "id": "cinewestern",
+    "name": "CineWestern",
+    "url": "https://b46a9ff4.wurl.com/manifest/f36d25e7e52f1ba8d7e56eb859c636563214f541/U2Ftc3VuZy1pdF9XUC0xX0hMUw/a31090ce-ae22-4a1c-82b6-b3a10c4e053d/1.m3u8",
+    "category": "Entertainment",
+    "color": "b45309"
+  },
+  {
+    "id": "goldmines-movies",
+    "name": "Goldmines Movies",
+    "url": "https://mumt04.tangotv.in/m18aqlK4GOLDMINEMOVIES/index.m3u8",
+    "category": "Entertainment",
+    "color": "ca8a04"
   }
 ]
