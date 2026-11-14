@@ -4,6 +4,7 @@ import { Bell, BellRing, CheckCircle2, X, ShieldCheck } from 'lucide-react';
 declare global {
   interface Window {
     OneSignal?: any;
+    OneSignalDeferred?: Array<(OneSignal: any) => void>;
   }
 }
 
@@ -16,8 +17,8 @@ function loadOneSignal() {
     const existing = document.querySelector<HTMLScriptElement>('script[data-m2a-onesignal]');
     const script = existing || document.createElement('script');
     const ready = () => {
-      window.OneSignal = window.OneSignal || [];
-      window.OneSignal.push(async () => {
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      window.OneSignalDeferred.push(async (OneSignal: any) => {
         try {
           await window.OneSignal.init({ appId: ONESIGNAL_APP_ID });
           resolve(window.OneSignal);
