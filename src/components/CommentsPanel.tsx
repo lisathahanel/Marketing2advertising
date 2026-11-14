@@ -85,8 +85,8 @@ export const CommentsPanel: React.FC<{
     event.preventDefault();
     const cleanName = nickname.trim().slice(0, 32);
     const cleanBody = body.trim();
-    if (cleanName.length < 2 || cleanBody.length < 2) {
-      setNotice('Enter a nickname and a comment before posting.');
+    if (cleanName.length < 2 || cleanBody.length < 2 || cleanBody.length > 200) {
+      setNotice(cleanBody.length > 200 ? 'Comments must be 200 characters or fewer.' : 'Enter a nickname and a comment before posting.');
       return;
     }
     setPosting(true);
@@ -202,6 +202,8 @@ export const CommentsPanel: React.FC<{
         </span>
       </div>
 
+      <AdSenseFluidAd className="my-2" />
+
       <form onSubmit={submitComment} className="space-y-2.5">
         {replyTo && (
           <div className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2 text-[11px] text-slate-300">
@@ -210,9 +212,9 @@ export const CommentsPanel: React.FC<{
           </div>
         )}
         <input value={nickname} onChange={(event) => setNickname(event.target.value)} maxLength={32} minLength={2} required placeholder="Your nickname" className="h-10 w-full rounded-xl border border-white/10 bg-[#0b1016] px-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-lime-300/60" />
-        <textarea value={body} onChange={(event) => setBody(event.target.value)} maxLength={1200} minLength={2} required rows={3} placeholder={replyTo ? 'Write your reply…' : 'What do you think? Add a comment…'} className="w-full resize-y rounded-xl border border-white/10 bg-[#0b1016] px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-lime-300/60" />
+        <textarea value={body} onChange={(event) => setBody(event.target.value)} maxLength={200} minLength={2} required rows={3} placeholder={replyTo ? 'Write your reply…' : 'What do you think? Add a comment…'} className="w-full resize-y rounded-xl border border-white/10 bg-[#0b1016] px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-lime-300/60" />
         <div className="flex items-center justify-between gap-3">
-          <span className="text-[10px] text-slate-500">{body.length}/1,200</span>
+          <span className="text-[10px] text-slate-500">{body.length}/200</span>
           <button disabled={posting} type="submit" className="inline-flex items-center gap-2 rounded-xl bg-lime-300 px-4 py-2.5 text-xs font-black text-[#10170b] transition hover:bg-lime-200 disabled:opacity-50">
             <Send size={13} /> {posting ? 'Posting…' : replyTo ? 'Post reply' : 'Post comment'}
           </button>
@@ -235,7 +237,6 @@ export const CommentsPanel: React.FC<{
         )}
       </div>
 
-      <AdSenseFluidAd className="my-2" />
       <p className="text-center text-[9px] text-slate-600">Comments are moderated. Spam and abusive content may be removed.</p>
     </section>
   );
