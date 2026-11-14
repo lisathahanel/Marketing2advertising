@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Channel } from '../../types';
 import { AdMobBanner } from '../AdMobBanner';
+import { CommentsPanel } from '../CommentsPanel';
 
 interface TVScreenProps {
   channels: Channel[];
@@ -307,6 +308,14 @@ export const TVScreen: React.FC<TVScreenProps> = ({
             <RotateCcw className="w-4 h-4" />
           </button>
         </div>
+      )}
+
+      {currentChannel && (
+        <CommentsPanel
+          resourceType="tv"
+          resourceId={currentChannel.id}
+          title={currentChannel.name}
+        />
       )}
 
       {/* Category Filter Chips */}
