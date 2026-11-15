@@ -12,56 +12,56 @@ export interface RouteConfig {
 export const ROUTES: RouteConfig[] = [
   {
     id: 'all',
-    path: '/',
+    path: '/m2a-emailextractor',
     label: 'All Tools',
     title: 'Email Extractor, Validator & Bulk Email Sender — Free Online Email Tools',
   },
   {
     id: 'extractor',
-    path: '/extractor',
+    path: '/m2a-emailextractor/extractor',
     label: 'Email Extractor',
     title: 'Email Extractor — Free Online Email Tools',
   },
   {
     id: 'validator',
-    path: '/validator',
+    path: '/m2a-emailextractor/validator',
     label: 'Address Validator',
     title: 'Email Address Validator — Free Online Email Tools',
   },
   {
     id: 'formatter',
-    path: '/formatter',
+    path: '/m2a-emailextractor/formatter',
     label: 'Email Formatter',
     title: 'Email Formatter — Free Online Email Tools',
   },
   {
     id: 'domains',
-    path: '/domains',
+    path: '/m2a-emailextractor/domains',
     label: 'Domain Extractor',
     title: 'Domain Extractor — Free Online Email Tools',
   },
   {
     id: 'sender',
-    path: '/sender',
+    path: '/m2a-emailextractor/sender',
     label: 'Bulk Email Sender',
     title: 'Free Bulk Email Sender (Own SMTP / API) — Free Online Email Tools',
   },
 ];
 
 const HASH_TO_PATH: Record<string, string> = {
-  '#extractor': '/extractor',
-  '#validator': '/validator',
-  '#formatter': '/formatter',
-  '#domain-extractor': '/domains',
-  '#domains': '/domains',
-  '#sender': '/sender',
-  '#more-tools': '/sender',
-  '#utilities': '/sender',
+  '#extractor': '/extractor': '/m2a-emailextractor/extractor',
+  '#validator': '/m2a-emailextractor/validator',
+  '#formatter': '/m2a-emailextractor/formatter',
+  '#domain-extractor': '/m2a-emailextractor/domains',
+  '#domains': '/m2a-emailextractor/domains',
+  '#sender': '/m2a-emailextractor/sender',
+  '#more-tools': '/m2a-emailextractor/sender',
+  '#utilities': '/m2a-emailextractor/sender',
 };
 
 const LEGACY_PATH_ALIASES: Record<string, string> = {
-  '/utilities': '/sender',
-  '/campaign': '/sender',
+  '/m2a-emailextractor/utilities': '/m2a-emailextractor/sender',
+  '/m2a-emailextractor/campaign': '/m2a-emailextractor/sender',
 };
 
 export function resolveRouteFromLocation(): RouteConfig {
@@ -74,7 +74,7 @@ export function resolveRouteFromLocation(): RouteConfig {
     return ROUTES.find((r) => r.path === targetPath) ?? ROUTES[0];
   }
 
-  if (normalizedPath === '/' && hash && HASH_TO_PATH[hash]) {
+  if (normalizedPath === '/m2a-emailextractor' && hash && HASH_TO_PATH[hash]) {
     const targetPath = HASH_TO_PATH[hash];
     window.history.replaceState({}, '', targetPath);
     return ROUTES.find((r) => r.path === targetPath) ?? ROUTES[0];
