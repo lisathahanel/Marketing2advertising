@@ -13,7 +13,8 @@ import {
   FileText,
   AlertCircle,
   ExternalLink,
-  Bell,\n  MailSearch,
+  Bell,
+  MailSearch,
 } from 'lucide-react';
 import { TabType } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
