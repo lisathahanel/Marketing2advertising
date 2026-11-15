@@ -1,7 +1,10 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 import {defineConfig} from 'vite';
+
+const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(() => {
   return {
@@ -9,8 +12,14 @@ export default defineConfig(() => {
     base: './',
     plugins: [react(), tailwindcss()],
     build: {
-      // Publish source maps for PageSpeed and browser diagnostics.
+      // Build the main M2A app and Email Extractor as independent HTML entry points.
       sourcemap: true,
+      rollupOptions: {
+        input: {
+          main: path.resolve(rootDir, 'index.html'),
+          emailExtractor: path.resolve(rootDir, 'm2a-emailextractor.html'),
+        },
+      },
     },
     resolve: {
       alias: {
