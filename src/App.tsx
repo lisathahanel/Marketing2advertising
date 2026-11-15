@@ -25,7 +25,6 @@ const AppsScreen = lazy(() => import('./components/screens/AppsScreen').then((mo
 const GamesScreen = lazy(() => import('./components/screens/GamesScreen').then((module) => ({ default: module.GamesScreen })));
 const JobsScreen = lazy(() => import('./components/screens/JobsScreen').then((module) => ({ default: module.JobsScreen })));
 const PageScreen = lazy(() => import('./components/screens/PageScreen').then((module) => ({ default: module.PageScreen })));
-const EmailToolsScreen = lazy(() => import('./email-tools/EmailToolsScreen'));
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -160,10 +159,6 @@ export default function App() {
     setIsInterstitialOpen(true);
   };
 
-  if (typeof window !== 'undefined' && window.location.pathname === '/m2a-emailextractor.html') {
-    return <div className="m2a-app min-h-screen bg-[#05070D] text-slate-100 font-sans"><Suspense fallback={<div className="flex min-h-screen items-center justify-center text-slate-300">Loading Email Extractor…</div>}><EmailToolsScreen /></Suspense></div>;
-  }
-
   return (
     <div className="m2a-app min-h-screen bg-[#05070D] text-slate-100 flex flex-col font-sans selection:bg-[#7CFF00] selection:text-[#071000]">
       {/* Toast Notification Container */}
@@ -271,7 +266,6 @@ export default function App() {
             )}
 
             {currentTab === 'jobs' && <JobsScreen />}
-            {currentTab === 'emailtools' && <EmailToolsScreen />}
           </>
         )}
         </Suspense>
