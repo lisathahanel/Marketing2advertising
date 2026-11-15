@@ -8,6 +8,10 @@ export default defineConfig(() => {
     // GitHub Pages project-site path; normal root hosting keeps '/'.
     base: './',
     plugins: [react(), tailwindcss()],
+    build: {
+      // Publish source maps for PageSpeed and browser diagnostics.
+      sourcemap: true,
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

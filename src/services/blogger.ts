@@ -161,7 +161,7 @@ export async function fetchBloggerPosts(options: {
         if (imageMatch) thumbnail = imageMatch[1].replace(/&amp;/g, '&');
       }
       if (thumbnail.includes('/s72-c/')) {
-        thumbnail = thumbnail.replace('/s72-c/', '/w800-h450-c/');
+        thumbnail = thumbnail.replace('/s72-c/', '/w640-h360-c/');
       }
 
       const tempDiv = document.createElement('div');
@@ -181,7 +181,7 @@ export async function fetchBloggerPosts(options: {
         updated: entry.updated?.$t,
         content: rawContent,
         summary: cleanSummary ? `${cleanSummary}...` : '',
-        thumbnail: thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80',
+        thumbnail: thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=480&auto=format&fit=crop&q=75',
         author: {
           name: entry.author?.[0]?.name?.$t || 'M2A Team',
           avatar: entry.author?.[0]?.gd$image?.src,
