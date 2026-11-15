@@ -180,7 +180,7 @@ export function VerificationIntegrationPanel({
       setProgressIndex(i + 1);
 
       try {
-        const res = await fetch('/api/campaign/verify-recipient', {
+        const res = await fetch(`${import.meta.env.VITE_EMAIL_API_BASE || ''}/api/campaign/verify-recipient`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
