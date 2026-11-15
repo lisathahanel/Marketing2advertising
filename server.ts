@@ -1,4 +1,6 @@
-import express, { type NextFunction, type Request, type Response } from 'express';\nimport nodemailer from 'nodemailer';\nimport dns from 'node:dns/promises';
+import express, { type NextFunction, type Request, type Response } from 'express';
+import nodemailer from 'nodemailer';
+import dns from 'node:dns/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import https from 'https';
