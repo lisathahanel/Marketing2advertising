@@ -174,7 +174,7 @@ export const Drawer: React.FC<DrawerProps> = ({
               </div>
             </button>
             <button
-              onClick={() => handleTab('games')
+              onClick={() => handleTab('games')}
               className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:bg-white/5 hover:text-amber-400 text-sm font-semibold transition"
             >
               <Gamepad2 className="w-4 h-4 text-purple-400" />
