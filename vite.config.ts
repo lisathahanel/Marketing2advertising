@@ -17,7 +17,7 @@ export default defineConfig(() => {
       rollupOptions: {
         input: {
           main: path.resolve(rootDir, 'index.html'),
-          emailExtractor: path.resolve(rootDir, 'm2a-emailextractor.html'),
+          emailExtractor: path.resolve(rootDir, 'm2a-emailextractor/index.html'),
         },
       },
     },
