@@ -68,10 +68,24 @@ jobs:
       - name: Publish standalone Email Extractor page
         run: |
           set -eu
-          cp dist/index.html dist/m2a-emailextractor.html
-          sed -i "s#<title>M2A</title>#<title>Email Extractor &amp; Campaign Tools | Marketing2Advertising</title>#" dist/m2a-emailextractor.html
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+          const source = readFileSync('dist/index.html', 'utf8');
+          if (!source.includes('./assets/')) {
+            throw new Error('Built index.html does not reference relative production assets.');
+          }
+          const title = '<title>Email Extractor &amp; Campaign Tools | Marketing2Advertising</title>';
+          const page = source.replace(/<title>[^<]*<\/title>/i, title);
+          if (page === source || !page.includes(title)) {
+            throw new Error('Could not set the standalone Email Extractor page title.');
+          }
+          writeFileSync('dist/m2a-emailextractor.html', page);
+          NODE
           test -s dist/m2a-emailextractor.html
-          echo "Standalone Email Extractor entry created."
+          grep -Fq '<title>Email Extractor &amp; Campaign Tools | Marketing2Advertising</title>' dist/m2a-emailextractor.html
+          grep -Eq '<script[^>]+type="module"[^>]+src="./assets/[^"]+"' dist/m2a-emailextractor.html
+          grep -Eq '<link[^>]+href="./assets/[^"]+\.css"' dist/m2a-emailextractor.html
+          echo "Standalone Email Extractor HTML, title, JS and CSS entrypoints verified."
 
       - name: Preserve custom domain
         run: |
