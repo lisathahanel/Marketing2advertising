@@ -76,7 +76,6 @@ export const AdSenseAd: React.FC<{ className?: string }> = ({ className = '' }) 
   );
 };
 
-
 const FLUID_AD_SLOT = '6730887197';
 const FLUID_LAYOUT_KEY = '-gw-3+1f-3d+2z';
 
@@ -103,7 +102,7 @@ export const AdSenseFluidAd: React.FC<{ className?: string }> = ({ className = '
 
   return (
     <div className={`my-5 w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] px-2 py-3 text-center ${className}`}>
-      <span className="mb-2 block text-[9px] font-black uppercase tracking-[.2em] text-slate-400">AD</span>
+      <span className="mb-2 block text-[9px] font-semibold uppercase tracking-[.2em] text-slate-400">Advertisement</span>
       <ins
         ref={adRef}
         className="adsbygoogle block"

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 export const AdBlockGuard: React.FC = () => {
   const [blocked, setBlocked] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
     const showMessage = () => setBlocked(true);
     window.addEventListener('m2a:adblock-detected', showMessage);
-    // This probe only detects blocking; it never loads or requests an advert.
+    // The off-screen bait does not load or request an advert.
     const timer = window.setTimeout(() => {
       const probe = document.getElementById('x_probe_42');
       const adsScript = document.querySelector('script[data-m2a-adsense]') as HTMLScriptElement | null;
@@ -21,28 +20,32 @@ export const AdBlockGuard: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!blocked) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [blocked]);
+
   return (
     <>
       <style>{`
-        #x_block_msg { position:fixed!important; left:12px!important; right:12px!important; bottom:calc(12px + env(safe-area-inset-bottom))!important; z-index:9999!important; display:flex; justify-content:center!important; pointer-events:none; }
-        #x_block_msg .ab-container { pointer-events:auto; max-width:560px; width:100%; display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:14px; background:rgba(18,24,35,.96); border:1px solid rgba(255,255,255,.14); box-shadow:0 8px 28px rgba(0,0,0,.24); color:#f8fafc; font-family:system-ui,-apple-system,sans-serif; }
-        #x_block_msg .ab-copy { flex:1; min-width:0; }
-        #x_block_msg h2 { font-size:13px; font-weight:750; margin:0 0 3px; }
-        #x_block_msg p { font-size:12px; line-height:1.45; margin:0; color:#cbd5e1; }
-        #x_block_msg button { flex:0 0 auto; padding:8px 10px; border:1px solid rgba(255,255,255,.18); border-radius:9px; background:rgba(255,255,255,.08); color:#fff; font-size:12px; font-weight:650; cursor:pointer; }
-        #x_block_msg button:hover { background:rgba(255,255,255,.15); }
+        #x_block_msg { position:fixed!important; inset:0!important; z-index:9999999!important; width:100vw!important; height:100vh!important; display:flex; justify-content:center!important; align-items:center!important; padding:20px; box-sizing:border-box; background:rgba(255,255,255,.15)!important; backdrop-filter:blur(14px) saturate(180%); -webkit-backdrop-filter:blur(14px) saturate(180%); }
+        #x_block_msg .ab-container { max-width:420px; width:100%; text-align:center; padding:35px 30px; border-radius:20px; background:rgba(255,255,255,.92); border:1px solid rgba(255,255,255,.6); box-shadow:0 8px 32px rgba(0,0,0,.18); color:#111; font-family:system-ui,-apple-system,sans-serif; animation:abPop .4s ease; }
+        #x_block_msg h1 { font-size:22px; font-weight:800; margin:0 0 12px; }
+        #x_block_msg p { font-size:15px; line-height:1.6; margin:0 0 10px; color:#444; }
+        #x_block_msg button { margin-top:18px; padding:12px 24px; border:0; border-radius:99px; background:#111; color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+        @keyframes abPop { from { opacity:0; transform:translateY(15px) scale(.96); } to { opacity:1; transform:translateY(0) scale(1); } }
         #x_probe_42 { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
-        @media (max-width:420px) { #x_block_msg .ab-container { align-items:flex-start; padding:11px; gap:8px; } #x_block_msg h2 { font-size:12px; } #x_block_msg p { font-size:11px; } #x_block_msg button { padding:7px 8px; } }
       `}</style>
       <div className='adsbox' id='x_probe_42' aria-hidden='true' />
-      {blocked && !dismissed && (
-        <div id='x_block_msg' role='status' aria-live='polite'>
+      {blocked && (
+        <div id='x_block_msg' role='dialog' aria-modal='true' aria-labelledby='x_block_title'>
           <div className='ab-container'>
-            <div className='ab-copy'>
-              <h2>Ad blocker detected</h2>
-              <p>Some ads may not appear. You can continue browsing M2A normally.</p>
-            </div>
-            <button type='button' aria-label='Dismiss ad blocker notice' onClick={() => setDismissed(true)}>Dismiss</button>
+            <h1 id='x_block_title'>🚫 Ad Blocker Detected</h1>
+            <p>We've detected an ad blocker or a browser setting that is blocking advertisements.</p>
+            <p>Please disable the blocker or whitelist M2A, then refresh the page to continue.</p>
+            <button type='button' onClick={() => window.location.reload()}>🔄 Refresh Page</button>
           </div>
         </div>
       )}
