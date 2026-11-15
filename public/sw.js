@@ -1,4 +1,4 @@
-const CACHE_NAME = 'm2a-cache-v5';
+const CACHE_NAME = 'm2a-cache-v6';
 
 function scopedUrl(path = '') {
   return new URL(path, self.registration.scope).toString();
@@ -38,6 +38,18 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
 
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
+
+  // The standalone Email Extractor is a separate production entry point.
+  // Never let an old cached app shell replace it with the main homepage.
+  if (url.pathname === '/m2a-emailextractor.html' && request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request).catch(() => new Response(
+        '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Email Extractor offline</title><body style="margin:0;background:#05070D;color:#e2e8f0;font:16px system-ui;padding:32px"><h1>Email Extractor is temporarily unavailable offline</h1><p>Reconnect to the internet and refresh this page.</p></body></html>',
+        { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+      ))
+    );
+    return;
+  }
 
   const isFeedOrApi = url.pathname.includes('/feeds/') || url.pathname.includes('/api/');
   const isNavigation = request.mode === 'navigate';
