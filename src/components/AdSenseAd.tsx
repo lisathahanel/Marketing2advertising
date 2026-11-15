@@ -61,7 +61,7 @@ export const AdSenseAd: React.FC<{ className?: string }> = ({ className = '' }) 
   }, []);
 
   return (
-    <div className={`my-5 min-h-[126px] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-2 py-3 text-center ${className}`}>
+    <div className={`my-6 sm:my-7 min-h-[136px] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-2.5 py-3 sm:px-3 sm:py-4 text-center ${className}`}>
       <span className="mb-2 block text-[9px] font-semibold uppercase tracking-[.2em] text-slate-500">Advertisement</span>
       <ins
         ref={adRef}
@@ -102,7 +102,7 @@ export const AdSenseFluidAd: React.FC<{ className?: string }> = ({ className = '
   }, []);
 
   return (
-    <div className={`my-5 w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] px-2 py-3 text-center ${className}`}>
+    <div className={`my-6 sm:my-7 min-h-[72px] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] px-2.5 py-3 sm:px-3 sm:py-4 text-center ${className}`}>
       <span className="mb-2 block text-[9px] font-black uppercase tracking-[.2em] text-slate-400">Advertisement</span>
       <ins
         ref={adRef}
