@@ -1,8 +1,0 @@
-{
-  "name": "Email Extractor & Address Validator",
-  "description": "Free client-side email extractor, discreet real-time email address validator, and privacy-first email utilities.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
-}
