@@ -465,7 +465,7 @@ ${htmlFragmentOrDoc}
     setValidationError(null);
 
     try {
-      const res = await fetch('/api/campaign/verify-sender', {
+      const res = await fetch(`${import.meta.env.VITE_EMAIL_API_BASE || ''}/api/campaign/verify-sender`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -508,7 +508,7 @@ ${htmlFragmentOrDoc}
     }
     setSmtpTestState({ status: 'testing', message: 'Testing SMTP handshake...' });
     try {
-      const res = await fetch('/api/campaign/test-smtp', {
+      const res = await fetch(`${import.meta.env.VITE_EMAIL_API_BASE || ''}/api/campaign/test-smtp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -657,7 +657,7 @@ ${htmlFragmentOrDoc}
       const { html, text } = buildMessageBodies(recipient);
 
       try {
-        const res = await fetch('/api/campaign/send-one', {
+        const res = await fetch(`${import.meta.env.VITE_EMAIL_API_BASE || ''}/api/campaign/send-one`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
