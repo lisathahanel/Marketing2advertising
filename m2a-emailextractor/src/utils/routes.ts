@@ -49,7 +49,7 @@ export const ROUTES: RouteConfig[] = [
 ];
 
 const HASH_TO_PATH: Record<string, string> = {
-  '#extractor': '/extractor': '/m2a-emailextractor/extractor',
+  '#extractor': '/m2a-emailextractor/extractor',
   '#validator': '/m2a-emailextractor/validator',
   '#formatter': '/m2a-emailextractor/formatter',
   '#domain-extractor': '/m2a-emailextractor/domains',
