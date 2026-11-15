@@ -39,36 +39,36 @@ export function Footer({ onNavigate }: FooterProps) {
           </div>
           <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-slate-600">
             <a
-              href="/extractor"
-              onClick={(e) => handleInternalNav(e, '/extractor')}
+              href="/m2a-emailextractor/extractor"
+              onClick={(e) => handleInternalNav(e, '/m2a-emailextractor/extractor')}
               className="hover:text-slate-900 transition-colors"
             >
               Email Extractor
             </a>
             <a
-              href="/validator"
-              onClick={(e) => handleInternalNav(e, '/validator')}
+              href="/m2a-emailextractor/validator"
+              onClick={(e) => handleInternalNav(e, '/m2a-emailextractor/validator')}
               className="hover:text-slate-900 transition-colors"
             >
               Email Validator
             </a>
             <a
-              href="/formatter"
-              onClick={(e) => handleInternalNav(e, '/formatter')}
+              href="/m2a-emailextractor/formatter"
+              onClick={(e) => handleInternalNav(e, '/m2a-emailextractor/formatter')}
               className="hover:text-slate-900 transition-colors"
             >
               Email Formatter
             </a>
             <a
-              href="/domains"
-              onClick={(e) => handleInternalNav(e, '/domains')}
+              href="/m2a-emailextractor/domains"
+              onClick={(e) => handleInternalNav(e, '/m2a-emailextractor/domains')}
               className="hover:text-slate-900 transition-colors"
             >
               Domain Extractor
             </a>
             <a
-              href="/sender"
-              onClick={(e) => handleInternalNav(e, '/sender')}
+              href="/m2a-emailextractor/sender"
+              onClick={(e) => handleInternalNav(e, '/m2a-emailextractor/sender')}
               className="hover:text-slate-900 transition-colors"
             >
               Bulk Email Sender
