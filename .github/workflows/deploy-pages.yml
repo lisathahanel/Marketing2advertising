@@ -65,15 +65,34 @@ jobs:
           test -d dist/p
           echo "Existing website folders, posts, and static pages restored."
 
-      - name: Verify independent Email Extractor build
+      - name: Publish independent Email Extractor app
         run: |
           set -eu
+          test -s dist/m2a-emailextractor/index.html
+          grep -Fq '<title>Email Extractor &amp; Address Validator — Free Online Email Tools</title>' dist/m2a-emailextractor/index.html
+          grep -Fq 'id="root"' dist/m2a-emailextractor/index.html
+          grep -Eq '<script[^>]+type="module"[^>]+src="[^"]+\.js"' dist/m2a-emailextractor/index.html
+          grep -Eq '<link[^>]+href="[^"]+\.css"' dist/m2a-emailextractor/index.html
+          mkdir -p dist/m2a-emailextractor
+          cp m2a-emailextractor/public/favicon.ico dist/m2a-emailextractor/favicon.ico
+          cat > dist/m2a-emailextractor.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <meta http-equiv="refresh" content="0;url=/m2a-emailextractor/">
+              <link rel="canonical" href="https://marketing2advertising.com/m2a-emailextractor/">
+              <title>Email Extractor — Marketing2Advertising</title>
+              <script>window.location.replace('/m2a-emailextractor/');</script>
+            </head>
+            <body>
+              <p>Opening the <a href="/m2a-emailextractor/">Marketing2Advertising Email Extractor</a>…</p>
+            </body>
+          </html>
+          EOF
           test -s dist/m2a-emailextractor.html
-          grep -Fq '<title>Email Extractor &amp; Campaign Tools | Marketing2Advertising</title>' dist/m2a-emailextractor.html
-          grep -Fq 'email-tools-root' dist/m2a-emailextractor.html
-          grep -Eq '<script[^>]+type="module"[^>]+src="./assets/[^"]+"' dist/m2a-emailextractor.html
-          grep -Eq '<link[^>]+href="./assets/[^"]+\.css"' dist/m2a-emailextractor.html
-          echo "Independent Email Extractor HTML and bundles verified."
+          echo "Complete independent Email Extractor app and legacy entry URL verified."
 
       - name: Preserve custom domain
         run: |
