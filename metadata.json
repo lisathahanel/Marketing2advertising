@@ -1,0 +1,8 @@
+{
+  "name": "M2A",
+  "description": "M2A marketing2advertising all in one Mobile App with Live TV channels, interactive Multi Apps, free games, Firimu movies, and Blogger sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

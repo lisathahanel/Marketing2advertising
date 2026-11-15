@@ -1,0 +1,36 @@
+name: m2a_mobile
+description: "M2A Mobile App - Live Channels, Multi Tools & Blogger Feed Sync"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.5.1
+  video_player: ^2.8.6
+  chewie: ^1.8.1
+  webview_flutter: ^4.7.0
+  http: ^1.2.1
+  wakelock_plus: ^1.2.0
+  google_mobile_ads: ^5.0.0
+  share_plus: ^9.0.0
+  url_launcher: ^6.2.6
+  cached_network_image: ^3.3.1
+  shared_preferences: ^2.2.3
+  flutter_html: ^3.0.0-beta.2
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/channels.json
+    - assets/apps.json
+    - assets/games.json

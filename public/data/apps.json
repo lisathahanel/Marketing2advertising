@@ -1,0 +1,154 @@
+[
+  {
+    "id": "pdf",
+    "name": "Text to PDF",
+    "desc": "Text → PDF file",
+    "cat": "create",
+    "ico": "📄",
+    "type": "pdf"
+  },
+  {
+    "id": "video",
+    "name": "Video Player",
+    "desc": "Play any video link",
+    "cat": "media",
+    "ico": "🎬",
+    "type": "videoapp"
+  },
+  {
+    "id": "html",
+    "name": "HTML Editor",
+    "desc": "Live HTML viewer",
+    "cat": "dev",
+    "ico": "</>",
+    "type": "htmledit"
+  },
+  {
+    "id": "gif",
+    "name": "GIF Maker",
+    "desc": "Images → GIF",
+    "cat": "create",
+    "ico": "🎞️",
+    "type": "gif"
+  },
+  {
+    "id": "device",
+    "name": "Device Viewer",
+    "desc": "Phone/tablet preview",
+    "cat": "dev",
+    "ico": "📱",
+    "type": "device"
+  },
+  {
+    "id": "calc",
+    "name": "Calculator",
+    "desc": "Everyday calculator",
+    "cat": "daily",
+    "ico": "🔢",
+    "type": "calc"
+  },
+  {
+    "id": "pass",
+    "name": "Password Gen",
+    "desc": "Strong passwords",
+    "cat": "daily",
+    "ico": "🔐",
+    "type": "pass"
+  },
+  {
+    "id": "qr",
+    "name": "QR Code",
+    "desc": "Text/URL → QR",
+    "cat": "create",
+    "ico": "▣",
+    "type": "qr"
+  },
+  {
+    "id": "word",
+    "name": "Word Counter",
+    "desc": "Words & reading time",
+    "cat": "text",
+    "ico": "Aa",
+    "type": "word"
+  },
+  {
+    "id": "case",
+    "name": "Case Converter",
+    "desc": "UPPER / lower / Title",
+    "cat": "text",
+    "ico": " cons",
+    "type": "case"
+  },
+  {
+    "id": "base64",
+    "name": "Base64",
+    "desc": "Encode & decode",
+    "cat": "dev",
+    "ico": "64",
+    "type": "base64"
+  },
+  {
+    "id": "json",
+    "name": "JSON Format",
+    "desc": "Beautify JSON",
+    "cat": "dev",
+    "ico": "{}",
+    "type": "json"
+  },
+  {
+    "id": "url",
+    "name": "URL Encode",
+    "desc": "Encode / decode URL",
+    "cat": "dev",
+    "ico": "🔗",
+    "type": "url"
+  },
+  {
+    "id": "color",
+    "name": "Color Picker",
+    "desc": "HEX & RGB",
+    "cat": "create",
+    "ico": "🎨",
+    "type": "color"
+  },
+  {
+    "id": "note",
+    "name": "Quick Notes",
+    "desc": "Saved in browser",
+    "cat": "daily",
+    "ico": "📝",
+    "type": "note"
+  },
+  {
+    "id": "timer",
+    "name": "Timer",
+    "desc": "Countdown timer",
+    "cat": "daily",
+    "ico": "⏱️",
+    "type": "timer"
+  },
+  {
+    "id": "age",
+    "name": "Age Calculator",
+    "desc": "From date of birth",
+    "cat": "daily",
+    "ico": "🎂",
+    "type": "age"
+  },
+  {
+    "id": "lorem",
+    "name": "Lorem Ipsum",
+    "desc": "Placeholder text",
+    "cat": "text",
+    "ico": "¶",
+    "type": "lorem"
+  },
+  {
+    "id": "unit",
+    "name": "Unit Converter",
+    "desc": "Length · weight · temp",
+    "cat": "daily",
+    "ico": "📐",
+    "type": "unit"
+  }
+]

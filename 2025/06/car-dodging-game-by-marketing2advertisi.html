@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow">
+<title>🚘 Car Dodging Game by marketing2advertising · Marketing2Advertising</title>
+<meta name="description" content="🚘 Car Dodging Game by marketing2advertising">
+</head>
+<body>
+<style>
+body{
+    background:#f5f5f5;
+    margin:0;
+    padding:0;
+}
+.post-body{
+    max-width:780px;
+    margin:40px auto;
+    padding:30px 25px;
+    background:#ffffff;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    color:#222;
+    line-height:1.7;
+}
+.post-body p{
+    font-size:18px;
+    margin-bottom:1.5em;
+    color:#333;
+}
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4,
+.post-body h5,
+.post-body h6{
+    font-family:Georgia, "Times New Roman", serif;
+    font-weight:700;
+    margin:2em 0 0.8em;
+    line-height:1.3;
+}
+.post-body h1{ font-size:36px; }
+.post-body h2{ font-size:30px; }
+.post-body h3{ font-size:24px; }
+.post-body h4{ font-size:20px; }
+.post-body h5{ font-size:18px; }
+.post-body h6{ font-size:16px; }
+.post-body ul,
+.post-body ol{
+    padding-left:25px;
+    margin-bottom:1.5em;
+}
+.post-body blockquote{
+    border-left:4px solid #04ff00;
+    background:#f9f9f9;
+    padding:15px 18px;
+    font-style:italic;
+    color:#555;
+    border-radius:6px;
+}
+.post-body img{
+    display:block;
+    max-width:100%;
+    height:auto;
+    margin:25px auto;
+    border-radius:10px;
+}
+.post-body table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+.post-body th,
+.post-body td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+.post-body th{
+    background:#111;
+    color:#fff;
+}
+@media (max-width:768px){
+    .post-body{
+        margin:20px auto;
+        padding:20px 15px;
+    }
+    .post-body p{
+        font-size:16.5px;
+    }
+    .post-body h1{ font-size:28px; }
+    .post-body h2{ font-size:24px; }
+    .post-body h3{ font-size:21px; }
+}
+</style>
+
+<div class="post-body">
+
+<!-- ================= GOOGLE ADSENSE ================= -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
+     crossorigin="anonymous"></script>
+
+<!-- ================= TOP AD ================= -->
+<ins class="adsbygoogle"
+  style="display:block; margin:20px 0;"
+  data-ad-client="ca-pub-2269884583846743"
+  data-ad-slot="2906167922"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+<div style="margin: 20px; text-align: center;">
+  <h2><span face="sans-serif">&nbsp;Game by marketing2advertising</span></h2><div><div class="separator" style="clear: both; text-align: center;"><a href="https://www.marketing2advertising.com/2025/06/car-dodging-game-by-marketing2advertisi.html" style="margin-left: 1em; margin-right: 1em;" target="_blank"><img alt="🚘 Car Dodging Game by marketing2advertising" border="0" data-original-height="768" data-original-width="1408" height="219" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvlngDxm5NldRTWXAiWDuYlh7NCnCFQJyz-35zUgG1EdsLwwKTKf_REoacLZXIA6MiTJZXwzWfBe9673PbRipIul5L6vLCvm20TaEwBN1r2DTQ7OdcKxF3mTGYs6tCsib-7asYk48e351dwZd2uktcg8wMdxhA4kVU4YKk-Inf1clO409Ef-reycrFeapc/w400-h219/ezgif.com-added-text.gif" title="🚘 Car Dodging Game by marketing2advertising" width="400" /></a></div></div><h2 style="font-family: sans-serif;"><span style="font-size: x-large;">🚘 Car Dodging Game on the 🛣️</span></h2>
+  <p style="font-family: sans-serif;">Use the arrow keys to dodge the red cars and survive as long as you can!</p>
+  <span face="sans-serif"><canvas height="500" id="carGame" style="border: 2px solid black; margin-top: 10px;" width="300"></canvas></span>
+  <p style="font-family: sans-serif; font-weight: bold;">Score: <span id="score">0</span></p>
+</div>
+
+<script>
+  const canvas = document.getElementById('carGame');
+  const ctx = canvas.getContext('2d');
+  const scoreDisplay = document.getElementById('score');
+
+  let player = { x: 130, y: 400, width: 40, height: 70 };
+  let obstacles = [];
+  let speed = 4;
+  let score = 0;
+  let gameOver = false;
+
+  // Draw emoji car for player
+  function drawPlayerCar(x, y) {
+    ctx.font = '60px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🚘', x + player.width/2, y + player.height/2 + 5);
+  }
+
+  function drawRoad() {
+    ctx.fillStyle = '#444'; // Darker road background
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 4;
+    ctx.setLineDash([20, 20]);
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, 0);
+    ctx.lineTo(canvas.width / 2, canvas.height);
+    ctx.stroke();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawRoad();
+    drawPlayerCar(player.x, player.y);
+
+    ctx.fillStyle = 'red';
+    obstacles.forEach(obs => {
+      ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+    });
+
+    obstacles.forEach(obs => {
+      obs.y += speed;
+      if (checkCollision(player, obs)) {
+        gameOver = true;
+      }
+    });
+
+    obstacles = obstacles.filter(obs => obs.y < canvas.height);
+
+    score++;
+    scoreDisplay.textContent = Math.floor(score / 10);
+  }
+
+  function checkCollision(a, b) {
+    return (
+      a.x < b.x + b.width &&
+      a.x + a.width > b.x &&
+      a.y < b.y + b.height &&
+      a.y + a.height > b.y
+    );
+  }
+
+  function gameLoop() {
+    if (!gameOver) {
+      draw();
+      if (Math.random() < 0.03) {
+        obstacles.push({
+          x: Math.random() < 0.5 ? 60 : 200,
+          y: -100,
+          width: 40,
+          height: 70,
+        });
+      }
+      requestAnimationFrame(gameLoop);
+    } else {
+      ctx.fillStyle = 'black';
+      ctx.font = '30px sans-serif';
+      ctx.fillText('💥 Game Over!', 70, 250);
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft' && player.x > 60) player.x -= 70;
+    if (e.key === 'ArrowRight' && player.x < 200) player.x += 70;
+  });
+
+  gameLoop();
+</script>
+
+
+<!-- ================= BOTTOM AD ================= -->
+<ins class="adsbygoogle"
+  style="display:block; margin:30px 0;"
+  data-ad-client="ca-pub-2269884583846743"
+  data-ad-slot="2906167922"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+</div>
+
+<div class='mobile-hub'>
+  <div id='emb99d-footer' style='background:#111; text-align:center; padding:10px 0; font-family:Raleway, Arial, sans-serif;'>
+    <a href='/' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Home</a>
+    <span style='color:#fff;'>|</span>
+    <a href='/p/contact-us.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Contact</a>
+    <span style='color:#fff;'>|</span>
+    <a href='/p/privacy-policy.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Privacy</a>
+    <span style='color:#fff;'>|</span>
+    <a href='/p/affiliate-marketing-and-adsense.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Disclosure</a>
+    <span style='color:#fff;'>|</span>
+    <a href='/p/terms-and-conditions.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Terms</a>
+    <p style='color:#aaa; font-size:14px; margin:10px 0 0;'>
+      &#169; Marketing2Advertising. All rights reserved.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
