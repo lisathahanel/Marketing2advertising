@@ -65,27 +65,15 @@ jobs:
           test -d dist/p
           echo "Existing website folders, posts, and static pages restored."
 
-      - name: Publish standalone Email Extractor page
+      - name: Verify independent Email Extractor build
         run: |
           set -eu
-          node --input-type=module <<'NODE'
-          import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-          const source = readFileSync('dist/index.html', 'utf8');
-          if (!source.includes('./assets/')) {
-            throw new Error('Built index.html does not reference relative production assets.');
-          }
-          const title = '<title>Email Extractor &amp; Campaign Tools | Marketing2Advertising</title>';
-          const page = source.replace(/<title>[^<]*<\/title>/i, title);
-          if (page === source || !page.includes(title)) {
-            throw new Error('Could not set the standalone Email Extractor page title.');
-          }
-          writeFileSync('dist/m2a-emailextractor.html', page);
-          NODE
           test -s dist/m2a-emailextractor.html
           grep -Fq '<title>Email Extractor &amp; Campaign Tools | Marketing2Advertising</title>' dist/m2a-emailextractor.html
+          grep -Fq 'email-tools-root' dist/m2a-emailextractor.html
           grep -Eq '<script[^>]+type="module"[^>]+src="./assets/[^"]+"' dist/m2a-emailextractor.html
           grep -Eq '<link[^>]+href="./assets/[^"]+\.css"' dist/m2a-emailextractor.html
-          echo "Standalone Email Extractor HTML, title, JS and CSS entrypoints verified."
+          echo "Independent Email Extractor HTML and bundles verified."
 
       - name: Preserve custom domain
         run: |
