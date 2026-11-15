@@ -25,6 +25,7 @@ const AppsScreen = lazy(() => import('./components/screens/AppsScreen').then((mo
 const GamesScreen = lazy(() => import('./components/screens/GamesScreen').then((module) => ({ default: module.GamesScreen })));
 const JobsScreen = lazy(() => import('./components/screens/JobsScreen').then((module) => ({ default: module.JobsScreen })));
 const PageScreen = lazy(() => import('./components/screens/PageScreen').then((module) => ({ default: module.PageScreen })));
+const EmailToolsScreen = lazy(() => import('./email-tools/EmailToolsScreen'));
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -265,7 +266,7 @@ export default function App() {
               />
             )}
 
-            {currentTab === 'jobs' && <JobsScreen />}
+            {currentTab === 'jobs' && <JobsScreen />}\n            {currentTab === 'emailtools' && <EmailToolsScreen />}
           </>
         )}
         </Suspense>

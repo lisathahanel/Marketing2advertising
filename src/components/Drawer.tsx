@@ -13,7 +13,7 @@ import {
   FileText,
   AlertCircle,
   ExternalLink,
-  Bell,
+  Bell,\n  MailSearch,
 } from 'lucide-react';
 import { TabType } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
@@ -163,7 +163,17 @@ export const Drawer: React.FC<DrawerProps> = ({
               </div>
             </button>
             <button
-              onClick={() => handleTab('games')}
+              onClick={() => handleTab('emailtools')}
+              className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:bg-white/5 hover:text-[#7CFF00] text-sm font-semibold transition"
+            >
+              <MailSearch className="w-4 h-4 text-[#7CFF00]" />
+              <div className="flex-1 flex items-center justify-between">
+                <span>Email Extraction & Campaign Tools</span>
+                <span className="px-1.5 py-0.2 rounded bg-lime-500/20 text-lime-300 text-[9px] font-black">6 TOOLS</span>
+              </div>
+            </button>
+            <button
+              onClick={() => handleTab('games')
               className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:bg-white/5 hover:text-amber-400 text-sm font-semibold transition"
             >
               <Gamepad2 className="w-4 h-4 text-purple-400" />

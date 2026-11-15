@@ -61,4 +61,4 @@ export interface StaticPageData {
   published?: string;
 }
 
-export type TabType = 'home' | 'tv' | 'firimu' | 'blogs' | 'apps' | 'games' | 'jobs' | 'catalogue';
+export type TabType = 'home' | 'tv' | 'firimu' | 'blogs' | 'apps' | 'games' | 'jobs' | 'catalogue' | 'emailtools';

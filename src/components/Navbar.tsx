@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Search, Tv, ChevronDown, Film, Home, Gamepad2, Newspaper, Layers3, Bell } from 'lucide-react';
+import { Menu, Search, Tv, ChevronDown, Film, Home, Gamepad2, Newspaper, Layers3, Bell, Mail } from 'lucide-react';
 import { PWAInstallButton } from './PWAInstallButton';
 import { TabType } from '../types';
 
@@ -18,7 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab, onOpenD
     { id: 'games', label: 'Games', Icon: Gamepad2 },
     { id: 'firimu', label: 'Movies', Icon: Film },
     { id: 'catalogue', label: 'Series', Icon: Layers3 },
-    { id: 'blogs', label: 'Blogs', Icon: Newspaper },
+    { id: 'blogs', label: 'Blogs', Icon: Newspaper },\n    { id: 'emailtools', label: 'Email Tools', Icon: Mail },
   ];
 
   return (
