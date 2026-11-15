@@ -24,7 +24,7 @@ export function Header({ currentPath, onNavigate, onJumpToValidator }: HeaderPro
           onClick={(e) => {
             if (!isModifiedClick(e)) {
               e.preventDefault();
-              onNavigate('/');
+              onNavigate('/m2a-emailextractor');
             }
           }}
           className="text-base font-bold tracking-tight text-white whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400 rounded"
