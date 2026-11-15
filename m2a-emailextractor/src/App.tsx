@@ -76,7 +76,7 @@ export default function App() {
   );
 
   const goToValidatorPage = (focusSingleInput = true) => {
-    navigateTo('/validator', { skipScrollTop: true });
+    navigateTo('/m2a-emailextractor/validator', { skipScrollTop: true });
     setTimeout(() => {
       validatorContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       if (focusSingleInput) {
@@ -228,11 +228,11 @@ export default function App() {
               <h2 className="text-xs font-semibold text-slate-900">Tool Pages</h2>
               <div className="divide-y divide-slate-100 text-xs">
                 {[
-                  { path: '/extractor', id: 'extractor' as const, name: 'Email Extractor', note: '/extractor' },
-                  { path: '/validator', id: 'validator' as const, name: 'Address Validator', note: '/validator' },
-                  { path: '/formatter', id: 'formatter' as const, name: 'Email Formatter', note: '/formatter' },
-                  { path: '/domains', id: 'domains' as const, name: 'Domain Extractor', note: '/domains' },
-                  { path: '/sender', id: 'sender' as const, name: 'Bulk Email Sender', note: '/sender' },
+                  { path: '/m2a-emailextractor/extractor', id: 'extractor' as const, name: 'Email Extractor', note: '/m2a-emailextractor/extractor' },
+                  { path: '/m2a-emailextractor/validator', id: 'validator' as const, name: 'Address Validator', note: '/m2a-emailextractor/validator' },
+                  { path: '/m2a-emailextractor/formatter', id: 'formatter' as const, name: 'Email Formatter', note: '/m2a-emailextractor/formatter' },
+                  { path: '/m2a-emailextractor/domains', id: 'domains' as const, name: 'Domain Extractor', note: '/m2a-emailextractor/domains' },
+                  { path: '/m2a-emailextractor/sender', id: 'sender' as const, name: 'Bulk Email Sender', note: '/m2a-emailextractor/sender' },
                 ].map((item) => (
                   <a
                     key={item.path}
