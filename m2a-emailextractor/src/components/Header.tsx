@@ -8,11 +8,11 @@ interface HeaderProps {
 }
 
 const NAV_LINKS = [
-  { path: '/extractor', label: 'Extractor' },
-  { path: '/validator', label: 'Validator' },
-  { path: '/formatter', label: 'Formatter' },
-  { path: '/domains', label: 'Domains' },
-  { path: '/sender', label: 'Bulk Sender' },
+  { path: '/m2a-emailextractor/extractor', label: 'Extractor' },
+  { path: '/m2a-emailextractor/validator', label: 'Validator' },
+  { path: '/m2a-emailextractor/formatter', label: 'Formatter' },
+  { path: '/m2a-emailextractor/domains', label: 'Domains' },
+  { path: '/m2a-emailextractor/sender', label: 'Bulk Sender' },
 ];
 
 export function Header({ currentPath, onNavigate, onJumpToValidator }: HeaderProps) {
@@ -20,7 +20,7 @@ export function Header({ currentPath, onNavigate, onJumpToValidator }: HeaderPro
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-slate-900 text-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-4 py-3 sm:px-6">
         <a
-          href="/"
+          href="/m2a-emailextractor/"
           onClick={(e) => {
             if (!isModifiedClick(e)) {
               e.preventDefault();
