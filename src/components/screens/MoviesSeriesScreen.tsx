@@ -33,7 +33,7 @@ const FEEDS = [
   { key: 'serie', url: 'https://serie.marketing2advertising.com', kind: 'series' as const, label: 'M2A Series' },
   { key: 'main', url: 'https://www.marketing2advertising.com', kind: 'series' as const, label: 'M2A Blog' },
 ];
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 24;
 const MAX_PAGES = 4;
 let jsonpSequence = 0;
 
@@ -44,10 +44,11 @@ function cleanText(value: string): string {
 }
 
 function extractImage(entry: FeedEntry): string {
-  if (entry.media$thumbnail?.url) return entry.media$thumbnail.url.replace(/\/s\d+(-c)?\//, '/s800/');
+  const optimizeImage = (url: string) => url.replace(/\/s\d+(?:-[a-z0-9-]+)?\//i, '/s480/');
+  if (entry.media$thumbnail?.url) return optimizeImage(entry.media$thumbnail.url);
   const html = entry.content?.$t || entry.summary?.$t || '';
   const match = html.match(/<img\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/i);
-  if (match?.[1]) return match[1].replace(/&amp;/g, '&');
+  if (match?.[1]) return optimizeImage(match[1].replace(/&amp;/g, '&'));
   return '';
 }
 
@@ -146,7 +147,8 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
   const fetchPage = useCallback(async (page: number, append: boolean) => {
     if (append) setLoadingMore(true);
     else { setLoading(true); setErrors([]); }
-    const results = await Promise.all(FEEDS.map(async (feed) => {
+    const feedsToLoad = initialKind === 'movie' ? FEEDS.slice(0, 1) : FEEDS;
+    const results = await Promise.all(feedsToLoad.map(async (feed) => {
       try {
         const payload = await loadJsonp(feed.url, (page - 1) * PAGE_SIZE + 1);
         return { items: toItems(payload, feed), error: '' };
@@ -165,7 +167,7 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
     setLoadedPages(page);
     setLoading(false);
     setLoadingMore(false);
-  }, []);
+  }, [initialKind]);
 
   useEffect(() => { void fetchPage(1, false); }, [fetchPage]);
 

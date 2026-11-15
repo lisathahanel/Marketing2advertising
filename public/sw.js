@@ -1,4 +1,4 @@
-const CACHE_NAME = 'm2a-cache-v4';
+const CACHE_NAME = 'm2a-cache-v5';
 
 function scopedUrl(path = '') {
   return new URL(path, self.registration.scope).toString();
@@ -11,10 +11,7 @@ const STATIC_ASSETS = [
   'icon.svg',
   'icon-192.png',
   'icon-512.png',
-  'data/channels.json',
-  'data/apps.json',
-  'data/games.json',
-  'data/pages.json'
+  'data/channels.json'
 ].map(scopedUrl);
 
 self.addEventListener('install', (event) => {

@@ -44,12 +44,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
     // GitHub Pages is a static host, so use Blogger JSONP directly rather than
     // calling the Express-only /api/naka/movies route.
-    const blogRequest = fetchBloggerPosts({ site: 'main', maxResults: 10 })
+    const blogRequest = fetchBloggerPosts({ site: 'main', maxResults: 6 })
       .then((blogData) => setPosts(blogData.posts || []))
       .catch((err) => console.warn('M2A blog feed unavailable:', err))
       .finally(() => setLoading(false));
 
-    const movieRequest = fetchBloggerPosts({ site: 'naka', maxResults: 12 })
+    const movieRequest = fetchBloggerPosts({ site: 'naka', maxResults: 6 })
       .then(({ posts: moviePosts }) => {
         const movies: MovieItem[] = moviePosts.map((post) => {
           const vjMatch = post.title.match(/(VJ\s+[A-Za-z0-9\s]+?)(?:\s*[-–—:]|\s+in|\s+kali|\s+new|\s*$)/i)

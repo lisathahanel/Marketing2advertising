@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useCallback, useState, useEffect } from 'react';
 import { Splash } from './components/Splash';
 import { Navbar } from './components/Navbar';
 import { BottomNav } from './components/BottomNav';
@@ -12,17 +12,19 @@ import { OfflineIndicator } from './components/OfflineIndicator';
 import { AdConsentModal } from './components/AdConsentModal';
 import { AdMobInterstitial } from './components/AdMobInterstitial';
 import { HomeScreen } from './components/screens/HomeScreen';
-import { TVScreen } from './components/screens/TVScreen';
-import { MoviesSeriesScreen } from './components/screens/MoviesSeriesScreen';
-import { BlogsScreen } from './components/screens/BlogsScreen';
-import { AppsScreen } from './components/screens/AppsScreen';
-import { GamesScreen } from './components/screens/GamesScreen';
-import { JobsScreen } from './components/screens/JobsScreen';
-import { PageScreen } from './components/screens/PageScreen';
 import { ToastContainer } from './components/Toast';
 import { AdBlockGuard } from './components/AdBlockGuard';
 import { NotificationsPanel } from './components/NotificationsPanel';
 import { AppTool, BlogPost, Channel, GameItem, MovieItem, TabType } from './types';
+
+// Keep the first screen lean; load feature bundles only when visitors open them.
+const TVScreen = lazy(() => import('./components/screens/TVScreen').then((module) => ({ default: module.TVScreen })));
+const MoviesSeriesScreen = lazy(() => import('./components/screens/MoviesSeriesScreen').then((module) => ({ default: module.MoviesSeriesScreen })));
+const BlogsScreen = lazy(() => import('./components/screens/BlogsScreen').then((module) => ({ default: module.BlogsScreen })));
+const AppsScreen = lazy(() => import('./components/screens/AppsScreen').then((module) => ({ default: module.AppsScreen })));
+const GamesScreen = lazy(() => import('./components/screens/GamesScreen').then((module) => ({ default: module.GamesScreen })));
+const JobsScreen = lazy(() => import('./components/screens/JobsScreen').then((module) => ({ default: module.JobsScreen })));
+const PageScreen = lazy(() => import('./components/screens/PageScreen').then((module) => ({ default: module.PageScreen })));
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -30,6 +32,9 @@ export default function App() {
   const [channels, setChannels] = useState<Channel[]>([]);
   const [apps, setApps] = useState<AppTool[]>([]);
   const [games, setGames] = useState<GameItem[]>([]);
+  const [appsLoaded, setAppsLoaded] = useState(false);
+  const [gamesLoaded, setGamesLoaded] = useState(false);
+  const finishSplash = useCallback(() => setShowSplash(false), []);
 
   // Navigation states
   const [selectedChannel, setSelectedChannel] = useState<Channel | null>(null);
@@ -72,26 +77,49 @@ export default function App() {
     return () => window.clearTimeout(timer);
   }, [showSplash, isNotificationsOpen]);
 
-  // Load initial data
+  // Load only the data needed for the first screen. Other collections are
+  // requested on first use and then kept in memory for subsequent visits.
   useEffect(() => {
-    // Fetch channels
+    let cancelled = false;
     fetch(`${import.meta.env.BASE_URL}data/channels.json`)
-      .then((res) => res.json())
-      .then((data) => setChannels(data))
-      .catch((err) => console.warn('Channels load error:', err));
-
-    // Fetch apps
-    fetch(`${import.meta.env.BASE_URL}data/apps.json`)
-      .then((res) => res.json())
-      .then((data) => setApps(data))
-      .catch((err) => console.warn('Apps load error:', err));
-
-    // Fetch games
-    fetch(`${import.meta.env.BASE_URL}data/games.json`)
-      .then((res) => res.json())
-      .then((data) => setGames(data))
-      .catch((err) => console.warn('Games load error:', err));
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<Channel[]>;
+      })
+      .then((data) => { if (!cancelled) setChannels(data); })
+      .catch((error) => console.warn('Channels load error:', error));
+    return () => { cancelled = true; };
   }, []);
+
+  useEffect(() => {
+    if (currentTab !== 'apps' || appsLoaded) return;
+    let cancelled = false;
+    fetch(`${import.meta.env.BASE_URL}data/apps.json`)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<AppTool[]>;
+      })
+      .then((data) => {
+        if (!cancelled) { setApps(data); setAppsLoaded(true); }
+      })
+      .catch((error) => console.warn('Apps load error:', error));
+    return () => { cancelled = true; };
+  }, [currentTab, appsLoaded]);
+
+  useEffect(() => {
+    if (currentTab !== 'games' || gamesLoaded) return;
+    let cancelled = false;
+    fetch(`${import.meta.env.BASE_URL}data/games.json`)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<GameItem[]>;
+      })
+      .then((data) => {
+        if (!cancelled) { setGames(data); setGamesLoaded(true); }
+      })
+      .catch((error) => console.warn('Games load error:', error));
+    return () => { cancelled = true; };
+  }, [currentTab, gamesLoaded]);
 
   const handleSelectTab = (tab: TabType) => {
     setCurrentTab(tab);
@@ -139,7 +167,7 @@ export default function App() {
       <NotificationsPanel open={isNotificationsOpen} onClose={() => setIsNotificationsOpen(false)} />
 
       {/* Splash Screen */}
-      {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
+      {showSplash && <Splash onFinish={finishSplash} />}
 
       {/* Connectivity Status Indicator */}
       <OfflineIndicator />
@@ -175,6 +203,7 @@ export default function App() {
 
       {/* Main Viewport Container */}
       <main className="m2a-main flex-1 w-full pt-5 sm:pt-7">
+        <Suspense fallback={<div role="status" aria-live="polite" className="flex min-h-[55vh] items-center justify-center px-4 text-sm font-semibold text-slate-400">Loading M2A section…</div>}>
         {/* If viewing a static page (Contact, About, Privacy, etc.) */}
         {staticPage ? (
           <PageScreen
@@ -239,6 +268,7 @@ export default function App() {
             {currentTab === 'jobs' && <JobsScreen />}
           </>
         )}
+        </Suspense>
       </main>
 
       {/* Bottom Navigation & Floating Bar */}
