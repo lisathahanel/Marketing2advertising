@@ -345,11 +345,11 @@ export function DomainExtractor({ extractedEmails, onNavigate }: DomainExtractor
             </p>
             {sourceMode === 'synced' && (
               <a
-                href="/extractor"
+                href="/m2a-emailextractor/extractor"
                 onClick={(e) => {
                   if (onNavigate && !isModifiedClick(e)) {
                     e.preventDefault();
-                    onNavigate('/extractor');
+                    onNavigate('/m2a-emailextractor/extractor');
                   }
                 }}
                 className="mt-3 text-xs font-medium text-sky-700 hover:underline underline-offset-4"
