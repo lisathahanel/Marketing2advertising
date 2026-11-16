@@ -1,0 +1,6 @@
+{
+  "name": "QuantPulse — Forex & Crypto Signal Bot",
+  "description": "Real-time Forex and Crypto technical analysis trading signal bot powered by live public market feeds, RSI(14), EMA(20/50), MACD(12,26,9), and ATR risk-reward calculations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

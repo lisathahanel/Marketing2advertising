@@ -1,0 +1,122 @@
+{
+  "mode": "paper",
+  "telegram": {
+    "bot_token": "",
+    "chat_id": ""
+  },
+  "binance": {
+    "api_key": "",
+    "api_secret": "",
+    "testnet": true
+  },
+  "paper_start_balance": 10000.0,
+  "scan_interval_minutes": 15,
+  "cooldown_minutes": 240,
+  "risk_percent": 1.0,
+  "markets": [
+    {
+      "market": "crypto",
+      "symbol": "BTC/USDT",
+      "binance": "BTCUSDT",
+      "yahoo": null,
+      "timeframes": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "live_tradeable": true
+    },
+    {
+      "market": "crypto",
+      "symbol": "ETH/USDT",
+      "binance": "ETHUSDT",
+      "yahoo": null,
+      "timeframes": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "live_tradeable": true
+    },
+    {
+      "market": "crypto",
+      "symbol": "SOL/USDT",
+      "binance": "SOLUSDT",
+      "yahoo": null,
+      "timeframes": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "live_tradeable": true
+    },
+    {
+      "market": "crypto",
+      "symbol": "XRP/USDT",
+      "binance": "XRPUSDT",
+      "yahoo": null,
+      "timeframes": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "live_tradeable": true
+    },
+    {
+      "market": "forex",
+      "symbol": "EUR/USD",
+      "binance": null,
+      "yahoo": "EURUSD=X",
+      "timeframes": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "live_tradeable": false
+    },
+    {
+      "market": "forex",
+      "symbol": "GBP/USD",
+      "binance": null,
+      "yahoo": "GBPUSD=X",
+      "timeframes": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "live_tradeable": false
+    },
+    {
+      "market": "forex",
+      "symbol": "USD/JPY",
+      "binance": null,
+      "yahoo": "USDJPY=X",
+      "timeframes": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "live_tradeable": false
+    },
+    {
+      "market": "forex",
+      "symbol": "XAU/USD",
+      "binance": null,
+      "yahoo": "GC=F",
+      "timeframes": [
+        "15m",
+        "1h",
+        "4h",
+        "1d"
+      ],
+      "live_tradeable": false
+    }
+  ]
+}
