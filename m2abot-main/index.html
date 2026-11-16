@@ -94,13 +94,13 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col bg-canvas text-slate-200 selection:bg-sky-500/30 selection:text-sky-200">
+<body class="min-h-screen flex flex-col bg-canvas text-slate-200 selection:bg-lime-500/30 selection:text-lime-200">
 
   <!-- Top Navigation Bar (Strict 3-zone contract: Wordmark — Concise Links — 1 Primary Action) -->
   <header class="border-b border-slate-800/80 bg-canvas/95 backdrop-blur-sm sticky top-0 z-30">
     <div class="max-w-[1360px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-8">
       <!-- Zone 1: Single-line Brand Wordmark -->
-      <a href="/terminal" data-route="terminal" class="text-lg font-bold tracking-tight text-white whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded">
+      <a href="/terminal" data-route="terminal" class="text-lg font-bold tracking-tight text-white whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 rounded">
         M2A Bot
       </a>
 
@@ -114,7 +114,7 @@
 
       <!-- Zone 3: 1 Primary Action -->
       <div class="flex items-center shrink-0">
-        <button id="headerScanBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2 min-h-[40px] text-sm font-semibold text-slate-950 bg-sky-400 hover:bg-sky-300 active:scale-[0.98] rounded-lg transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas">
+        <button id="headerScanBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2 min-h-[40px] text-sm font-semibold text-slate-950 bg-lime-400 hover:bg-lime-300 active:scale-[0.98] rounded-lg transition-all duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas">
           <svg id="headerScanIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
             <path d="M21 3v5h-5" />
@@ -154,7 +154,7 @@
           <!-- Asset Dropdown -->
           <div class="relative">
             <label for="pairSelect" class="sr-only">Trading pair</label>
-            <select id="pairSelect" class="custom-select bg-canvas border border-slate-800 hover:border-slate-700 text-white text-sm font-semibold rounded-lg px-3.5 py-2 min-h-[42px] focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors">
+            <select id="pairSelect" class="custom-select bg-canvas border border-slate-800 hover:border-slate-700 text-white text-sm font-semibold rounded-lg px-3.5 py-2 min-h-[42px] focus:outline-none focus:ring-2 focus:ring-lime-500 transition-colors">
             </select>
           </div>
 
@@ -167,8 +167,8 @@
           </div>
 
           <!-- Sound Alert Toggle -->
-          <button id="soundToggleBtn" type="button" aria-pressed="true" title="Play a subtle chime when a signal flips from NEUTRAL to BUY or SELL" class="inline-flex items-center gap-2 px-3 py-2 min-h-[42px] text-xs font-semibold rounded-lg border border-slate-800 bg-canvas hover:border-slate-700 text-slate-200 transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500">
-            <svg id="soundIconOn" class="w-4 h-4 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button id="soundToggleBtn" type="button" aria-pressed="true" title="Play a subtle chime when a signal flips from NEUTRAL to BUY or SELL" class="inline-flex items-center gap-2 px-3 py-2 min-h-[42px] text-xs font-semibold rounded-lg border border-slate-800 bg-canvas hover:border-slate-700 text-slate-200 transition-colors duration-150 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-500">
+            <svg id="soundIconOn" class="w-4 h-4 text-lime-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
@@ -203,7 +203,7 @@
             </div>
             <div class="flex items-center justify-end gap-1.5">
               <span>Auto-scan in</span>
-              <span id="countdownTimer" class="font-mono font-semibold text-sky-400 tabular-nums">60s</span>
+              <span id="countdownTimer" class="font-mono font-semibold text-lime-400 tabular-nums">60s</span>
             </div>
           </div>
         </div>
@@ -283,8 +283,8 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-4 text-xs">
-            <span class="inline-flex items-center gap-1.5 text-sky-400 font-medium whitespace-nowrap">
-              <span class="w-3 h-0.5 bg-sky-400 inline-block"></span>
+            <span class="inline-flex items-center gap-1.5 text-lime-400 font-medium whitespace-nowrap">
+              <span class="w-3 h-0.5 bg-lime-400 inline-block"></span>
               EMA 20
             </span>
             <span class="inline-flex items-center gap-1.5 text-amber-400 font-medium whitespace-nowrap">
@@ -302,7 +302,7 @@
           <div id="chartContainer" class="w-full h-full min-h-[380px] sm:min-h-[440px]"></div>
           <!-- Loading Skeleton Overlay -->
           <div id="chartLoader" class="absolute inset-0 bg-surface/90 flex flex-col items-center justify-center gap-2 z-10 rounded-lg">
-            <svg class="w-6 h-6 text-sky-400 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="w-6 h-6 text-lime-400 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 12a9 9 0 1 1-6.219-8.56" />
             </svg>
             <span class="text-sm text-slate-300 font-medium">Fetching real-time OHLC candles...</span>
@@ -324,7 +324,7 @@
                 Evaluating 100 candles across RSI, EMA, and MACD
               </p>
               <p id="signalDivergenceFlag" class="hidden text-xs font-semibold mt-1"></p>
-              <p id="signalAlertNotice" class="hidden text-[11px] font-medium text-sky-400 mt-1"></p>
+              <p id="signalAlertNotice" class="hidden text-[11px] font-medium text-lime-400 mt-1"></p>
             </div>
             <div id="signalBiasBadge" class="px-3 py-1.5 rounded-md text-xs font-mono font-bold border border-slate-700 bg-elevated text-slate-300 whitespace-nowrap shrink-0">
               SCORE --
@@ -380,7 +380,7 @@
                 <div class="text-[11px] text-slate-500">14-period volatility</div>
               </div>
               <div class="text-right">
-                <div id="rrRatio" class="text-sm font-mono font-semibold text-sky-400 tabular-nums">1 : 2.0 / 3.0</div>
+                <div id="rrRatio" class="text-sm font-mono font-semibold text-lime-400 tabular-nums">1 : 2.0 / 3.0</div>
                 <div id="atrValue" class="text-[11px] font-mono text-slate-400 tabular-nums">ATR: --</div>
               </div>
             </div>
@@ -389,8 +389,8 @@
 
         <!-- Copy Signal Action -->
         <div class="pt-4 mt-2 border-t border-slate-800/80 space-y-2.5">
-          <button id="copySignalBtn" type="button" class="w-full min-h-[44px] px-4 py-2.5 rounded-lg bg-elevated hover:bg-slate-700/80 border border-slate-700 text-white text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500">
-            <svg class="w-4 h-4 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button id="copySignalBtn" type="button" class="w-full min-h-[44px] px-4 py-2.5 rounded-lg bg-elevated hover:bg-slate-700/80 border border-slate-700 text-white text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-500">
+            <svg class="w-4 h-4 text-lime-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
               <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
             </svg>
@@ -398,7 +398,7 @@
           </button>
           <div class="flex items-center justify-between text-[11px] text-slate-500 pt-0.5">
             <span>Computed locally from live OHLC data.</span>
-            <a href="/indicators" data-route="indicators" class="text-sky-400 hover:text-sky-300 font-medium whitespace-nowrap">Indicator Breakdown →</a>
+            <a href="/indicators" data-route="indicators" class="text-lime-400 hover:text-lime-300 font-medium whitespace-nowrap">Indicator Breakdown →</a>
           </div>
         </div>
       </aside>
@@ -417,7 +417,7 @@
           <div id="candleCountInfo" class="text-xs font-mono text-slate-400 tabular-nums whitespace-nowrap">
             100 candles analyzed
           </div>
-          <a href="/terminal" data-route="terminal" class="text-xs font-semibold text-sky-400 hover:text-sky-300 whitespace-nowrap">← Back to Chart</a>
+          <a href="/terminal" data-route="terminal" class="text-xs font-semibold text-lime-400 hover:text-lime-300 whitespace-nowrap">← Back to Chart</a>
         </div>
       </div>
 
@@ -439,7 +439,7 @@
             <div class="relative h-2 bg-canvas rounded-full overflow-hidden border border-slate-800">
               <div class="absolute inset-y-0 left-[30%] w-px bg-slate-600 z-10"></div>
               <div class="absolute inset-y-0 left-[70%] w-px bg-slate-600 z-10"></div>
-              <div id="rsiBar" class="h-full bg-sky-400 transition-all duration-200" style="width: 50%"></div>
+              <div id="rsiBar" class="h-full bg-lime-400 transition-all duration-200" style="width: 50%"></div>
             </div>
             <div class="flex justify-between text-[11px] font-mono text-slate-500 tabular-nums">
               <span>0 Oversold</span>
@@ -491,7 +491,7 @@
           </div>
           <div class="grid grid-cols-2 gap-3 pt-1 border-t border-slate-800/60 text-xs">
             <div>
-              <div class="text-sky-400">EMA (20)</div>
+              <div class="text-lime-400">EMA (20)</div>
               <div id="ema20Value" class="font-mono font-semibold text-slate-200 tabular-nums mt-0.5">--</div>
             </div>
             <div>
@@ -535,7 +535,7 @@
             A forex and crypto trading signal bot is an automated or semi-automated analytical tool that scans financial markets, evaluates technical indicators (such as RSI, MACD, and exponential moving averages), and generates actionable buy and sell setups with pre-calculated stop-loss and take-profit boundaries.
           </p>
         </div>
-        <a href="/terminal" data-route="terminal" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-lg bg-elevated hover:bg-slate-700/80 border border-slate-700 text-sky-400 whitespace-nowrap shrink-0">Open Live Terminal →</a>
+        <a href="/terminal" data-route="terminal" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-lg bg-elevated hover:bg-slate-700/80 border border-slate-700 text-lime-400 whitespace-nowrap shrink-0">Open Live Terminal →</a>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 border-t border-slate-800/80">
@@ -568,7 +568,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-400 leading-relaxed">
           <div>
-            <div class="font-semibold text-sky-400 mb-1">Option A · 24/7 Telegram Scanner</div>
+            <div class="font-semibold text-lime-400 mb-1">Option A · 24/7 Telegram Scanner</div>
             Runs continuously on any PC or VPS, scanning all Crypto and Forex pairs across 15m/1H/4H and sending formatted Entry, SL, TP1, and TP2 alerts via Telegram.
           </div>
           <div>
@@ -592,7 +592,7 @@
           <h1 class="text-lg sm:text-xl font-semibold text-white">Financial &amp; Risk Disclaimer</h1>
           <p class="text-xs text-slate-400 mt-1">Important disclosures regarding automated signals, technical indicators, and leveraged markets.</p>
         </div>
-        <a href="/terminal" data-route="terminal" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-lg bg-elevated hover:bg-slate-700/80 border border-slate-700 text-sky-400 whitespace-nowrap shrink-0">Open Live Terminal →</a>
+        <a href="/terminal" data-route="terminal" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-lg bg-elevated hover:bg-slate-700/80 border border-slate-700 text-lime-400 whitespace-nowrap shrink-0">Open Live Terminal →</a>
       </div>
 
       <p class="text-sm text-slate-300 leading-relaxed">
@@ -678,7 +678,7 @@
         countdown: 60,
         isLoading: false,
         showTradeLines: true,
-        soundEnabled: localStorage.getItem('quantpulse_sound_alerts') !== 'false',
+        soundEnabled: localStorage.getItem('m2abot_sound_alerts') !== 'false' && localStorage.getItem('quantpulse_sound_alerts') !== 'false',
         previousDirections: {},
         candles: [],
         lastAnalysis: null,
@@ -1894,11 +1894,11 @@
         els.rsiPrevDelta.textContent = `Prev: ${analysis.prevRsi.toFixed(2)}`;
         els.rsiStateLabel.textContent = analysis.rsiState;
         els.rsiStateLabel.className = `text-xs font-semibold ${
-          analysis.rsi <= 35 ? 'text-emerald-400' : analysis.rsi >= 65 ? 'text-rose-400' : 'text-sky-400'
+          analysis.rsi <= 35 ? 'text-emerald-400' : analysis.rsi >= 65 ? 'text-rose-400' : 'text-lime-400'
         }`;
         els.rsiBar.style.width = `${Math.max(2, Math.min(100, analysis.rsi))}%`;
         els.rsiBar.className = `h-full transition-all duration-200 ${
-          analysis.rsi <= 30 ? 'bg-emerald-400' : analysis.rsi >= 70 ? 'bg-rose-400' : 'bg-sky-400'
+          analysis.rsi <= 30 ? 'bg-emerald-400' : analysis.rsi >= 70 ? 'bg-rose-400' : 'bg-lime-400'
         }`;
         els.rsiReason.textContent = analysis.rsiReason;
         if (analysis.rsiDivergence) {
@@ -2304,7 +2304,7 @@
       els.soundToggleBtn.addEventListener('click', () => {
         state.soundEnabled = !state.soundEnabled;
         try {
-          localStorage.setItem('quantpulse_sound_alerts', String(state.soundEnabled));
+          localStorage.setItem('m2abot_sound_alerts', String(state.soundEnabled));
         } catch (_) {}
         updateSoundToggleUI();
         if (state.soundEnabled) {
@@ -2352,7 +2352,7 @@
               : 'nav-link text-slate-400 hover:text-white transition-colors duration-150 whitespace-nowrap shrink-0';
           } else {
             link.className = isActive
-              ? 'nav-link px-3 py-2 text-xs font-semibold rounded-lg border border-sky-500/40 bg-elevated text-white whitespace-nowrap shrink-0'
+              ? 'nav-link px-3 py-2 text-xs font-semibold rounded-lg border border-lime-500/40 bg-elevated text-white whitespace-nowrap shrink-0'
               : 'nav-link px-3 py-2 text-xs font-semibold rounded-lg border border-slate-800 bg-surface text-slate-400 hover:text-white whitespace-nowrap shrink-0';
           }
         });
