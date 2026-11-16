@@ -170,8 +170,8 @@ export const Drawer: React.FC<DrawerProps> = ({
             >
               <Bot className="w-4 h-4 text-[#7CFF00]" />
               <div className="flex-1 flex items-center justify-between">
-                <span>M2A Bot</span>
-                <span className="px-1.5 py-0.2 rounded bg-lime-500/20 text-lime-300 text-[9px] font-black">TRADING</span>
+                <span><span className="block">M2A Bot</span><span className="block text-[9px] font-medium text-slate-500">Forex &amp; Crypto Signals</span></span>
+                <span className="px-1.5 py-0.2 rounded bg-lime-500/20 text-lime-300 text-[9px] font-black">OPEN</span>
               </div>
             </button>
             <button
