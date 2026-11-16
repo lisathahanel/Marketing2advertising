@@ -1,6 +1,6 @@
-# QuantPulse All-in-One Trading Bot Suite
+# M2A Bot All-in-One Trading Bot Suite
 
-This directory contains the complete **QuantPulse Python Robot** that pairs with the standalone web dashboard (`/index.html`). It unifies all three deployment modes into one codebase:
+This directory contains the complete **M2A Bot Python Robot** that pairs with the standalone web dashboard (`/index.html`). It unifies all three deployment modes into one codebase:
 
 - **Option A — 24/7 Signal Scanner + Telegram Alerts**: Scans `BTC/USDT`, `ETH/USDT`, `SOL/USDT`, `XRP/USDT`, `EUR/USD`, `GBP/USD`, `USD/JPY`, and `XAU/USD` across `15m`, `1H`, and `4H` using the exact same Wilder RSI(14), EMA(20/50), MACD(12,26,9), and ATR(14) engine as `/index.html`.
 - **Option B — Paper Trading (Default) + Live Binance Execution**: Paper-trades by default with a virtual `$10,000` balance, 50% scale-out at TP1 (1:2 R:R) + breakeven stop move, and TP2 (1:3 R:R), logging every trade to `bot/trades.csv`. Can be switched to Binance Spot Testnet (`MODE=testnet`) or Live Binance Spot (`MODE=live`) when ready.
@@ -44,7 +44,7 @@ python bot/bot.py --status   # View paper balance, win rate & open positions
    - `TELEGRAM_BOT_TOKEN`
    - `TELEGRAM_CHAT_ID`
 3. Enable **Settings → Actions → General → Workflow permissions → Read and write permissions** so the workflow can save `bot/state.json` and `bot/trades.csv` between hourly runs.
-4. Go to the **Actions** tab → select **QuantPulse 24/7 Signal & Paper-Trade Scanner** → click **Run workflow** to test immediately.
+4. Go to the **Actions** tab → select **M2A Bot 24/7 Signal & Paper-Trade Scanner** → click **Run workflow** to test immediately.
 5. Enable **Settings → Pages → Deploy from a branch (`main` / root)** to host `/index.html` live for free!
 
 ---
