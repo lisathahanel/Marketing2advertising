@@ -1,4 +1,4 @@
-name: QuantPulse 24/7 Signal & Paper-Trade Scanner
+name: M2A Bot 24/7 Signal & Paper-Trade Scanner
 
 on:
   schedule:
@@ -42,7 +42,7 @@ jobs:
 
       - name: Persist updated bot state & paper trades
         run: |
-          git config user.name "QuantPulse Bot"
+          git config user.name "M2A Bot Bot"
           git config user.email "actions@users.noreply.github.com"
           git add -f m2abot-main/bot/state.json m2abot-main/bot/trades.csv m2abot-main/bot/latest_signals.json 2>/dev/null || true
           if ! git diff --cached --quiet; then
