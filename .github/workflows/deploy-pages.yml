@@ -94,6 +94,22 @@ jobs:
           test -s dist/m2a-emailextractor.html
           echo "Complete independent Email Extractor app and legacy entry URL verified."
 
+      - name: Publish independent M2A Bot app
+        run: |
+          set -eu
+          test -s m2abot-main/index.html
+          test -s m2abot-main/favicon.ico
+          mkdir -p dist/m2abot-main
+          cp m2abot-main/index.html dist/m2abot-main/index.html
+          cp m2abot-main/favicon.ico dist/m2abot-main/favicon.ico
+          for route in terminal indicators how-it-works disclaimer; do
+            mkdir -p "dist/m2abot-main/$route"
+            cp m2abot-main/index.html "dist/m2abot-main/$route/index.html"
+          done
+          grep -Fq '<title>M2A Bot — Forex &amp; Crypto Signal Bot</title>' dist/m2abot-main/index.html
+          grep -Fq '/m2abot-main/terminal' dist/m2abot-main/index.html
+          echo "Independent M2A Bot app and nested routes published."
+
       - name: Preserve custom domain
         run: |
           test -s CNAME
