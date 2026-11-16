@@ -15,6 +15,7 @@ import {
   ExternalLink,
   Bell,
   MailSearch,
+  Bot,
 } from 'lucide-react';
 import { TabType } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
@@ -161,6 +162,16 @@ export const Drawer: React.FC<DrawerProps> = ({
                 <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-black">
                   19 Tools
                 </span>
+              </div>
+            </button>
+            <button
+              onClick={() => { window.location.href = 'https://m2abot.marketing2advertising.com'; onClose(); }}
+              className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:bg-white/5 hover:text-[#7CFF00] text-sm font-semibold transition"
+            >
+              <Bot className="w-4 h-4 text-[#7CFF00]" />
+              <div className="flex-1 flex items-center justify-between">
+                <span>M2A Bot</span>
+                <span className="px-1.5 py-0.2 rounded bg-lime-500/20 text-lime-300 text-[9px] font-black">TRADING</span>
               </div>
             </button>
             <button
