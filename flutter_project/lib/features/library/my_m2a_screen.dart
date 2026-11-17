@@ -54,7 +54,7 @@ class _MyM2AScreenState extends State<MyM2AScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) return const Padding(padding: EdgeInsets.all(24), child: Center(child: CircularProgressIndicator()));
           final items = snapshot.data ?? [];
-          if (items.isEmpty) return Card(child: Padding(padding: const EdgeInsets.all(20), child: Column(children: const [Icon(Icons.bookmark_border, size: 34, color: Color(0xFF9AA9BD)), SizedBox(height: 8), Text('Nothing saved yet', style: TextStyle(fontWeight: FontWeight.w700)), SizedBox(height: 4), Text('Use the bookmark icon on an article or TV channel to add it here.', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF9AA9BD), fontSize: 12))])));
+          if (items.isEmpty) return Card(child: Padding(padding: const EdgeInsets.all(20), child: Column(children: [const Icon(Icons.bookmark_border, size: 34, color: Color(0xFF9AA9BD)), SizedBox(height: 8), Text('Nothing saved yet', style: TextStyle(fontWeight: FontWeight.w700)), SizedBox(height: 4), Text('Use the bookmark icon on an article or TV channel to add it here.', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF9AA9BD), fontSize: 12))])));
           return Column(children: items.map((item) => Card(child: ListTile(
             leading: Icon(item['type'] == 'TV channel' ? Icons.live_tv : Icons.article_outlined, color: const Color(0xFF7CFF00)),
             title: Text((item['title'] ?? 'Saved item').toString(), maxLines: 2, overflow: TextOverflow.ellipsis),
@@ -67,7 +67,7 @@ class _MyM2AScreenState extends State<MyM2AScreen> {
       const SizedBox(height: 22),
       const Text('App preferences', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
       const SizedBox(height: 8),
-      Card(child: SwitchListTile(title: const Text('Notifications'), subtitle: const Text('Preference saved on this device'), value: _notifications, activeColor: const Color(0xFF7CFF00), onChanged: (value) async { final prefs = await SharedPreferences.getInstance(); await prefs.setBool('m2a_notifications_enabled', value); if (mounted) setState(() => _notifications = value); })),
+      Card(child: SwitchListTile(title: const Text('Notifications'), subtitle: const Text('Preference saved on this device'), value: _notifications, activeThumbColor: const Color(0xFF7CFF00), onChanged: (value) async { final prefs = await SharedPreferences.getInstance(); await prefs.setBool('m2a_notifications_enabled', value); if (mounted) setState(() => _notifications = value); })),
       Card(child: SwitchListTile(title: const Text('Confirm external links'), subtitle: const Text('Ask before opening links outside the app (preference only)'), value: _confirmExternalLinks, activeColor: const Color(0xFF7CFF00), onChanged: (value) async { final prefs = await SharedPreferences.getInstance(); await prefs.setBool('m2a_confirm_external_links', value); if (mounted) setState(() => _confirmExternalLinks = value); })),
       const Padding(padding: EdgeInsets.only(top: 10), child: Text('Saved items and preferences are stored locally on this device. Notifications are a preference switch only; push delivery will be connected in a later update.', style: TextStyle(color: Color(0xFF9AA9BD), fontSize: 11, height: 1.4))),
     ]),
