@@ -2,9 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../main.dart';
 
 enum M2AHubType { jobs, services }
+
+class _HubColors {
+  static const accent = Color(0xFF7CFF00);
+  static const muted = Color(0xFF9AA9BD);
+}
 
 class M2AHubScreen extends StatelessWidget {
   const M2AHubScreen({super.key, required this.type});
@@ -42,7 +46,7 @@ class M2AHubScreen extends StatelessWidget {
                 Text(
                   _isJobs ? 'BUILD YOUR NEXT STEP' : 'MAKE YOUR IDEAS WORK',
                   style: const TextStyle(
-                    color: M2AColors.accent,
+                    color: _HubColors.accent,
                     fontSize: 10,
                     letterSpacing: 1.4,
                     fontWeight: FontWeight.w800,
@@ -78,7 +82,7 @@ class M2AHubScreen extends StatelessWidget {
                     title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.w700)),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 4),
-                      child: Text(item.description, style: const TextStyle(color: M2AColors.muted, fontSize: 12, height: 1.35)),
+                      child: Text(item.description, style: const TextStyle(color: _HubColors.muted, fontSize: 12, height: 1.35)),
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: M2AColors.muted),
                     onTap: () => _open(context, item.url),
