@@ -133,7 +133,7 @@ export function InstallAppView() {
               </div>
               <div>
                 <div className="font-semibold text-slate-800 dark:text-slate-100">Android (Chrome)</div>
-                <p>Tap Install App or Menu (⋮) → Install app to add the dashboard. Full-device VPN protection will require the native M2A Android app.</p>
+                <p>Tap Install App or Menu (⋮) → Install app to add the dashboard. It does not create an Android VPN connection; the native M2A Android client is still in development.</p>
               </div>
             </div>
           </div>
@@ -161,9 +161,9 @@ export function InstallAppView() {
             </div>
 
             <ol className="mt-5 space-y-2.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-              <li>1. Install M2A IP Shield as a desktop window directly from Chrome or Edge.</li>
-              <li>2. Download your active WireGuard <span className="font-mono">.conf</span> file for kernel-level PC tunneling and Kill Switch enforcement.</li>
-              <li>3. Manage per-app Split Tunneling rules right inside Security & Config.</li>
+              <li>1. Install the M2A IP Shield dashboard as a desktop window from Chrome or Edge.</li>
+              <li>2. A separate signed native VPN client is required for system-wide WireGuard tunneling.</li>
+              <li>3. The dashboard's split-tunnel settings are preferences only until the native client is available.</li>
             </ol>
           </div>
 
