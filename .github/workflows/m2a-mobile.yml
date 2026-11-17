@@ -32,6 +32,8 @@ jobs:
           cache: true
       - name: Flutter version
         run: flutter --version
+      - name: Generate Android runner scaffold
+        run: flutter create --platforms=android --org com.marketing2advertising --project-name marketing2advertising_mobile .
       - name: Install dependencies
         run: flutter pub get
       - name: Analyze
