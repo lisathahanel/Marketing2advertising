@@ -25,7 +25,7 @@ import type {
   VpnServer,
   WorkspaceTab,
 } from './types/vpn';
-import { buildLocalFallbackHandshake, generateTunnelKeypair } from './utils/cryptoTunnel';
+import { lookupClientIdentity } from './utils/networkIdentity';
 
 const DEFAULT_SECURITY: SecuritySettings = {
   killSwitch: true,
@@ -147,17 +147,12 @@ export default function App() {
 
   useEffect(() => {
     let active = true;
-    generateTunnelKeypair().then((kp) => {
-      if (active) setKeypair(kp);
-    });
-
-    fetch('/api/network/identity')
-      .then((res) => res.json())
-      .then((data: ClientIdentity) => {
+    lookupClientIdentity()
+      .then((data) => {
         if (active) setIdentity(data);
       })
       .catch(() => {
-        // Fallback only if server unavailable
+        if (active) setIdentity(null);
       })
       .finally(() => {
         if (active) setIdentityLoading(false);
@@ -298,11 +293,10 @@ export default function App() {
   }
 
   async function handleRotateKeypair() {
-    const nextKp = await generateTunnelKeypair();
-    setKeypair(nextKp);
-    if (tunnelStatus === 'connected') {
-      void establishTunnel(selectedServer);
-    }
+    setKeypair(null);
+    setConnectionNotice(
+      'Client keys are generated and stored by the native WireGuard engine during setup. This browser dashboard will not create placeholder VPN credentials.'
+    );
   }
 
   const topActionLabel =
