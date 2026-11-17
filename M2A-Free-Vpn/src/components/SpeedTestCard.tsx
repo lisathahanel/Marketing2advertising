@@ -27,13 +27,6 @@ interface SpeedPoint {
 
 type TestPhase = 'idle' | 'latency' | 'download' | 'upload' | 'complete' | 'blocked' | 'unavailable';
 
-const PROTOCOL_EFFICIENCY: Record<SecuritySettings['protocol'], number> = {
-  WireGuard: 0.94,
-  IKEv2: 0.89,
-  'OpenVPN UDP': 0.85,
-  'OpenVPN TCP': 0.72,
-};
-
 export function SpeedTestCard({
   tunnelStatus,
   selectedServer,
@@ -82,8 +75,7 @@ export function SpeedTestCard({
     setJitterMs(null);
     setDownloadMbps(null);
     setUploadMbps(null);
-
-    
+    setPhase('latency');
 
     const pingSamples: number[] = [];
     const dlHistory: number[] = [];
@@ -100,7 +92,6 @@ export function SpeedTestCard({
       }
 
       // Phase 1: Latency & Jitter (4 probes)
-      setPhase('latency');
       for (let i = 1; i <= 4; i += 1) {
         if (!runningRef.current) return;
         const t0 = performance.now();
@@ -154,7 +145,6 @@ export function SpeedTestCard({
         }
         const buf = await resp.arrayBuffer();
         const elapsedSec = Math.max(0.012, (performance.now() - t0) / 1000);
-        // Apply realistic tunnel encryption overhead and server load factor
         const rawMbps = (buf.byteLength * 8) / elapsedSec / 1_000_000;
         const normalizedMbps = Number(rawMbps.toFixed(1));
         dlHistory.push(normalizedMbps);
@@ -215,7 +205,7 @@ export function SpeedTestCard({
             step: `U${i}`,
             downloadMbps: lastDl,
             uploadMbps: normalizedUl,
-            latencyMs: lastLat + 2,
+            latencyMs: lastLat,
           },
         ]);
         await new Promise((r) => setTimeout(r, 240));
@@ -256,7 +246,7 @@ export function SpeedTestCard({
           <div className="flex items-center gap-2">
             <Gauge className="h-4 w-4 text-sky-500" />
             <h2 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">
-              Speed Test — Connection Latency & Throughput
+              Browser-to-M2A API Speed Test
             </h2>
           </div>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -264,7 +254,7 @@ export function SpeedTestCard({
               ? `Testing active encrypted ${security.protocol} tunnel via ${selectedServer.city}, ${selectedServer.country} · ${phaseText}`
               : isKillSwitchLocked
                 ? 'Kill Switch is active and blocking all outbound probes.'
-                : `Testing direct unprotected ISP path · ${phaseText}`}
+                : `Testing browser-to-M2A API path · ${phaseText}`}
           </p>
         </div>
 
