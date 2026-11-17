@@ -196,116 +196,10 @@ async function startServer() {
     }
   });
 
-  app.post('/api/tunnel/handshake', (req, res) => {
-    const { serverId, clientPublicKey, protocol } = req.body as {
-      serverId?: string;
-      clientPublicKey?: string;
-      protocol?: string;
-    };
-
-    if (!serverId || !clientPublicKey) {
-      res.status(400).json({ error: 'Missing serverId or clientPublicKey for tunnel handshake.' });
-      return;
-    }
-
-    const activeProtocol =
-      protocol === 'OpenVPN UDP' || protocol === 'OpenVPN TCP' || protocol === 'IKEv2'
-        ? protocol
-        : 'WireGuard';
-
-    const protocolSpecs: Record<
-      'WireGuard' | 'OpenVPN UDP' | 'OpenVPN TCP' | 'IKEv2',
-      {
-        cipherSuite: string;
-        handshakeMechanism: string;
-        port: number;
-        transport: 'UDP' | 'TCP';
-        mtu: number;
-        keepaliveSec: number;
-        subnetOctet: number;
-        handshakeSteps: string[];
-      }
-    > = {
-      WireGuard: {
-        cipherSuite: 'ChaCha20-Poly1305 · Curve25519 · BLAKE2s',
-        handshakeMechanism: '1-RTT Noise_IKpsk2 Ephemeral Exchange',
-        port: 51820,
-        transport: 'UDP',
-        mtu: 1420,
-        keepaliveSec: 25,
-        subnetOctet: 64,
-        handshakeSteps: [
-          'Initiator Curve25519 ephemeral key authenticated',
-          'Noise_IKpsk2 responder static key verified',
-          'Symmetric ChaCha20-Poly1305 transport keys derived',
-        ],
-      },
-      'OpenVPN UDP': {
-        cipherSuite: 'AES-256-GCM · TLSv1.3 · SHA-256 HMAC',
-        handshakeMechanism: 'TLS Control Channel + Data Channel Key Push',
-        port: 1194,
-        transport: 'UDP',
-        mtu: 1500,
-        keepaliveSec: 10,
-        subnetOctet: 8,
-        handshakeSteps: [
-          'TLSv1.3 control channel P_CONTROL_HARD_RESET completed',
-          'Peer X.509 certificate & tls-crypt HMAC verified',
-          'PUSH_REPLY received with AES-256-GCM data-channel cipher',
-        ],
-      },
-      'OpenVPN TCP': {
-        cipherSuite: 'AES-256-GCM · TLSv1.3 (TCP/443)',
-        handshakeMechanism: 'TCP-443 TLS Stream + Data Channel Key Push',
-        port: 443,
-        transport: 'TCP',
-        mtu: 1500,
-        keepaliveSec: 10,
-        subnetOctet: 9,
-        handshakeSteps: [
-          'TCP port 443 firewall-traversal stream established',
-          'TLSv1.3 mutual certificate handshake verified',
-          'AES-256-GCM data-channel session keys synchronized',
-        ],
-      },
-      IKEv2: {
-        cipherSuite: 'AES-256-GCM · ECDH P-384 · SHA-384',
-        handshakeMechanism: 'IKE_SA_INIT + IKE_AUTH (MOBIKE Roaming)',
-        port: 4500,
-        transport: 'UDP',
-        mtu: 1400,
-        keepaliveSec: 20,
-        subnetOctet: 16,
-        handshakeSteps: [
-          'IKE_SA_INIT Diffie-Hellman Group 20 negotiation complete',
-          'IKE_AUTH EAP/certificate identity & NAT-T UDP/4500 verified',
-          'CHILD_SA IPsec ESP tunnel + MOBIKE mobility activated',
-        ],
-      },
-    };
-
-    const spec = protocolSpecs[activeProtocol];
-    const sessionId = crypto.randomBytes(12).toString('hex');
-    const serverNonce = crypto.randomBytes(16).toString('base64');
-    const handshakeDigest = crypto
-      .createHash('sha256')
-      .update(`${activeProtocol}:${serverId}:${clientPublicKey}:${serverNonce}`)
-      .digest('hex');
-
-    res.json({
-      sessionId,
-      serverNonce,
-      handshakeDigest,
-      protocol: activeProtocol,
-      cipherSuite: spec.cipherSuite,
-      handshakeMechanism: spec.handshakeMechanism,
-      port: spec.port,
-      transport: spec.transport,
-      assignedVirtualIp: `10.${spec.subnetOctet}.${(handshakeDigest.charCodeAt(0) % 200) + 10}.${(handshakeDigest.charCodeAt(1) % 220) + 12}`,
-      mtu: spec.mtu,
-      keepaliveSec: spec.keepaliveSec,
-      handshakeSteps: spec.handshakeSteps,
-      establishedAt: new Date().toISOString(),
+  app.post('/api/tunnel/handshake', (_req, res) => {
+    res.status(501).json({
+      error: 'A real native WireGuard backend is required. This API does not create or simulate VPN handshakes.',
+      status: 'native-engine-required',
     });
   });
 
@@ -328,7 +222,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`M2A Free Vpn server listening on http://0.0.0.0:${PORT}`);
+    console.log(`M2A IP Shield API listening on http://0.0.0.0:${PORT}`);
   });
 }
 
