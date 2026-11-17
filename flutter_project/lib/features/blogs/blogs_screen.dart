@@ -16,7 +16,8 @@ class M2ABlogPost {
   factory M2ABlogPost.fromJson(Map<String, dynamic> json) {
     final title = (json['title']?[r'$t'] ?? 'Untitled article').toString();
     final links = (json['link'] as List<dynamic>? ?? const []);
-    final alternate = links.whereType<Map<String, dynamic>>().where((link) => link['rel'] == 'alternate').firstOrNull;
+    final alternateLinks = links.whereType<Map<String, dynamic>>().where((link) => link['rel'] == 'alternate').toList();
+    final alternate = alternateLinks.isEmpty ? null : alternateLinks.first;
     final published = (json['published']?[r'$t'] ?? '').toString();
     final rawSummary = (json['summary']?[r'$t'] ?? json['content']?[r'$t'] ?? '').toString();
     final image = json[r'media$thumbnail']?['url']?.toString();
