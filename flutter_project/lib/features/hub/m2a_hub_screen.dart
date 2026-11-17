@@ -74,17 +74,17 @@ class M2AHubScreen extends StatelessWidget {
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: M2AColors.accent.withValues(alpha: .12),
+                        color: _HubColors.accent.withValues(alpha: .12),
                         borderRadius: BorderRadius.circular(13),
                       ),
-                      child: Icon(item.icon, color: M2AColors.accent),
+                      child: Icon(item.icon, color: _HubColors.accent),
                     ),
                     title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.w700)),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(item.description, style: const TextStyle(color: _HubColors.muted, fontSize: 12, height: 1.35)),
                     ),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: M2AColors.muted),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: _HubColors.muted),
                     onTap: () => _open(context, item.url),
                   ),
                 ),
@@ -95,7 +95,7 @@ class M2AHubScreen extends StatelessWidget {
             icon: const Icon(Icons.mail_outline),
             label: Text(_isJobs ? 'Contact M2A about opportunities' : 'Request a service'),
             style: FilledButton.styleFrom(
-              backgroundColor: M2AColors.accent,
+              backgroundColor: _HubColors.accent,
               foregroundColor: const Color(0xFF08111B),
               padding: const EdgeInsets.symmetric(vertical: 14),
             ),
@@ -104,7 +104,7 @@ class M2AHubScreen extends StatelessWidget {
           const Text(
             'Availability, pricing and application details are confirmed on the linked M2A pages. The app does not represent search results as verified live vacancies.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: M2AColors.muted, fontSize: 10, height: 1.4),
+            style: TextStyle(color: _HubColors.muted, fontSize: 10, height: 1.4),
           ),
         ],
       ),
