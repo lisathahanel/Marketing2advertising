@@ -86,6 +86,9 @@ export function ServersView({
 
   return (
     <div className="space-y-6">
+      <div role="note" className="rounded-xl border border-amber-300/70 bg-amber-50 px-4 py-3 text-xs leading-5 text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/25 dark:text-amber-200">
+        Server catalogue preview only. These locations, IP addresses, peer keys, latency, load and feature labels have not been verified against live VPN servers. Selecting a location does not change your public IP or connect a tunnel.
+      </div>
       {/* Multi-Hop Double VPN Configuration Strip */}
       <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-[#111827]">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
