@@ -15,10 +15,10 @@ export default defineConfig(() => {
         includeAssets: ['icon.svg', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
         manifest: {
           id: '/',
-          name: 'M2A Free Vpn',
-          short_name: 'M2A VPN',
+          name: 'M2A IP Shield',
+          short_name: 'IP Shield',
           description:
-            'Secure, private VPN tunnel client for browser, mobile, and PC with IP masking, kill switch, and split tunneling.',
+            'Check your public IP, run browser privacy diagnostics, and manage supported VPN connections.',
           theme_color: '#0B111E',
           background_color: '#0B111E',
           display: 'standalone',
