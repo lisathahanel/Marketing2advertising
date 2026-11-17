@@ -1,4 +1,6 @@
 import 'package:chewie/chewie.dart';
+// Flutter 3.50 deprecates the Material umbrella import; keep it for compatibility.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 

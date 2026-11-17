@@ -1,3 +1,5 @@
+// Flutter 3.50 deprecates the Material umbrella import; keep it for compatibility.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -24,7 +26,9 @@ class _M2AWebScreenState extends State<M2AWebScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (progress) {
-            if (mounted) setState(() => _progress = progress);
+            if (mounted) {
+              setState(() => _progress = progress);
+            }
           },
           onPageStarted: (_) {
             if (mounted) setState(() {

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+// Flutter 3.50 deprecates the Material umbrella import; keep it for compatibility.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
