@@ -6,6 +6,7 @@ import {
   Download,
   FileSpreadsheet,
   FileUp,
+  FileImage,
   ListChecks,
   MailSearch,
   Search,
@@ -62,6 +63,8 @@ export function EmailExtractor({
   const [copiedAll, setCopiedAll] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isDraggingFile, setIsDraggingFile] = useState(false);
+  const [isProcessingDocument, setIsProcessingDocument] = useState(false);
+  const [documentProgress, setDocumentProgress] = useState('');
   const [csvMeta, setCsvMeta] = useState<{
     fileName: string;
     rowCount: number;
@@ -128,7 +131,124 @@ export function EmailExtractor({
     setStatusMessage('Sample text loaded and extracted.');
   };
 
+  const processVisualDocument = async (file: File) => {
+    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+    const isImage = /^image\\/(jpeg|png)$/i.test(file.type) || /\\.(jpe?g|png)$/i.test(file.name);
+
+    if (!isPdf && !isImage) {
+      setStatusMessage('Please choose a PDF, JPG, JPEG, or PNG image.');
+      return;
+    }
+    if (file.size > 25 * 1024 * 1024) {
+      setStatusMessage('This document is larger than 25 MB. Please choose a smaller file.');
+      return;
+    }
+
+    setIsProcessingDocument(true);
+    setDocumentProgress(isPdf ? 'Reading PDF pages…' : 'Preparing image for OCR…');
+    setStatusMessage(null);
+    setCsvMeta(null);
+
+    try {
+      const { createWorker } = await import('tesseract.js');
+      const worker = await createWorker('eng');
+      let extractedText = '';
+      let ocrPages = 0;
+
+      try {
+        if (isPdf) {
+          const pdfjs = await import('pdfjs-dist');
+          pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+            'pdfjs-dist/build/pdf.worker.min.mjs',
+            import.meta.url
+          ).toString();
+          const pdf = await pdfjs.getDocument({
+            data: new Uint8Array(await file.arrayBuffer()),
+          }).promise;
+          const pageLimit = Math.min(pdf.numPages, 30);
+
+          for (let pageNumber = 1; pageNumber <= pageLimit; pageNumber++) {
+            setDocumentProgress(`Reading PDF page ${pageNumber} of ${pageLimit}…`);
+            const page = await pdf.getPage(pageNumber);
+            const textContent = await page.getTextContent();
+            const pageText = textContent.items
+              .map((item) => ('str' in item ? item.str : ''))
+              .join(' ');
+            extractedText += `\\n${pageText}\\n`;
+
+            if (pageText.trim().length < 25) {
+              setDocumentProgress(`Recognising text on PDF page ${pageNumber} of ${pageLimit}…`);
+              const viewport = page.getViewport({ scale: 1.6 });
+              const canvas = document.createElement('canvas');
+              canvas.width = Math.ceil(viewport.width);
+              canvas.height = Math.ceil(viewport.height);
+              const context = canvas.getContext('2d');
+              if (context) {
+                await page.render({ canvas, canvasContext: context, viewport }).promise;
+                const result = await worker.recognize(canvas);
+                extractedText += `\\n${result.data.text}\\n`;
+                ocrPages++;
+              }
+              canvas.width = 0;
+              canvas.height = 0;
+            }
+          }
+
+          if (pdf.numPages > pageLimit) {
+            setStatusMessage(`Processed the first ${pageLimit} of ${pdf.numPages} PDF pages to keep processing responsive.`);
+          }
+        } else {
+          setDocumentProgress('Recognising text in image…');
+          const bitmap = await createImageBitmap(file);
+          const canvas = document.createElement('canvas');
+          canvas.width = bitmap.width;
+          canvas.height = bitmap.height;
+          const context = canvas.getContext('2d');
+          if (!context) throw new Error('Your browser could not prepare this image for text recognition.');
+          context.drawImage(bitmap, 0, 0);
+          bitmap.close();
+          const result = await worker.recognize(canvas);
+          extractedText = result.data.text;
+          canvas.width = 0;
+          canvas.height = 0;
+          ocrPages = 1;
+        }
+      } finally {
+        await worker.terminate();
+      }
+
+      setRawText(extractedText.slice(0, MAX_CHARS));
+      const extracted = extractEmailsFromText(extractedText);
+      setResult(extracted);
+      onExtractedChange(extracted.uniqueEmails);
+      setFilterQuery('');
+      setTypeFilter('all');
+      setDomainFilterInput('');
+      const sourceLabel = isPdf ? 'PDF' : 'image';
+      setStatusMessage(
+        extracted.uniqueEmails.length
+          ? `Extracted ${extracted.uniqueEmails.length.toLocaleString()} unique email address(es) from ${sourceLabel} "${file.name}" (${ocrPages} page(s) processed with OCR; duplicates removed: ${extracted.duplicatesRemoved.toLocaleString()}).`
+          : `Read "${file.name}", but no valid email addresses were detected. Try a clearer scan or image.`
+      );
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown processing error';
+      setStatusMessage(`Could not process "${file.name}". ${message}`);
+    } finally {
+      setIsProcessingDocument(false);
+      setDocumentProgress('');
+    }
+  };
+
   const processImportedFile = (file: File, requireCsv = false) => {
+    const isVisualDocument =
+      file.type === 'application/pdf' ||
+      /^image\\/(jpeg|png)$/i.test(file.type) ||
+      /\\.(pdf|jpe?g|png)$/i.test(file.name);
+    if (isVisualDocument && !requireCsv) {
+      void processVisualDocument(file);
+      return;
+    }
+
     const isCsv =
       file.name.toLowerCase().endsWith('.csv') ||
       file.type.toLowerCase().includes('csv');
@@ -367,7 +487,7 @@ export function EmailExtractor({
           <input
             ref={fileInputRef}
             type="file"
-            accept=".txt,.csv,.log,.html,.md"
+            accept=".txt,.csv,.log,.html,.md,.pdf,.jpg,.jpeg,.png"
             onChange={handleFileUpload}
             className="sr-only"
             aria-label="Import local text file"
@@ -379,6 +499,16 @@ export function EmailExtractor({
           >
             <FileUp className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />
             Import Local File
+          </button>
+
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isProcessingDocument}
+            className="inline-flex min-h-[38px] items-center gap-1.5 rounded-lg border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-800 transition-colors hover:bg-sky-100 disabled:cursor-wait disabled:opacity-60 cursor-pointer whitespace-nowrap"
+          >
+            <FileImage className="h-3.5 w-3.5 text-sky-700" aria-hidden="true" />
+            PDF / JPG / PNG
           </button>
         </div>
       </div>
@@ -579,6 +709,12 @@ export function EmailExtractor({
               </div>
             </div>
           </div>
+
+          {isProcessingDocument && (
+            <p className="mt-3 text-xs font-medium text-sky-700" role="status">
+              {documentProgress} Your file is being processed locally in this browser.
+            </p>
+          )}
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-1">
             <div className="flex flex-wrap items-center gap-2.5">
