@@ -87,7 +87,7 @@ class MainActivity : Activity() {
         importButton = makeButton("Import WireGuard .conf") {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
-                type = "text/*"
+                type = "*/*"
             }
             startActivityForResult(intent, REQUEST_PROFILE)
         }
@@ -100,7 +100,7 @@ class MainActivity : Activity() {
         root.addView(disconnectButton, buttonParams())
 
         val note = TextView(this).apply {
-            text = "This is an early native Android client. It currently supports importing a personal WireGuard profile. M2A Free Network, QR import, native kill-switch guidance, and full verification are not enabled yet."
+            text = "This early native client imports a personal WireGuard profile. The independent IP check contacts api.ipify.org, which receives your public IP. M2A Free Network, QR import, native kill-switch guidance, and full verification are not enabled yet."
             textSize = 12f
             setTextColor(Color.rgb(160, 174, 196))
             setPadding(0, dp(22), 0, 0)
