@@ -25,7 +25,7 @@ interface SpeedPoint {
   latencyMs: number;
 }
 
-type TestPhase = 'idle' | 'latency' | 'download' | 'upload' | 'complete' | 'blocked';
+type TestPhase = 'idle' | 'latency' | 'download' | 'upload' | 'complete' | 'blocked' | 'unavailable';
 
 const PROTOCOL_EFFICIENCY: Record<SecuritySettings['protocol'], number> = {
   WireGuard: 0.94,
@@ -83,16 +83,22 @@ export function SpeedTestCard({
     setDownloadMbps(null);
     setUploadMbps(null);
 
-    const tunnelHopPenalty = isConnected
-      ? selectedServer.baseLatencyMs + (security.multiHopEnabled ? 22 : 0)
-      : 0;
-    const efficiency = isConnected ? PROTOCOL_EFFICIENCY[security.protocol] : 1;
+    
 
     const pingSamples: number[] = [];
     const dlHistory: number[] = [];
     const ulHistory: number[] = [];
 
     try {
+      const health = await fetch('/api/network/ping', {
+        cache: 'no-store',
+        signal: controller.signal,
+      });
+      const healthType = health.headers.get('content-type') || '';
+      if (!health.ok || !healthType.includes('application/json')) {
+        throw new Error('The M2A speed-test API is not available on this static web deployment.');
+      }
+
       // Phase 1: Latency & Jitter (4 probes)
       setPhase('latency');
       for (let i = 1; i <= 4; i += 1) {
@@ -103,7 +109,7 @@ export function SpeedTestCard({
           signal: controller.signal,
         });
         const rawRtt = performance.now() - t0;
-        const effectiveRtt = Math.max(1, Math.round(rawRtt + tunnelHopPenalty));
+        const effectiveRtt = Math.max(1, Math.round(rawRtt));
         pingSamples.push(effectiveRtt);
 
         const avgLat = Math.round(
@@ -143,15 +149,14 @@ export function SpeedTestCard({
           cache: 'no-store',
           signal: controller.signal,
         });
+        if (!resp.ok || !(resp.headers.get('content-type') || '').includes('application/octet-stream')) {
+          throw new Error('The M2A download-test endpoint is unavailable.');
+        }
         const buf = await resp.arrayBuffer();
         const elapsedSec = Math.max(0.012, (performance.now() - t0) / 1000);
         // Apply realistic tunnel encryption overhead and server load factor
-        const loadFactor = isConnected ? Math.max(0.65, 1 - selectedServer.loadPercent / 220) : 1;
         const rawMbps = (buf.byteLength * 8) / elapsedSec / 1_000_000;
-        // Cap extreme localhost loopback bursts cleanly while reflecting real socket fluctuations
-        const normalizedMbps = Number(
-          Math.min(480, Math.max(4.5, rawMbps * efficiency * loadFactor)).toFixed(1)
-        );
+        const normalizedMbps = Number(rawMbps.toFixed(1));
         dlHistory.push(normalizedMbps);
         const avgDl = Number(
           (dlHistory.reduce((acc, v) => acc + v, 0) / dlHistory.length).toFixed(1)
@@ -159,7 +164,7 @@ export function SpeedTestCard({
         setDownloadMbps(avgDl);
 
         const lastLat = pingSamples[pingSamples.length - 1] || 12;
-        const loadedLat = Math.round(lastLat + (isConnected ? 4 : 2) * (i % 3));
+        const loadedLat = lastLat;
         setSamples((prev) => [
           ...prev,
           {
@@ -183,18 +188,19 @@ export function SpeedTestCard({
       for (let i = 1; i <= 5; i += 1) {
         if (!runningRef.current) return;
         const t0 = performance.now();
-        await fetch('/api/network/speed-upload', {
+        const uploadResponse = await fetch('/api/network/speed-upload', {
           method: 'POST',
           headers: { 'Content-Type': 'application/octet-stream' },
           body: uploadBuffer,
           cache: 'no-store',
           signal: controller.signal,
         });
+        if (!uploadResponse.ok || !(uploadResponse.headers.get('content-type') || '').includes('application/json')) {
+          throw new Error('The M2A upload-test endpoint is unavailable.');
+        }
         const elapsedSec = Math.max(0.015, (performance.now() - t0) / 1000);
         const rawUlMbps = (uploadBytes * 8) / elapsedSec / 1_000_000;
-        const normalizedUl = Number(
-          Math.min(240, Math.max(2.5, rawUlMbps * efficiency * 0.65)).toFixed(1)
-        );
+        const normalizedUl = Number(rawUlMbps.toFixed(1));
         ulHistory.push(normalizedUl);
         const avgUl = Number(
           (ulHistory.reduce((acc, v) => acc + v, 0) / ulHistory.length).toFixed(1)
@@ -222,7 +228,7 @@ export function SpeedTestCard({
       if (err instanceof DOMException && err.name === 'AbortError') {
         return;
       }
-      setPhase('idle');
+      setPhase('unavailable');
     } finally {
       runningRef.current = false;
     }
@@ -239,7 +245,9 @@ export function SpeedTestCard({
             ? 'Test Complete'
             : phase === 'blocked'
               ? 'Blocked by Kill Switch'
-              : 'Ready';
+              : phase === 'unavailable'
+                ? 'M2A API Backend Required'
+                : 'Ready';
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-[#111827]">
@@ -282,6 +290,12 @@ export function SpeedTestCard({
           )}
         </button>
       </div>
+
+      {phase === 'unavailable' && (
+        <div className="mt-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-xs leading-5 text-amber-900 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
+          This PWA is currently hosted as a static web app, and its M2A speed-test API is not deployed here. No speed result is being estimated or fabricated. The test will work after the API endpoints are deployed.
+        </div>
+      )}
 
       {phase === 'blocked' && (
         <div className="mt-4 flex items-center gap-2.5 rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-xs text-red-800 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300">
