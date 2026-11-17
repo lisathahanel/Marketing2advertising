@@ -150,8 +150,14 @@ export function EmailExtractor({
     setCsvMeta(null);
 
     try {
-      const { createWorker } = await import('tesseract.js');
-      const worker = await createWorker('eng');
+      let worker: import('tesseract.js').Worker | null = null;
+      const getOcrWorker = async () => {
+        if (!worker) {
+          const { createWorker } = await import('tesseract.js');
+          worker = await createWorker('eng');
+        }
+        return worker;
+      };
       let extractedText = '';
       let ocrPages = 0;
 
@@ -184,8 +190,9 @@ export function EmailExtractor({
               canvas.height = Math.ceil(viewport.height);
               const context = canvas.getContext('2d');
               if (context) {
-                await page.render({ canvas, canvasContext: context, viewport }).promise;
-                const result = await worker.recognize(canvas);
+                await page.render({ canvasContext: context, viewport }).promise;
+                const ocrWorker = await getOcrWorker();
+                const result = await ocrWorker.recognize(canvas);
                 extractedText += `\\n${result.data.text}\\n`;
                 ocrPages++;
               }
@@ -207,14 +214,15 @@ export function EmailExtractor({
           if (!context) throw new Error('Your browser could not prepare this image for text recognition.');
           context.drawImage(bitmap, 0, 0);
           bitmap.close();
-          const result = await worker.recognize(canvas);
+          const ocrWorker = await getOcrWorker();
+          const result = await ocrWorker.recognize(canvas);
           extractedText = result.data.text;
           canvas.width = 0;
           canvas.height = 0;
           ocrPages = 1;
         }
       } finally {
-        await worker.terminate();
+        if (worker) await worker.terminate();
       }
 
       setRawText(extractedText.slice(0, MAX_CHARS));
