@@ -250,8 +250,8 @@ export function EmailExtractor({
   const processImportedFile = (file: File, requireCsv = false) => {
     const isVisualDocument =
       file.type === 'application/pdf' ||
-      /^image\\/(jpeg|png)$/i.test(file.type) ||
-      /\\.(pdf|jpe?g|png)$/i.test(file.name);
+      /^image\/(jpeg|png)$/i.test(file.type) ||
+      /\.(pdf|jpe?g|png)$/i.test(file.name);
     if (isVisualDocument && !requireCsv) {
       void processVisualDocument(file);
       return;
