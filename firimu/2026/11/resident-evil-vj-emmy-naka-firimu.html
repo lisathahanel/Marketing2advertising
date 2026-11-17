@@ -106,6 +106,45 @@ img{max-width:100%;display:block}
 .m2a-ad-label{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
 .m2a-ad ins{display:block;width:100%;min-height:70px}
 
+.m2a-play-container {
+  width: 100%;
+  min-height: 200px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.m2a-big-play {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #eac400;
+  border: 10px solid #423900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: transform .25s ease, background .25s ease;
+  cursor: pointer;
+}
+
+.m2a-big-play span {
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 21px solid #000;
+  margin-left: 6px;
+}
+
+.m2a-big-play:hover {
+  transform: scale(1.12);
+  background: #ffdb00;
+}
+
+
 /* ========== FEATURED MOVIE + VIDEO PLAYER ========== */
 .m2a-featured{
   margin:0 0 32px;
@@ -461,8 +500,12 @@ img{max-width:100%;display:block}
     Kali Mu: <span style="color: #0b3d91;">VJ Emmy</span> 🎬
   </h2>
 
-
-<div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIyXPMQFTCHQbdUFydQy-OENDwRvZvOmh2g9DWed9sJTvBOlA1BjGO_oTKpg0nArTUdu91OsuCcoIeG_HpS1CGaGb6ar7x_lHBHQxedE6VcsYYabEMzEFfitqSOyD1vFTwV5DPVb3YtWTVJNeegD4pNRDOsh5R4rkJsof0Ze1bN_v08W6DUuSX64yilme7/s1600/2.jpg" style="display: block; padding: 1em 0px; text-align: center;"><img alt="Kali Mu: VJ Emmy - Resident Evil" border="0" data-original-height="750" data-original-width="500" height="400" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIyXPMQFTCHQbdUFydQy-OENDwRvZvOmh2g9DWed9sJTvBOlA1BjGO_oTKpg0nArTUdu91OsuCcoIeG_HpS1CGaGb6ar7x_lHBHQxedE6VcsYYabEMzEFfitqSOyD1vFTwV5DPVb3YtWTVJNeegD4pNRDOsh5R4rkJsof0Ze1bN_v08W6DUuSX64yilme7/w267-h400/2.jpg" title="Kali Mu: VJ Emmy - Resident Evil [/ddr45/]https://nmj-movies.unseen.africa/resident_evil-2026-vj_emmy_720.mp4[/ddr45/]" width="267" /></a></div>
+ 
+<div class="m2a-play-container">
+  <a aria-label="Play VJ Emmy" class="m2a-big-play" href="https://www.marketing2advertising.com/2026/11/vj-emmy-vj-junior-resident-evil.html">
+    <span></span>
+  </a>
+</div>
 
 </div>
 
