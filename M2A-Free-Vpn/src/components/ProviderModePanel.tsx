@@ -49,12 +49,11 @@ export function ProviderModePanel({
             {identityLoading ? 'Checking…' : identity?.ip || 'Not available'}
           </div>
           <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            {identity ? [identity.city, identity.country].filter(Boolean).join(', ') : 'IP lookup is unavailable right now'}
-            {identity?.isp ? ` · ${identity.isp}` : ''}
+            {identity ? 'Public IP detected by an external lookup service' : 'IP lookup is unavailable right now'}
           </div>
           <p className="mt-4 flex items-start gap-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
             <Info className="mt-0.5 h-4 w-4 shrink-0" />
-            This is the address observed by the app's identity check. Selecting a provider does not change it until a real VPN tunnel is connected.
+            The IP lookup service receives your request to return this address. Selecting a provider does not change it until a real VPN tunnel is connected.
           </p>
         </div>
       </div>
