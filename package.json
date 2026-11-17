@@ -24,7 +24,9 @@
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
     "vite": "^8.3.0",
-    "nodemailer": "^10.5.0"
+    "nodemailer": "^10.5.0",
+    "pdfjs-dist": "^4.10.38",
+    "tesseract.js": "^6.0.1"
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0",
