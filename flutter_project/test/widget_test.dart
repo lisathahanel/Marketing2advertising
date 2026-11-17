@@ -27,7 +27,6 @@ void main() {
       expect(find.text(label), findsOneWidget);
     }
   });
-}
 
   testWidgets('TV destination loads the bundled broadcaster directory', (tester) async {
     await tester.pumpWidget(const Marketing2AdvertisingApp());
@@ -44,3 +43,4 @@ void main() {
     expect(find.text('Citizen TV'), findsOneWidget);
     expect(find.text('France 24'), findsOneWidget);
   });
+}
