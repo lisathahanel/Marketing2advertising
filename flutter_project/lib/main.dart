@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'features/tv/tv_screen.dart';
+import 'features/blogs/blogs_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -270,6 +271,8 @@ class _SectionCard extends StatelessWidget {
         onTap: () {
           if (section.title == 'TV') {
             Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const M2ATvScreen()));
+          } else if (section.title == 'Blogs') {
+            Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const M2ABlogsScreen()));
           } else if (section.url.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Personal library features are coming in a later update.')));
           } else {
