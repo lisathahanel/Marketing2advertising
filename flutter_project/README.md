@@ -17,8 +17,8 @@ The current navigation shell is the first implementation milestone. The feature 
 
 ```
 flutter_project/
-  android/                 # Android native project
-  ios/                     # Generate with Flutter on macOS (see below)
+  android/                 # Generated Flutter Android runner
+  ios/                     # Generated Flutter iOS runner on macOS (see below)
   assets/                  # Existing M2A catalogues
   lib/main.dart             # App entry point and initial navigation shell
   test/                     # Widget and service tests
@@ -61,12 +61,14 @@ Do not commit keystores, passwords, signing properties or service-account creden
 
 ## Generate the iOS runner
 
-The repository currently contains the Android native project but does not yet contain a checked-in iOS Runner/Xcode project. On a Mac with Xcode installed, generate the iOS platform scaffold from this Flutter project:
+The repository currently contains only a minimal Android manifest, not the complete generated Gradle runner, and does not yet contain a checked-in iOS Runner/Xcode project. CI generates the Android runner on Ubuntu and the iOS runner on macOS for build validation. To create and commit both native platform folders locally, run the following commands in a configured Flutter environment: On a Mac with Xcode installed, generate the iOS platform scaffold from this Flutter project:
 
 ```bash
 cd flutter_project
-flutter create --platforms=ios --org com.marketing2advertising .
+flutter create --platforms=android,ios --org com.marketing2advertising --project-name marketing2advertising_mobile .
 flutter pub get
+flutter build apk --debug
+# On macOS with Xcode installed:
 flutter build ios --no-codesign
 ```
 
