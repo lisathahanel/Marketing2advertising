@@ -9,7 +9,7 @@ interface FooterProps {
 
 const FOOTER_DOCS: Record<FooterDocKey, { title: string; body: string[] }> = {
   contact: {
-    title: 'Contact M2A Free Vpn',
+    title: 'Contact M2A IP Shield',
     body: [
       'M2A Free Vpn is maintained and supported by Marketing2Advertising.',
       'For technical support, server node requests, abuse reports, or partnership inquiries, reach our team at marketing2advertising.com.',
@@ -18,8 +18,8 @@ const FOOTER_DOCS: Record<FooterDocKey, { title: string; body: string[] }> = {
   privacy: {
     title: 'Privacy Policy — Zero-Log Commitment',
     body: [
-      'M2A Free Vpn does not log, store, or sell your browsing history, DNS queries, session timestamps, or originating IP addresses.',
-      'Diagnostic leak checks (IP header check, WebRTC probe, and DNS latency audit) execute on demand and are never retained on persistent storage.',
+      'The web dashboard does not store browsing history. Public-IP checks are sent to the external lookup provider named in the interface, and browser DNS diagnostics use Cloudflare DNS-over-HTTPS.',
+      'WebRTC and DNS diagnostics run only when requested. Browser-only checks cannot verify operating-system VPN routes or system-wide leak protection.',
       'Preferences such as your favorite exit servers and split-tunneling rules are stored locally inside your own browser storage.',
     ],
   },
