@@ -1,0 +1,72 @@
+name: Marketing2Advertising Mobile Checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'flutter_project/**'
+      - '.github/workflows/m2a-mobile.yml'
+  pull_request:
+    paths:
+      - 'flutter_project/**'
+      - '.github/workflows/m2a-mobile.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    name: Flutter analyze, test and Android debug APK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_project
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Flutter version
+        run: flutter --version
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
+      - name: Test
+        run: flutter test
+      - name: Build debug APK
+        run: flutter build apk --debug
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketing2advertising-android-debug
+          path: flutter_project/build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
+
+  ios:
+    name: iOS simulator build (unsigned)
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: flutter_project
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Generate iOS runner scaffold
+        run: flutter create --platforms=ios --org com.marketing2advertising .
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
+      - name: Build iOS without signing
+        run: flutter build ios --no-codesign
