@@ -75,7 +75,7 @@ export function Sidebar({
               <Lock className="h-4 w-4" strokeWidth={2.2} />
             </div>
             <span className="font-display text-base font-bold tracking-tight text-slate-900 dark:text-slate-100 whitespace-nowrap shrink-0">
-              M2A Free Vpn
+              M2A IP Shield
             </span>
           </div>
           <button
