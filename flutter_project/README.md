@@ -1,64 +1,88 @@
-# M2A Mobile App (Flutter & PWA)
+# Marketing2Advertising Mobile
 
-Mirrors the official website [https://www.marketing2advertising.com/](https://www.marketing2advertising.com/).
+The official Marketing2Advertising mobile application, built with Flutter for Android and iOS from one shared Dart codebase.
 
-## Features
-- **Brand Theme**: Dark mode `#0b0b0f` with gold accent (`#F59E0B`).
-- **Live Channels (19 TV Stations)**: HLS `.m3u8` streaming with Chewie, LIVE badge, connecting state, and "Network not well – Try Again" error retry screen.
-- **Multi Apps (19 Free Tools)**: Calculator, Text to PDF, QR Code, Video Player, HTML Editor, Password Gen, Word Counter, Case Converter, JSON Formatter, Base64, etc.
-- **Free Games (15 Games)**: Snake, 2048, Word Guess, Memory Match, Minesweeper, 15 Puzzle, Simon Says, Tic-Tac-Toe, Connect Four, Blackjack, Breakout, Space Shooter, Flappy, Whack-a-Mole, Reaction Test.
-- **Blogger Feed Synchronization**: Live JSON sync with `/feeds/posts/default?alt=json`, offline caching, pagination, category filtering.
-- **Global Career & Job Matching**: Ireland, Singapore, Luxembourg, UAE, Norway sponsorships and career matching.
-- **Monetization**: Google AdMob Banner, Interstitial (between apps/games), and GDPR/UMP consent flow.
+## Current foundation
 
----
+- Branded M2A home screen and five-tab mobile navigation.
+- Discover, Watch, Services and More entry points.
+- Shortcuts to the existing M2A Blogger website and entertainment application.
+- Existing channel, app, game and page catalogues retained under `assets/`.
+- External links open through the platform browser.
+- No duplicate CMS or invented content is maintained in the app.
 
-## How to Build the Release APK and Google Play AAB
+The current navigation shell is the first implementation milestone. The feature screens are being connected to live content sources incrementally; cards that currently link to a website are shortcuts, not claims that a native feature is already complete.
 
-### 1. Prerequisites
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) installed (v3.0.0 or higher).
-- Android Studio with Android SDK and command-line tools.
+## Project structure
 
-### 2. Setup the Project
+```
+flutter_project/
+  android/                 # Android native project
+  ios/                     # Generate with Flutter on macOS (see below)
+  assets/                  # Existing M2A catalogues
+  lib/main.dart             # App entry point and initial navigation shell
+  test/                     # Widget and service tests
+  pubspec.yaml
+```
+
+Feature implementation will be separated into `lib/features/` as the app grows (home, blogs, Firimu, series, TV, games, jobs, services and profile), with shared networking, storage, routing, theme and notification services under `lib/core/`.
+
+## Requirements
+
+- Flutter stable with Dart 3.3 or later.
+- Android Studio / Android SDK for Android builds.
+- macOS with Xcode for iOS builds. Flutter's iOS toolchain requires Xcode on macOS: https://docs.flutter.dev/platform-integration/ios/setup
+
+## Android development
+
 ```bash
 cd flutter_project
+flutter doctor
 flutter pub get
-```
+flutter analyze
+flutter test
+flutter run
+``
 
-### 3. Generate Android Keystore for Google Play
-Run this command to create your signing key:
+Build a debug APK:
+
 ```bash
-keytool -genkey -v -keystore ~/m2a-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias m2a_alias
-```
+flutter build apk --debug
+``
 
-Create `android/key.properties`:
-```properties
-storePassword=YOUR_KEYSTORE_PASSWORD
-keyPassword=YOUR_KEY_PASSWORD
-keyAlias=m2a_alias
-storeFile=/path/to/m2a-release-key.jks
-```
+Build a release APK or Play Store App Bundle when signing and store configuration are ready:
 
-### 4. Build Release APK (Direct phone install)
 ```bash
 flutter build apk --release
-```
-Your APK will be ready at:
-`build/app/outputs/flutter-apk/app-release.apk`
-
-### 5. Build Release AAB (For Google Play Store submission)
-```bash
 flutter build appbundle --release
-```
-Your App Bundle will be ready at:
-`build/app/outputs/bundle/release/app-release.aab`
+``
 
-### 6. Publish on Google Play Console
-1. Log in to [Google Play Console](https://play.google.com/console).
-2. Click **Create app** -> Enter App Name: **M2A**, Default Language: English, Free app.
-3. Complete the Store Listing:
-   - **Short description**: Live TV Channels, 19 Multi Tools, 15 Free Games, and Tech Careers.
-   - **Full description**: M2A is your digital agency hub featuring 19 live television channels, 19 free productivity tools, 15 instant games, and real-time Blogger feed synchronization from marketing2advertising.com.
-4. Upload `app-release.aab` under **Production -> Create new release**.
-5. Complete Content Rating, Target Audience, and Privacy Policy URL (`https://www.marketing2advertising.com/p/privacy-policy.html`).
-6. Submit for review!
+Do not commit keystores, passwords, signing properties or service-account credentials.
+
+## Generate the iOS runner
+
+The repository currently contains the Android native project but does not yet contain a checked-in iOS Runner/Xcode project. On a Mac with Xcode installed, generate the iOS platform scaffold from this Flutter project:
+
+```bash
+cd flutter_project
+flutter create --platforms=ios --org com.marketing2advertising .
+flutter pub get
+flutter build ios --no-codesign
+```
+
+Then commit the generated `ios/` directory. App Store/TestFlight distribution requires Apple signing and provisioning; see https://docs.flutter.dev/deployment/ios.
+
+## Content sources and safeguards
+
+- Blog content: https://www.marketing2advertising.com/
+- Entertainment application: https://marketing2advertising.com/
+- Existing JSON catalogues are retained, but channel availability and media rights must be verified before promoting streams as operational.
+- Do not scrape or duplicate content unnecessarily. Prefer supported feeds or APIs and respect source-site terms.
+- AdMob is not initialized in the current navigation shell. Production advertising must be configured with the correct app IDs, consent flow, privacy disclosures and platform review before release.
+- Push notifications, offline sync, saved content, native feature screens and production monetization are planned integrations, not yet implemented in this foundation.
+
+## Brand
+
+App display name: **Marketing2Advertising**  
+Bundle identifier target: `com.marketing2advertising.mobile`  
+Tagline: **Transforming learning into earning.**
