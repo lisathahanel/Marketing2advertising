@@ -478,15 +478,7 @@ export default function App() {
           )}
 
           {activeTab === 'install' && (
-            <InstallAppView
-              selectedServer={selectedServer}
-              entryServer={entryServer}
-              multiHopEnabled={security.multiHopEnabled}
-              protocol={security.protocol}
-              dnsBlocker={security.dnsTrackerBlocker}
-              keypair={keypair}
-              handshake={handshake}
-            />
+            <InstallAppView />
           )}
         </main>
 
