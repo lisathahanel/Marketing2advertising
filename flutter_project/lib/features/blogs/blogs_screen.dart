@@ -14,12 +14,12 @@ class M2ABlogPost {
   final String? imageUrl;
 
   factory M2ABlogPost.fromJson(Map<String, dynamic> json) {
-    final title = (json['title']?['$t'] ?? 'Untitled article').toString();
+    final title = (json['title']?[r'$t'] ?? 'Untitled article').toString();
     final links = (json['link'] as List<dynamic>? ?? const []);
     final alternate = links.whereType<Map<String, dynamic>>().where((link) => link['rel'] == 'alternate').firstOrNull;
-    final published = (json['published']?['$t'] ?? '').toString();
-    final rawSummary = (json['summary']?['$t'] ?? json['content']?['$t'] ?? '').toString();
-    final image = json['media$thumbnail']?['url']?.toString();
+    final published = (json['published']?[r'$t'] ?? '').toString();
+    final rawSummary = (json['summary']?[r'$t'] ?? json['content']?[r'$t'] ?? '').toString();
+    final image = json[r'media$thumbnail']?['url']?.toString();
     return M2ABlogPost(
       title: title,
       url: (alternate?['href'] ?? 'https://www.marketing2advertising.com/').toString(),
