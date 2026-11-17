@@ -108,6 +108,18 @@ export default function App() {
   const { isOnline, isSlowConnection } = useOnlineStatus();
   const { isInstallable, isInstalled, install } = usePWAInstall();
 
+  const refreshIdentity = useCallback(async () => {
+    setIdentityLoading(true);
+    try {
+      const nextIdentity = await lookupClientIdentity();
+      setIdentity(nextIdentity);
+    } catch {
+      setIdentity(null);
+    } finally {
+      setIdentityLoading(false);
+    }
+  }, []);
+
   const selectedServer = useMemo(
     () => VPN_SERVERS.find((s) => s.id === selectedServerId) || VPN_SERVERS[0],
     [selectedServerId]
@@ -147,21 +159,12 @@ export default function App() {
 
   useEffect(() => {
     let active = true;
-    lookupClientIdentity()
-      .then((data) => {
-        if (active) setIdentity(data);
-      })
-      .catch(() => {
-        if (active) setIdentity(null);
-      })
-      .finally(() => {
-        if (active) setIdentityLoading(false);
-      });
+    refreshIdentity().catch(() => undefined);
 
     return () => {
       active = false;
     };
-  }, []);
+  }, [refreshIdentity]);
 
   useEffect(() => {
     if (tunnelStatus !== 'connected') return;
