@@ -80,7 +80,7 @@ const sections = <M2ASection>[
   M2ASection('Firimu', 'Explore the M2A movie catalogue', Icons.movie_outlined, 'https://marketing2advertising.com/firimu/'),
   M2ASection('Series', 'Discover series and episodic entertainment', Icons.live_tv_outlined, 'https://marketing2advertising.com/'),
   M2ASection('TV', 'Live television and channel directory', Icons.tv_outlined, 'https://marketing2advertising.com/'),
-  M2ASection('Games', 'Play and discover casual games', Icons.sports_esports_outlined, 'https://marketing2advertising.com/'),
+  M2ASection('Games', 'Play and discover casual games', Icons.sports_esports_outlined, 'https://marketing2advertising.com/game/index.html'),
   M2ASection('Jobs', 'Career guidance and opportunities', Icons.work_outline, 'https://www.marketing2advertising.com/'),
   M2ASection('M2A Services', 'Digital services, advertising and business tools', Icons.grid_view_rounded, 'https://www.marketing2advertising.com/'),
   M2ASection('My M2A', 'Your saved content and app preferences', Icons.person_outline, ''),
@@ -231,6 +231,7 @@ class M2AMoreScreen extends StatelessWidget {
     const SizedBox(height: 18),
     const Center(child: Text('Marketing2Advertising · Learn • Discover • Grow', textAlign: TextAlign.center, style: TextStyle(color: M2AColors.muted, fontSize: 12))),
   ]));
+
 }
 
 class _SectionListPage extends StatelessWidget {
@@ -274,7 +275,7 @@ class _SectionCard extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const M2ATvScreen()));
           } else if (section.title == 'Blogs') {
             Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const M2ABlogsScreen()));
-          } else if (section.title == 'Firimu' || section.title == 'Series') {
+          } else if (section.title == 'Firimu' || section.title == 'Series' || section.title == 'Games') {
             Navigator.of(context).push(MaterialPageRoute<void>(
               builder: (_) => M2AWebScreen(title: section.title, url: section.url),
             ));
