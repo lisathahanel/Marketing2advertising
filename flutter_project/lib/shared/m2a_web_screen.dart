@@ -31,16 +31,22 @@ class _M2AWebScreenState extends State<M2AWebScreen> {
             }
           },
           onPageStarted: (_) {
-            if (mounted) setState(() {
-              _hasError = false;
-              _progress = 0;
-            });
+            if (mounted) {
+              setState(() {
+                _hasError = false;
+                _progress = 0;
+              });
+            }
           },
           onPageFinished: (_) {
-            if (mounted) setState(() => _progress = 100);
+            if (mounted) {
+              setState(() => _progress = 100);
+            }
           },
           onWebResourceError: (error) {
-            if (error.isForMainFrame == true && mounted) setState(() => _hasError = true);
+            if (error.isForMainFrame == true && mounted) {
+              setState(() => _hasError = true);
+            }
           },
         ),
       )

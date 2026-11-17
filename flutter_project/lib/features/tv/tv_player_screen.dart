@@ -47,7 +47,9 @@ class _M2ATvPlayerScreenState extends State<M2ATvPlayerScreen> {
       );
       setState(() {});
     } catch (error) {
-      if (mounted) setState(() => _error = error);
+      if (mounted) {
+        setState(() => _error = error);
+      }
     }
   }
 
