@@ -482,7 +482,7 @@ img{max-width:100%;display:block}
 (function(){
 "use strict";
 var CONFIG = {
-  sources: [{ url: "https://naka.marketing2advertising.com", kind: "all" }],
+  sources: [{ url: "https://www.marketing2advertising.com", kind: "all" }],
   pageSize: 24,
   maxPages: 40,
   adEvery: 12,
@@ -514,7 +514,7 @@ function cleanTitle(entry){ return (entry.title && entry.title.$t) ? entry.title
 function rewritePostDomain(postUrl){
   try {
     var parsed = new URL(postUrl);
-    if(parsed.hostname === "naka.marketing2advertising.com" || parsed.hostname === "serie.marketing2advertising.com"){
+    if(parsed.hostname === "www.marketing2advertising.com" || parsed.hostname === "serie.marketing2advertising.com"){
       parsed.hostname = "marketing2advertising.com";
       if(!/^\/firimu(?:\/|$)/i.test(parsed.pathname)){
         parsed.pathname = "/firimu" + (parsed.pathname.charAt(0) === "/" ? "" : "/") + parsed.pathname;
