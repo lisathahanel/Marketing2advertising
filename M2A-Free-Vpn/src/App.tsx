@@ -158,12 +158,7 @@ export default function App() {
   }, [selectedServerId, entryServerId, favoriteIds, security, splitRules]);
 
   useEffect(() => {
-    let active = true;
-    refreshIdentity().catch(() => undefined);
-
-    return () => {
-      active = false;
-    };
+    void refreshIdentity();
   }, [refreshIdentity]);
 
   useEffect(() => {
@@ -404,6 +399,7 @@ export default function App() {
                 notice={connectionNotice}
                 identity={identity}
                 identityLoading={identityLoading}
+                onRefreshIdentity={() => void refreshIdentity()}
               />
             <ConnectionView
               tunnelStatus={tunnelStatus}
