@@ -1,0 +1,8 @@
+{
+  "name": "M2A Free Vpn",
+  "description": "M2A Free Vpn — Secure, private VPN tunnel client that hides your IP address, encrypts internet traffic, protects public Wi-Fi, supports kill switch and split tunneling, and installs across browser, mobile, and PC.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

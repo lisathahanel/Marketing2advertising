@@ -1,0 +1,107 @@
+import { useEffect, useState } from 'react';
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+}
+
+export function usePWAInstall() {
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+  const [platform, setPlatform] = useState<'ios' | 'android' | 'desktop'>('desktop');
+
+  useEffect(() => {
+    const isStandalone =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+    setIsInstalled(isStandalone);
+
+    const ua = window.navigator.userAgent.toLowerCase();
+    if (/iphone|ipad|ipod/.test(ua)) {
+      setPlatform('ios');
+    } else if (/android/.test(ua)) {
+      setPlatform('android');
+    } else {
+      setPlatform('desktop');
+    }
+
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+    };
+
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setDeferredPrompt(null);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
+
+  const install = async () => {
+    if (!deferredPrompt) return false;
+    await deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setIsInstalled(true);
+      setDeferredPrompt(null);
+      return true;
+    }
+    return false;
+  };
+
+  return {
+    isInstallable: !!deferredPrompt,
+    isInstalled,
+    platform,
+    isIOS: platform === 'ios',
+    install,
+  };
+}
+
+export function useOnlineStatus() {
+  const [isOnline, setIsOnline] = useState(
+    typeof navigator !== 'undefined' ? navigator.onLine : true
+  );
+  const [isSlowConnection, setIsSlowConnection] = useState(false);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    const nav = navigator as Navigator & {
+      connection?: {
+        effectiveType?: string;
+        saveData?: boolean;
+        addEventListener?: (type: string, listener: () => void) => void;
+        removeEventListener?: (type: string, listener: () => void) => void;
+      };
+    };
+
+    const evaluateSpeed = () => {
+      const eff = nav.connection?.effectiveType;
+      const slow =
+        eff === 'slow-2g' || eff === '2g' || eff === '3g' || Boolean(nav.connection?.saveData);
+      setIsSlowConnection(slow);
+    };
+
+    evaluateSpeed();
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    nav.connection?.addEventListener?.('change', evaluateSpeed);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+      nav.connection?.removeEventListener?.('change', evaluateSpeed);
+    };
+  }, []);
+
+  return { isOnline, isSlowConnection };
+}
