@@ -38,17 +38,17 @@ const SAMPLE_PAYLOADS = [
   {
     label: 'Banking Login',
     domain: 'secure-bank.example',
-    payload: 'POST /auth/login HTTP/1.1 | user=elena.vance&pass=Tr0ub4dor&3',
+    payload: 'POST /demo/login HTTP/1.1 | user=sample-user&password=not-a-real-password',
   },
   {
     label: 'Private Search',
     domain: 'health-library.example',
-    payload: 'GET /search?q=cardiac+specialist+downtown HTTP/1.1 | Cookie: sid=9f82a1c4',
+    payload: 'GET /search?q=sample+query HTTP/1.1 | Cookie: demo-session=placeholder',
   },
   {
     label: 'Work SSO Token',
     domain: 'intranet.company.example',
-    payload: 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.session_prod',
+    payload: 'Authorization: Bearer DEMO_TOKEN_NOT_REAL',
   },
 ];
 
@@ -124,7 +124,6 @@ export function TunnelLabView({
       }
 
       const visibleIp = identity?.ip || 'Unavailable';
-      const hasTunnel = false;
       setAuditReport({
         ranAt: new Date().toLocaleTimeString(),
         ipCheck: {
