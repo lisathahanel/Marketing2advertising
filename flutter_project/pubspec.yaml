@@ -1,10 +1,10 @@
-name: m2a_mobile
-description: "M2A Mobile App - Live Channels, Multi Tools & Blogger Feed Sync"
+name: marketing2advertising_mobile
+description: "Marketing2Advertising — the official cross-platform mobile experience."
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -34,3 +34,4 @@ flutter:
     - assets/channels.json
     - assets/apps.json
     - assets/games.json
+    - assets/pages.json
