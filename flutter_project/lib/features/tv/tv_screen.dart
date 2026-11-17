@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../app_theme.dart';
 import 'tv_player_screen.dart';
 
 class TvChannel {
