@@ -94,6 +94,16 @@ jobs:
           test -s dist/m2a-emailextractor.html
           echo "Complete independent Email Extractor app and legacy entry URL verified."
 
+      - name: Publish direct-load Email Extractor tool routes
+        run: |
+          set -eu
+          for route in extractor pdf-jpg-extractor validator formatter domains sender; do
+            mkdir -p "dist/m2a-emailextractor/$route"
+            sed 's#\./assets/#../assets/#g' dist/m2a-emailextractor/index.html > "dist/m2a-emailextractor/$route/index.html"
+            test -s "dist/m2a-emailextractor/$route/index.html"
+          done
+          echo "All Email Extractor tool routes have direct-load entry pages and correctly relative assets."
+
       - name: Publish independent M2A Bot app
         run: |
           set -eu
