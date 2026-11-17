@@ -84,16 +84,32 @@ class MainActivity : Activity() {
         ipView = makeInfo("Public IP after connection: Not checked")
         root.addView(ipView)
 
-        importButton = makeButton("Import WireGuard .conf") {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                type = "*/*"
+        importButton = makeButton("Choose WireGuard .conf file") {
+            try {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "*/*"
+                    putExtra(
+                        Intent.EXTRA_MIME_TYPES,
+                        arrayOf("text/plain", "application/octet-stream", "application/conf")
+                    )
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+                startActivityForResult(intent, REQUEST_PROFILE)
+                setStatus("Choose the .conf file supplied by your WireGuard server or VPN provider.")
+            } catch (_: Exception) {
+                setStatus("Could not open the Android file picker. Please try again or use your device's Files app.")
             }
-            startActivityForResult(intent, REQUEST_PROFILE)
         }
         root.addView(importButton, buttonParams())
 
-        connectButton = makeButton("Connect") { requestVpnPermissionAndConnect() }
+        connectButton = makeButton("Connect") {
+            if (importedConfig == null) {
+                setStatus("Import a valid WireGuard .conf file before connecting.")
+            } else {
+                requestVpnPermissionAndConnect()
+            }
+        }
         root.addView(connectButton, buttonParams())
 
         disconnectButton = makeButton("Disconnect") { disconnectTunnel() }
@@ -136,30 +152,58 @@ class MainActivity : Activity() {
     @Deprecated("Use the Activity Result API in the next UI integration pass")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_PROFILE && resultCode == RESULT_OK) {
-            val uri = data?.data ?: return
-            try {
-                val parsed = contentResolver.openInputStream(uri)?.use { stream ->
-                    Config.parse(stream)
-                } ?: throw IllegalStateException("The selected file could not be opened.")
 
-                importedConfig = parsed
-                profileView.text = "WireGuard profile loaded in memory. Private key is not stored by this app."
-                setStatus("Profile ready. Request VPN permission to connect.")
-                updateControls()
-            } catch (_: Exception) {
-                importedConfig = null
-                profileView.text = "Profile could not be parsed. Check that this is a valid WireGuard .conf file."
-                setStatus("Disconnected")
+        when (requestCode) {
+            REQUEST_PROFILE -> {
+                if (resultCode != RESULT_OK) {
+                    setStatus("No profile selected. Choose a WireGuard .conf file to enable Connect.")
+                    updateControls()
+                    return
+                }
+
+                val uri = data?.data
+                if (uri == null) {
+                    profileView.text = "No file was selected."
+                    setStatus("Import cancelled because Android did not return a file.")
+                    updateControls()
+                    return
+                }
+
+                try {
+                    val parsed = contentResolver.openInputStream(uri)?.use { stream ->
+                        Config.parse(stream)
+                    } ?: throw IllegalStateException("Android could not open the selected file.")
+
+                    importedConfig = parsed
+                    val displayName = runCatching {
+                        contentResolver.query(uri, arrayOf(android.provider.OpenableColumns.DISPLAY_NAME), null, null, null)
+                            ?.use { cursor ->
+                                if (cursor.moveToFirst()) cursor.getString(0) else null
+                            }
+                    }.getOrNull()?.take(80) ?: "WireGuard profile"
+
+                    profileView.text = "$displayName imported successfully. Profile is held in memory only."
+                    setStatus("Profile imported and parsed. Tap Connect, then approve Android's VPN permission.")
+                } catch (error: Exception) {
+                    importedConfig = null
+                    profileView.text = "No WireGuard profile imported. Select a valid WireGuard .conf file."
+                    val reason = error.localizedMessage?.take(140)?.takeIf { it.isNotBlank() }
+                    setStatus(
+                        if (reason != null) "Import failed: $reason"
+                        else "Import failed. This file is not a readable, valid WireGuard configuration."
+                    )
+                }
                 updateControls()
             }
-        } else if (requestCode == REQUEST_VPN_PERMISSION) {
-            if (resultCode == RESULT_OK) {
-                startTunnel()
-            } else {
-                setStatus("VPN permission was not granted. No tunnel was started.")
-                isBusy = false
-                updateControls()
+
+            REQUEST_VPN_PERMISSION -> {
+                if (resultCode == RESULT_OK) {
+                    startTunnel()
+                } else {
+                    setStatus("VPN permission was not granted. No tunnel was started.")
+                    isBusy = false
+                    updateControls()
+                }
             }
         }
     }
@@ -260,6 +304,7 @@ class MainActivity : Activity() {
         val isUp = runCatching { backend.getState(tunnel) == Tunnel.State.UP }.getOrDefault(false)
         importButton.isEnabled = !isBusy && !isUp
         connectButton.isEnabled = !isBusy && !isUp && importedConfig != null
+        connectButton.text = if (importedConfig == null) "Import a profile to enable Connect" else "Connect"
         disconnectButton.isEnabled = !isBusy && isUp
     }
 
