@@ -161,26 +161,7 @@ export default function App() {
     void refreshIdentity();
   }, [refreshIdentity]);
 
-  useEffect(() => {
-    if (tunnelStatus !== 'connected') return;
 
-    const interval = window.setInterval(() => {
-      setElapsedSeconds((prev) => prev + 1);
-      const down = Math.max(18, 92 + (Math.random() * 54 - 24) - selectedServer.loadPercent * 0.4);
-      const up = Math.max(8, 34 + (Math.random() * 20 - 8));
-      setBytesProtected((prev) => prev + Math.round((down * 125000) / 8));
-      setBandwidthHistory((prev) => [
-        ...prev.slice(-17),
-        {
-          timestamp: new Date().toLocaleTimeString(),
-          downloadMbps: Number(down.toFixed(1)),
-          uploadMbps: Number(up.toFixed(1)),
-        },
-      ]);
-    }, 1000);
-
-    return () => window.clearInterval(interval);
-  }, [tunnelStatus, selectedServer.loadPercent]);
 
   const establishTunnel = useCallback(
     async (
