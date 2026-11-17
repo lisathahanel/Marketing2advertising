@@ -32,6 +32,8 @@ export interface VpnServer {
 
 export interface ClientIdentity {
   ip: string;
+  ipv4?: string | null;
+  ipv6?: string | null;
   isPrivateGateway: boolean;
   isp: string;
   city: string;
