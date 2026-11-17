@@ -158,10 +158,10 @@ export function SecurityConfigView({
         <div className="flex flex-col justify-between gap-4 border-b border-slate-200 pb-4 dark:border-slate-800 sm:flex-row sm:items-center">
           <div>
             <h2 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">
-              Kill Switch & Network Leak Protection
+              Protection Preferences — Native VPN Engine Required
             </h2>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Monitors tunnel heartbeat and cuts off internet access immediately if the VPN drops.
+              These are saved preferences only. This browser build cannot enforce a system firewall, kill switch, private DNS route, or device-wide leak protection.
             </p>
           </div>
 
@@ -182,37 +182,37 @@ export function SecurityConfigView({
             [
               {
                 key: 'killSwitch',
-                title: 'System-Wide Kill Switch',
+                title: 'System Kill Switch (Native Client Required)',
                 description:
-                  'Blocks all non-tunnel IPv4 and IPv6 traffic immediately if the VPN connection drops unexpectedly.',
+                  'Preference only. A native Android or desktop VPN engine must enforce this at operating-system level.',
                 value: security.killSwitch,
               },
               {
                 key: 'autoConnectPublicWifi',
                 title: 'Auto-Protect Untrusted Public Wi-Fi',
                 description:
-                  'Automatically activates the encrypted tunnel when joining café, hotel, or airport Wi-Fi networks.',
+                  'Preference only. Automatic network detection and VPN activation require a native client.',
                 value: security.autoConnectPublicWifi,
               },
               {
                 key: 'dnsTrackerBlocker',
                 title: 'Private DNS Ad & Malware Shield',
                 description:
-                  'Resolves DNS queries inside the tunnel via 10.64.0.1 and blocks known trackers and phishing domains.',
+                  'Preference only. No private DNS resolver or tracker-blocking service is connected yet.',
                 value: security.dnsTrackerBlocker,
               },
               {
                 key: 'webrtcProtection',
                 title: 'WebRTC & IPv6 Leak Guard',
                 description:
-                  'Prevents browser peer-to-peer STUN probes and dual-stack IPv6 routes from exposing your origin IP.',
+                  'Preference only. Browser settings and native IPv6 routing controls are not changed by this dashboard.',
                 value: security.webrtcProtection,
               },
               {
                 key: 'lowBandwidthMode',
                 title: 'Slow Network & Offline Tunnel Resilience',
                 description:
-                  'Uses compact MTU 1280, extended 45s keepalive, and cached WebCrypto keypairs so M2A Free Vpn connects reliably on 2G/3G or offline links.',
+                  'Saved connection preference for a future native VPN engine. Offline browser key caching does not create a VPN tunnel.',
                 value: security.lowBandwidthMode,
               },
             ] as const
@@ -262,8 +262,7 @@ export function SecurityConfigView({
               </h2>
             </div>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Choose which applications route through the encrypted VPN tunnel and which bypass it
-              for local LAN or direct ISP access.
+              Manage the rules you want a future native client to apply. This browser dashboard cannot route traffic from other apps or devices.
             </p>
           </div>
         </div>
@@ -385,8 +384,7 @@ export function SecurityConfigView({
                 Tunnel Protocol & Handshake Suite
               </h2>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                Choose WireGuard, OpenVPN, or IKEv2. Changing protocols while connected automatically
-                re-negotiates the handshake.
+                Choose a preferred protocol for future native clients. No protocol handshake is performed by this browser dashboard.
               </p>
             </div>
           </div>
@@ -489,17 +487,18 @@ export function SecurityConfigView({
             <div className="flex items-center gap-2">
               <KeyRound className="h-4 w-4 text-sky-500" />
               <h2 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">
-                Cryptographic Keypair & {activeFamily} Export
+                Client Keys & {activeFamily} Profile Template
               </h2>
             </div>
 
             <button
               type="button"
+              disabled
               onClick={onRotateKeypair}
               className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 whitespace-nowrap shrink-0"
             >
               <RefreshCw className="h-3.5 w-3.5" />
-              Rotate Keypair
+              Native setup required
             </button>
           </div>
 
@@ -507,17 +506,20 @@ export function SecurityConfigView({
             <div className="flex justify-between gap-3">
               <span className="text-slate-500">Client Public Key</span>
               <span className="truncate text-slate-800 dark:text-slate-200 max-w-[260px]">
-                {keypair?.publicKeyBase64 || 'Generating…'}
+                {keypair?.publicKeyBase64 || 'Generated by native client during setup'}
               </span>
             </div>
             <div className="flex justify-between gap-3">
               <span className="text-slate-500">SHA-256 Fingerprint</span>
               <span className="truncate text-slate-800 dark:text-slate-200">
-                {keypair?.fingerprintSha256 || '…'}
+                {keypair?.fingerprintSha256 || 'Not generated in this browser'}
               </span>
             </div>
           </div>
 
+          <div className="mt-4 rounded-lg border border-amber-300/70 bg-amber-50 px-3.5 py-3 text-xs leading-5 text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/25 dark:text-amber-200">
+            This is an illustrative profile template, not a valid VPN configuration. The listed locations and peer keys are not verified operational servers. Copying or downloading a template is disabled until real servers and native client keys are provisioned.
+          </div>
           <pre className="mt-4 max-h-52 overflow-auto rounded-lg border border-slate-200 bg-slate-50 p-3.5 font-mono text-[11px] leading-relaxed text-slate-800 dark:border-slate-800 dark:bg-[#0B111E] dark:text-slate-300">
             {wireguardConfig}
           </pre>
@@ -525,14 +527,16 @@ export function SecurityConfigView({
           <div className="mt-4 flex flex-wrap items-center gap-2.5">
             <button
               type="button"
+              disabled
               onClick={handleCopyConfig}
               className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-medium text-slate-800 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 whitespace-nowrap shrink-0"
             >
               {copiedConfig ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
-              {copiedConfig ? 'Copied Profile' : 'Copy Profile'}
+              {copiedConfig ? 'Copied Template' : 'Copy Template'}
             </button>
             <button
               type="button"
+              disabled
               onClick={handleDownloadConfig}
               className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-sky-700 dark:bg-sky-500 dark:text-slate-950 dark:hover:bg-sky-400 whitespace-nowrap shrink-0"
             >
