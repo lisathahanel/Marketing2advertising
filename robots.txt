@@ -1,3 +1,2 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.marketing2advertising.com/sitemap.xml
