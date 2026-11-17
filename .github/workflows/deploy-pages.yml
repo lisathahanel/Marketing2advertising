@@ -99,10 +99,15 @@ jobs:
           set -eu
           for route in extractor pdf-jpg-extractor validator formatter domains sender; do
             mkdir -p "dist/m2a-emailextractor/$route"
-            sed 's#\./assets/#../assets/#g' dist/m2a-emailextractor/index.html > "dist/m2a-emailextractor/$route/index.html"
+            # Route pages are one directory deeper than the Email Extractor entry.
+            # The compiled app bundles live in the shared /assets directory at the site root.
+            sed -e 's#../assets/#../../assets/#g' -e 's#./assets/#../../assets/#g' \
+              dist/m2a-emailextractor/index.html > "dist/m2a-emailextractor/$route/index.html"
             test -s "dist/m2a-emailextractor/$route/index.html"
+            grep -Eq 'src="../../assets/[^"]+\.js"' "dist/m2a-emailextractor/$route/index.html"
+            grep -Eq 'href="../../assets/[^"]+\.css"' "dist/m2a-emailextractor/$route/index.html"
           done
-          echo "All Email Extractor tool routes have direct-load entry pages and correctly relative assets."
+          echo "All Email Extractor tool routes have direct-load entry pages and root-relative compiled assets."
 
       - name: Publish independent M2A Bot app
         run: |
