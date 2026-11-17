@@ -50,6 +50,12 @@ export function ProviderModePanel({
           <div className="mt-2 font-mono text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
             {identityLoading ? 'Checking…' : identity?.ip || 'Not available'}
           </div>
+          {identity && (
+            <div className="mt-2 grid grid-cols-1 gap-1 font-mono text-[11px] text-slate-500 dark:text-slate-400 sm:grid-cols-2">
+              <span>IPv4: {identity.ipv4 || 'Not detected'}</span>
+              <span>IPv6: {identity.ipv6 || 'Not detected'}</span>
+            </div>
+          )}
           <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
             <span>{identity ? 'Public IP detected by an external lookup service' : 'IP lookup is unavailable right now'}</span>
             <button type="button" onClick={onRefreshIdentity} disabled={identityLoading} className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 px-2.5 py-1.5 font-medium text-slate-600 hover:bg-white disabled:opacity-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800">
@@ -59,7 +65,7 @@ export function ProviderModePanel({
           </div>
           <p className="mt-4 flex items-start gap-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
             <Info className="mt-0.5 h-4 w-4 shrink-0" />
-            The IP lookup service receives your request to return this address. Selecting a provider does not change it until a real VPN tunnel is connected.
+            The IP lookup uses api.ipify.org and api6.ipify.org. Those services receive your public IP address to return the result. Selecting a provider does not change it until a real VPN tunnel is connected.
           </p>
         </div>
       </div>
