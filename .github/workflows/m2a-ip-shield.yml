@@ -1,0 +1,48 @@
+name: M2A IP Shield Checks
+
+on:
+  push:
+    paths:
+      - "M2A-Free-Vpn/**"
+      - ".github/workflows/m2a-ip-shield.yml"
+  pull_request:
+    paths:
+      - "M2A-Free-Vpn/**"
+      - ".github/workflows/m2a-ip-shield.yml"
+  workflow_dispatch:
+
+jobs:
+  web-pwa:
+    name: Web PWA typecheck and build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: M2A-Free-Vpn
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: M2A-Free-Vpn/package.json
+      - run: npm install
+      - run: npm run lint
+      - run: npm run build
+
+  android:
+    name: Android WireGuard debug build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: M2A-Free-Vpn/platforms/android
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+      - run: gradle :app:assembleDebug
