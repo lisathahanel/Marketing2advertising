@@ -34,4 +34,4 @@ The Android manifest must declare the WireGuard backend VPN service with `androi
 
 ## Status
 
-This folder is an implementation guide only. No Android APK, Gradle project, VPN service, or device test has been produced yet.
+This folder now contains an initial Android Gradle/Kotlin application scaffold. It imports a personal WireGuard .conf file into memory, requests Android VPN permission, starts/stops the official WireGuard GoBackend, and performs an independent public-IP check after the backend reports UP. It has not been compiled, signed, or tested on a physical Android device. It is not yet ready for release. QR import, native kill-switch verification, persistent secure profile management, M2A server provisioning, and full shared-dashboard integration remain outstanding.
