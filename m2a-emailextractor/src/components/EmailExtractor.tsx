@@ -133,7 +133,7 @@ export function EmailExtractor({
 
   const processVisualDocument = async (file: File) => {
     const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-    const isImage = /^image\\/(jpeg|png)$/i.test(file.type) || /\\.(jpe?g|png)$/i.test(file.name);
+    const isImage = /^image\/(jpeg|png)$/i.test(file.type) || /\.(jpe?g|png)$/i.test(file.name);
 
     if (!isPdf && !isImage) {
       setStatusMessage('Please choose a PDF, JPG, JPEG, or PNG image.');
