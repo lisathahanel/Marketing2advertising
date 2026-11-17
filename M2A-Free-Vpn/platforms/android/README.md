@@ -7,7 +7,7 @@ Use Android's `VpnService` API and the official embeddable WireGuard tunnel libr
 ```kotlin
 dependencies {
     implementation("com.wireguard.android:tunnel:1.0.20260102")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
 ```
 
