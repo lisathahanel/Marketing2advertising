@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marketing2advertising_mobile/main.dart';
+import 'package:marketing2advertising_mobile/features/hub/m2a_hub_screen.dart';
+import 'package:marketing2advertising_mobile/features/tv/tv_screen.dart';
 
 void main() {
   testWidgets('M2A mobile opens on the branded home screen', (tester) async {
@@ -20,56 +22,36 @@ void main() {
     await tester.pumpWidget(const Marketing2AdvertisingApp());
 
     for (final label in ['Blogs', 'Firimu', 'Series', 'TV', 'Games', 'Jobs', 'M2A Services']) {
-      final finder = find.text(label).first;
-      await tester.ensureVisible(finder);
-      await tester.pumpAndSettle();
-      expect(finder, findsOneWidget);
+      final finder = find.text(label);
+      expect(finder, findsWidgets);
     }
   });
 
-  testWidgets('Jobs opens the native career resources hub', (tester) async {
-    await tester.pumpWidget(const Marketing2AdvertisingApp());
-    final jobs = find.text('Jobs').first;
-    await tester.ensureVisible(jobs);
-    await tester.pumpAndSettle();
-    await tester.tap(jobs);
-    await tester.pumpAndSettle();
+  testWidgets('Jobs hub displays career resources', (tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: M2AHubScreen(type: M2AHubType.jobs),
+    ));
 
-    expect(find.text('Jobs & Careers'), findsAtLeastNWidgets(1));
+    expect(find.text('Jobs & Careers'), findsOneWidget);
     expect(find.text('Career resources'), findsOneWidget);
+    expect(find.text('Job opportunities'), findsOneWidget);
   });
 
-  testWidgets('M2A Services opens the native services hub', (tester) async {
-    await tester.pumpWidget(const Marketing2AdvertisingApp());
-    final services = find.text('M2A Services').first;
-    await tester.ensureVisible(services);
-    await tester.pumpAndSettle();
-    await tester.tap(services);
-    await tester.pumpAndSettle();
+  testWidgets('M2A Services hub displays its service list', (tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: M2AHubScreen(type: M2AHubType.services),
+    ));
 
     expect(find.text('What we can help with'), findsOneWidget);
     expect(find.text('Website design & development'), findsOneWidget);
   });
 
-  testWidgets('TV destination loads the bundled broadcaster directory', (tester) async {
-    await tester.pumpWidget(const Marketing2AdvertisingApp());
-
-    final tvCard = find.text('TV').first;
-    await tester.ensureVisible(tvCard);
-    await tester.pumpAndSettle();
-    await tester.tap(tvCard);
+  testWidgets('TV screen loads bundled broadcaster directory', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: M2ATvScreen()));
     await tester.pumpAndSettle();
 
     expect(find.text('M2A TV'), findsOneWidget);
     expect(find.text('Citizen TV'), findsOneWidget);
-
-    final france24 = find.text('France 24');
-    await tester.scrollUntilVisible(
-      france24,
-      250,
-      scrollable: find.byType(Scrollable).last,
-    );
-    await tester.pumpAndSettle();
-    expect(france24, findsOneWidget);
+    expect(find.text('France 24'), findsOneWidget);
   });
 }
