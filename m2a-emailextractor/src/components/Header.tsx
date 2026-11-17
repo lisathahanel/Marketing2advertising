@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const NAV_LINKS = [
   { path: '/m2a-emailextractor/extractor', label: 'Extractor' },
-  { path: '/m2a-emailextractor/pdf-jpg-extractor', label: 'PDF & Images' },
+  { path: '/m2a-emailextractor/pdf-jpg-extractor', label: 'PDF & Image Extractor' },
   { path: '/m2a-emailextractor/validator', label: 'Validator' },
   { path: '/m2a-emailextractor/formatter', label: 'Formatter' },
   { path: '/m2a-emailextractor/domains', label: 'Domains' },
