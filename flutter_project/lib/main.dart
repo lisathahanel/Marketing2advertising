@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'features/tv/tv_screen.dart';
 import 'features/blogs/blogs_screen.dart';
+import 'shared/m2a_web_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -273,6 +274,10 @@ class _SectionCard extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const M2ATvScreen()));
           } else if (section.title == 'Blogs') {
             Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const M2ABlogsScreen()));
+          } else if (section.title == 'Firimu' || section.title == 'Series') {
+            Navigator.of(context).push(MaterialPageRoute<void>(
+              builder: (_) => M2AWebScreen(title: section.title, url: section.url),
+            ));
           } else if (section.url.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Personal library features are coming in a later update.')));
           } else {
