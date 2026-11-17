@@ -237,7 +237,7 @@ export function ConnectionView({
               ) : (
                 <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-600 dark:text-amber-400">
                   <AlertTriangle className="h-4 w-4" />
-                  Unprotected — Connection Exposed to {isPublicWifi ? 'Public Wi-Fi' : 'ISP'}
+                  M2A Tunnel Not Active — Current Public IP Is Visible to Websites
                 </span>
               )}
 
