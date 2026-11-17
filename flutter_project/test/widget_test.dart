@@ -28,7 +28,7 @@ void main() {
   testWidgets('Jobs opens the native career resources hub', (tester) async {
     await tester.pumpWidget(const Marketing2AdvertisingApp());
     final jobs = find.text('Jobs');
-    await tester.ensureVisible(jobs);
+    await tester.scrollUntilVisible(jobs, 250, scrollable: find.byType(Scrollable).first);
     await tester.pumpAndSettle();
     await tester.tap(jobs);
     await tester.pumpAndSettle();
@@ -39,7 +39,7 @@ void main() {
   testWidgets('M2A Services opens the native services hub', (tester) async {
     await tester.pumpWidget(const Marketing2AdvertisingApp());
     final services = find.text('M2A Services').first;
-    await tester.ensureVisible(services);
+    await tester.scrollUntilVisible(services, 250, scrollable: find.byType(Scrollable).first);
     await tester.pumpAndSettle();
     await tester.tap(services);
     await tester.pumpAndSettle();
@@ -51,7 +51,7 @@ void main() {
     await tester.pumpWidget(const Marketing2AdvertisingApp());
 
     final tvCard = find.text('TV');
-    await tester.ensureVisible(tvCard);
+    await tester.scrollUntilVisible(tvCard, 250, scrollable: find.byType(Scrollable).first);
     await tester.pumpAndSettle();
     await tester.tap(tvCard);
     await tester.pumpAndSettle();
