@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'features/tv/tv_screen.dart';
 import 'features/blogs/blogs_screen.dart';
 import 'features/hub/m2a_hub_screen.dart';
+import 'features/library/my_m2a_screen.dart';
 import 'shared/m2a_web_screen.dart';
 
 void main() {
@@ -284,8 +285,8 @@ class _SectionCard extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute<void>(
               builder: (_) => M2AWebScreen(title: section.title, url: section.url),
             ));
-          } else if (section.url.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Personal library features are coming in a later update.')));
+          } else if (section.title == 'My M2A' || section.url.isEmpty) {
+            Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const MyM2AScreen()));
           } else {
             _open(context, section.url);
           }

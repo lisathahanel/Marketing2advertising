@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'tv_player_screen.dart';
+import '../library/saved_items_store.dart';
 
 class TvChannel {
   const TvChannel({required this.id, required this.name, required this.url, required this.category});
@@ -130,7 +131,20 @@ class _M2ATvScreenState extends State<M2ATvScreen> {
                               ),
                               title: Text(channel.name, style: const TextStyle(fontWeight: FontWeight.w700)),
                               subtitle: Text(channel.category),
-                              trailing: const Icon(Icons.play_circle_fill, color: Color(0xFF7CFF00), size: 30),
+                              trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                                FutureBuilder<bool>(
+                                  future: SavedItemsStore.contains(channel.id),
+                                  builder: (context, saved) => IconButton(
+                                    tooltip: saved.data == true ? 'Saved to My M2A' : 'Save channel',
+                                    onPressed: () async {
+                                      await SavedItemsStore.toggle(title: channel.name, url: channel.url, type: 'TV channel', subtitle: channel.category, id: channel.id);
+                                      if (context.mounted) setState(() {});
+                                    },
+                                    icon: Icon(saved.data == true ? Icons.bookmark : Icons.bookmark_border, color: const Color(0xFF7CFF00)),
+                                  ),
+                                ),
+                                const Icon(Icons.play_circle_fill, color: Color(0xFF7CFF00), size: 30),
+                              ]),
                               onTap: () => Navigator.of(context).push(
                                 MaterialPageRoute<void>(builder: (_) => M2ATvPlayerScreen(channel: channel)),
                               ),

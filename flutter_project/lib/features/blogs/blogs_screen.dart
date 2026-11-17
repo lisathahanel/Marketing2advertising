@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import '../library/saved_items_store.dart';
 
 class M2ABlogPost {
   const M2ABlogPost({required this.title, required this.url, required this.published, required this.summary, this.imageUrl});
@@ -142,10 +143,23 @@ class _M2ABlogsScreenState extends State<M2ABlogsScreen> {
                                 Text(post.summary, maxLines: 3, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Color(0xFFD0D9E6), height: 1.4)),
                               ],
                               const SizedBox(height: 10),
-                              const Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                FutureBuilder<bool>(
+                                  future: SavedItemsStore.contains(post.url),
+                                  builder: (context, saved) => IconButton(
+                                    tooltip: saved.data == true ? 'Saved to My M2A' : 'Save article',
+                                    onPressed: () async {
+                                      await SavedItemsStore.toggle(title: post.title, url: post.url, type: 'Article', subtitle: post.summary);
+                                      if (context.mounted) setState(() {});
+                                    },
+                                    icon: Icon(saved.data == true ? Icons.bookmark : Icons.bookmark_border, color: const Color(0xFF7CFF00)),
+                                  ),
+                                ),
+                                const Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                                 Text('Read article', style: TextStyle(color: Color(0xFF7CFF00), fontWeight: FontWeight.w700, fontSize: 12)),
                                 SizedBox(width: 6),
                                 Icon(Icons.arrow_forward, size: 15, color: Color(0xFF7CFF00)),
+                              ]),
                               ]),
                             ]),
                           ),
