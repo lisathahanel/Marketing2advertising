@@ -26,6 +26,28 @@ void main() {
     }
   });
 
+  testWidgets('Jobs opens the native career resources hub', (tester) async {
+    await tester.pumpWidget(const Marketing2AdvertisingApp());
+    final jobs = find.text('Jobs');
+    await tester.ensureVisible(jobs);
+    await tester.pumpAndSettle();
+    await tester.tap(jobs);
+    await tester.pumpAndSettle();
+    expect(find.text('Jobs & Careers'), findsOneWidget);
+    expect(find.text('Career resources'), findsOneWidget);
+  });
+
+  testWidgets('M2A Services opens the native services hub', (tester) async {
+    await tester.pumpWidget(const Marketing2AdvertisingApp());
+    final services = find.text('M2A Services').first;
+    await tester.ensureVisible(services);
+    await tester.pumpAndSettle();
+    await tester.tap(services);
+    await tester.pumpAndSettle();
+    expect(find.text('What we can help with'), findsOneWidget);
+    expect(find.text('Website design & development'), findsOneWidget);
+  });
+
   testWidgets('TV destination loads the bundled broadcaster directory', (tester) async {
     await tester.pumpWidget(const Marketing2AdvertisingApp());
 
