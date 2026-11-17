@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Download, Menu, Moon, Power, Sun } from 'lucide-react';
 import { AdSenseUnit } from './components/AdSenseUnit';
 import { ConnectionView } from './components/ConnectionView';
+import { ProviderModePanel } from './components/ProviderModePanel';
 import { Footer } from './components/Footer';
 import { InstallAppView } from './components/InstallAppView';
 import { SecurityConfigView } from './components/SecurityConfigView';
@@ -69,6 +70,8 @@ export default function App() {
   );
   const [activeTab, setActiveTab] = useState<WorkspaceTab>('connection');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [providerMode, setProviderMode] = useState<'m2a' | 'personal'>('m2a');
+  const [connectionNotice, setConnectionNotice] = useState<string | null>(null);
 
   const [selectedServerId, setSelectedServerId] = useState<string>(() =>
     readStorage<string>('m2a_server_id', VPN_SERVERS[0].id)
@@ -189,90 +192,20 @@ export default function App() {
   const establishTunnel = useCallback(
     async (
       targetServer: VpnServer,
-      protocolOverride?: ProtocolType,
-      speedOverride?: ConnectionSpeedMode
+      _protocolOverride?: ProtocolType,
+      _speedOverride?: ConnectionSpeedMode
     ) => {
-      if (connectTimerRef.current) {
-        window.clearTimeout(connectTimerRef.current);
-      }
-      const effectiveProtocol = protocolOverride ?? security.protocol;
-      const activeSpeedMode = speedOverride ?? speedMode;
-      const offlineActive = !isOnline || activeSpeedMode === 'offline-cache';
-      const slowActive =
-        activeSpeedMode === 'slow-network' || security.lowBandwidthMode || isSlowConnection;
-
-      const handshakeDelayMs: Record<ProtocolType, number> = {
-        WireGuard: slowActive ? 360 : 220,
-        IKEv2: slowActive ? 540 : 400,
-        'OpenVPN UDP': slowActive ? 720 : 560,
-        'OpenVPN TCP': slowActive ? 880 : 720,
-      };
-
-      setTunnelStatus('connecting');
+      setTunnelStatus('disconnected');
+      setHandshake(null);
       setElapsedSeconds(0);
       setBytesProtected(0);
-
-      const activeKp = keypair || (await generateTunnelKeypair());
-      if (!keypair) setKeypair(activeKp);
-
-      let negotiated: TunnelHandshake | null = null;
-
-      if (!offlineActive) {
-        try {
-          const controller = new AbortController();
-          const timeoutId = window.setTimeout(() => controller.abort(), 2400);
-          const resp = await fetch('/api/tunnel/handshake', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              serverId: targetServer.id,
-              clientPublicKey: activeKp.publicKeyBase64,
-              protocol: effectiveProtocol,
-            }),
-            signal: controller.signal,
-          });
-          window.clearTimeout(timeoutId);
-          if (resp.ok) {
-            const serverData = (await resp.json()) as TunnelHandshake;
-            negotiated = slowActive
-              ? {
-                  ...serverData,
-                  mtu: 1280,
-                  keepaliveSec: 45,
-                  mode: 'slow-network-optimized',
-                  handshakeSteps: [
-                    ...serverData.handshakeSteps,
-                    'Low-bandwidth MTU 1280 & 45s keepalive applied',
-                  ],
-                }
-              : { ...serverData, mode: 'online-handshake' };
-          }
-        } catch {
-          // Network unreachable or timed out — fall through to local cached handshake
-        }
-      }
-
-      if (!negotiated) {
-        negotiated = await buildLocalFallbackHandshake({
-          serverId: targetServer.id,
-          clientPublicKey: activeKp.publicKeyBase64,
-          protocol: effectiveProtocol,
-          isOffline: offlineActive,
-          lowBandwidth: slowActive,
-        });
-      }
-
-      const finalHandshake = negotiated;
-      connectTimerRef.current = window.setTimeout(() => {
-        setHandshake(finalHandshake);
-        setTunnelStatus('connected');
-        setBandwidthHistory([
-          { timestamp: '0', downloadMbps: slowActive ? 3.8 : 44.2, uploadMbps: slowActive ? 1.2 : 16.5 },
-          { timestamp: '1', downloadMbps: slowActive ? 5.4 : 86.4, uploadMbps: slowActive ? 1.9 : 29.1 },
-        ]);
-      }, offlineActive ? 180 : handshakeDelayMs[effectiveProtocol]);
+      setConnectionNotice(
+        providerMode === 'm2a'
+          ? `M2A Free Network is not ready to connect yet. ${targetServer.city} is a catalogue location, not a verified live VPN server. Your internet connection has not been changed.`
+          : 'My Private Server is selected, but a native WireGuard connection has not been configured in this app yet. Importing a profile and connecting requires the native VPN app. Your internet connection has not been changed.'
+      );
     },
-    [keypair, security.protocol, security.lowBandwidthMode, speedMode, isOnline, isSlowConnection]
+    [providerMode]
   );
 
   function handleDisconnect() {
@@ -379,7 +312,7 @@ export default function App() {
         ? 'Connecting…'
         : tunnelStatus === 'killswitch-locked'
           ? 'Reconnect Tunnel'
-          : 'Quick Connect';
+          : 'Setup Required';
 
   return (
     <div className="flex min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0B111E] dark:text-slate-100">
@@ -464,6 +397,17 @@ export default function App() {
           <AdSenseUnit />
 
           {activeTab === 'connection' && (
+            <>
+              <ProviderModePanel
+                mode={providerMode}
+                onChangeMode={(mode) => {
+                  setProviderMode(mode);
+                  setConnectionNotice(null);
+                }}
+                notice={connectionNotice}
+                identity={identity}
+                identityLoading={identityLoading}
+              />
             <ConnectionView
               tunnelStatus={tunnelStatus}
               selectedServer={selectedServer}
@@ -491,6 +435,7 @@ export default function App() {
               onOpenServers={() => setActiveTab('servers')}
               onOpenSecurity={() => setActiveTab('security')}
             />
+            </>
           )}
 
           {activeTab === 'servers' && (
@@ -560,7 +505,7 @@ export default function App() {
           role="status"
           className="fixed bottom-4 left-4 z-50 rounded-lg border border-amber-400 bg-amber-50 px-3.5 py-2 text-xs font-medium text-amber-900 shadow-lg dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200"
         >
-          Offline Mode — Cached keypair tunnel ready.
+          Offline Mode — VPN protection is unavailable.
         </div>
       )}
     </div>
