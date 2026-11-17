@@ -1,3 +1,6 @@
+// Flutter 3.50 currently deprecates the Material umbrella import; retain it for
+// compatibility with the stable Material widgets used throughout this app.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -192,19 +195,19 @@ class M2AHomeScreen extends StatelessWidget {
 class M2ADiscoverScreen extends StatelessWidget {
   const M2ADiscoverScreen({super.key});
   @override
-  Widget build(BuildContext context) => _SectionListPage(title: 'Discover', subtitle: 'Ideas, learning and opportunities', items: const [0, 5, 6]);
+  Widget build(BuildContext context) => const _SectionListPage(title: 'Discover', subtitle: 'Ideas, learning and opportunities', items: [0, 5, 6]);
 }
 
 class M2AWatchScreen extends StatelessWidget {
   const M2AWatchScreen({super.key});
   @override
-  Widget build(BuildContext context) => _SectionListPage(title: 'Watch & Play', subtitle: 'Entertainment from across M2A', items: const [1, 2, 3, 4]);
+  Widget build(BuildContext context) => const _SectionListPage(title: 'Watch & Play', subtitle: 'Entertainment from across M2A', items: [1, 2, 3, 4]);
 }
 
 class M2AServicesScreen extends StatelessWidget {
   const M2AServicesScreen({super.key});
   @override
-  Widget build(BuildContext context) => _SectionListPage(title: 'M2A Services', subtitle: 'Tools and digital solutions', items: const [6, 5]);
+  Widget build(BuildContext context) => const _SectionListPage(title: 'M2A Services', subtitle: 'Tools and digital solutions', items: [6, 5]);
 }
 
 class M2AMoreScreen extends StatelessWidget {
