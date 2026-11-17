@@ -39,4 +39,4 @@ The shared UI must never treat a server catalogue entry, profile preview, API re
 
 ## Current implementation status
 
-The repository currently contains a React/Vite PWA. It does **not** yet contain a built Android, Windows, macOS, or Linux VPN client. The web dashboard can check the browser's public IP and run limited browser diagnostics, but it cannot provide full-device VPN protection. Native modules must be implemented, built, tested on real devices, and signed before advertising those capabilities as available.
+The repository contains a React/Vite PWA plus an initial Android Gradle/Kotlin client scaffold that imports a personal WireGuard profile and calls the official WireGuard backend. The Android project has not been built or tested on a device, and no APK has been produced. Windows, macOS, and Linux native clients are still design-stage. The web dashboard can check the browser's public IP and run limited browser diagnostics, but it cannot provide full-device VPN protection.
