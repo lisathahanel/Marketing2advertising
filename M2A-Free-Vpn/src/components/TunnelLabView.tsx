@@ -93,74 +93,66 @@ export function TunnelLabView({
     setAuditRunning(true);
     setAuditError(null);
     try {
-      const [idResp, webrtcRes, dnsResp] = await Promise.all([
-        fetch('/api/network/identity'),
-        runWebRtcLeakCheck(),
-        fetch(`/api/network/dns-audit?domain=${encodeURIComponent(auditDomain.trim() || 'wikipedia.org')}`),
-      ]);
-
-      const idData = (await idResp.json()) as ClientIdentity;
-      const dnsData = (await dnsResp.json()) as {
-        domain?: string;
-        resolved?: boolean;
-        records?: string[];
-        latencyMs?: number;
-        mode?: string;
-        note?: string;
-        error?: string;
-      };
-
-      if (!dnsResp.ok && dnsData.error) {
-        setAuditError(dnsData.error);
+      const domain = auditDomain.trim().toLowerCase() || 'wikipedia.org';
+      if (!/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(domain)) {
+        throw new Error('Enter a valid domain name, such as example.com.');
       }
 
-      const visibleIp = isConnected
-        ? selectedServer.exitIp
-        : isKillSwitchLocked
-          ? '0.0.0.0 (Blocked)'
-          : idData.ip;
+      const [webrtcRes, dnsResponse] = await Promise.all([
+        runWebRtcLeakCheck(),
+        fetch(
+          `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=A`,
+          { headers: { Accept: 'application/dns-json' }, cache: 'no-store' }
+        ).catch(() => null),
+      ]);
 
-      const webrtcPassed = isConnected
-        ? security.webrtcProtection || !webrtcRes.exposedPublicIp
-        : !webrtcRes.exposedPublicIp;
+      let dnsRecords: string[] = [];
+      let dnsLatencyMs = 0;
+      let dnsDetail = 'Browser DNS diagnostics are unavailable. The browser cannot inspect the device operating-system resolver or prove DNS leak protection.';
+      if (dnsResponse?.ok) {
+        const dnsData = (await dnsResponse.json()) as {
+          Answer?: Array<{ data?: string; type?: number }>;
+        };
+        dnsRecords = (dnsData.Answer || [])
+          .filter((answer) => answer.type === 1 && answer.data)
+          .map((answer) => answer.data as string)
+          .slice(0, 6);
+        dnsLatencyMs = 0;
+        dnsDetail = dnsRecords.length
+          ? 'The domain resolved through Cloudflare DNS-over-HTTPS for this browser test. This does not test your device resolver, ISP DNS visibility, or a VPN DNS tunnel.'
+          : 'The public DNS-over-HTTPS test returned no IPv4 answer. This does not prove DNS leak protection.';
+      }
 
+      const visibleIp = identity?.ip || 'Unavailable';
+      const hasTunnel = false;
       setAuditReport({
         ranAt: new Date().toLocaleTimeString(),
         ipCheck: {
-          passed: isConnected || isKillSwitchLocked,
+          passed: false,
           visibleIp,
-          detail: isConnected
-            ? `External endpoints see ${selectedServer.city} exit IP (${selectedServer.exitIp}) instead of ${idData.ip}.`
-            : isKillSwitchLocked
-              ? 'Kill switch firewall dropped all outbound probes. Zero IP leakage.'
-              : `No tunnel active. Upstream servers observe your origin IP (${idData.ip}) and ${idData.browser} / ${idData.os} headers.`,
+          detail: identity?.ip
+            ? `No verified VPN tunnel is active. Websites can still see your current public IP (${identity.ip}).`
+            : 'The public IP could not be checked. No VPN tunnel has been verified.',
         },
         webrtcCheck: {
-          passed: webrtcPassed,
+          passed: !webrtcRes.exposedPublicIp,
           candidatesFound: webrtcRes.candidates,
-          detail:
-            webrtcRes.candidates.length === 0
-              ? 'No STUN/ICE candidates exposed by browser RTCPeerConnection.'
-              : isConnected && security.webrtcProtection
-                ? `${webrtcRes.candidates.length} browser ICE candidate(s) inspected; WebRTC leak guard suppresses non-tunnel STUN bindings.`
-                : webrtcRes.exposedPublicIp
-                  ? `Detected ${webrtcRes.candidates.length} ICE candidate(s) including public reflexive (srflx) address.`
-                  : `Detected ${webrtcRes.candidates.length} local host/mDNS candidate(s); no public STUN IP leaked.`,
+          detail: webrtcRes.candidates.length === 0
+            ? 'No ICE candidates were exposed during this browser probe. This is not a full device-level leak test.'
+            : webrtcRes.exposedPublicIp
+              ? `A public reflexive (srflx) ICE candidate was detected among ${webrtcRes.candidates.length} candidate(s). WebRTC may reveal a public network address to peer-connection websites.`
+              : `${webrtcRes.candidates.length} local or mDNS ICE candidate(s) were detected; no public reflexive candidate appeared in this probe.`,
         },
         dnsCheck: {
-          passed: isConnected || isKillSwitchLocked,
-          domain: dnsData.domain || auditDomain,
-          records: dnsData.records || [],
-          latencyMs: dnsData.latencyMs || 0,
-          detail: isConnected
-            ? `DNS query for ${dnsData.domain || auditDomain} encrypted inside tunnel toward 10.64.0.1 (${dnsData.latencyMs ?? 0} ms).`
-            : dnsData.resolved
-              ? `Resolved via plaintext upstream resolver in ${dnsData.latencyMs ?? 0} ms (${dnsData.records?.join(', ')}). Visible to ISP.`
-              : dnsData.note || 'DNS probe completed inside restricted network environment.',
+          passed: false,
+          domain,
+          records: dnsRecords,
+          latencyMs: dnsLatencyMs,
+          detail: dnsDetail,
         },
       });
     } catch (err) {
-      setAuditError(err instanceof Error ? err.message : 'Unable to complete leak audit.');
+      setAuditError(err instanceof Error ? err.message : 'Unable to complete browser diagnostics.');
     } finally {
       setAuditRunning(false);
     }
@@ -179,11 +171,10 @@ export function TunnelLabView({
         <div className="flex flex-col justify-between gap-4 border-b border-slate-200 pb-5 dark:border-slate-800 lg:flex-row lg:items-center">
           <div>
             <h2 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">
-              Public Wi-Fi Interception vs. M2A Encrypted Tunnel
+              Browser Encryption Demo
             </h2>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Inspect live Web Crypto AES-256-GCM encryption on real sample traffic and test how
-              split-tunnel rules affect packet visibility.
+              Explore local AES-GCM encryption of sample text. This is a browser cryptography demonstration, not real VPN traffic or a system-wide encrypted tunnel.
             </p>
           </div>
 
@@ -408,7 +399,7 @@ export function TunnelLabView({
         <div className="flex flex-col justify-between gap-4 border-b border-slate-200 pb-5 dark:border-slate-800 sm:flex-row sm:items-center">
           <div>
             <h2 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">
-              Live WebRTC, DNS & IP Leak Diagnostics
+              Browser IP, WebRTC & DNS Diagnostics
             </h2>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
               Runs real server header inspection, browser WebRTC ICE candidate probing, and DNS
