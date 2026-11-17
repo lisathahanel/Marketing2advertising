@@ -1,6 +1,6 @@
 import type React from 'react';
 
-export type ToolRoute = 'all' | 'extractor' | 'validator' | 'formatter' | 'domains' | 'sender';
+export type ToolRoute = 'all' | 'extractor' | 'pdf-jpg' | 'validator' | 'formatter' | 'domains' | 'sender';
 
 export interface RouteConfig {
   id: ToolRoute;
@@ -21,6 +21,12 @@ export const ROUTES: RouteConfig[] = [
     path: '/m2a-emailextractor/extractor',
     label: 'Email Extractor',
     title: 'Email Extractor — Free Online Email Tools',
+  },
+  {
+    id: 'pdf-jpg',
+    path: '/m2a-emailextractor/pdf-jpg-extractor',
+    label: 'PDF & Image Extractor',
+    title: 'PDF & Image Email Extractor — Free OCR Email Extraction Tool',
   },
   {
     id: 'validator',
