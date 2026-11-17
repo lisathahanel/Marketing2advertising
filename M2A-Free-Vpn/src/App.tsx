@@ -387,7 +387,7 @@ export default function App() {
         </header>
 
         {/* Top Advertisement + Main Workspace */}
-        <main className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col gap-5 px-5 pt-4 pb-8 lg:px-8">
+        <main className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col gap-5 px-5 pt-4 pb-8 lg:px-8">
           <AdSenseUnit />
 
           {activeTab === 'connection' && (
