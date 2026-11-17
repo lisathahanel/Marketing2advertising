@@ -339,7 +339,7 @@ export default function App() {
               <Menu className="h-4 w-4" />
             </button>
             <div className="flex items-center gap-2 text-sm truncate">
-              <span className="font-medium text-slate-500 dark:text-slate-400">M2A Free Vpn</span>
+              <span className="font-medium text-slate-500 dark:text-slate-400">M2A IP Shield</span>
               <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
                 /
               </span>
