@@ -28,3 +28,19 @@ void main() {
     }
   });
 }
+
+  testWidgets('TV destination loads the bundled broadcaster directory', (tester) async {
+    await tester.pumpWidget(const Marketing2AdvertisingApp());
+
+    await tester.scrollUntilVisible(
+      find.text('TV'),
+      260,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(find.text('TV'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('M2A TV'), findsOneWidget);
+    expect(find.text('Citizen TV'), findsOneWidget);
+    expect(find.text('France 24'), findsOneWidget);
+  });
