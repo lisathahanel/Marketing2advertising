@@ -163,11 +163,11 @@ export function EmailExtractor({
 
       try {
         if (isPdf) {
-          const pdfjs = await import('pdfjs-dist');
-          pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-            'pdfjs-dist/build/pdf.worker.min.mjs',
-            import.meta.url
-          ).toString();
+          const [pdfjs, workerModule] = await Promise.all([
+            import('pdfjs-dist'),
+            import('pdfjs-dist/build/pdf.worker.min.mjs?url'),
+          ]);
+          pdfjs.GlobalWorkerOptions.workerSrc = workerModule.default;
           const pdf = await pdfjs.getDocument({
             data: new Uint8Array(await file.arrayBuffer()),
           }).promise;
