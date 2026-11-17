@@ -100,6 +100,9 @@ export function ProviderModePanel({
             {notice}
           </div>
         )}
+        <p className="mt-4 rounded-lg bg-slate-100 px-3.5 py-3 text-[11px] leading-5 text-slate-600 dark:bg-slate-900/70 dark:text-slate-400">
+          Browser limitation: this dashboard cannot create a system-wide VPN, enforce an operating-system kill switch, or route individual device apps. Those protections require a native VPN client and a verified VPN server.
+        </p>
       </div>
     </section>
   );
