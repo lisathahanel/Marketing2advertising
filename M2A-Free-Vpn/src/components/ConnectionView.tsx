@@ -181,11 +181,10 @@ export function ConnectionView({
             </div>
             <div>
               <h2 className="font-display text-base font-semibold text-red-900 dark:text-red-200">
-                Kill Switch Engaged — All Internet Traffic Blocked
+                Kill Switch Preview — No System Firewall Is Active
               </h2>
               <p className="mt-1 text-sm text-red-800 dark:text-red-300/90">
-                The VPN tunnel dropped unexpectedly. Your firewall cut off outbound connections to
-                prevent your real IP ({identity?.ip || 'Origin IP'}) and data from leaking onto{' '}
+                The dashboard is showing a saved kill-switch preference only. No native VPN tunnel or operating-system firewall is connected, so your device's traffic is not blocked by this browser app.{' '}
                 {networkEnv === 'public-cafe'
                   ? 'Café Public Wi-Fi'
                   : networkEnv === 'airport-wifi'
@@ -247,7 +246,7 @@ export function ConnectionView({
               </span>
 
               <span className="text-xs text-slate-500 dark:text-slate-400">
-                Kill Switch {security.killSwitch ? 'Armed' : 'Off'}
+                Kill Switch Preference {security.killSwitch ? 'On' : 'Off'}
                 <span aria-hidden="true"> · </span>
                 {security.protocol}
                 {security.multiHopEnabled ? ' · Multi-Hop' : ''}
