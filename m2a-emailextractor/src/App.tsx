@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
+  FileImage,
   Globe,
   LayoutGrid,
   MailCheck,
@@ -27,6 +28,7 @@ import {
 const ROUTE_ICONS: Record<ToolRoute, typeof LayoutGrid> = {
   all: LayoutGrid,
   extractor: MailSearch,
+  'pdf-jpg': FileImage,
   validator: MailCheck,
   formatter: Wand2,
   domains: Globe,
@@ -193,6 +195,34 @@ export default function App() {
               />
             </div>
 
+            <div hidden={!showSection('pdf-jpg')}>
+              <section className="mb-5 rounded-xl border border-sky-200 bg-white p-5 sm:p-6">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-50 text-sky-700">
+                    <FileImage className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+                      PDF &amp; Image Email Extractor
+                    </h2>
+                    <p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-600">
+                      Extract email addresses from selectable PDFs, scanned PDF pages, and JPG,
+                      JPEG or PNG images. OCR and extraction run locally in your browser; unique
+                      results appear in the familiar Email Extractor results panel.
+                    </p>
+                    <p className="mt-2 text-xs text-slate-500">
+                      Maximum file size: 25 MB · Up to 30 PDF pages · Duplicate addresses are removed automatically.
+                    </p>
+                  </div>
+                </div>
+              </section>
+              <EmailExtractor
+                onValidateEmail={handleSendToValidator}
+                onValidateAll={handleValidateAll}
+                onExtractedChange={setExtractedEmails}
+              />
+            </div>
+
             <div ref={validatorContainerRef} hidden={!showSection('validator')}>
               <EmailValidator
                 externalEmailRequest={validatorRequest}
@@ -229,6 +259,7 @@ export default function App() {
               <div className="divide-y divide-slate-100 text-xs">
                 {[
                   { path: '/m2a-emailextractor/extractor', id: 'extractor' as const, name: 'Email Extractor', note: '/m2a-emailextractor/extractor' },
+                  { path: '/m2a-emailextractor/pdf-jpg-extractor', id: 'pdf-jpg' as const, name: 'PDF & Image Extractor', note: '/m2a-emailextractor/pdf-jpg-extractor' },
                   { path: '/m2a-emailextractor/validator', id: 'validator' as const, name: 'Address Validator', note: '/m2a-emailextractor/validator' },
                   { path: '/m2a-emailextractor/formatter', id: 'formatter' as const, name: 'Email Formatter', note: '/m2a-emailextractor/formatter' },
                   { path: '/m2a-emailextractor/domains', id: 'domains' as const, name: 'Domain Extractor', note: '/m2a-emailextractor/domains' },
