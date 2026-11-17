@@ -1,185 +1,186 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await MobileAds.instance.initialize();
-  runApp(const ProviderScope(child: M2AApp()));
+  runApp(const Marketing2AdvertisingApp());
 }
 
-class M2AApp extends StatelessWidget {
-  const M2AApp({super.key});
+class M2AColors {
+  static const background = Color(0xFF080D16);
+  static const surface = Color(0xFF111B2A);
+  static const surfaceRaised = Color(0xFF172438);
+  static const accent = Color(0xFF7CFF00);
+  static const muted = Color(0xFF9AA9BD);
+}
+
+class Marketing2AdvertisingApp extends StatelessWidget {
+  const Marketing2AdvertisingApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final scheme = ColorScheme.fromSeed(
+      seedColor: M2AColors.accent,
+      brightness: Brightness.dark,
+      surface: M2AColors.surface,
+    );
     return MaterialApp(
-      title: 'M2A',
+      title: 'Marketing2Advertising',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF0B0B0F),
-        primaryColor: const Color(0xFFF59E0B),
-        colorScheme: const ColorScheme.dark(
-          primary: Color(0xFFF59E0B),
-          secondary: Color(0xFFE11D48),
-          surface: Color(0xFF14141E),
+        scaffoldBackgroundColor: M2AColors.background,
+        colorScheme: scheme.copyWith(
+          primary: M2AColors.accent,
+          secondary: const Color(0xFF55B8FF),
+          surface: M2AColors.surface,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: M2AColors.background,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: false,
+        ),
+        navigationBarTheme: NavigationBarThemeData(
+          backgroundColor: M2AColors.surface,
+          indicatorColor: M2AColors.accent.withValues(alpha: .16),
+          labelTextStyle: WidgetStateProperty.resolveWith((states) =>
+            TextStyle(fontSize: 11, color: states.contains(WidgetState.selected)
+              ? M2AColors.accent : M2AColors.muted)),
+        ),
+        cardTheme: CardThemeData(
+          color: M2AColors.surface,
+          elevation: 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const M2ARoot(),
     );
   }
 }
 
-class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
-
-  @override
-  State<MainNavigationScreen> createState() => _MainNavigationScreenState();
+class M2ASection {
+  const M2ASection(this.title, this.subtitle, this.icon, this.url);
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final String url;
 }
 
-class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _currentIndex = 0;
+const sections = <M2ASection>[
+  M2ASection('Blogs', 'Education, business, technology and career articles', Icons.article_outlined, 'https://www.marketing2advertising.com/'),
+  M2ASection('Firimu', 'Explore the M2A movie catalogue', Icons.movie_outlined, 'https://marketing2advertising.com/firimu/'),
+  M2ASection('Series', 'Discover series and episodic entertainment', Icons.live_tv_outlined, 'https://marketing2advertising.com/'),
+  M2ASection('TV', 'Live television and channel directory', Icons.tv_outlined, 'https://marketing2advertising.com/'),
+  M2ASection('Games', 'Play and discover casual games', Icons.sports_esports_outlined, 'https://marketing2advertising.com/'),
+  M2ASection('Jobs', 'Career guidance and opportunities', Icons.work_outline, 'https://www.marketing2advertising.com/'),
+  M2ASection('M2A Services', 'Digital services, advertising and business tools', Icons.grid_view_rounded, 'https://www.marketing2advertising.com/'),
+  M2ASection('My M2A', 'Your saved content and app preferences', Icons.person_outline, ''),
+];
 
-  final List<Widget> _screens = const [
-    HomeScreen(),
-    TVScreen(),
-    FirimuScreen(),
-    BlogsScreen(),
-    AppsScreen(),
-    GamesScreen(),
+class M2ARoot extends StatefulWidget {
+  const M2ARoot({super.key});
+
+  @override
+  State<M2ARoot> createState() => _M2ARootState();
+}
+
+class _M2ARootState extends State<M2ARoot> {
+  int _index = 0;
+
+  static const _pages = <Widget>[
+    M2AHomeScreen(),
+    M2ADiscoverScreen(),
+    M2AWatchScreen(),
+    M2AServicesScreen(),
+    M2AMoreScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        backgroundColor: const Color(0xFF0B0B0F),
-        selectedItemColor: const Color(0xFFF59E0B),
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.tv), label: 'TV'),
-          BottomNavigationBarItem(icon: Icon(Icons.movie), label: 'Firimu'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Blogs'),
-          BottomNavigationBarItem(icon: Icon(Icons.apps), label: 'Apps'),
-          BottomNavigationBarItem(icon: Icon(Icons.sports_esports), label: 'Games'),
+      body: IndexedStack(index: _index, children: _pages),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _index,
+        onDestinationSelected: (value) => setState(() => _index = value),
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.explore_outlined), selectedIcon: Icon(Icons.explore), label: 'Discover'),
+          NavigationDestination(icon: Icon(Icons.play_circle_outline), selectedIcon: Icon(Icons.play_circle), label: 'Watch'),
+          NavigationDestination(icon: Icon(Icons.apps_outlined), selectedIcon: Icon(Icons.apps), label: 'Services'),
+          NavigationDestination(icon: Icon(Icons.menu), label: 'More'),
         ],
       ),
     );
   }
 }
 
-// Live TV Player Screen
-class TVScreen extends StatefulWidget {
-  const TVScreen({super.key});
-
-  @override
-  State<TVScreen> createState() => _TVScreenState();
-}
-
-class _TVScreenState extends State<TVScreen> {
-  VideoPlayerController? _videoPlayerController;
-  ChewieController? _chewieController;
-  bool _isLoading = true;
-  bool _isError = false;
-
-  final String streamUrl =
-      'https://live-onesignal.royalmedia.co.ke/live/jgB35emfPsiW5aFjKJjbjg.m3u8';
-
-  @override
-  void initState() {
-    super.initState();
-    WakelockPlus.enable();
-    _initPlayer(streamUrl);
-  }
-
-  Future<void> _initPlayer(String url) async {
-    setState(() {
-      _isLoading = true;
-      _isError = false;
-    });
-
-    try {
-      _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(url));
-      await _videoPlayerController!.initialize();
-      _chewieController = ChewieController(
-        videoPlayerController: _videoPlayerController!,
-        autoPlay: true,
-        isLive: true,
-        aspectRatio: 16 / 9,
-      );
-      setState(() => _isLoading = false);
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _isError = true;
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    WakelockPlus.disable();
-    _videoPlayerController?.dispose();
-    _chewieController?.dispose();
-    super.dispose();
-  }
+class M2AHomeScreen extends StatelessWidget {
+  const M2AHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('M2A Live Channels'),
-        backgroundColor: const Color(0xFF0B0B0F),
-      ),
-      body: Column(
-        children: [
-          AspectRatio(
-            aspectRatio: 16 / 9,
-            child: _isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(color: Color(0xFFF59E0B)))
-                : _isError
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Network not well – Try Again',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 12),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFF59E0B),
-                                foregroundColor: Colors.black,
-                              ),
-                              onPressed: () => _initPlayer(streamUrl),
-                              child: const Text('Retry'),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Chewie(controller: _chewieController!),
+    return SafeArea(
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+              child: Row(children: [
+                Container(
+                  width: 46, height: 46,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    gradient: const LinearGradient(colors: [M2AColors.accent, Color(0xFF55B8FF)]),
+                  ),
+                  child: const Center(child: Text('M2A', style: TextStyle(color: Color(0xFF08111B), fontWeight: FontWeight.w900))),
+                ),
+                const SizedBox(width: 12),
+                const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('Marketing2Advertising', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800)),
+                  Text('Transforming learning into earning', style: TextStyle(color: M2AColors.muted, fontSize: 11)),
+                ])),
+                IconButton(onPressed: () => _open(context, 'https://www.marketing2advertising.com/'), icon: const Icon(Icons.open_in_new, color: M2AColors.accent), tooltip: 'Visit M2A website'),
+              ]),
+            ),
           ),
-          const Expanded(
-            child: Center(
-              child: Text(
-                '19 Live Channels configured in assets/channels.json',
-                style: TextStyle(color: Colors.grey),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
+              child: Container(
+                padding: const EdgeInsets.all(22),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF1C3850), Color(0xFF142235), Color(0xFF17203A)]),
+                  border: Border.all(color: Colors.white.withValues(alpha: .08)),
+                ),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Text('YOUR WORLD. ONE APP.', style: TextStyle(color: M2AColors.accent, fontSize: 11, letterSpacing: 1.5, fontWeight: FontWeight.w800)),
+                  const SizedBox(height: 10),
+                  const Text('Learn. Discover.\nGet entertained.', style: TextStyle(fontSize: 29, height: 1.12, fontWeight: FontWeight.w800)),
+                  const SizedBox(height: 10),
+                  const Text('Explore articles, movies, series, games, career resources and digital services from M2A.', style: TextStyle(color: Color(0xFFD0D9E6), height: 1.45)),
+                  const SizedBox(height: 18),
+                  FilledButton.icon(
+                    onPressed: () => _open(context, 'https://www.marketing2advertising.com/'),
+                    icon: const Icon(Icons.explore),
+                    label: const Text('Explore M2A'),
+                    style: FilledButton.styleFrom(backgroundColor: M2AColors.accent, foregroundColor: const Color(0xFF08111B)),
+                  ),
+                ]),
               ),
+            ),
+          ),
+          const SliverToBoxAdapter(child: Padding(padding: EdgeInsets.fromLTRB(20, 4, 20, 12), child: _SectionHeading(title: 'Explore M2A', subtitle: 'Everything in one place'))),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 28),
+            sliver: SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => _SectionCard(section: sections[index]),
+                childCount: sections.length,
+              ),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 12, crossAxisSpacing: 12, childAspectRatio: 1.22),
             ),
           ),
         ],
@@ -188,93 +189,104 @@ class _TVScreenState extends State<TVScreen> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+class M2ADiscoverScreen extends StatelessWidget {
+  const M2ADiscoverScreen({super.key});
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('M2A Hub'),
-        backgroundColor: const Color(0xFF0B0B0F),
-      ),
-      body: const Center(
-        child: Text('Blogger Feed synchronized from marketing2advertising.com'),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => _SectionListPage(title: 'Discover', subtitle: 'Ideas, learning and opportunities', items: const [0, 5, 6]);
 }
 
-class FirimuScreen extends StatelessWidget {
-  const FirimuScreen({super.key});
+class M2AWatchScreen extends StatelessWidget {
+  const M2AWatchScreen({super.key});
+  @override
+  Widget build(BuildContext context) => _SectionListPage(title: 'Watch & Play', subtitle: 'Entertainment from across M2A', items: const [1, 2, 3, 4]);
+}
 
+class M2AServicesScreen extends StatelessWidget {
+  const M2AServicesScreen({super.key});
+  @override
+  Widget build(BuildContext context) => _SectionListPage(title: 'M2A Services', subtitle: 'Tools and digital solutions', items: const [6, 5]);
+}
+
+class M2AMoreScreen extends StatelessWidget {
+  const M2AMoreScreen({super.key});
+  @override
+  Widget build(BuildContext context) => SafeArea(child: ListView(padding: const EdgeInsets.all(20), children: [
+    const Text('More from M2A', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800)),
+    const SizedBox(height: 6),
+    const Text('Your M2A app shortcuts and information', style: TextStyle(color: M2AColors.muted)),
+    const SizedBox(height: 20),
+    ...[
+      ('About Marketing2Advertising', Icons.info_outline, 'https://www.marketing2advertising.com/p/about-us.html'),
+      ('Contact', Icons.mail_outline, 'https://www.marketing2advertising.com/p/contact-us.html'),
+      ('Privacy Policy', Icons.privacy_tip_outlined, 'https://www.marketing2advertising.com/p/privacy-policy.html'),
+      ('Visit M2A Website', Icons.language, 'https://www.marketing2advertising.com/'),
+    ].map((item) => Card(child: ListTile(leading: Icon(item.$2, color: M2AColors.accent), title: Text(item.$1), trailing: const Icon(Icons.open_in_new, size: 18), onTap: () => _open(context, item.$3)))),
+    const SizedBox(height: 18),
+    const Center(child: Text('Marketing2Advertising · Learn • Discover • Grow', textAlign: TextAlign.center, style: TextStyle(color: M2AColors.muted, fontSize: 12))),
+  ]));
+}
+
+class _SectionListPage extends StatelessWidget {
+  const _SectionListPage({required this.title, required this.subtitle, required this.items});
+  final String title;
+  final String subtitle;
+  final List<int> items;
+  @override
+  Widget build(BuildContext context) => SafeArea(child: ListView(padding: const EdgeInsets.all(20), children: [
+    Text(title, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w800)),
+    const SizedBox(height: 6),
+    Text(subtitle, style: const TextStyle(color: M2AColors.muted)),
+    const SizedBox(height: 20),
+    ...items.map((index) => Padding(padding: const EdgeInsets.only(bottom: 12), child: _SectionCard(section: sections[index], horizontal: true))),
+  ]));
+}
+
+class _SectionHeading extends StatelessWidget {
+  const _SectionHeading({required this.title, required this.subtitle});
+  final String title;
+  final String subtitle;
+  @override
+  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+    const SizedBox(height: 3),
+    Text(subtitle, style: const TextStyle(color: M2AColors.muted, fontSize: 12)),
+  ]);
+}
+
+class _SectionCard extends StatelessWidget {
+  const _SectionCard({required this.section, this.horizontal = false});
+  final M2ASection section;
+  final bool horizontal;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Firimu (naka.marketing2advertising.com)'),
-        backgroundColor: const Color(0xFF0B0B0F),
-      ),
-      body: const Center(
-        child: Text(
-          'Scans and streams 144+ Luganda translated movies directly from naka.marketing2advertising.com',
-          textAlign: TextAlign.center,
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => section.url.isEmpty
+          ? ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Personal library features are coming in a later update.')))
+          : _open(context, section.url),
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: horizontal
+            ? Row(children: [_icon(), const SizedBox(width: 14), Expanded(child: _labels()), const Icon(Icons.arrow_forward_ios, size: 14, color: M2AColors.muted)])
+            : Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [_icon(), _labels()]),
         ),
       ),
     );
   }
+  Widget _icon() => Container(width: 42, height: 42, decoration: BoxDecoration(color: M2AColors.accent.withValues(alpha: .12), borderRadius: BorderRadius.circular(13)), child: Icon(section.icon, color: M2AColors.accent));
+  Widget _labels() => Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+    Text(section.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
+    const SizedBox(height: 4),
+    Text(section.subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(color: M2AColors.muted, fontSize: 11, height: 1.3)),
+  ]);
 }
 
-class BlogsScreen extends StatelessWidget {
-  const BlogsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('M2A Blogs (marketing2advertising.com)'),
-        backgroundColor: const Color(0xFF0B0B0F),
-      ),
-      body: const Center(
-        child: Text(
-          'AI Tools, Freelancing, Software & Career Articles from main site',
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-}
-
-class AppsScreen extends StatelessWidget {
-  const AppsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Multi Apps (19 Free Tools)'),
-        backgroundColor: const Color(0xFF0B0B0F),
-      ),
-      body: const Center(
-        child: Text('19 Free Tools: Calculator, QR, PDF, Video Player, etc.'),
-      ),
-    );
-  }
-}
-
-class GamesScreen extends StatelessWidget {
-  const GamesScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Free Games (15 Games)'),
-        backgroundColor: const Color(0xFF0B0B0F),
-      ),
-      body: const Center(
-        child: Text('15 HTML5 Canvas & Native Games'),
-      ),
-    );
+Future<void> _open(BuildContext context, String value) async {
+  final uri = Uri.tryParse(value);
+  if (uri == null || !uri.hasScheme) return;
+  final opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
+  if (!opened && context.mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('This page could not be opened right now.')));
   }
 }
