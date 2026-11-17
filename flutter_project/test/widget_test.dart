@@ -14,15 +14,16 @@ void main() {
     expect(find.text('More'), findsOneWidget);
   });
 
-  testWidgets('M2A home shows all primary service destinations', (tester) async {
+  testWidgets('M2A home includes the primary service destinations', (tester) async {
     await tester.pumpWidget(const Marketing2AdvertisingApp());
 
-    expect(find.text('Blogs'), findsOneWidget);
-    expect(find.text('Firimu'), findsOneWidget);
-    expect(find.text('Series'), findsOneWidget);
-    expect(find.text('TV'), findsOneWidget);
-    expect(find.text('Games'), findsOneWidget);
-    expect(find.text('Jobs'), findsOneWidget);
-    expect(find.text('M2A Services'), findsOneWidget);
+    for (final label in ['Blogs', 'Firimu', 'Series', 'TV', 'Games', 'Jobs', 'M2A Services']) {
+      await tester.scrollUntilVisible(
+        find.text(label),
+        260,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(find.text(label), findsOneWidget);
+    }
   });
 }
