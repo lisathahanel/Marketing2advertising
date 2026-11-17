@@ -1,4 +1,4 @@
-import { Cloud, FileKey2, Info, ShieldCheck } from 'lucide-react';
+import { Cloud, FileKey2, Info, RefreshCw, ShieldCheck } from 'lucide-react';
 import type { ClientIdentity } from '../types/vpn';
 
 type ProviderMode = 'm2a' | 'personal';
@@ -9,6 +9,7 @@ interface ProviderModePanelProps {
   notice: string | null;
   identity: ClientIdentity | null;
   identityLoading: boolean;
+  onRefreshIdentity: () => void;
 }
 
 export function ProviderModePanel({
@@ -17,6 +18,7 @@ export function ProviderModePanel({
   notice,
   identity,
   identityLoading,
+  onRefreshIdentity,
 }: ProviderModePanelProps) {
   return (
     <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-[#111827]">
@@ -48,8 +50,12 @@ export function ProviderModePanel({
           <div className="mt-2 font-mono text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
             {identityLoading ? 'Checking…' : identity?.ip || 'Not available'}
           </div>
-          <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            {identity ? 'Public IP detected by an external lookup service' : 'IP lookup is unavailable right now'}
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+            <span>{identity ? 'Public IP detected by an external lookup service' : 'IP lookup is unavailable right now'}</span>
+            <button type="button" onClick={onRefreshIdentity} disabled={identityLoading} className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 px-2.5 py-1.5 font-medium text-slate-600 hover:bg-white disabled:opacity-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800">
+              <RefreshCw className={`h-3 w-3 ${identityLoading ? 'animate-spin' : ''}`} />
+              {identityLoading ? 'Checking' : 'Refresh IP'}
+            </button>
           </div>
           <p className="mt-4 flex items-start gap-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
             <Info className="mt-0.5 h-4 w-4 shrink-0" />
