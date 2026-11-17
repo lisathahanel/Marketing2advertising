@@ -8,28 +8,7 @@ import {
   Smartphone,
 } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
-import type { ProtocolType, TunnelHandshake, TunnelKeypair, VpnServer } from '../types/vpn';
-import { buildWireGuardConfig } from '../utils/cryptoTunnel';
-
-interface InstallAppViewProps {
-  selectedServer: VpnServer;
-  entryServer: VpnServer | null;
-  multiHopEnabled: boolean;
-  protocol: ProtocolType;
-  dnsBlocker: boolean;
-  keypair: TunnelKeypair | null;
-  handshake: TunnelHandshake | null;
-}
-
-export function InstallAppView({
-  selectedServer,
-  entryServer,
-  multiHopEnabled,
-  protocol,
-  dnsBlocker,
-  keypair,
-  handshake,
-}: InstallAppViewProps) {
+export function InstallAppView() {
   const { isInstallable, isInstalled, platform, install } = usePWAInstall();
   const [installNotice, setInstallNotice] = useState<string | null>(null);
 
@@ -38,7 +17,7 @@ export function InstallAppView({
       const accepted = await install();
       setInstallNotice(
         accepted
-          ? 'M2A Free Vpn installed successfully. Launch it anytime from your app drawer or desktop.'
+          ? 'M2A IP Shield installed successfully. Launch it anytime from your app drawer or desktop.'
           : 'Install prompt dismissed. You can install anytime from your browser address bar.'
       );
     } else if (platform === 'ios') {
@@ -47,31 +26,12 @@ export function InstallAppView({
       );
     } else {
       setInstallNotice(
-        'Open your browser menu (⋮ or ⋯) and select "Install M2A Free Vpn" or "Apps → Install this site as an app".'
+        'Open your browser menu (⋮ or ⋯) and select "Install M2A IP Shield" or "Apps → Install this site as an app".'
       );
     }
   }
 
-  function handleDownloadClientConfig() {
-    const config = buildWireGuardConfig({
-      server: selectedServer,
-      entryServer,
-      multiHopEnabled,
-      virtualIp: handshake?.assignedVirtualIp || '10.64.18.42',
-      clientPublicKey: keypair?.publicKeyBase64 || 'ClientKeyPending',
-      protocol,
-      dnsBlocker,
-    });
-    const blob = new Blob([config], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `m2a-free-vpn-${selectedServer.countryCode.toLowerCase()}.conf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  }
+
 
   return (
     <div className="space-y-6">
@@ -80,11 +40,10 @@ export function InstallAppView({
         <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
           <div>
             <h2 className="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Install M2A Free Vpn on Browser, Mobile & PC
+              Install M2A IP Shield on Your Devices
             </h2>
             <p className="mt-1.5 max-w-2xl text-sm text-slate-600 dark:text-slate-400">
-              Run M2A Free Vpn as a dedicated standalone app on Windows, macOS, Linux, Android,
-              and iOS, or export a WireGuard profile for native OS-level encrypted tunneling.
+              Install the M2A IP Shield dashboard as a standalone web app on compatible browsers. Native VPN clients for Android and desktop are being built separately.
             </p>
           </div>
 
@@ -101,18 +60,10 @@ export function InstallAppView({
                 className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-700 dark:bg-sky-500 dark:text-slate-950 dark:hover:bg-sky-400 whitespace-nowrap shrink-0"
               >
                 <Download className="h-4 w-4" />
-                {isInstallable ? 'Install M2A Free Vpn Now' : 'Install App on This Device'}
+                {isInstallable ? 'Install M2A IP Shield Now' : 'Install App on This Device'}
               </button>
             )}
 
-            <button
-              type="button"
-              onClick={handleDownloadClientConfig}
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-xs font-semibold text-slate-800 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 whitespace-nowrap shrink-0"
-            >
-              <Download className="h-3.5 w-3.5" />
-              Download .conf ({selectedServer.countryCode})
-            </button>
           </div>
         </div>
 
@@ -144,8 +95,8 @@ export function InstallAppView({
 
             <ol className="mt-5 space-y-2.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
               <li>1. Click the install icon in your browser address bar or use the button above.</li>
-              <li>2. Pin M2A Free Vpn to your browser dock for instant 1-click IP masking & WebRTC leak audits.</li>
-              <li>3. Works offline with cached UI diagnostics via the built-in service worker.</li>
+              <li>2. Install the dashboard for quick access to your public-IP check and browser diagnostics. It does not change your network route.</li>
+              <li>3. The dashboard shell can open offline; public-IP and network checks still require an internet connection.</li>
             </ol>
           </div>
 
@@ -178,22 +129,18 @@ export function InstallAppView({
             <div className="mt-5 space-y-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
               <div>
                 <div className="font-semibold text-slate-800 dark:text-slate-100">iOS (Safari)</div>
-                <p>Tap Share → Add to Home Screen to run M2A Free Vpn in full-screen standalone mode.</p>
+                <p>Tap Share → Add to Home Screen to add the M2A IP Shield dashboard. This does not install a system VPN.</p>
               </div>
               <div>
                 <div className="font-semibold text-slate-800 dark:text-slate-100">Android (Chrome)</div>
-                <p>Tap Install App or Menu (⋮) → Install app, and import the .conf profile in WireGuard Mobile for system-wide Wi-Fi protection.</p>
+                <p>Tap Install App or Menu (⋮) → Install app to add the dashboard. Full-device VPN protection will require the native M2A Android app.</p>
               </div>
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={handleDownloadClientConfig}
-            className="mt-6 w-full rounded-lg border border-slate-300 bg-white py-2 text-xs font-semibold text-slate-800 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
-          >
-            Export Mobile WireGuard Profile
-          </button>
+          <div className="mt-6 rounded-lg border border-amber-300/70 bg-amber-50 px-3 py-2.5 text-xs leading-5 text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/25 dark:text-amber-200">
+            Native Android VPN app is in development. No connectable profile is available yet.
+          </div>
         </div>
 
         {/* PC & Desktop */}
@@ -214,19 +161,15 @@ export function InstallAppView({
             </div>
 
             <ol className="mt-5 space-y-2.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-              <li>1. Install M2A Free Vpn as a desktop window directly from Chrome or Edge.</li>
+              <li>1. Install M2A IP Shield as a desktop window directly from Chrome or Edge.</li>
               <li>2. Download your active WireGuard <span className="font-mono">.conf</span> file for kernel-level PC tunneling and Kill Switch enforcement.</li>
               <li>3. Manage per-app Split Tunneling rules right inside Security & Config.</li>
             </ol>
           </div>
 
-          <button
-            type="button"
-            onClick={handleDownloadClientConfig}
-            className="mt-6 w-full rounded-lg bg-slate-900 py-2 text-xs font-semibold text-white transition-colors hover:bg-slate-800 dark:bg-sky-500 dark:text-slate-950 dark:hover:bg-sky-400"
-          >
-            Download PC Config (.conf)
-          </button>
+          <div className="mt-6 rounded-lg border border-amber-300/70 bg-amber-50 px-3 py-2.5 text-xs leading-5 text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/25 dark:text-amber-200">
+            Native Windows, macOS and Linux VPN clients are planned. Installing this PWA only installs the dashboard.
+          </div>
         </div>
       </div>
     </div>
