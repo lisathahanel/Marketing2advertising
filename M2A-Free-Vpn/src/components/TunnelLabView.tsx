@@ -447,7 +447,7 @@ export function TunnelLabView({
             <div className="rounded-lg border border-slate-200 p-4 dark:border-slate-800">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
-                  IP & Header Check
+                  Public IP Check
                 </span>
                 <span
                   className={`inline-flex items-center gap-1 text-xs font-semibold ${
@@ -461,7 +461,7 @@ export function TunnelLabView({
                   ) : (
                     <AlertTriangle className="h-3.5 w-3.5" />
                   )}
-                  {auditReport.ipCheck.passed ? 'Masked' : 'Exposed'}
+                  {auditReport.ipCheck.visibleIp === 'Unavailable' ? 'Not checked' : 'Origin IP visible'}
                 </span>
               </div>
               <div className="mt-2 font-mono text-sm font-semibold tabular-nums text-slate-900 dark:text-white">
@@ -503,7 +503,7 @@ export function TunnelLabView({
             <div className="rounded-lg border border-slate-200 p-4 dark:border-slate-800">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
-                  DNS Resolution Path
+                  Public DNS-over-HTTPS Test
                 </span>
                 <span
                   className={`inline-flex items-center gap-1 text-xs font-semibold ${
@@ -517,11 +517,11 @@ export function TunnelLabView({
                   ) : (
                     <AlertTriangle className="h-3.5 w-3.5" />
                   )}
-                  {auditReport.dnsCheck.passed ? 'Private Tunnel' : 'ISP Visible'}
+                  Not verified
                 </span>
               </div>
               <div className="mt-2 font-mono text-sm font-semibold tabular-nums text-slate-900 dark:text-white">
-                {auditReport.dnsCheck.domain} · {auditReport.dnsCheck.latencyMs} ms
+                {auditReport.dnsCheck.domain}
               </div>
               <p className="mt-1.5 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
                 {auditReport.dnsCheck.detail}
