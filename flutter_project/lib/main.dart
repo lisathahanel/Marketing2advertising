@@ -4,6 +4,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'features/tv/tv_screen.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const Marketing2AdvertisingApp());
@@ -265,9 +267,15 @@ class _SectionCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => section.url.isEmpty
-          ? ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Personal library features are coming in a later update.')))
-          : _open(context, section.url),
+        onTap: () {
+          if (section.title == 'TV') {
+            Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const M2ATvScreen()));
+          } else if (section.url.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Personal library features are coming in a later update.')));
+          } else {
+            _open(context, section.url);
+          }
+        },
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: horizontal
