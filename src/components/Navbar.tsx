@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Search, Tv, ChevronDown, Film, Home, Gamepad2, Newspaper, Layers3, Bell, Mail } from 'lucide-react';
 import { PWAInstallButton } from './PWAInstallButton';
 import { TabType } from '../types';
+import { isM2AEmbedded, openM2APageInNewTab } from '../utils/embeddedNavigation';
 
 interface NavbarProps {
   currentTab: TabType;
@@ -31,7 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab, onOpenD
         </button>
 
         <nav aria-label="Main navigation" className="hidden items-center gap-1 xl:flex">
-          {links.map(({ id, label, Icon }) => <button key={id} onClick={() => { if (id === 'emailtools') window.location.href = '/m2a-emailextractor.html'; else onSelectTab(id); }} aria-current={currentTab === id ? 'page' : undefined} className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold transition ${currentTab === id ? 'bg-lime-300/10 text-[#7CFF00] shadow-[inset_0_0_0_1px_rgba(124,255,0,.16)]' : 'text-slate-400 hover:bg-white/[.05] hover:text-white'}`}><Icon className="h-3.5 w-3.5" />{label}</button>)}
+          {links.map(({ id, label, Icon }) => <button key={id} onClick={() => { if (id === 'emailtools') { if (isM2AEmbedded()) openM2APageInNewTab('/m2a-emailextractor.html'); else window.location.href = '/m2a-emailextractor.html'; } else onSelectTab(id); }} aria-current={currentTab === id ? 'page' : undefined} className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold transition ${currentTab === id ? 'bg-lime-300/10 text-[#7CFF00] shadow-[inset_0_0_0_1px_rgba(124,255,0,.16)]' : 'text-slate-400 hover:bg-white/[.05] hover:text-white'}`}><Icon className="h-3.5 w-3.5" />{label}</button>)}
           <button onClick={onOpenDrawer} className="flex items-center gap-1 rounded-xl px-3 py-2 text-[11px] font-bold text-slate-400 transition hover:bg-white/[.05] hover:text-white">More <ChevronDown className="h-3 w-3" /></button>
         </nav>
 
