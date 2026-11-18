@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { TabType } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
+import { isM2AEmbedded, openM2APageInNewTab } from '../utils/embeddedNavigation';
 
 interface DrawerProps {
   isOpen: boolean;
@@ -165,7 +166,7 @@ export const Drawer: React.FC<DrawerProps> = ({
               </div>
             </button>
             <button
-              onClick={() => { window.location.href = '/m2abot-main/'; onClose(); }}
+              onClick={() => { if (isM2AEmbedded()) openM2APageInNewTab('/m2abot-main/'); else window.location.href = '/m2abot-main/'; onClose(); }}
               className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:bg-white/5 hover:text-[#7CFF00] text-sm font-semibold transition"
             >
               <Bot className="w-4 h-4 text-[#7CFF00]" />
@@ -175,7 +176,7 @@ export const Drawer: React.FC<DrawerProps> = ({
               </div>
             </button>
             <button
-              onClick={() => { window.location.href = '/m2a-emailextractor.html'; onClose(); }}
+              onClick={() => { if (isM2AEmbedded()) openM2APageInNewTab('/m2a-emailextractor.html'); else window.location.href = '/m2a-emailextractor.html'; onClose(); }}
               className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:bg-white/5 hover:text-[#7CFF00] text-sm font-semibold transition"
             >
               <MailSearch className="w-4 h-4 text-[#7CFF00]" />
