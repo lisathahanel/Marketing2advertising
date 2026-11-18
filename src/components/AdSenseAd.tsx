@@ -14,6 +14,17 @@ declare global {
 function loadAdSense(): Promise<void> {
   if (window.__M2A_ADSENSE_READY__) return window.__M2A_ADSENSE_READY__;
 
+  // Blogger already loads the publisher library in its document head. Reuse
+  // that loader and its queue instead of injecting a duplicate script.
+  const existingScript = document.querySelector<HTMLScriptElement>(
+    'script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'
+  );
+  if (existingScript) {
+    window.adsbygoogle ||= [];
+    window.__M2A_ADSENSE_READY__ = Promise.resolve();
+    return window.__M2A_ADSENSE_READY__;
+  }
+
   const script = document.createElement('script');
   script.async = true;
   script.crossOrigin = 'anonymous';
