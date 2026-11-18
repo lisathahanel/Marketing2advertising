@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { isM2AEmbedded } from '../utils/embeddedNavigation';
+import { isM2AIframe } from '../utils/embeddedNavigation';
 
 const ADS_CLIENT = 'ca-pub-2269884583846743';
 const ADS_SLOT = '2906167922';
@@ -41,12 +41,12 @@ function loadAdSense(): Promise<void> {
 
 export const AdSenseAd: React.FC<{ className?: string }> = ({ className = '' }) => {
   const adRef = useRef<HTMLModElement>(null);
-  const embedded = isM2AEmbedded();
+  const insideIframe = isM2AIframe();
 
   useEffect(() => {
     let cancelled = false;
     const node = adRef.current;
-    if (embedded || !node || node.dataset.m2aPushed === 'true') return;
+    if (insideIframe || !node || node.dataset.m2aPushed === 'true') return;
 
     loadAdSense()
       .then(() => {
@@ -55,43 +55,32 @@ export const AdSenseAd: React.FC<{ className?: string }> = ({ className = '' }) 
         ads.push({});
         node.dataset.m2aPushed = 'true';
       })
-      .catch((error) => {
-        console.warn('M2A AdSense unit could not be initialized:', error);
-      });
+      .catch((error) => console.warn('M2A AdSense unit could not be initialized:', error));
 
     return () => { cancelled = true; };
-  }, [embedded]);
+  }, [insideIframe]);
 
-  if (embedded) return null;
+  if (insideIframe) return null;
 
   return (
     <div className={`my-6 sm:my-7 min-h-[136px] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-2.5 py-3 sm:px-3 sm:py-4 text-center ${className}`}>
       <span className="mb-2 block text-[9px] font-semibold uppercase tracking-[.2em] text-slate-500">Advertisement</span>
-      <ins
-        ref={adRef}
-        className="adsbygoogle block"
-        style={{ display: 'block', width: '100%', minHeight: 100 }}
-        data-ad-client={ADS_CLIENT}
-        data-ad-slot={ADS_SLOT}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
+      <ins ref={adRef} className="adsbygoogle block" style={{ display: 'block', width: '100%', minHeight: 100 }} data-ad-client={ADS_CLIENT} data-ad-slot={ADS_SLOT} data-ad-format="auto" data-full-width-responsive="true" />
     </div>
   );
 };
-
 
 const FLUID_AD_SLOT = '6730887197';
 const FLUID_LAYOUT_KEY = '-gw-3+1f-3d+2z';
 
 export const AdSenseFluidAd: React.FC<{ className?: string }> = ({ className = '' }) => {
   const adRef = useRef<HTMLModElement>(null);
-  const embedded = isM2AEmbedded();
+  const insideIframe = isM2AIframe();
 
   useEffect(() => {
     let cancelled = false;
     const node = adRef.current;
-    if (embedded || !node || node.dataset.m2aPushed === 'true') return;
+    if (insideIframe || !node || node.dataset.m2aPushed === 'true') return;
 
     loadAdSense()
       .then(() => {
@@ -99,27 +88,17 @@ export const AdSenseFluidAd: React.FC<{ className?: string }> = ({ className = '
         (window.adsbygoogle ||= []).push({});
         node.dataset.m2aPushed = 'true';
       })
-      .catch((error) => {
-        console.warn('M2A fluid AdSense unit could not be initialized:', error);
-      });
+      .catch((error) => console.warn('M2A fluid AdSense unit could not be initialized:', error));
 
     return () => { cancelled = true; };
-  }, [embedded]);
+  }, [insideIframe]);
 
-  if (embedded) return null;
+  if (insideIframe) return null;
 
   return (
     <div className={`my-6 sm:my-7 min-h-[72px] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] px-2.5 py-3 sm:px-3 sm:py-4 text-center ${className}`}>
       <span className="mb-2 block text-[9px] font-black uppercase tracking-[.2em] text-slate-400">Advertisement</span>
-      <ins
-        ref={adRef}
-        className="adsbygoogle block"
-        style={{ display: 'block', width: '100%' }}
-        data-ad-client={ADS_CLIENT}
-        data-ad-slot={FLUID_AD_SLOT}
-        data-ad-format="fluid"
-        data-ad-layout-key={FLUID_LAYOUT_KEY}
-      />
+      <ins ref={adRef} className="adsbygoogle block" style={{ display: 'block', width: '100%' }} data-ad-client={ADS_CLIENT} data-ad-slot={FLUID_AD_SLOT} data-ad-format="fluid" data-ad-layout-key={FLUID_LAYOUT_KEY} />
     </div>
   );
 };
