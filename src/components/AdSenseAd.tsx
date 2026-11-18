@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { isM2AEmbedded } from '../utils/embeddedNavigation';
 
 const ADS_CLIENT = 'ca-pub-2269884583846743';
 const ADS_SLOT = '2906167922';
@@ -40,11 +41,12 @@ function loadAdSense(): Promise<void> {
 
 export const AdSenseAd: React.FC<{ className?: string }> = ({ className = '' }) => {
   const adRef = useRef<HTMLModElement>(null);
+  const embedded = isM2AEmbedded();
 
   useEffect(() => {
     let cancelled = false;
     const node = adRef.current;
-    if (!node || node.dataset.m2aPushed === 'true') return;
+    if (embedded || !node || node.dataset.m2aPushed === 'true') return;
 
     loadAdSense()
       .then(() => {
@@ -58,7 +60,9 @@ export const AdSenseAd: React.FC<{ className?: string }> = ({ className = '' }) 
       });
 
     return () => { cancelled = true; };
-  }, []);
+  }, [embedded]);
+
+  if (embedded) return null;
 
   return (
     <div className={`my-6 sm:my-7 min-h-[136px] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-2.5 py-3 sm:px-3 sm:py-4 text-center ${className}`}>
@@ -82,11 +86,12 @@ const FLUID_LAYOUT_KEY = '-gw-3+1f-3d+2z';
 
 export const AdSenseFluidAd: React.FC<{ className?: string }> = ({ className = '' }) => {
   const adRef = useRef<HTMLModElement>(null);
+  const embedded = isM2AEmbedded();
 
   useEffect(() => {
     let cancelled = false;
     const node = adRef.current;
-    if (!node || node.dataset.m2aPushed === 'true') return;
+    if (embedded || !node || node.dataset.m2aPushed === 'true') return;
 
     loadAdSense()
       .then(() => {
@@ -99,7 +104,9 @@ export const AdSenseFluidAd: React.FC<{ className?: string }> = ({ className = '
       });
 
     return () => { cancelled = true; };
-  }, []);
+  }, [embedded]);
+
+  if (embedded) return null;
 
   return (
     <div className={`my-6 sm:my-7 min-h-[72px] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] px-2.5 py-3 sm:px-3 sm:py-4 text-center ${className}`}>
