@@ -13,6 +13,7 @@ import { BlogPost } from '../../types';
 import { fetchBloggerPosts } from '../../services/blogger';
 import { AdMobBanner } from '../AdMobBanner';
 import { showToast } from '../Toast';
+import { isM2AEmbedded } from '../../utils/embeddedNavigation';
 
 interface BlogsScreenProps {
   selectedPost?: BlogPost | null;
