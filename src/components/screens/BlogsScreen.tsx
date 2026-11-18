@@ -129,6 +129,8 @@ export const BlogsScreen: React.FC<BlogsScreenProps> = () => {
         </div>
         <a
           href="https://www.marketing2advertising.com"
+          target={isM2AEmbedded() ? "_blank" : undefined}
+          rel={isM2AEmbedded() ? "noopener noreferrer" : undefined}
           className="px-2.5 py-1 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold flex items-center gap-1 transition"
         >
           <span>Visit Blog</span>
@@ -202,6 +204,8 @@ export const BlogsScreen: React.FC<BlogsScreenProps> = () => {
 
               <a
                 href={post.url}
+                target={isM2AEmbedded() ? "_blank" : undefined}
+                rel={isM2AEmbedded() ? "noopener noreferrer" : undefined}
                 className="group flex gap-3.5 p-3 rounded-2xl bg-[#14141e] border border-white/5 hover:border-amber-500/40 cursor-pointer transition active:scale-[0.99] shadow-sm block text-left"
               >
                 <div className="relative w-28 h-24 sm:w-32 sm:h-28 rounded-xl overflow-hidden bg-black shrink-0 border border-white/5">
