@@ -24,11 +24,14 @@ interface BloggerFeedResponse {
 const CACHE_KEY_PREFIX = 'm2a_feed_';
 export function normalizeBloggerPostUrl(rawUrl: string, site: 'main' | 'naka' = 'main'): string {
   if (!rawUrl) return rawUrl;
+
+  // Main Blogger articles must retain the exact canonical URL returned by
+  // www.marketing2advertising.com so homepage feed cards open the original post.
+  if (site === 'main') return rawUrl;
+
   try {
     const url = new URL(rawUrl);
-    if (site === 'main' && url.hostname === 'www.marketing2advertising.com') {
-      url.hostname = 'marketing2advertising.com';
-    } else if (site === 'naka' && url.hostname === 'naka.marketing2advertising.com') {
+    if (site === 'naka' && url.hostname === 'naka.marketing2advertising.com') {
       if (!url.pathname.startsWith('/firimu/')) url.pathname = `/firimu${url.pathname.startsWith('/') ? '' : '/'}${url.pathname}`;
       url.hostname = 'marketing2advertising.com';
     }
