@@ -108,10 +108,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
   const openSlide = () => {
     if (!active) return onSelectTab('firimu');
-    // Open the normalized, first-party M2A post URL rather than an in-app
-    // preview. The URLs are already mapped by blogger.ts:
-    // main blog -> marketing2advertising.com/YYYY/MM/slug.html
-    // Naka Firimu -> marketing2advertising.com/firimu/YYYY/MM/slug.html
+    // Open the original Blogger article URL in the same tab.
+    // Main blog URLs retain www.marketing2advertising.com exactly as returned
+    // by Blogger; Naka Firimu URLs remain mapped to /firimu/ on the app domain.
     if ('movie' in active && active.movie?.url) {
       window.location.assign(active.movie.url);
     } else if ('post' in active && active.post?.url) {
