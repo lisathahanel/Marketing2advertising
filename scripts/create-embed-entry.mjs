@@ -10,12 +10,13 @@ if (!entry?.file) {
   throw new Error('Vite manifest is missing the src/embed.tsx entry.');
 }
 
+const cssFile = entry.css?.[0] || manifest['src/index.css']?.file;
+if (!cssFile) {
+  throw new Error('Vite manifest is missing the shared M2A app stylesheet.');
+}
+
 const assetsDir = path.join(dist, 'assets');
 await mkdir(assetsDir, { recursive: true });
 await copyFile(path.join(dist, entry.file), path.join(assetsDir, 'm2a-embed.js'));
-
-if (!entry.css?.length) {
-  throw new Error('The M2A embed entry did not emit its stylesheet.');
-}
-await copyFile(path.join(dist, entry.css[0]), path.join(assetsDir, 'm2a-embed.css'));
+await copyFile(path.join(dist, cssFile), path.join(assetsDir, 'm2a-embed.css'));
 console.log('Created stable M2A Blogger mount assets: assets/m2a-embed.js and assets/m2a-embed.css');
