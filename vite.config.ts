@@ -10,7 +10,7 @@ export default defineConfig(() => ({
   // Absolute asset base lets the same built React app run from the Blogger
   // www homepage while its JS, lazy chunks, images, and JSON data stay hosted
   // on the standalone non-www app origin.
-  base: 'https://marketing2advertising.com/',
+  base: process.env.NODE_ENV === 'production' ? 'https://marketing2advertising.com/' : '/',
   plugins: [react(), tailwindcss()],
   build: {
     sourcemap: true,
