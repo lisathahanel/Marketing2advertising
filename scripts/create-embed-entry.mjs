@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const dist = path.resolve('dist');
@@ -13,12 +13,17 @@ if (!entry?.file) {
 const assetsDir = path.join(dist, 'assets');
 await mkdir(assetsDir, { recursive: true });
 
-const cssFile = entry.css?.[0];
+// Vite/Rolldown currently emits the shared M2A app stylesheet as src-*.css.
+// The entry manifest does not list CSS directly because the stylesheet is
+// imported through the app entry's shared module graph.
+const cssFiles = (await readdir(assetsDir)).filter((name) => name.endsWith('.css'));
+const cssFile = cssFiles.find((name) => name.startsWith('src-'));
+
 if (!cssFile) {
-  throw new Error('The src/embed.tsx manifest entry has no associated stylesheet.');
+  throw new Error('Could not find the shared M2A app stylesheet (expected src-*.css).');
 }
 
 await copyFile(path.join(dist, entry.file), path.join(assetsDir, 'm2a-embed.js'));
-await copyFile(path.join(dist, cssFile), path.join(assetsDir, 'm2a-embed.css'));
+await copyFile(path.join(assetsDir, cssFile), path.join(assetsDir, 'm2a-embed.css'));
 
-console.log(`Created stable M2A Blogger mount assets from the exact embed entry: ${entry.file} + ${cssFile}`);
+console.log(`Created stable M2A Blogger mount assets using ${entry.file} + ${cssFile}`);
