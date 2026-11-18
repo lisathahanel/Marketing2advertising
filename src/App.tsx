@@ -16,6 +16,7 @@ import { ToastContainer } from './components/Toast';
 import { AdBlockGuard } from './components/AdBlockGuard';
 import { NotificationsPanel } from './components/NotificationsPanel';
 import { AppTool, BlogPost, Channel, GameItem, MovieItem, TabType } from './types';
+import { isM2AEmbedded, openM2APageInNewTab, openM2ASectionInNewTab } from './utils/embeddedNavigation';
 
 // Keep the first screen lean; load feature bundles only when visitors open them.
 const TVScreen = lazy(() => import('./components/screens/TVScreen').then((module) => ({ default: module.TVScreen })));
@@ -26,9 +27,17 @@ const GamesScreen = lazy(() => import('./components/screens/GamesScreen').then((
 const JobsScreen = lazy(() => import('./components/screens/JobsScreen').then((module) => ({ default: module.JobsScreen })));
 const PageScreen = lazy(() => import('./components/screens/PageScreen').then((module) => ({ default: module.PageScreen })));
 
+const VALID_TABS: TabType[] = ['home', 'tv', 'games', 'firimu', 'catalogue', 'blogs', 'emailtools', 'apps', 'jobs'];
+
+function getInitialTab(): TabType {
+  if (typeof window === 'undefined') return 'home';
+  const requested = decodeURIComponent(window.location.hash.replace(/^#\/?/, '').split(/[/?]/)[0] || '');
+  return VALID_TABS.includes(requested as TabType) ? requested as TabType : 'home';
+}
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
-  const [currentTab, setCurrentTab] = useState<TabType>('home');
+  const [currentTab, setCurrentTab] = useState<TabType>(getInitialTab);
   const [channels, setChannels] = useState<Channel[]>([]);
   const [apps, setApps] = useState<AppTool[]>([]);
   const [games, setGames] = useState<GameItem[]>([]);
@@ -122,6 +131,10 @@ export default function App() {
   }, [currentTab, gamesLoaded]);
 
   const handleSelectTab = (tab: TabType) => {
+    if (isM2AEmbedded()) {
+      openM2ASectionInNewTab(tab);
+      return;
+    }
     setCurrentTab(tab);
     setStaticPage(null);
     setSelectedPost(null);
@@ -151,6 +164,10 @@ export default function App() {
   const canGoBack = Boolean(staticPage || selectedPost || selectedMovie || currentTab !== 'home');
 
   const handleOpenPage = (path: string, title: string) => {
+    if (isM2AEmbedded()) {
+      openM2APageInNewTab(path, true);
+      return;
+    }
     setStaticPage({ path, title });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
