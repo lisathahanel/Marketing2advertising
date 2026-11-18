@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, readdir } from 'node:fs/promises';
+import { copyFile, mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const dist = path.resolve('dist');
@@ -12,13 +12,13 @@ if (!entry?.file) {
 
 const assetsDir = path.join(dist, 'assets');
 await mkdir(assetsDir, { recursive: true });
-const cssFiles = (await readdir(assetsDir)).filter((name) => name.endsWith('.css'));
-const cssFile = cssFiles.find((name) => !name.toLowerCase().includes('emailextractor')) || cssFiles[0];
 
+const cssFile = entry.css?.[0];
 if (!cssFile) {
-  throw new Error('Vite did not emit the M2A app stylesheet.');
+  throw new Error('The src/embed.tsx manifest entry has no associated stylesheet.');
 }
 
 await copyFile(path.join(dist, entry.file), path.join(assetsDir, 'm2a-embed.js'));
-await copyFile(path.join(assetsDir, cssFile), path.join(assetsDir, 'm2a-embed.css'));
-console.log(`Created stable M2A Blogger mount assets using ${cssFile}: assets/m2a-embed.js and assets/m2a-embed.css`);
+await copyFile(path.join(dist, cssFile), path.join(assetsDir, 'm2a-embed.css'));
+
+console.log(`Created stable M2A Blogger mount assets from the exact embed entry: ${entry.file} + ${cssFile}`);
