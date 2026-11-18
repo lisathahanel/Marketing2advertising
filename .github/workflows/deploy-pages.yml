@@ -39,8 +39,10 @@ jobs:
         run: |
           test -s dist/index.html
           test -d dist/assets
-          grep -q 'src="./assets/' dist/index.html
-          grep -q 'href="./assets/' dist/index.html
+          grep -q 'src="https://marketing2advertising.com/assets/' dist/index.html
+          grep -q 'href="https://marketing2advertising.com/assets/' dist/index.html
+          test -s dist/assets/m2a-embed.js
+          test -s dist/assets/m2a-embed.css
           find dist/assets -maxdepth 1 -type f -print
           echo "Production HTML and bundled assets verified."
 
