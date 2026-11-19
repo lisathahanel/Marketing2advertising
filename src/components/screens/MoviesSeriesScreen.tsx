@@ -29,12 +29,12 @@ type CatalogueItem = {
 type FeedPayload = { feed?: { entry?: FeedEntry[]; 'openSearch$totalResults'?: { $t?: string } } };
 
 const FEEDS = [
-  { key: 'naka', url: 'https://naka.marketing2advertising.com', kind: 'movie' as const, label: 'Naka Firimu' },
-  { key: 'serie', url: 'https://serie.marketing2advertising.com', kind: 'series' as const, label: 'M2A Series' },
-  { key: 'main', url: 'https://www.marketing2advertising.com', kind: 'series' as const, label: 'M2A Blog' },
+  { key: 'naka', url: 'https://www.marketing2advertising.com', kind: 'movie' as const, label: 'Naka Firimu', feedLabel: 'nakamovies' },
+  { key: 'serie', url: 'https://serie.marketing2advertising.com', kind: 'series' as const, label: 'Serie', feedLabel: '' },
 ];
 const PAGE_SIZE = 24;
 const MAX_PAGES = 4;
+const MAX_SEARCH_PAGES = 40;
 let jsonpSequence = 0;
 
 function cleanText(value: string): string {
@@ -77,7 +77,7 @@ function entryUrl(entry: FeedEntry): string {
     || '';
 }
 
-function loadJsonp(url: string, startIndex: number): Promise<FeedPayload> {
+function loadJsonp(url: string, startIndex: number, label = ''): Promise<FeedPayload> {
   return new Promise((resolve, reject) => {
     const callbackName = `__m2aCatalogueJsonp_${Date.now()}_${++jsonpSequence}`;
     const script = document.createElement('script');
@@ -90,7 +90,7 @@ function loadJsonp(url: string, startIndex: number): Promise<FeedPayload> {
       else resolve(payload || {});
     };
     (window as unknown as Record<string, unknown>)[callbackName] = (payload: FeedPayload) => finish(undefined, payload);
-    const endpoint = new URL('/feeds/posts/default', url);
+    const endpoint = new URL(label ? `/feeds/posts/default/-/${encodeURIComponent(label)}` : '/feeds/posts/default', url);
     endpoint.searchParams.set('alt', 'json-in-script');
     endpoint.searchParams.set('max-results', String(PAGE_SIZE));
     endpoint.searchParams.set('start-index', String(startIndex));
@@ -136,6 +136,9 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
   const [loadedPages, setLoadedPages] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [discussionId, setDiscussionId] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<CatalogueItem[] | null>(null);
+  const [searching, setSearching] = useState(false);
+  const [searchStatus, setSearchStatus] = useState('Enter at least 2 characters to search both catalogues.');
 
   useEffect(() => {
     try {
@@ -150,7 +153,7 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
     const feedsToLoad = initialKind === 'movie' ? FEEDS.slice(0, 1) : FEEDS;
     const results = await Promise.all(feedsToLoad.map(async (feed) => {
       try {
-        const payload = await loadJsonp(feed.url, (page - 1) * PAGE_SIZE + 1);
+        const payload = await loadJsonp(feed.url, (page - 1) * PAGE_SIZE + 1, feed.feedLabel);
         return { items: toItems(payload, feed), error: '' };
       } catch (error) {
         return { items: [] as CatalogueItem[], error: `${feed.label}: ${error instanceof Error ? error.message : 'Feed unavailable'}` };
@@ -172,13 +175,72 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
   useEffect(() => { void fetchPage(1, false); }, [fetchPage]);
 
   const filteredItems = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    return items.filter((item) => {
-      const matchesKind = activeFilter === 'all' || item.kind === activeFilter;
-      const searchable = [item.title, item.excerpt, item.source, ...item.labels].join(' ').toLowerCase();
-      return matchesKind && (!normalized || searchable.includes(normalized));
-    });
-  }, [items, query, activeFilter]);
+    return items.filter((item) => activeFilter === 'all' || item.kind === activeFilter);
+  }, [items, activeFilter]);
+
+  const runSearch = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const term = query.trim().toLowerCase();
+    if (term.length < 2) {
+      setSearchResults(null);
+      setSearchStatus('Please enter at least 2 characters to search.');
+      return;
+    }
+    const feeds = initialKind === 'movie'
+      ? FEEDS.slice(0, 1)
+      : activeFilter === 'movie' ? FEEDS.slice(0, 1)
+      : activeFilter === 'series' ? FEEDS.slice(1, 2) : FEEDS;
+    setSearching(true);
+    setSearchResults([]);
+    setSearchStatus(`Searching ${feeds.map((feed) => feed.label).join(' and ')}...`);
+    const matches = new Map<string, CatalogueItem>();
+    const active = feeds.map(() => true);
+    const errors: string[] = [];
+    let pagesSearched = 0;
+    try {
+      for (let page = 1; page <= MAX_SEARCH_PAGES && active.some(Boolean); page += 1) {
+        setSearchStatus(`Searching ${feeds.map((feed) => feed.label).join(' and ')} — catalogue page ${page} of ${MAX_SEARCH_PAGES}...`);
+        const outcomes = await Promise.all(feeds.map(async (feed, index) => {
+          if (!active[index]) return { index, items: null as CatalogueItem[] | null, error: '' };
+          try {
+            const payload = await loadJsonp(feed.url, (page - 1) * PAGE_SIZE + 1, feed.feedLabel);
+            return { index, items: toItems(payload, feed), error: '' };
+          } catch (error) {
+            return { index, items: [] as CatalogueItem[], error: `${feed.label}: ${error instanceof Error ? error.message : 'Feed unavailable'}` };
+          }
+        }));
+        outcomes.forEach((outcome) => {
+          if (outcome.items === null) return;
+          if (outcome.error) {
+            active[outcome.index] = false;
+            errors.push(outcome.error);
+            return;
+          }
+          pagesSearched += 1;
+          outcome.items.forEach((item) => {
+            const searchable = [item.title, item.excerpt, item.source, ...item.labels].join(' ').toLowerCase();
+            if (searchable.includes(term)) matches.set(item.url, item);
+          });
+          if (outcome.items.length < PAGE_SIZE) active[outcome.index] = false;
+        });
+      }
+      const found = Array.from(matches.values()).sort((a, b) => a.title.localeCompare(b.title));
+      setSearchResults(found);
+      setSearchStatus(found.length
+        ? `Found ${found.length} matching result(s). Searched ${pagesSearched} feed page(s).${errors.length ? ` Some results may be missing: ${errors.join(' ')}` : ''}`
+        : `No matching movies or series found. Searched ${pagesSearched} feed page(s).${errors.length ? ` ${errors.join(' ')}` : ''}`);
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  const clearSearch = () => {
+    setQuery('');
+    setSearchResults(null);
+    setSearchStatus('Enter at least 2 characters to search both catalogues.');
+  };
+
+  const displayedItems = (searchResults ?? filteredItems).filter((item) => activeFilter === 'all' || item.kind === activeFilter);
 
   const toggleSaved = (id: string) => {
     setSaved((previous) => {
@@ -196,24 +258,29 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
             <Film size={16} /> Marketing2Advertising Entertainment
           </div>
           <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl">{initialKind === 'movie' ? 'Firimu' : 'Movies & Series'}</h1>
-          <p className="mt-2 max-w-2xl text-sm text-slate-300">{initialKind === 'movie' ? 'Browse Luganda-translated movies from Naka Marketing2Advertising.' : 'Explore films, TV series and the latest stories from all three Marketing2Advertising Blogger sites.'}</p>
+          <p className="mt-2 max-w-2xl text-sm text-slate-300">{initialKind === 'movie' ? 'Browse movies from Naka Firimu.' : 'Search and explore movies from Naka Firimu and series from M2A Serie.'}</p>
           <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-            {initialKind === 'movie' ? <span className="rounded-full border border-white/15 px-3 py-1">Naka Movies · naka.marketing2advertising.com</span> : <><span className="rounded-full border border-white/15 px-3 py-1">Naka Firimu</span><span className="rounded-full border border-white/15 px-3 py-1">M2A Series</span><span className="rounded-full border border-white/15 px-3 py-1">Main M2A Blog</span></>}
+            {initialKind === 'movie' ? <span className="rounded-full border border-white/15 px-3 py-1">Naka Movies · naka.marketing2advertising.com</span> : <><span className="rounded-full border border-white/15 px-3 py-1">Naka Firimu</span><span className="rounded-full border border-white/15 px-3 py-1">M2A Series</span></>}
           </div>
         </div>
 
         <div className="sticky top-2 z-20 mb-5 rounded-2xl border border-white/10 bg-[#141a20]/95 p-3 shadow-lg backdrop-blur">
-          <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#0b0f13] px-3 py-2.5">
-            <Search size={18} className="shrink-0 text-emerald-300" />
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search movies, series, titles or labels..." className="w-full bg-transparent text-sm text-slate-100 outline-none placeholder:text-slate-500" />
-          </label>
+          <form onSubmit={runSearch} className="flex flex-col gap-2 sm:flex-row">
+            <label className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-white/10 bg-[#0b0f13] px-3 py-2.5">
+              <Search size={18} className="shrink-0 text-emerald-300" />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search Naka Firimu and Serie..." aria-label="Search Naka Firimu and Serie" className="w-full bg-transparent text-sm text-slate-100 outline-none placeholder:text-slate-500" />
+            </label>
+            <button type="submit" disabled={searching} className="rounded-xl bg-[#7CFF00] px-5 py-2.5 text-xs font-black tracking-wide text-[#071000] disabled:cursor-wait disabled:opacity-60">{searching ? 'SEARCHING…' : 'SEARCH'}</button>
+            <button type="button" onClick={clearSearch} className="rounded-xl border border-white/15 px-4 py-2.5 text-xs font-bold text-slate-300 hover:bg-white/5">CLEAR</button>
+          </form>
+          <p role="status" aria-live="polite" className="mt-2 text-[11px] text-slate-400">{searchStatus}</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {([{ id: 'all', label: 'All' }, { id: 'movie', label: 'Firimu' }, { id: 'series', label: 'Series' }] as const).map((filter) => (
               <button key={filter.id} onClick={() => setActiveFilter(filter.id)} className={`rounded-full px-4 py-2 text-xs font-extrabold transition ${activeFilter === filter.id ? 'bg-emerald-400 text-[#07110c] shadow' : 'bg-white/5 text-slate-300 hover:bg-white/10'}`}>
                 {filter.label}
               </button>
             ))}
-            <span className="ml-auto self-center text-xs font-semibold text-slate-400">{filteredItems.length} titles</span>
+            <span className="ml-auto self-center text-xs font-semibold text-slate-400">{displayedItems.length} titles</span>
           </div>
         </div>
 
@@ -227,7 +294,7 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
 
         {loading ? (
           <div className="flex min-h-48 items-center justify-center gap-3 text-sm font-semibold text-slate-400"><Loader2 className="animate-spin" /> Loading movies and series…</div>
-        ) : filteredItems.length === 0 ? (
+        ) : displayedItems.length === 0 ? (
           <div className="rounded-2xl border border-white/10 bg-[#f8f3e7] p-8 text-center">
             <Film className="mx-auto mb-3 text-emerald-300" size={30} />
             <h2 className="font-bold">No titles found</h2>
@@ -235,7 +302,7 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
-            {filteredItems.map((item, index) => (
+            {displayedItems.map((item, index) => (
               <React.Fragment key={item.id}>
                 <article className="group overflow-hidden rounded-2xl border border-white/10 bg-[#141a20] shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
                   <a href={item.url} className="block">
@@ -285,7 +352,7 @@ export const MoviesSeriesScreen: React.FC<{ initialKind?: 'all' | CatalogueKind 
             </button>
           </div>
         )}
-        <p className="mt-8 text-center text-[10px] text-[#8b8068]">Content is loaded from the original M2A Blogger websites. Open a title to visit its source post.</p>
+        <p className="mt-8 text-center text-[10px] text-[#8b8068]">Search checks Naka Firimu and Serie feeds only when you submit a search. Open a title to visit its post on the M2A app domain.</p>
       </div>
     </section>
   );
