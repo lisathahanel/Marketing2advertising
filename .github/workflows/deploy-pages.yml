@@ -67,6 +67,9 @@ jobs:
           test -d dist/p
           echo "Existing website folders, posts, and static pages restored."
 
+      - name: Install unified Naka Firimu and Serie search across all Firimu pages and posts
+        run: node scripts/inject-firimu-search.mjs dist/firimu
+
       - name: Publish independent Email Extractor app
         run: |
           set -eu
