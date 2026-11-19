@@ -373,6 +373,7 @@ img{max-width:100%;display:block}
   .m2a-title{font-size:25px}
 }
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -466,7 +467,7 @@ img{max-width:100%;display:block}
 (function(){
 "use strict";
 var CONFIG = {
-  sources: [{ url: "https://www.marketing2advertising.com", kind: "all" }],
+  sources: [{ url: "https://www.marketing2advertising.com", feed: "/feeds/posts/default/-/nakaseries", kind: "series" }],
   pageSize: 24,
   maxPages: 40,
   adEvery: 12,
@@ -498,12 +499,8 @@ function cleanTitle(entry){ return (entry.title && entry.title.$t) ? entry.title
 function rewritePostDomain(postUrl){
   try {
     var parsed = new URL(postUrl);
-    if(parsed.hostname === "www.marketing2advertising.com" || parsed.hostname === "www.marketing2advertising.com"){
-      parsed.hostname = "marketing2advertising.com";
-      if(!/^\/firimu(?:\/|$)/i.test(parsed.pathname)){
-        parsed.pathname = "/firimu" + (parsed.pathname.charAt(0) === "/" ? "" : "/") + parsed.pathname;
-      }
-    }
+    parsed.hostname = "www.marketing2advertising.com";
+    parsed.hash = "";
     return parsed.href;
   } catch(e){ return postUrl; }
 }
@@ -556,7 +553,7 @@ function convertEntries(data, source){
 }
 function loadPage(source, page){
   var start = (page-1)*CONFIG.pageSize + 1;
-  var url = source.url + "/feeds/posts/default?alt=json-in-script&max-results=" + CONFIG.pageSize + "&start-index=" + start;
+  var url = source.url + (source.feed || "/feeds/posts/default") + "?alt=json-in-script&max-results=" + CONFIG.pageSize + "&start-index=" + start;
   return jsonp(url).then(function(data){ return convertEntries(data, source); }).catch(function(){ return []; });
 }
 function addItems(newItems){
