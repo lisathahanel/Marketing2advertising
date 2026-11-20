@@ -75,7 +75,7 @@ function replaceRewritePostFunctions(source, replacement) {
 }
 
 function dedupeAdSenseLoaders(html) {
-  const pattern = /<script\\b(?=[^>]*\\bsrc\\s*=\\s*["'][^"']*adsbygoogle\\.js[^"']*["'])[^>]*>\\s*<\\/script>/gi;
+  const pattern = /<script\b(?=[^>]*\bsrc\s*=\s*["'][^"']*adsbygoogle\.js[^"']*["'])[^>]*>\s*<\/script>/gi;
   let seen = false;
   let removed = 0;
   const output = html.replace(pattern, tag => {
