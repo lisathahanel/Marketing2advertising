@@ -161,6 +161,16 @@
       margin-bottom: 8px;
     }
 
+    /* Keep responsive AdSense units measurable inside centred flex placements. */
+    .sidebar-ad .adsbygoogle,
+    .hero-ad .adsbygoogle,
+    .bottom-ad .adsbygoogle {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+
     .sidebar-footer {
       padding: 12px 20px 20px;
       font-size: 12px;
@@ -628,17 +638,16 @@
     return (entry.title && entry.title.$t) ? entry.title.$t : "Untitled";
   }
 
-  function rewritePostDomain(url) {
+  function rewritePostDomain(postUrl) {
     try {
-      const p = new URL(url);
-      if (p.hostname === "www.marketing2advertising.com" || p.hostname === "serie.marketing2advertising.com") {
-        p.hostname = "marketing2advertising.com";
-        if (!/^\/firimu(?:\/|$)/i.test(p.pathname)) {
-          p.pathname = "/firimu" + (p.pathname.charAt(0) === "/" ? "" : "/") + p.pathname;
-        }
-      }
-      return p.href;
-    } catch(e) { return url; }
+      const parsed = new URL(postUrl, CONFIG.baseUrl);
+      parsed.protocol = "https:";
+      parsed.hostname = "www.marketing2advertising.com";
+      parsed.pathname = parsed.pathname.replace(/^\\/firimu(?=\\/|$)/i, "") || "/";
+      return parsed.href;
+    } catch(e) {
+      return postUrl;
+    }
   }
 
   function entryUrl(entry) {
