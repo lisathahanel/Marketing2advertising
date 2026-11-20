@@ -20,6 +20,59 @@ const canonicalPostLinkFunction = `function rewritePostDomain(postUrl){
   }
 }`;
 
+const categoryPages = new Set([
+  "action.html", "adventure.html", "animation-and-fantasy.html",
+  "comedy.html", "crime.html", "horror.html", "sci-fi.html",
+  "vj-chris-edwards.html", "vj-emmy.html", "vj-icep.html",
+  "vj-jingo.html", "vj-junior.html", "vj-kevo.html",
+  "vj-mark.html", "vj-muba.html", "vj-ulio.html"
+]);
+
+function replaceRewritePostFunctions(source, replacement) {
+  const pattern = /function\s+rewritePostDomain\s*\(\s*postUrl\s*\)\s*\{/g;
+  let output = "";
+  let cursor = 0;
+  let count = 0;
+  let match;
+
+  while ((match = pattern.exec(source))) {
+    const open = match.index + match[0].lastIndexOf("{");
+    let depth = 0;
+    let quote = "";
+    let escaped = false;
+    let lineComment = false;
+    let blockComment = false;
+    let end = -1;
+
+    for (let i = open; i < source.length; i++) {
+      const ch = source[i];
+      const next = source[i + 1];
+      if (lineComment) { if (ch === "\n") lineComment = false; continue; }
+      if (blockComment) { if (ch === "*" && next === "/") { blockComment = false; i++; } continue; }
+      if (quote) {
+        if (escaped) { escaped = false; continue; }
+        if (ch === "\\") { escaped = true; continue; }
+        if (ch === quote) quote = "";
+        continue;
+      }
+      if (ch === "/" && next === "/") { lineComment = true; i++; continue; }
+      if (ch === "/" && next === "*") { blockComment = true; i++; continue; }
+      if (ch === "'" || ch === '"' || ch.charCodeAt(0) === 96) { quote = ch; continue; }
+      if (ch === "{") depth++;
+      if (ch === "}") { depth--; if (depth === 0) { end = i; break; } }
+    }
+
+    if (end < 0) throw new Error("Unclosed rewritePostDomain function body");
+    output += source.slice(cursor, match.index) + replacement;
+    cursor = end + 1;
+    count++;
+    pattern.lastIndex = end + 1;
+  }
+
+  output += source.slice(cursor);
+  return { html: output, count };
+}
+
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const file = path.join(dir, entry.name);
@@ -31,14 +84,21 @@ function walk(dir) {
     scanned++;
     let html = fs.readFileSync(file, "utf8");
 
-    // Make every feed-card link open the original Blogger post on www,
-    // without the standalone app's /firimu/ path prefix.
-    const rewritePattern = /function\s+rewritePostDomain\s*\(\s*postUrl\s*\)\s*\{[\s\S]*?\n\}/g;
-    html = html.replace(rewritePattern, function () {
-      postLinkFunctionsRewritten++;
-      return canonicalPostLinkFunction;
-    });
-    if (!/id=["']m2a-search-box["']/i.test(html)) continue;
+    // Replace complete function bodies with brace-aware scanning.
+    const rewritten = replaceRewritePostFunctions(html, canonicalPostLinkFunction);
+    html = rewritten.html;
+    postLinkFunctionsRewritten += rewritten.count;
+
+    // Category pages retain their own fast, label-specific search and feed UI.
+    if (categoryPages.has(path.basename(file).toLowerCase())) {
+      fs.writeFileSync(file, html, "utf8");
+      continue;
+    }
+
+    if (!/id=["']m2a-search-box["']/i.test(html)) {
+      if (rewritten.count) fs.writeFileSync(file, html, "utf8");
+      continue;
+    }
     if (!/<\/head>/i.test(html)) {
       console.warn("Skipped search injection (no head): " + file);
       continue;
