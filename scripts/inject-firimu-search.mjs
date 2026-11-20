@@ -33,7 +33,7 @@ function walk(dir) {
 
     // Make every feed-card link open the original Blogger post on www,
     // without the standalone app's /firimu/ path prefix.
-    const rewritePattern = /function\\s+rewritePostDomain\\s*\\(\\s*postUrl\\s*\\)\\s*\\{[\\s\\S]*?\\n\\}/g;
+    const rewritePattern = /function\s+rewritePostDomain\s*\(\s*postUrl\s*\)\s*\{[\s\S]*?\n\}/g;
     html = html.replace(rewritePattern, function () {
       postLinkFunctionsRewritten++;
       return canonicalPostLinkFunction;
