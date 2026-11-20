@@ -976,7 +976,7 @@ body {
   ========================================= */
 
   var BLOG_URL =
-    "https://naka.marketing2advertising.com";
+    "https://www.marketing2advertising.com";
 
   var LABEL =
     "vj-muba";
@@ -1047,17 +1047,17 @@ body {
   
   /* Send Blogger post clicks to the main site's /firimu/ section.
      Feed requests continue using their original Naka/Serie subdomains. */
-  function rewritePostDomain(postUrl) {
-    try {
-      var parsed = new URL(postUrl);
-      if (
-        parsed.hostname === "www.marketing2advertising.com" ||
-        parsed.hostname === "serie.marketing2advertising.com"
-      ) {
-        parsed.hostname = "marketing2advertising.com";
-        if (!/^\/firimu(?:\/|$)/i.test(parsed.pathname)) {
-          parsed.pathname = "/firimu" + (parsed.pathname.charAt(0) === "/" ? "" : "/") + parsed.pathname;
-        }
+  function rewritePostDomain(postUrl){
+  try {
+    var parsed = new URL(postUrl);
+    parsed.protocol = "https:";
+    parsed.hostname = "www.marketing2advertising.com";
+    parsed.pathname = parsed.pathname.replace(/^\/firimu(?=\/|$)/i, "") || "/";
+    return parsed.href;
+  } catch(e){
+    return postUrl;
+  }
+}
       }
       return parsed.href;
     } catch (error) {
@@ -1719,8 +1719,9 @@ var CONFIG={
   sources:[
 
     {
-      url:"https://serie.marketing2advertising.com",
-      kind:"series"
+      url:"https://www.marketing2advertising.com",
+      kind:"movie",
+      label:"vj-muba"
     }
 
   ],
@@ -1755,7 +1756,7 @@ var state={
 
   items:[],
 
-  filter:"series",
+  filter:"movie",
 
   query:"",
 
@@ -2112,9 +2113,14 @@ function loadPage(source,page){
     CONFIG.pageSize +
     1;
 
+  var feedPath=source.label
+    ? "/feeds/posts/default/-/" + encodeURIComponent(source.label)
+    : "/feeds/posts/default";
+
   var url=
     source.url +
-    "/feeds/posts/default?alt=json-in-script&max-results=" +
+    feedPath +
+    "?alt=json-in-script&max-results=" +
     CONFIG.pageSize +
     "&start-index=" +
     start;
@@ -3328,7 +3334,8 @@ var CONFIG={
 
     {
       url:"https://www.marketing2advertising.com",
-      kind:"all"
+      kind:"movie",
+      label:"vj-muba"
     }
 
   ],
@@ -3466,17 +3473,17 @@ function cleanTitle(entry){
 
   /* Send Blogger post clicks to the main site's /firimu/ section.
      Feed requests continue using their original Naka/Serie subdomains. */
-  function rewritePostDomain(postUrl) {
-    try {
-      var parsed = new URL(postUrl);
-      if (
-        parsed.hostname === "www.marketing2advertising.com" ||
-        parsed.hostname === "serie.marketing2advertising.com"
-      ) {
-        parsed.hostname = "marketing2advertising.com";
-        if (!/^\/firimu(?:\/|$)/i.test(parsed.pathname)) {
-          parsed.pathname = "/firimu" + (parsed.pathname.charAt(0) === "/" ? "" : "/") + parsed.pathname;
-        }
+  function rewritePostDomain(postUrl){
+  try {
+    var parsed = new URL(postUrl);
+    parsed.protocol = "https:";
+    parsed.hostname = "www.marketing2advertising.com";
+    parsed.pathname = parsed.pathname.replace(/^\/firimu(?=\/|$)/i, "") || "/";
+    return parsed.href;
+  } catch(e){
+    return postUrl;
+  }
+}
       }
       return parsed.href;
     } catch (error) {
@@ -3741,9 +3748,14 @@ function loadPage(source,page){
     CONFIG.pageSize +
     1;
 
+  var feedPath=source.label
+    ? "/feeds/posts/default/-/" + encodeURIComponent(source.label)
+    : "/feeds/posts/default";
+
   var url=
     source.url +
-    "/feeds/posts/default?alt=json-in-script&max-results=" +
+    feedPath +
+    "?alt=json-in-script&max-results=" +
     CONFIG.pageSize +
     "&start-index=" +
     start;
