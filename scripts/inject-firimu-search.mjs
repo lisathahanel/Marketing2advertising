@@ -7,6 +7,7 @@ if (!fs.existsSync(root)) throw new Error("Firimu output folder not found: " + r
 let scanned = 0;
 let updated = 0;
 let postLinkFunctionsRewritten = 0;
+let adsenseLoaderTagsRemoved = 0;
 
 const canonicalPostLinkFunction = `function rewritePostDomain(postUrl){
   try {
@@ -73,6 +74,21 @@ function replaceRewritePostFunctions(source, replacement) {
   return { html: output, count };
 }
 
+function dedupeAdSenseLoaders(html) {
+  const pattern = /<script\\b(?=[^>]*\\bsrc\\s*=\\s*["'][^"']*adsbygoogle\\.js[^"']*["'])[^>]*>\\s*<\\/script>/gi;
+  let seen = false;
+  let removed = 0;
+  const output = html.replace(pattern, tag => {
+    if (!seen) {
+      seen = true;
+      return tag;
+    }
+    removed++;
+    return "";
+  });
+  return { html: output, removed };
+}
+
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const file = path.join(dir, entry.name);
@@ -89,6 +105,12 @@ function walk(dir) {
     html = rewritten.html;
     postLinkFunctionsRewritten += rewritten.count;
 
+    // Keep one AdSense loader per document; preserve every individual ad unit
+    // and its adsbygoogle.push() call.
+    const dedupedAds = dedupeAdSenseLoaders(html);
+    html = dedupedAds.html;
+    adsenseLoaderTagsRemoved += dedupedAds.removed;
+
     // Category pages retain their own fast, label-specific search and feed UI.
     if (categoryPages.has(path.basename(file).toLowerCase())) {
       fs.writeFileSync(file, html, "utf8");
@@ -96,7 +118,7 @@ function walk(dir) {
     }
 
     if (!/id=["']m2a-search-box["']/i.test(html)) {
-      if (rewritten.count) fs.writeFileSync(file, html, "utf8");
+      if (rewritten.count || dedupedAds.removed) fs.writeFileSync(file, html, "utf8");
       continue;
     }
     if (!/<\/head>/i.test(html)) {
@@ -117,6 +139,7 @@ function walk(dir) {
 
 walk(root);
 console.log("Firimu feed-link rewrite: updated " + postLinkFunctionsRewritten + " post-link functions to www Blogger URLs without /firimu/.");
+console.log("AdSense loader cleanup: removed " + adsenseLoaderTagsRemoved + " duplicate loader tags while preserving ad units.");
 console.log("Firimu unified search injection: scanned " + scanned + " HTML files; updated " + updated + " pages/posts.");
 if (postLinkFunctionsRewritten === 0) throw new Error("No existing Firimu feed-link functions were found to rewrite.");
 if (updated === 0) throw new Error("No Firimu pages with the existing search box were updated.");
