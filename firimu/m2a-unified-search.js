@@ -69,14 +69,11 @@
       if (links[i].rel !== "alternate" || !links[i].href) continue;
       try {
         var url = new URL(links[i].href);
-        if (url.hostname === "www.marketing2advertising.com" ||
-            url.hostname === "serie.marketing2advertising.com") {
-          url.hostname = "marketing2advertising.com";
-          if (!/^\/firimu(?:\/|$)/i.test(url.pathname)) {
-            url.pathname = "/firimu" + (url.pathname.charAt(0) === "/" ? "" : "/") + url.pathname;
-          }
-        }
+        // Feed results must open the original Blogger post on the www domain,
+        // not the standalone non-www /firimu app route.
         url.protocol = "https:";
+        url.hostname = "www.marketing2advertising.com";
+        url.pathname = url.pathname.replace(/^\/firimu(?=\/|$)/i, "") || "/";
         return url.href;
       } catch (error) {
         return links[i].href;
