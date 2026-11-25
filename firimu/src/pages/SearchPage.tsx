@@ -63,7 +63,7 @@ export const SearchPage: React.FC = () => {
             ? `Search: ${trimmed} — ${SITE_NAME}`
             : `Instant Search — ${SITE_NAME}`
         }
-        description="Search Luganda translated movies, series, VJs, genres, and synopses instantly."
+        description="Search movies, series, VJs, genres, and synopses instantly."
         canonicalPath="/search"
       />
 
