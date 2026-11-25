@@ -1,0 +1,6 @@
+{
+  "name": "M2a Movies (Firimu)",
+  "description": "Free Luganda translated Firimu and series instant search, in All VJs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
