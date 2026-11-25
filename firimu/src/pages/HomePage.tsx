@@ -219,8 +219,8 @@ export const HomePage: React.FC = () => {
   return (
     <div>
       <SeoHead
-        title={`${SITE_NAME} — Free Luganda Translated Movies & Series`}
-        description={`${FOOTER_TAGLINE}. Stream multi-part Luganda translated movies and full series episodes online.`}
+        title={`${SITE_NAME} — Movies & Series`}
+        description={`${FOOTER_TAGLINE}. Browse movies and full series episodes online.`}
         canonicalPath="/"
         image={spotlight?.posterUrl}
       />
@@ -304,7 +304,7 @@ export const HomePage: React.FC = () => {
 
                 <p className="mt-4 line-clamp-3 max-w-xl text-sm leading-relaxed text-[#CACACA] sm:text-base">
                   {spotlight.synopsis[0] ||
-                    `Stream ${spotlight.displayTitle} translated in Luganda by ${spotlight.vjName}.`}
+                    `Discover ${spotlight.displayTitle}, presented by ${spotlight.vjName}.`}
                 </p>
 
                 <div className="mt-7 flex flex-wrap items-center gap-3.5">
@@ -792,7 +792,7 @@ export const HomePage: React.FC = () => {
           </section>
         )}
 
-        {/* Luganda Series Horizontal Strip */}
+        {/* Series Horizontal Strip */}
         {seriesRailItems.length > 0 && (
           <section aria-labelledby="series-rail-heading">
             <div className="mb-4 flex items-center justify-between gap-4">
@@ -801,7 +801,7 @@ export const HomePage: React.FC = () => {
                   id="series-rail-heading"
                   className="font-display text-xl font-bold tracking-tight text-[#F9F9F9] sm:text-2xl"
                 >
-                  Luganda Series
+                  Series
                 </h2>
                 <Link
                   to={`/search/label/${SERIES_FEED_LABEL}`}
