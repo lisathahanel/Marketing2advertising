@@ -131,6 +131,16 @@ export default function App() {
   }, [currentTab, gamesLoaded]);
 
   const handleSelectTab = (tab: TabType) => {
+    // Use the dedicated Firimu application for the movie and series catalogue.
+    // Keep the main M2A home, TV, games, blogs, and other tools on this app.
+    if (tab === 'firimu') {
+      window.location.assign('/firimu/');
+      return;
+    }
+    if (tab === 'catalogue') {
+      window.location.assign('/firimu/search/label/nakaseries');
+      return;
+    }
     if (isM2AEmbedded()) {
       openM2ASectionInNewTab(tab);
       return;
