@@ -1,4 +1,4 @@
-export const SITE_NAME = 'M2a Movies (Firimu)';
+export const SITE_NAME = 'Marketing2Advertising Firimu';
 export const SITE_SHORT_NAME = 'Firimu';
 export const BASE_PATH = '/firimu';
 export const CANONICAL_ORIGIN = 'https://marketing2advertising.com';
@@ -32,6 +32,6 @@ export const VJ_LIST = [
 ] as const;
 
 export const FOOTER_TAGLINE =
-  'Free Luganda translated Firimu and series instant search, in All VJS';
+  'Discover movies and series, explore titles by genre and VJ, and find your next watch.';
 export const FOOTER_COPYRIGHT =
   'Copyright © 2026 marketing2advertising All Right Reserved';
