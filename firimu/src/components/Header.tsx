@@ -105,12 +105,11 @@ export const Header: React.FC = () => {
                 >
                   All Movies (Firimu)
                 </Link>
-                <Link
-                  to="/search/label/Live%20TV"
+                <a href="/firimu/tv/"
                   className="block rounded-lg px-3 py-2 text-sm text-[#CACACA] transition-colors hover:bg-white/[0.07] hover:text-white"
                 >
                   Live TV
-                </Link>
+                </a>
                 <div className="my-1 border-t border-white/[0.08]" />
                 {MOVIE_GENRES.map((genre) => (
                   <Link
@@ -244,12 +243,11 @@ export const Header: React.FC = () => {
                   >
                     All Movies (Firimu)
                   </Link>
-                  <Link
-                    to="/search/label/Live%20TV"
+                  <a href="/firimu/tv/"
                     className="flex min-h-[44px] items-center rounded-lg px-3 text-sm text-[#A4A9B8] hover:bg-white/[0.07] hover:text-white"
                   >
                     Live TV
-                  </Link>
+                  </a>
                   {MOVIE_GENRES.map((genre) => (
                     <Link
                       key={genre}
