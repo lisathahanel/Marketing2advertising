@@ -78,8 +78,8 @@ jobs:
           mkdir -p dist/firimu
           cp -a firimu/dist/. dist/firimu/
           test -s dist/firimu/index.html
-          grep -Eq 'src="/firimu/assets/[^"]+\\.js"' dist/firimu/index.html
-          grep -Eq 'href="/firimu/assets/[^"]+\\.css"' dist/firimu/index.html
+          grep -Eq 'src="/firimu/assets/[^"]+\.js"' dist/firimu/index.html
+          grep -Eq 'href="/firimu/assets/[^"]+\.css"' dist/firimu/index.html
           test -s dist/firimu/manifest.webmanifest
           echo "Firimu React app built and published under /firimu/."
 
