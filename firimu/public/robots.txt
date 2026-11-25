@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /firimu/
+
+Sitemap: https://marketing2advertising.com/firimu/sitemap.xml
