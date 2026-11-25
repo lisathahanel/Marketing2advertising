@@ -47,6 +47,9 @@
           }
         });
       });
+      // Push notifications are optional: handle provider startup failures here
+      // so they cannot trigger the global fatal app-startup error handler.
+      window.__M2A_ONESIGNAL_READY__.catch(function () {});
     </script>
 
     <link rel="preconnect" href="https://marketing2advertising.com" />
