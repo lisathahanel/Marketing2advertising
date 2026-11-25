@@ -66,6 +66,16 @@ jobs:
           test -d dist/p
           echo "Existing website folders, posts, and static pages restored."
 
+      - name: Copy the existing Live TV app into Firimu
+        run: |
+          set -eu
+          # Keep the original /tv/ site intact while also publishing the same pages under /firimu/tv/.
+          mkdir -p firimu/public/tv
+          cp -a tv/. firimu/public/tv/
+          test -s firimu/public/tv/index.html
+          test -s firimu/public/tv/citizentv.html
+          echo "Standalone /tv/ and Firimu /firimu/tv/ will both be published."
+
       - name: Build and publish the new Firimu application
         run: |
           set -eu
