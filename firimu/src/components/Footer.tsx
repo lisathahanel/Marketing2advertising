@@ -16,7 +16,7 @@ export const Footer: React.FC = () => {
               <span className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-[#0483EE] to-[#0063E5] text-white">
                 <Play className="ml-0.5 h-3.5 w-3.5 fill-current" aria-hidden="true" />
               </span>
-              <span>M2a Movies (Firimu)</span>
+              <span>Marketing2Advertising Firimu</span>
             </Link>
             <p className="mt-2 max-w-xl text-sm text-[#A4A9B8]">
               {FOOTER_TAGLINE}
