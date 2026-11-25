@@ -38,6 +38,12 @@ const COLLECTION_HUBS = [
     glow: 'hover:shadow-[0_24px_40px_-14px_rgba(0,99,229,0.5)]',
   },
   {
+    title: 'Live TV',
+    subtitle: 'Watch Live Channels',
+    to: '/tv/',
+    glow: 'hover:shadow-[0_24px_40px_-14px_rgba(225,29,72,0.45)]',
+  },
+  {
     title: 'Series',
     subtitle: 'Full Episodes',
     to: `/search/label/${SERIES_FEED_LABEL}`,
