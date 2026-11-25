@@ -23,9 +23,9 @@ export default defineConfig(() => {
         ],
         manifest: {
           id: '/firimu/',
-          name: 'M2a Movies (Firimu)',
+          name: 'Marketing2Advertising Firimu',
           short_name: 'Firimu',
-          description: 'Free Luganda translated Firimu and series instant search, in All VJs.',
+          description: 'Discover movies and series, browse by genre and VJ, and explore multi-part titles and episodes.',
           theme_color: '#040714',
           background_color: '#040714',
           display: 'standalone',
