@@ -1,6 +1,6 @@
 {
-  "name": "M2a Movies (Firimu)",
-  "description": "Free Luganda translated Firimu and series instant search, in All VJs.",
+  "name": "Marketing2Advertising Firimu",
+  "description": "Discover movies and series, browse by genre and VJ, and explore multi-part titles and episodes.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
