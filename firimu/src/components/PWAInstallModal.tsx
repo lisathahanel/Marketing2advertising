@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Download, Monitor, Share, Smartphone, X} from 'lucide-react';
+import {Download, Monitor, Share, X} from 'lucide-react';
 import {usePWAInstall} from '../hooks/usePWAInstall.ts';
 
 interface PWAInstallButtonProps {
@@ -11,7 +11,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
   className = '',
   onModalOpen,
 }) => {
-  const {isNativeInstallable, isInstalled, isIOS, isAndroid, promptNativeInstall} =
+  const {isNativeInstallable, isInstalled, isIOS, promptNativeInstall} =
     usePWAInstall();
   const [showGuide, setShowGuide] = useState(false);
 
