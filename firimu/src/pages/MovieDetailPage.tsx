@@ -322,7 +322,7 @@ export const MovieDetailPage: React.FC = () => {
     movie.genres[0] || (movie.contentType === 'series' ? 'Series' : 'Movies');
   const descriptionText =
     movie.synopsis[0]?.slice(0, 158) ||
-    `Watch ${movie.displayTitle} translated in Luganda by ${movie.vjName} on ${SITE_NAME}.`;
+    `Watch ${movie.displayTitle}, presented by ${movie.vjName}, on ${SITE_NAME}.`;
 
   const movieJsonLd = {
     '@context': 'https://schema.org',
@@ -752,7 +752,7 @@ export const MovieDetailPage: React.FC = () => {
               movie.synopsis.map((para, i) => <p key={i}>{para}</p>)
             ) : (
               <p>
-                Stream {movie.displayTitle} translated into Luganda by {movie.vjName}.
+                Stream {movie.displayTitle}, presented by {movie.vjName}.
                 {movie.parts.length > 1
                   ? ` Includes ${movie.parts.length} ${movie.contentType === 'series' ? 'episodes' : 'parts'} ready to watch.`
                   : ''}
