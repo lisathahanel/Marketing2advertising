@@ -1,8 +1,0 @@
-{
-  "name": "M2A IP Shield",
-  "description": "M2A IP Shield — a cross-platform privacy dashboard for public IP checks and browser diagnostics, with native VPN clients planned for supported devices.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
-}
