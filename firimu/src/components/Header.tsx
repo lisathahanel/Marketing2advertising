@@ -62,7 +62,7 @@ export const Header: React.FC = () => {
             <Play className="ml-0.5 h-4 w-4 fill-current" aria-hidden="true" />
           </span>
           <span className="font-display text-lg font-extrabold tracking-tight text-[#F9F9F9]">
-            M2a Movies
+            Firimu
           </span>
         </Link>
 
