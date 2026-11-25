@@ -20,12 +20,23 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
   }
 
   const handleClick = async () => {
+    // On Android, use the browser's native install sheet directly.
+    // Do not open the long manual instructions on mobile.
     if (isNativeInstallable) {
-      const accepted = await promptNativeInstall();
-      if (accepted) return;
+      await promptNativeInstall();
+      return;
     }
-    setShowGuide(true);
-    onModalOpen?.();
+
+    // iOS Safari does not provide a native install prompt.
+    // Keep its short Add to Home Screen guidance only.
+    if (isIOS) {
+      setShowGuide(true);
+      onModalOpen?.();
+      return;
+    }
+
+    // Android browsers that have not exposed the install prompt yet
+    // should not be sent through a desktop-style instruction modal.
   };
 
   return (
@@ -36,7 +47,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
         className={`inline-flex min-h-[42px] items-center gap-2 whitespace-nowrap shrink-0 rounded-lg bg-[#0063E5] px-4 py-2 text-xs font-semibold tracking-wide text-white shadow-[0_4px_16px_rgba(0,99,229,0.35)] transition-colors hover:bg-[#0483EE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${className}`}
       >
         <Download className="h-4 w-4" aria-hidden="true" />
-        <span>Install App</span>
+        <span>Install</span>
       </button>
 
       {showGuide && (
@@ -74,29 +85,15 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
             </div>
 
             <div className="mt-5 space-y-4 text-sm text-[#CACACA]">
-              {isIOS ? (
+{isIOS ? (
                 <div className="rounded-xl border border-white/[0.1] bg-[#040714] p-4">
                   <div className="mb-2 flex items-center gap-2 font-display font-semibold text-white">
                     <Share className="h-4 w-4 text-[#0483EE]" aria-hidden="true" />
-                    <span>iPhone &amp; iPad (Safari)</span>
+                    <span>iPhone &amp; iPad</span>
                   </div>
-                  <ol className="list-decimal space-y-1.5 pl-5 text-[#CACACA]">
-                    <li>Tap the <strong>Share</strong> button in Safari&apos;s toolbar.</li>
-                    <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
-                    <li>Tap <strong>Add</strong> in the top corner to confirm.</li>
-                  </ol>
-                </div>
-              ) : isAndroid ? (
-                <div className="rounded-xl border border-white/[0.1] bg-[#040714] p-4">
-                  <div className="mb-2 flex items-center gap-2 font-display font-semibold text-white">
-                    <Smartphone className="h-4 w-4 text-[#0483EE]" aria-hidden="true" />
-                    <span>Android (Chrome / Edge)</span>
-                  </div>
-                  <ol className="list-decimal space-y-1.5 pl-5 text-[#CACACA]">
-                    <li>Open your browser menu (three dots in the top corner).</li>
-                    <li>Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
-                    <li>Follow the prompt to add Firimu to your app launcher.</li>
-                  </ol>
+                  <p className="text-[#CACACA]">
+                    Tap <strong>Share</strong> in Safari, choose <strong>Add to Home Screen</strong>, then tap <strong>Add</strong>.
+                  </p>
                 </div>
               ) : (
                 <div className="rounded-xl border border-white/[0.1] bg-[#040714] p-4">
