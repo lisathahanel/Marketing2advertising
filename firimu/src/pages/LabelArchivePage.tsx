@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {MovieCard} from '../components/MovieCard.tsx';
 import {SeoHead} from '../components/SeoHead.tsx';
@@ -22,6 +22,14 @@ function getArchiveDisplayTitle(rawLabel: string): string {
 export const LabelArchivePage: React.FC = () => {
   const {label = ''} = useParams<{label: string}>();
   const decodedLabel = decodeURIComponent(label);
+
+  useEffect(() => {
+    const target = decodedLabel.trim().toLowerCase();
+    if (target === 'live tv' || target === 'livetv') {
+      window.location.replace('/firimu/tv/');
+    }
+  }, [decodedLabel]);
+
   const {items, loading} = useCatalogue();
   const [sortBy, setSortBy] = useState<SortMode>('newest');
   const [page, setPage] = useState(1);
