@@ -269,19 +269,12 @@ export const FirimuPlayer: React.FC<FirimuPlayerProps> = ({
                 >
                   <Play className="ml-1 h-9 w-9 fill-current" />
                 </button>
-                <p className="mt-4 font-display text-sm font-semibold tracking-wide text-white sm:text-base">
-                  {part.label}
-                </p>
-                {offlineSource ? (
-                  <p className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-[#38BDF8] tabular-nums">
+                {offlineSource && (
+                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[#38BDF8] tabular-nums">
                     <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
                     <span>
                       Ready Offline · {formatOfflineCountdown(offlineSource.expiresAt)}
                     </span>
-                  </p>
-                ) : (
-                  <p className="mt-1 text-xs text-[#CACACA]">
-                    Click play to start streaming
                   </p>
                 )}
               </>
