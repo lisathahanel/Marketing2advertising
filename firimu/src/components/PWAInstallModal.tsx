@@ -11,7 +11,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
   className = '',
   onModalOpen,
 }) => {
-  const {isNativeInstallable, isInstalled, isIOS, promptNativeInstall} =
+  const {isNativeInstallable, isInstalled, isIOS, isAndroid, promptNativeInstall} =
     usePWAInstall();
   const [showGuide, setShowGuide] = useState(false);
 
@@ -47,7 +47,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
         className={`inline-flex min-h-[42px] items-center gap-2 whitespace-nowrap shrink-0 rounded-lg bg-[#0063E5] px-4 py-2 text-xs font-semibold tracking-wide text-white shadow-[0_4px_16px_rgba(0,99,229,0.35)] transition-colors hover:bg-[#0483EE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${className}`}
       >
         <Download className="h-4 w-4" aria-hidden="true" />
-        <span>Install</span>
+        <span>{isIOS || isAndroid ? 'Install' : 'Install App'}</span>
       </button>
 
       {showGuide && (
