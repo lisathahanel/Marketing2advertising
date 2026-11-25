@@ -20,7 +20,7 @@ interface HomeScreenProps {
 }
 
 const quickLinks = [
-  { label: 'Movies', sub: 'Explore the library', tab: 'catalogue' as TabType, Icon: Film, color: 'text-rose-300', glow: 'from-rose-500/20', border: 'hover:border-rose-400/50', orb: 'bg-rose-400/15' },
+  { label: 'Movies', sub: 'Explore the library', tab: 'firimu' as TabType, Icon: Film, color: 'text-rose-300', glow: 'from-rose-500/20', border: 'hover:border-rose-400/50', orb: 'bg-rose-400/15' },
   { label: 'TV', sub: 'Live channels', tab: 'tv' as TabType, Icon: Tv, color: 'text-lime-300', glow: 'from-lime-400/20', border: 'hover:border-lime-300/50', orb: 'bg-lime-400/15' },
   { label: 'Games', sub: 'Play something', tab: 'games' as TabType, Icon: Gamepad2, color: 'text-sky-300', glow: 'from-sky-400/20', border: 'hover:border-sky-300/50', orb: 'bg-sky-400/15' },
   { label: 'Information', sub: 'Guides & updates', tab: 'blogs' as TabType, Icon: Info, color: 'text-violet-300', glow: 'from-violet-500/20', border: 'hover:border-violet-300/50', orb: 'bg-violet-400/15' },
