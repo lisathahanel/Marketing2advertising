@@ -23,7 +23,12 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
     // On Android, use the browser's native install sheet directly.
     // Do not open the long manual instructions on mobile.
     if (isNativeInstallable) {
-      await promptNativeInstall();
+      try {
+        const installed = await promptNativeInstall();
+        if (!installed) setShowGuide(true);
+      } catch {
+        setShowGuide(true);
+      }
       return;
     }
 
@@ -35,8 +40,9 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
       return;
     }
 
-    // Android browsers that have not exposed the install prompt yet
-    // should not be sent through a desktop-style instruction modal.
+    // If the browser has not exposed its native prompt, show a short fallback.
+    setShowGuide(true);
+    onModalOpen?.();
   };
 
   return (
@@ -93,6 +99,16 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
                   </div>
                   <p className="text-[#CACACA]">
                     Tap <strong>Share</strong> in Safari, choose <strong>Add to Home Screen</strong>, then tap <strong>Add</strong>.
+                  </p>
+                </div>
+              ) : isAndroid ? (
+                <div className="rounded-xl border border-white/[0.1] bg-[#040714] p-4">
+                  <div className="mb-2 flex items-center gap-2 font-display font-semibold text-white">
+                    <Download className="h-4 w-4 text-[#0483EE]" aria-hidden="true" />
+                    <span>Android</span>
+                  </div>
+                  <p className="text-[#CACACA]">
+                    Open your browser menu <strong>⋮</strong> and choose <strong>Install app</strong> or <strong>Add to Home screen</strong>. If that option is missing, open Firimu in Chrome and try again.
                   </p>
                 </div>
               ) : (
