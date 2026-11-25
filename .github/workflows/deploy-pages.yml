@@ -67,6 +67,22 @@ jobs:
           test -d dist/p
           echo "Existing website folders, posts, and static pages restored."
 
+      - name: Build and publish the new Firimu application
+        run: |
+          set -eu
+          cd firimu
+          bun install --frozen-lockfile
+          bun run build
+          cd ..
+          test -s firimu/dist/index.html
+          mkdir -p dist/firimu
+          cp -a firimu/dist/. dist/firimu/
+          test -s dist/firimu/index.html
+          grep -Eq 'src="/firimu/assets/[^"]+\\.js"' dist/firimu/index.html
+          grep -Eq 'href="/firimu/assets/[^"]+\\.css"' dist/firimu/index.html
+          test -s dist/firimu/manifest.webmanifest
+          echo "Firimu React app built and published under /firimu/."
+
       - name: Install unified Naka Firimu and Serie search across all Firimu pages and posts
         run: node scripts/inject-firimu-search.mjs dist/firimu
 
