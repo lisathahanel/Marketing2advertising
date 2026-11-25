@@ -83,9 +83,6 @@ jobs:
           test -s dist/firimu/manifest.webmanifest
           echo "Firimu React app built and published under /firimu/."
 
-      - name: Install unified Naka Firimu and Serie search across all Firimu pages and posts
-        run: node scripts/inject-firimu-search.mjs dist/firimu
-
       - name: Publish independent Email Extractor app
         run: |
           set -eu
