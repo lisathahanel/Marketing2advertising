@@ -26,7 +26,7 @@ export const LabelArchivePage: React.FC = () => {
   useEffect(() => {
     const target = decodedLabel.trim().toLowerCase();
     if (target === 'live tv' || target === 'livetv') {
-      window.location.replace('/firimu/tv/');
+      window.location.replace('/tv/');
     }
   }, [decodedLabel]);
 
