@@ -391,6 +391,10 @@ export const HomePage: React.FC = () => {
               <Link
                 key={hub.title}
                 to={hub.to}
+                onClick={hub.title === 'Live TV' ? (event) => {
+                  event.preventDefault();
+                  window.location.assign('/firimu/tv/');
+                } : undefined}
                 className={`disney-card-frame group relative flex min-h-[86px] flex-col items-center justify-center overflow-hidden rounded-xl border border-white/[0.15] bg-gradient-to-b from-[#1E2336] via-[#131727] to-[#0A0D18] px-3 py-4 text-center hover:scale-[1.04] hover:border-white/80 hover:from-[#262E47] hover:to-[#101528] ${hub.glow}`}
               >
                 <span className="font-display text-base font-extrabold tracking-wide text-[#F9F9F9] sm:text-lg">
