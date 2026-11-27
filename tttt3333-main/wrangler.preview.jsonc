@@ -1,3 +1,4 @@
+// Isolated preview deployment config; live domain routing is intentionally unchanged.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "marketing2advertising-preview",
