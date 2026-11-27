@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "marketing2advertising",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-04-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/sw.js"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "m2a-engagement",
+      "database_id": "REPLACE_WITH_YOUR_CLOUDFLARE_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "APP_URL": "https://marketing2advertising.com",
+    "ALLOWED_ORIGINS": "https://marketing2advertising.com,https://www.marketing2advertising.com"
+  }
+  // Optional: attach your custom domain routes in Cloudflare or uncomment below after adding the zone to your Cloudflare account:
+  // ,"routes": [
+  //   { "pattern": "marketing2advertising.com", "custom_domain": true },
+  //   { "pattern": "www.marketing2advertising.com", "custom_domain": true }
+  // ]
+}
