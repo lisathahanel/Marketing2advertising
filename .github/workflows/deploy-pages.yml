@@ -194,6 +194,22 @@ jobs:
           test -s dist/games/index.html
           test -s dist/m2abot-main/index.html
           test -s dist/m2a-emailextractor/index.html
+          mkdir -p dist/jobs
+          cat > dist/jobs/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <meta http-equiv="refresh" content="0;url=/#jobs">
+              <link rel="canonical" href="https://marketing2advertising.com/jobs/">
+              <title>Jobs & Sponsorships — Marketing2Advertising</title>
+              <script>window.location.replace('/#jobs');</script>
+            </head>
+            <body><p>Opening <a href="/#jobs">Jobs & Sponsorships</a>…</p></body>
+          </html>
+          EOF
+          test -s dist/jobs/index.html
           test -s dist/CNAME || test -s CNAME
           echo "New homepage overlaid; existing site routes and assets remain in the Pages output."
 
