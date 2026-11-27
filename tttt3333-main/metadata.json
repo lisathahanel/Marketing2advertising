@@ -1,0 +1,6 @@
+{
+  "name": "Reelbox",
+  "description": "A read-only fun video watchroom for browsing, searching, and playing videos from YouTube and TikTok without login, comments, or uploads.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
