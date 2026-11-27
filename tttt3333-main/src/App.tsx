@@ -1995,19 +1995,7 @@ export default function App() {
                 );
               })}
             </div>
-
-            {/* High-Viewability AdSense Slot 1 after opening row */}
-            {source !== 'offline' && isOnline && (
-              <AdSenseSlot
-                isOnline={isOnline}
-                slotKey="explore-top-row"
-                format="auto"
-                minHeightClass="min-h-[100px]"
-                className="my-8"
-              />
-            )}
-
-            {/* Mid-Feed Discovery Rows */}
+{/* Mid-Feed Discovery Rows */}
             {gridVideos.length > 4 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {gridVideos.slice(4, 16).map((video) => {
@@ -2029,19 +2017,7 @@ export default function App() {
                 })}
               </div>
             )}
-
-            {/* Policy-Safe Deep-Scroll AdSense Slot 2 (only on rich feeds >= 12 videos) */}
-            {source !== 'offline' && isOnline && gridVideos.length >= 12 && (
-              <AdSenseSlot
-                isOnline={isOnline}
-                slotKey="explore-deep-scroll"
-                format="auto"
-                minHeightClass="min-h-[100px]"
-                className="my-8"
-              />
-            )}
-
-            {/* Remaining Endless Scroll Grid */}
+{/* Remaining Endless Scroll Grid */}
             {gridVideos.length > 16 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {gridVideos.slice(16).map((video) => {
