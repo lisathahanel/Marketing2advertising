@@ -1,5 +1,7 @@
 name: Build and Deploy Reelbox Homepage Preview
 
+# A workflow-file change also triggers a fresh isolated preview deployment.
+
 on:
   push:
     branches:
