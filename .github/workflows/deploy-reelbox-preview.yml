@@ -1,4 +1,4 @@
-name: Deploy Reelbox Homepage Preview
+name: Build and Deploy Reelbox Homepage Preview
 
 on:
   push:
@@ -19,6 +19,9 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: "879c411e964cea0a85b8a94d0ef94b7b"
     defaults:
       run:
         working-directory: tttt3333-main
@@ -47,8 +50,19 @@ jobs:
           test -s worker/index.ts
           echo "Preview app build verified."
 
+      - name: Save preview build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reelbox-homepage-preview
+          path: tttt3333-main/dist/
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Deploy isolated preview Worker
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: "879c411e964cea0a85b8a94d0ef94b7b"
+        if: env.CLOUDFLARE_API_TOKEN != ''
         run: bunx wrangler deploy --config wrangler.preview.jsonc
+
+      - name: Explain required deployment secret
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: |
+          echo "::notice::Build and type-check passed. Add CLOUDFLARE_API_TOKEN in GitHub repository Settings > Secrets and variables > Actions to enable automatic preview deployment."
