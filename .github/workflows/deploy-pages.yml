@@ -170,6 +170,17 @@ jobs:
             fi
           done
           cp -a tttt3333-main/dist/assets/. dist/assets/
+          if [ -d tttt3333-main/dist/src ]; then
+            mkdir -p dist/src
+            while IFS= read -r -d '' asset; do
+              rel="${asset#tttt3333-main/dist/src/}"
+              if [ -e "dist/src/$rel" ]; then
+                echo "Source asset filename collision: dist/src/$rel"
+                exit 1
+              fi
+            done < <(find tttt3333-main/dist/src -type f -print0)
+            cp -a tttt3333-main/dist/src/. dist/src/
+          fi
           cp -f tttt3333-main/dist/index.html dist/index.html
           for file in sw.js manifest.webmanifest icon.svg apple-touch-icon.png pwa-192x192.png pwa-512x512.png pwa-maskable-512x512.png; do
             if [ -f "tttt3333-main/dist/$file" ]; then
