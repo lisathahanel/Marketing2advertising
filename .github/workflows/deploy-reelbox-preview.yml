@@ -1,0 +1,54 @@
+name: Deploy Reelbox Homepage Preview
+
+on:
+  push:
+    branches:
+      - preview/reelbox-homepage
+    paths:
+      - "tttt3333-main/**"
+      - ".github/workflows/deploy-reelbox-preview.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reelbox-homepage-preview
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tttt3333-main
+    steps:
+      - name: Checkout preview branch
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install app dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Type-check application and Worker
+        run: bun run lint
+
+      - name: Build preview assets
+        run: bun run build
+
+      - name: Verify preview build
+        run: |
+          test -s dist/index.html
+          test -d dist/assets
+          test -s worker/index.ts
+          echo "Preview app build verified."
+
+      - name: Deploy isolated preview Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: "879c411e964cea0a85b8a94d0ef94b7b"
+        run: bunx wrangler deploy --config wrangler.preview.jsonc
