@@ -54,7 +54,7 @@ function getSafeReelEmbedUrl(video: VideoItem): string {
     typeof window !== 'undefined' ? encodeURIComponent(window.location.origin) : '';
   if (video.source === 'youtube') {
     if (!/^[a-zA-Z0-9_-]{11}$/.test(video.id)) return '';
-    return `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1&loop=1&playlist=${video.id}&enablejsapi=1${
+    return `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${video.id}&enablejsapi=1${
       origin ? `&origin=${origin}` : ''
     }`;
   }
@@ -209,6 +209,7 @@ export function ShortsFeed({
   const skippedKeyRef = useRef('');
   const [activeIndex, setActiveIndex] = useState(0);
   const [skippingMsg, setSkippingMsg] = useState(false);
+  const [embedUnavailableKey, setEmbedUnavailableKey] = useState('');
   const [activeOfflineAssets, setActiveOfflineAssets] = useState<{
     videoKey: string;
     videoUrl: string;
@@ -339,6 +340,7 @@ export function ShortsFeed({
       return;
     }
     skippedKeyRef.current = '';
+    setEmbedUnavailableKey('');
     tiktokReadyRef.current = false;
     metaLoadedRef.current = false;
 
@@ -355,12 +357,12 @@ export function ShortsFeed({
               : (e.data as Record<string, unknown>);
           if (!msg || typeof msg !== 'object') return;
           if (msg.event === 'onError') {
-            handleCurrentUnavailable();
+            setEmbedUnavailableKey(`${activeVideo.source}:${activeVideo.id}`);
           } else if (msg.event === 'infoDelivery' && msg.info && typeof msg.info === 'object') {
             const info = msg.info as Record<string, unknown>;
             const videoData = info.videoData as Record<string, unknown> | undefined;
             if (videoData?.errorCode) {
-              handleCurrentUnavailable();
+              setEmbedUnavailableKey(`${activeVideo.source}:${activeVideo.id}`);
             }
           }
         } catch {
@@ -375,22 +377,13 @@ export function ShortsFeed({
             tiktokReadyRef.current = true;
           }
           if (data.type === 'onError') {
-            handleCurrentUnavailable();
+            setEmbedUnavailableKey(`${activeVideo.source}:${activeVideo.id}`);
           }
         }
       }
     };
 
     window.addEventListener('message', onMessage);
-
-    let ttWatchdog: ReturnType<typeof setTimeout> | undefined;
-    if (activeVideo.source === 'tiktok') {
-      ttWatchdog = setTimeout(() => {
-        if (!tiktokReadyRef.current) {
-          handleCurrentUnavailable();
-        }
-      }, 5500);
-    }
 
     let metaWatchdog: ReturnType<typeof setTimeout> | undefined;
     if (
@@ -408,7 +401,6 @@ export function ShortsFeed({
 
     return () => {
       window.removeEventListener('message', onMessage);
-      if (ttWatchdog) clearTimeout(ttWatchdog);
       if (metaWatchdog) clearTimeout(metaWatchdog);
     };
   }, [activeVideo, isOnline, activeOfflineAssets, metaBlocked, onMarkMetaBlocked, handleCurrentUnavailable]);
@@ -603,6 +595,44 @@ export function ShortsFeed({
                         </button>
                       </div>
                     </div>
+                  ) : embedUnavailableKey === vKey && (video.source === 'youtube' || video.source === 'tiktok') ? (
+                    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-zinc-950 p-6 text-center">
+                      <WifiOff className="h-8 w-8 text-amber-400" />
+                      <p className="text-sm font-semibold text-zinc-100">
+                        {SOURCE_LABELS[video.source]} playback is unavailable here
+                      </p>
+                      <p className="max-w-xs text-xs leading-relaxed text-zinc-400">
+                        This platform may restrict embedded playback on this device, account, or network. You can open the original video instead.
+                      </p>
+                      {video.canonicalUrl && (() => {
+                        try {
+                          const url = new URL(video.canonicalUrl);
+                          const allowedHosts = video.source === 'youtube'
+                            ? ['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be']
+                            : ['tiktok.com', 'www.tiktok.com', 'm.tiktok.com'];
+                          if (url.protocol !== 'https:' || !allowedHosts.includes(url.hostname.toLowerCase())) return null;
+                          return (
+                            <a
+                              href={url.toString()}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="rounded-lg bg-rose-600 px-4 py-2 text-xs font-semibold text-white hover:bg-rose-500"
+                            >
+                              Open on {SOURCE_LABELS[video.source]}
+                            </a>
+                          );
+                        } catch {
+                          return null;
+                        }
+                      })()}
+                      <button
+                        type="button"
+                        onClick={() => scrollToIndex(idx + 1)}
+                        className="rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2 text-xs font-semibold text-zinc-100 hover:bg-zinc-700 cursor-pointer"
+                      >
+                        Next Video
+                      </button>
+                    </div>
                   ) : embedUrl ? (
                     <iframe
                       ref={activeIframeRef}
@@ -624,7 +654,7 @@ export function ShortsFeed({
                         }
                       }}
                       className="h-full w-full border-0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; web-share"
                       allowFullScreen
                       referrerPolicy="strict-origin-when-cross-origin"
                     />
