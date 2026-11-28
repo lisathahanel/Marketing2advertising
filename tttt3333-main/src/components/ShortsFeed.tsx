@@ -204,7 +204,6 @@ export function ShortsFeed({
 }: ShortsFeedProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const activeIframeRef = useRef<HTMLIFrameElement>(null);
-  const tiktokReadyRef = useRef(false);
   const metaLoadedRef = useRef(false);
   const skippedKeyRef = useRef('');
   const [activeIndex, setActiveIndex] = useState(0);
@@ -323,7 +322,7 @@ export function ShortsFeed({
     [feedSlides.length]
   );
 
-  // Auto-skip unavailable YouTube / TikTok / NASA shorts in real time (online only)
+  // Skip confirmed unavailable NASA and Meta embeds; YouTube and TikTok show an external-playback fallback.
   const handleCurrentUnavailable = useCallback(() => {
     if (!activeVideo || !isOnline) return;
     const key = `${activeVideo.source}:${activeVideo.id}`;
@@ -341,7 +340,6 @@ export function ShortsFeed({
     }
     skippedKeyRef.current = '';
     setEmbedUnavailableKey('');
-    tiktokReadyRef.current = false;
     metaLoadedRef.current = false;
 
     const onMessage = (e: MessageEvent) => {
@@ -374,7 +372,6 @@ export function ShortsFeed({
         const data = e.data as Record<string, unknown> | null;
         if (data && typeof data === 'object') {
           if (data.type === 'onPlayerReady' || data.type === 'onStateChange') {
-            tiktokReadyRef.current = true;
           }
           if (data.type === 'onError') {
             setEmbedUnavailableKey(`${activeVideo.source}:${activeVideo.id}`);
