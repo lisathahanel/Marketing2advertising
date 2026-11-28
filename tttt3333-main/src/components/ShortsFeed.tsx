@@ -54,13 +54,13 @@ function getSafeReelEmbedUrl(video: VideoItem): string {
     typeof window !== 'undefined' ? encodeURIComponent(window.location.origin) : '';
   if (video.source === 'youtube') {
     if (!/^[a-zA-Z0-9_-]{11}$/.test(video.id)) return '';
-    return `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${video.id}&enablejsapi=1${
+    return `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&playsinline=0&controls=1&fs=1&rel=0&loop=1&playlist=${video.id}&enablejsapi=1${
       origin ? `&origin=${origin}` : ''
     }`;
   }
   if (video.source === 'tiktok') {
     if (!/^\d{15,22}$/.test(video.id)) return '';
-    return `https://www.tiktok.com/player/v1/${video.id}?music_info=1&description=1&autoplay=1`;
+    return `https://www.tiktok.com/player/v1/${video.id}?autoplay=1&controls=1&progress_bar=1&play_button=1&volume_control=1&fullscreen_button=1&timestamp=1&music_info=1&description=1&loop=1&rel=0`;
   }
   if (video.source === 'instagram') {
     if (!/^[a-zA-Z0-9_-]{5,30}$/.test(video.id)) return '';
