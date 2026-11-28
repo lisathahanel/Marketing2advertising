@@ -48,7 +48,7 @@ sw = sw
   'data/channels.json'
 ].map(scopedUrl);`
   )
-  .replace("key.startsWith('m2a-cache-')", "key.startsWith('m2a-mobile-cache-')")
+  .replace("keys.filter((key) => key.startsWith('m2a-cache-') && key !== CACHE_NAME)", "keys.filter((key) => (key.startsWith('m2a-cache-') || key.startsWith('m2a-mobile-cache-')) && key !== CACHE_NAME)")
   .replace("caches.match(scopedUrl('index.html'))", "caches.match(scopedUrl(''))");
 fs.writeFileSync(path.join(dist, '__m2a-mobile-sw.js'), sw);
 
