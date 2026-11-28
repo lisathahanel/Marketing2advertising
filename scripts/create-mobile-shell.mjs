@@ -33,24 +33,67 @@ manifest.icons = (manifest.icons || []).map((icon) => ({
 }));
 fs.writeFileSync(path.join(dist, 'm2a-mobile.webmanifest'), JSON.stringify(manifest, null, 2) + '\n');
 
-let sw = fs.readFileSync(path.join(dist, 'sw.js'), 'utf8');
-sw = sw
-  .replace("const CACHE_NAME = 'm2a-cache-v6';", "const CACHE_NAME = 'm2a-mobile-cache-v1';")
-  .replace(
-    /const STATIC_ASSETS = \[[\s\S]*?\]\.map\(scopedUrl\);/,
-    `const STATIC_ASSETS = [
-  '',
-  '__m2a-mobile.html',
-  'm2a-mobile.webmanifest',
-  '__m2a-mobile-assets/icon.svg',
-  '__m2a-mobile-assets/icon-192.png',
-  '__m2a-mobile-assets/icon-512.png',
-  'data/channels.json'
-].map(scopedUrl);`
-  )
-  .replace("keys.filter((key) => key.startsWith('m2a-cache-') && key !== CACHE_NAME)", "keys.filter((key) => (key.startsWith('m2a-cache-') || key.startsWith('m2a-mobile-cache-')) && key !== CACHE_NAME)")
-  .replace("caches.match(scopedUrl('index.html'))", "caches.match(scopedUrl(''))");
-fs.writeFileSync(path.join(dist, '__m2a-mobile-sw.js'), sw);
+const mobileSw = `const CACHE_NAME = 'm2a-mobile-cache-v1';
+const STATIC_ASSETS = [
+  '/',
+  '/__m2a-mobile.html',
+  '/m2a-mobile.webmanifest',
+  '/__m2a-mobile-assets/icon.svg',
+  '/__m2a-mobile-assets/icon-192.png',
+  '/__m2a-mobile-assets/icon-512.png',
+  '/data/channels.json'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys
+      .filter((key) =>
+        (key.startsWith('m2a-cache-') || key.startsWith('m2a-mobile-cache-')) &&
+        key !== CACHE_NAME
+      )
+      .map((key) => caches.delete(key)));
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener('fetch', (event) => {
+  const request = event.request;
+  const url = new URL(request.url);
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
+
+  const isNavigation = request.mode === 'navigate';
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    try {
+      const response = await fetch(request);
+      if (response && response.ok) {
+        await cache.put(request, response.clone());
+      }
+      return response;
+    } catch {
+      const cached = await cache.match(request);
+      if (cached) return cached;
+      if (isNavigation) {
+        return (await cache.match('/')) || new Response(
+          'The M2A mobile app is unavailable offline. Reconnect and refresh.',
+          { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }
+        );
+      }
+      return Response.error();
+    }
+  })());
+});
+`;
+fs.writeFileSync(path.join(dist, '__m2a-mobile-sw.js'), mobileSw);
 
 for (const file of ['__m2a-mobile.html', '__m2a-mobile-sw.js', 'm2a-mobile.webmanifest']) {
   if (!fs.statSync(path.join(dist, file)).size) throw new Error(`Mobile app artifact is empty: dist/${file}`);
