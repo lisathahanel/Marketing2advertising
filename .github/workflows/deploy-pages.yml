@@ -35,6 +35,9 @@ jobs:
           VITE_EMAIL_API_BASE: https://m2a-emailextractor.ai.studio
         run: bun run build
 
+      - name: Preserve the previous mobile app for device routing
+        run: node scripts/create-mobile-shell.mjs
+
       - name: Verify production entry and bundles
         run: |
           test -s dist/index.html
